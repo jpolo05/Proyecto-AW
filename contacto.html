@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Página de contactos</title>
+    </head>
+
+    <body>
+
+        <ul id="menu">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="detalles.html">Detalles</a></li>
+            <li><a href="bocetos.html">Bocetos</a></li>
+            <li><a href="miembros.html">Miembros</a></li>
+            <li><a href="planificacion.html">Planificacion</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+
+        <br><h2>Formulario de contacto</h2><br>
+
+        <form action="mailto: correo@bistrofdi.ucm.es" method="post" enctype="text/plain">
+
+            <fieldset>
+                <legend>Datos personales</legend>
+                Nombre: <input type="text"><br><br>
+                Correo electrónico:  <input type="email"><br>
+            </fieldset>
+
+            <fieldset>
+                <legend>Motivo de consulta</legend>
+                <input type="radio" id="evaluacion" name="motivo" value="Evaluacion">Evaluación<br>
+                <input type="radio" id="sugerencia" name="motivo" value="Sugerencia">Sugerencia<br>
+                <input type="radio" id="critica" name="motivo" value="Crítica">Crítica
+                <br><br>
+                <textarea placeholder="Escribe tu mensaje aquí..." rows="5" cols="40"></textarea>
+            </fieldset><br>
+
+            <input type="checkbox" id="aceptar" name="aceptar">Acepto los <a href="contacto.html">términos y condiciones.</a>
+            <br><br>
+            <button type="submit">Enviar</button> 
+            
+        </form>
+
+    </body>
+
+</html>
