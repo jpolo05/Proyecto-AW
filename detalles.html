@@ -43,10 +43,48 @@
         </h2>
         
         <P>
-            <strong>Clientes:</strong> acceden a la página y realizan pedidos ya sean para tomar en el propio local o para llevar. <br>
-            <strong>Cocineros:</strong> cocinan los pedidos y una vez estén preparados se encargan de notificar que están listos. <br>
-            <strong>Camareros:</strong> preparan los pedidos para ser recogidos o realizan las entregas de los pedidos y cobran a los clientes. <br>
-            <strong>Gerente:</strong> se encarga de los productos, categorías y servicios que ofrece el restaurante. <br>
+            <strong>Cliente:</strong> Es el usuario principal del sistema. Puede:
+            <ul>
+                <li>Registrarse e iniciar sesión en la aplicación.</li>
+                <li>Consultar la carta de productos organizada por categorías.</li>
+                <li>Añadir productos al carrito y gestionar sus cantidades.</li>
+                <li>Confirmar pedidos.</li>
+                <li>Realizar el pago mediante tarjeta (simulación con validaciones) o solicitar el pago al camarero.</li>
+                <li>Consultar el estado de sus pedidos actuales.</li>
+                <li>Consultar su historial de pedidos.</li>
+                <li>Cancelar pedidos únicamente cuando se encuentren en estado “Recibido”.</li>
+                <li>Modificar sus datos personales desde su perfil.</li>
+            </ul>
+
+            <strong>Cocinero:</strong> Usuario encargado de la preparación de los pedidos. Puede:
+            <ul>
+                <li>Visualizar los pedidos en estado “En preparación”.</li>
+                <li>Quedarse con un pedido para prepararlo, cambiando su estado a “Cocinando”.</li>
+                <li>Confirmar cuando un producto solicitado ha sido preparado.</li>
+                <li>Finalizar la preparación completa del pedido, cambiando su estado a “Listo cocina”.</li>
+                <li>Visualizar únicamente los pedidos relevantes para su trabajo mediante una interfaz sencilla y optimizada.</li>
+            </ul>
+            
+            <strong>Camarero:</strong> Usuario encargado de la gestión del pago y la entrega de los pedidos. Puede:
+            <ul>
+                <li>Visualizar los pedidos en estado “Recibido”.</li>
+                <li>Confirmar el pago de un pedido (realizado fuera de la aplicación), cambiando su estado a “En preparación”.</li>
+                <li>Revisar los pedidos en estado “Listo cocina”.</li>
+                <li>Marcar un pedido como “Terminado” cuando esté completamente preparado (incluyendo bebidas u otros productos no elaborados en cocina).</li>
+                <li>Confirmar la entrega del pedido al cliente, cambiando su estado a “Entregado”.</li>
+                <li>Visualizar su avatar en todo momento para garantizar que está utilizando su propia sesión en la tablet asignada.</li>
+            </ul>
+
+            <strong>Gerente:</strong> Usuario con el mayor nivel de permisos dentro del sistema. Su cuenta está precargada en la base de datos. Puede:
+            <ul>
+                <li>Consultar todos los pedidos del sistema.</li>
+                <li>Filtrar pedidos por estado (Recibido, En preparación, Cocinando, Listo cocina, Terminado, Entregado, Cancelado).</li>
+                <li>Visualizar el cocinero asignado en los pedidos en estado “En preparación”.</li>
+                <li>Gestionar productos (crear, modificar y actualizar su disponibilidad).</li>
+                <li>Gestionar categorías de productos.</li>
+                <li>Visualizar los usuarios registrados y modificar su rol dentro del sistema.</li>
+            </ul>
+
         </P>
 
         <h2>
@@ -54,19 +92,16 @@
         </h2>
         
         <P>
-            <strong>Gestión de Usuarios:</strong> creación de los perfiles de todo el personal y de los clientes con sus datos personales, para que sean beneficiarios de las ofertas y descuentos. Todos los usuarios deben poder hacer login en la aplicación. <br>
-            <strong>Gestión de Productos:</strong> es el gerente quien se encarga de esta gestión. Los productos se dividen en categorías y debemos tener información sobre cada categoría. Los productos
+            <strong>Gestión de Usuarios:</strong> Creación de los perfiles de todo el personal y de los clientes con sus datos personales, para que sean beneficiarios de las ofertas y descuentos. Todos los usuarios deben poder hacer login en la aplicación. <br>
+            <strong>Gestión de Productos:</strong> Es el gerente quien se encarga de esta gestión. Los productos se dividen en categorías y debemos tener información sobre cada categoría. Los productos
              debemos tener la información de cada uno. <br>
-            <strong>Gestión de Pedidos:</strong> esta parte es principalmente para los clientes. El cliente hace login en la aplicación, elige si es para tomar o para llevar, selecciona los productos, confirma o cancela el pedido, paga y confirma.
+            <strong>Gestión de Pedidos:</strong> Esta parte es principalmente para los clientes. El cliente hace login en la aplicación, elige si es para tomar o para llevar, selecciona los productos, confirma o cancela el pedido, paga y confirma.
              Además el cliente podrá observar en qué estado está su pedido y poder localizarlo. <br>
-            <strong>Preparación de los pedidos:</strong> se encargan los cocineros que tendrán una tablet para poder ver su información. Cambiarán el estado del pedido, si se está preparando, se ha terminado de preparar o se ha finalizado cuando el cliente lo haya recogido <br>
-            <strong>Gestión de Ofertas:</strong> de cada oferta se guarda la información. El gerente es quien gestiona las ofertas que están hábiles y los clientes pueden consultar las ofertas que tienen disponibles. <br>
-            <strong>Gestión de Recompensas:</strong> el gerente es quien lo gestiona y los clientes quienes lo usan. Cada recompensa es un producto y se le asignará al producto un número de bistroCoins. <br>
-            <br>
-            Todas las funciones deben de realizar las operaciones de <em>visualizar, crear, actualizar y borrar</em>.
-        </P>
-        
+            <strong>Preparación de los pedidos:</strong> Se encargan los cocineros que tendrán una tablet para poder ver su información. Cambiarán el estado del pedido, si se está preparando, se ha terminado de preparar o se ha finalizado cuando el cliente lo haya recogido <br>
+            <strong>Gestión de Ofertas:</strong> De cada oferta se guarda la información. El gerente es quien gestiona las ofertas que están hábiles y los clientes pueden consultar las ofertas que tienen disponibles. <br>
+            <strong>Gestión de Recompensas:</strong> El gerente es quien lo gestiona y los clientes quienes lo usan. Cada recompensa es un producto y se le asignará al producto un número de bistroCoins. <br> 
+            <br> Las funciones deben de realizar las operaciones de <em>visualizar, crear, actualizar y borrar</em>.
+        </P>  
     </body>
-
-
+    
 </html>

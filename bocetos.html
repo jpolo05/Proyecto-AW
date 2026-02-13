@@ -21,33 +21,49 @@
             <li><a href="contacto.html">Contacto</a></li>
         </ul>
 
-        <br>
+        <h1> Bocetos</h1>
 
         <ul id="menu-bocetos">
-            <li><a href="#vista-usuario">Vista de Usuario</a></li>
-            <li><a href="#vista-cliente">Vista de Cliente</a></li>
+            <li><a href="#vista-cliente">Vista Cliente</a></li>
+            <li><a href="#vista-cocinero">Vista Cocinero</a></li>
             <li><a href="#vista-mesero">Vista de Mesero</a></li>
             <li><a href="#vista-gerente">Vista de Gerente</a></li>
         </ul>
 
-        <p>En esta sección se presentan los bocetos de las diferentes vistas de la aplicación, incluyendo la vista de usuario, cliente, mesero y gerente.<br> Estos bocetos fueron diseñados a través de Excalidraw para mostrar la estructura y funcionalidad de cada vista, proporcionando una visión clara de cómo se verá la aplicación.</p>
-        <p>Para mayor facilidad de visualización, se recomienda abrir este <a href="https://excalidraw.com/#json=RTF-N2DsTRfpwiDIWuB82,uZXC47zL9bBQQJ-D1VYa1w">enlace</a> a la aplicación web de Excalidraw.</p>
+        <p>En este documento se describe la apariencia de la aplicación web Bistro FDI, con bocetos digitales para las distintas páginas que verán los distintos tipos de usuarios: Cliente, Mesero, Cocinero y Gerente. 
+            Estos bocetos fueron diseñados a través de Excalidraw, proporcionando una visión clara de cómo se verá la aplicación.
+            Cada boceto se acompaña de una descripción de los elementos visibles, de la navegación entre páginas (mediante las flechas en los bocetos) y de cómo se implementan paso a paso las funcionalidades principales desde la página principal. 
+            <br>Estos diseños son iniciales y podrán evolucionar en fases posteriores del proyecto. </p>
+        <p>Para mayor facilidad de visualización, se recomienda abrir este <a href="https://excalidraw.com/#json=RTF-N2DsTRfpwiDIWuB82,uZXC47zL9bBQQJ-D1VYa1w">enlace</a> que dirige a la aplicación web de Excalidraw.</p>
 
-        <br> <h2 id="vista-usuario">Vista de Usuario</h2> 
+        <br> <h2 id="vista-cliente">Vista Cliente</h2> 
+        <p>Esta vista muestra dos partes: la interfaz general para cualquier usuario y la interfaz que ve el cliente y el gerente. La vista general de todos los usuarios, permite que haya iniciado sesión y el acceso a “Mi Perfil”, donde puede consultar y modificar sus datos y cerrar sesión, solo los clientes pueden ver pedidos actuales y su historial,
+            El avatar del usuario se muestra en la parte superior derecha para identificar la sesión.</p>
+        <p>El cliente puede explorar la carta de productos organizada por categorías, añadir productos al carrito, confirmar pedidos, seleccionar la forma de pago (simulación con tarjeta o al camarero) y consultar el estado
+         de sus pedidos actuales y pasados. La interfaz permite ver precios, disponibilidad, ofertas y descuentos, facilitando una experiencia de compra sencilla y directa desde la página principal.</p>
         <img src="img/VU-1.png" alt="Boceto 1 de la vista de usuario"><img src="img/VU-2.png" alt="Boceto 2 de la vista de usuario"> 
         <img src="img/VU-3.png" alt="Boceto 3 de la vista de usuario"><img src="img/VU-4.png" alt="Boceto 4 de la vista de usuario"> 
         <img src="img/VU-5.png" alt="Boceto 5 de la vista de usuario"> 
 
         <br>
-        <h2 id="vista-cliente">Vista de Cliente</h2> 
+        <h2 id="vista-cocinero">Vista Cocinero</h2> 
+        <p>Esta vista está diseñada para que el cocinero gestione de manera eficiente los pedidos asignados. Permite visualizar los pedidos en estado “En preparación”, consultar el detalle de cada uno (productos, cantidades y
+             observaciones) y cambiar su estado a “Terminado” una vez estén listos. La interfaz es clara y sencilla, priorizando la rapidez y organización en cocina, mostrando únicamente la información necesaria para preparar 
+             los platos correctamente y mantener el flujo de trabajo ordenado.</p>
         <img src="img/VC-1.png" alt="Boceto 1 de la vista de cliente"><img src="img/VC-2.png" alt="Boceto 2 de la vista de cliente"> 
 
         <br>
         <h2 id="vista-mesero">Vista de Mesero</h2> 
+        <p>Diseñada para tablets en formato horizontal, esta vista permite al mesero gestionar los pedidos de manera rápida. Sus funciones principales son cobrar pedidos en estado “Recibido” y entregarlos al cliente, cambiando su estado a 
+            “En preparación” o “Terminado” según corresponda. El avatar del mesero se muestra para identificar la sesión y evitar confusiones al usar la tablet compartida.</p>
         <img src="img/VM-1.png" alt="Boceto 1 de la vista de mesero"><img src="img/VM-2.png" alt="Boceto 2 de la vista de mesero">
 
         <br>
         <h2 id="vista-gerente">Vista de Gerente</h2> 
+        <p>
+            Optimizada para escritorio o portátil, la vista del gerente permite gestionar usuarios (modificar roles), productos, categorías, ofertas y recompensas, así como consultar pedidos actuales o históricos. El gerente tiene acceso 
+            a todo el sistema, lo que le permite ir a cualquier vista de cualquier usuario.
+        </p>
         <img src="img/VG-1.png" alt="Boceto 1 de la vista de gerente"><img src="img/VG-2.png" alt="Boceto 2 de la vista de gerente">
         <img src="img/VG-3.png" alt="Boceto 3 de la vista de gerente"><img src="img/VG-4.png" alt="Boceto 4 de la vista de gerente">
         <img src="img/VG-5.png" alt="Boceto 5 de la vista de gerente">
