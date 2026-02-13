@@ -18,12 +18,12 @@
 
         <br><h2>Formulario de contacto</h2><br>
 
-        <form action="mailto: correo@bistrofdi.ucm.es" method="post" enctype="text/plain">
+        <form action="mailto:japolo@ucm.es" method="post" enctype="text/plain">
 
             <fieldset>
                 <legend>Datos personales</legend>
-                Nombre: <input type="text"><br><br>
-                Correo electrónico:  <input type="email"><br>
+                Nombre: <input type="text" name="nombre"><br><br>
+                Correo electrónico: <input type="email" name="email" required><br>
             </fieldset>
 
             <fieldset>
@@ -32,10 +32,10 @@
                 <input type="radio" id="sugerencia" name="motivo" value="Sugerencia">Sugerencia<br>
                 <input type="radio" id="critica" name="motivo" value="Crítica">Crítica
                 <br><br>
-                <textarea placeholder="Escribe tu mensaje aquí..." rows="5" cols="40"></textarea>
+                <textarea name="mensaje" placeholder="Escribe tu mensaje aquí..." rows="5" cols="40"></textarea>
             </fieldset><br>
 
-            <input type="checkbox" id="aceptar" name="aceptar">Acepto los <a href="contacto.html">términos y condiciones.</a>
+            <input type="checkbox" id="aceptar" name="aceptar" required>Acepto los <a href="contacto.html">términos y condiciones.</a>
             <br><br>
             <button type="submit">Enviar</button> 
             
