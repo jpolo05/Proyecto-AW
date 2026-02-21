@@ -5,14 +5,14 @@
  */
 define('BD_HOST', 'localhost');
 define('BD_NAME', 'awp2');
-define('BD_USER', 'awp2');
-define('BD_PASS', 'awpass');
+define('BD_USER', 'root');
+define('BD_PASS', '');
 
 /**
  * Parámetros de configuración utilizados para generar las URLs y las rutas a ficheros en la aplicación
  */
 define('RAIZ_APP', __DIR__);
-define('RUTA_APP', '/Practica 2');
+define('RUTA_APP', '/practica2');
 define('RUTA_IMGS', RUTA_APP.'img/');
 define('RUTA_CSS', RUTA_APP.'css/');
 define('RUTA_JS', RUTA_APP.'js/');
