@@ -2,7 +2,7 @@
 $contenidoPrincipal = <<<EOS
 <div>
     <h2>Acceso a Bistro FDI</h2>
-    <form action="procesarLogin.php" method="POST">
+    <form action="includes/vistas/procesarLogin.php" method="POST">
         <label>Usuario:</label>
         <input type="text" name="username" required>
         

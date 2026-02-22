@@ -27,7 +27,7 @@ if ($pass1 !== $pass2) {
     header('Location: ../../index.php?pagina=register');
 }
 
-// Hash de contraseña (recomendado)
+// Hash de contraseña
 $hash = password_hash($pass1, PASSWORD_DEFAULT);
 
 // Insert
