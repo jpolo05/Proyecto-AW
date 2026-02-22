@@ -18,6 +18,16 @@ CREATE TABLE IF NOT EXISTS productos (
   FOREIGN KEY (id_categoria) REFERENCES categorias(id)
 );
 
+CREATE TABLE IF NOT EXISTS usuarios (
+  user VARCHAR(20) PRIMARY KEY,
+  email VARCHAR(120) NOT NULL UNIQUE,
+  nombre VARCHAR(50) NOT NULL,
+  apellidos VARCHAR(50) NOT NULL,
+  contrasena VARCHAR(255) NOT NULL,
+  rol ENUM('gerente', 'cliente', 'cocinero', 'camarero') NOT NULL DEFAULT 'cliente',
+  imagen VARCHAR(255) NULL
+);
+
 -- Datos de prueba
 INSERT INTO categorias (nombre, descripcion) VALUES
 ('Entrantes', 'Platos para empezar'),
