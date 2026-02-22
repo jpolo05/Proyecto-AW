@@ -3,76 +3,90 @@ require_once __DIR__ . '/includes/config.php';
 include __DIR__ . '/includes/vistas/comun/cabecera.php';
 ?>
 
-<?php 
-include __DIR__ . '/includes/vistas/comun/sideBarIzq.php';
-?>
 
 
-<h2 align = "center">Descripción de Bistro FDI</h2>
 
-<hr>
+<!DOCTYPE html>
+<html lang="es">
 
-<p align = "center">
-Bistro FDI es una aplicación web que permite a los clientes consultar la carta
-de productos, realizar pedidos y consultar el estado de los mismos de forma sencilla.
-</p>
+    <head>
+        <meta charset="UTF-8">
+        <title>Bistro FDI</title>
+    </head>
 
-<br>
+    <body>
+        <div style="display:flex;">
+            <?php include __DIR__ . '/includes/vistas/comun/sideBarIzq.php';?>
 
-<table>
-<tr>
+            <div style="align-items:center;width:100%;background-color:yellow;display:flex;flex-direction:column;">
+                <h2 align = "center">Descripción de Bistro FDI</h2>
 
-<td align="center">
-<img src="img/personas.jpg" width="200"><br>
-Personas comiendo
-</td>
+                <hr>
 
-<td align="center">
-<img src="img/tienda.jpg" width="200"><br>
-Nuestro local
-</td>
+                <p align = "center">
+                Bistro FDI es una aplicación web que permite a los clientes consultar la carta
+                de productos, realizar pedidos y consultar el estado de los mismos de forma sencilla.
+                </p>
 
-<td align="center">
-<img src="img/producto.jpg" width="200"><br>
-Nuestros productos
-</td>
+                <br>
 
-</tr>
-</table>
+                <table>
+                <tr>
 
-<br><br>
+                <td align="center">
+                <img src="img/personas.jpg" width="200"><br>
+                Personas comiendo
+                </td>
 
-<p align="center">
-<a href="index.php?pagina=carta">
-<button>Ver carta</button>
-</a>
-</p>
+                <td align="center">
+                <img src="img/tienda.jpg" width="200"><br>
+                Nuestro local
+                </td>
 
-<br>
+                <td align="center">
+                <img src="img/producto.jpg" width="200"><br>
+                Nuestros productos
+                </td>
 
-<p align="center">
-<a href="index.php?pagina=carta">
-<button>¡ORDENA AHORA!</button>
-</a>
-</p>
+                </tr>
+                </table>
 
-<br><br>
+                <br><br>
 
-<p align="center">
+                <p align="center">
+                <a href="index.php?pagina=carta">
+                <button>Ver carta</button>
+                </a>
+                </p>
 
-<img src="img/facebook.png" width="40">
+                <br>
 
-&nbsp;&nbsp;&nbsp;
+                <p align="center">
+                <a href="index.php?pagina=carta">
+                <button>¡ORDENA AHORA!</button>
+                </a>
+                </p>
 
-<img src="img/x.png" width="40">
+                <br><br>
 
-&nbsp;&nbsp;&nbsp;
+                <p align="center">
 
-<img src="img/instagram.png" width="40">
+                <img src="img/facebook.png" width="40">
 
-</p>
+                &nbsp;&nbsp;&nbsp;
 
+                <img src="img/x.png" width="40">
 
-<?php include __DIR__ . '/includes/vistas/comun/sideBarDer.php'; ?>
+                &nbsp;&nbsp;&nbsp;
+
+                <img src="img/instagram.png" width="40">
+
+                </p>
+            </div>
+
+            <?php include __DIR__ . '/includes/vistas/comun/sideBarDer.php'; ?>
+        </div>
+    </body>
+</html>
 
 <?php include __DIR__ . '/includes/vistas/comun/pie.php'; ?>

@@ -1,16 +1,21 @@
-<td width="15%" valign="top">
+<!DOCTYPE html>
+<html lang="es">
 
-<h3>Información</h3>
+    <head>
+        <meta charset="UTF-8">
+    </head>
 
-<ul>
-<li>Horario:</li>
-<li>9:00 - 22:00</li>
+    <body>
 
-<br>
-
-<li>Teléfono:</li>
-<li>910000000</li>
-
-</ul>
-
-</td>
+        <div class="sideBar" style="align-items:center;width:13%;height:80vh;background-color:red;display:flex;flex-direction:column;">
+            <h3>Información</h3>
+            <ul>
+                <li>Horario:</li>
+                <li>9:00 - 22:00</li>
+                <br>
+                <li>Teléfono:</li>
+                <li>910000000</li>
+            </ul>
+        </div>
+    </body>
+</html>
