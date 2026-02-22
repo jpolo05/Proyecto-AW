@@ -27,15 +27,15 @@ switch ($pagina) {
                 <table>
                     <tr>
                         <td align="center">
-                            <img src="img/personas.jpg" width="200" alt="Personas comiendo"><br>
+                            <img src="img/uploads/personas.jpg" width="200" alt="Personas comiendo"><br>
                             Personas comiendo
                         </td>
                         <td align="center">
-                            <img src="img/tienda.jpg" width="200" alt="Nuestro local"><br>
+                            <img src="img/uploads/tienda.jpg" width="200" alt="Nuestro local"><br>
                             Nuestro local
                         </td>
                         <td align="center">
-                            <img src="img/producto.jpg" width="200" alt="Nuestros productos"><br>
+                            <img src="img/uploads/producto.jpg" width="200" alt="Nuestros productos"><br>
                             Nuestros productos
                         </td>
                     </tr>
@@ -49,9 +49,9 @@ switch ($pagina) {
                 </p>
                 <br>
                 <p align="center">
-                    <img src="img/facebook.png" width="40" alt="Facebook"> &nbsp;&nbsp;&nbsp;
-                    <img src="img/x.png" width="40" alt="X"> &nbsp;&nbsp;&nbsp;
-                    <img src="img/instagram.png" width="40" alt="Instagram">
+                    <img src="img/uploads/facebook.png" width="40" alt="Facebook"> &nbsp;&nbsp;&nbsp;
+                    <img src="img/uploads/x.png" width="40" alt="X"> &nbsp;&nbsp;&nbsp;
+                    <img src="img/uploads/instagram.png" width="40" alt="Instagram">
                 </p>
             </div>
         EOS;
