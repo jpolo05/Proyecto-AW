@@ -12,7 +12,11 @@ define('BD_PASS', '');
  * Parámetros de configuración utilizados para generar las URLs y las rutas a ficheros en la aplicación
  */
 define('RAIZ_APP', __DIR__);
-define('RUTA_APP', '/practica2');
+$url_base = str_replace($_SERVER['DOCUMENT_ROOT'], '', __DIR__);
+$url_base = str_replace('\\', '/', $url_base); // Normaliza barras en Windows
+$url_base = rtrim($url_base, '/'); // Limpia la barra final si existe
+
+define('RUTA_APP', $url_base);
 define('RUTA_IMGS', RUTA_APP.'img/');
 define('RUTA_CSS', RUTA_APP.'css/');
 define('RUTA_JS', RUTA_APP.'js/');

@@ -1,13 +1,24 @@
-<?php include RAIZ_APP . '/vistas/comun/cabecera.php'; ?>
-        
-<div style="display:flex; min-height: 80vh;">
-    <?php include RAIZ_APP . '/vistas/comun/sideBarIzq.php'; ?>
-
-    <main style="flex-grow: 1;">
-        <?= $contenidoPrincipal ?>
-    </main>
-
-    <?php include RAIZ_APP . '/vistas/comun/sideBarDer.php'; ?>
-</div>
-
-<?php include RAIZ_APP . '/vistas/comun/pie.php'; ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title><?= $tituloPagina ?></title>
+</head>
+<body>
+    <div id="contenedor">
+        <?php
+            require(RAIZ_APP.'/vistas/comun/cabecera.php');
+            require(RAIZ_APP.'/vistas/comun/sidebarIzq.php');
+        ?>
+        <main>
+            <article>
+                <?= $contenidoPrincipal ?>
+            </article>
+        </main>
+        <?php
+            require(RAIZ_APP.'/vistas/comun/sidebarDer.php');
+            require(RAIZ_APP.'/vistas/comun/pie.php');
+        ?>
+    </div>
+</body>
+</html>

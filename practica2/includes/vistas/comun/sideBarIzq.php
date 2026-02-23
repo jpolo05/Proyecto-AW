@@ -1,8 +1,8 @@
-<div class="sideBar" style="align-items:center;width:13%;height:80vh;background-color:blue;display:flex;flex-direction:column;">
-    <h3>Menú</h3>
-    <ul>
-        <li><a href="index.php">Inicio</a></li>
-        <li><a href="index.php?pagina=carta">Carta</a></li>
-        <li><a href="index.php?pagina=perfil">Mi perfil</a></li>
-    </ul>
-</div>
+<nav id="sidebarIzq">
+	<h3>Navegación</h3>
+	<ul>
+		<li><a href="<?= RUTA_APP ?>/index.php">Inicio</a></li>
+		<li><a href="<?= RUTA_APP ?>/carta.php">Carta</a></li>
+		<li><a href="<?= RUTA_APP ?>/perfil.php">Mi Perfil</a></li>
+	</ul>
+</nav>
