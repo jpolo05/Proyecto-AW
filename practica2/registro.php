@@ -1,4 +1,9 @@
 <?php
+
+require_once __DIR__.'/includes/config.php';
+
+$tituloPagina = 'Registro';
+
 $contenidoPrincipal = <<<EOS
 <div class="login-container">
     <h2>Acceso a Bistro FDI</h2>
@@ -41,3 +46,5 @@ $contenidoPrincipal = <<<EOS
     <p>¿Ya tiene una cuenta? <a href="index.php?pagina=login">Inicia sesion aqui</a></p>
 </div>
 EOS;
+
+require __DIR__.'/includes/vistas/plantillas/plantilla.php';
