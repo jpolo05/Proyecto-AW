@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/mysql/conexion.php';
+require_once __DIR__.'/../../config.php';
+require_once __DIR__.'/../../mysql/conexion.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -60,8 +60,8 @@ $_SESSION['rol']       = $user['rol'];
 $_SESSION['nombre']    = $user['nombre'];
 $_SESSION['apellidos'] = $user['apellidos'];
 $_SESSION['imagen']    = $user['imagen'] ?? null;
-$_SESSION['logged']    = true;
+$_SESSION['login']     = true;
 
 // Redirigir a inicio
-header('Location: index.php');
+header('Location: ../../../index.php');
 exit;

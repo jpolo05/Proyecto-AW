@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/includes/config.php';
+require_once __DIR__.'/../../config.php';
 
 $tituloPagina = 'Login';
 
@@ -24,4 +24,4 @@ $contenidoPrincipal = <<<EOS
 </form>
 EOS;
 
-require __DIR__.'/includes/vistas/plantillas/plantilla.php';
+require __DIR__.'/../plantillas/plantilla.php';

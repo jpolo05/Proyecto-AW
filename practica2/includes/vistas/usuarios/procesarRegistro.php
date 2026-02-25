@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/mysql/conexion.php';
+require_once __DIR__.'/../../config.php';
+require_once __DIR__.'/../../mysql/conexion.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: registro.php');
