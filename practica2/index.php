@@ -16,15 +16,15 @@ $contenidoPrincipal = <<<EOS
     <table>
         <tr>
             <td align="center">
-                <img src="img/uploads/personas.jpg" width="200" alt="Personas comiendo"><br>
+                <img src="img/personas.jpg" width="200" alt="Personas comiendo"><br>
                 Personas comiendo
             </td>
             <td align="center">
-                <img src="img/uploads/tienda.jpg" width="200" alt="Nuestro local"><br>
+                <img src="img/tienda.jpg" width="200" alt="Nuestro local"><br>
                 Nuestro local
             </td>
             <td align="center">
-                <img src="img/uploads/producto.jpg" width="200" alt="Nuestros productos"><br>
+                <img src="img/producto.jpg" width="200" alt="Nuestros productos"><br>
                 Nuestros productos
             </td>
         </tr>
