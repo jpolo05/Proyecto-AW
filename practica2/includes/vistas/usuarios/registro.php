@@ -44,8 +44,12 @@ $contenidoPrincipal = <<<EOS
                     <option value="avatar1.jpg">Avatar 1</option>
                     <option value="avatar2.jpg">Avatar 2</option>
                     <option value="avatar3.jpg">Avatar 3</option>
-                    <option value="user.jpg">Imagen propia<input type="file" accept="image/*"></option>
+                    <option value="propia">Imagen Propia</option>
                 </select>
+            </div>
+            <div id="subir_archivo">
+                <label for="imgUser">Sube tu foto:</label>
+                <input type="file" name="imgUser" id="imgUser" accept="image/*">
             </div>
             <div>
                 <button type="submit">Create cuenta</button>
