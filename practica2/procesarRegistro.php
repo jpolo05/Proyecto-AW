@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . '/../config.php';
-require_once __DIR__ . '/../mysql/conexion.php';
+require_once __DIR__.'/includes/config.php';
+require_once __DIR__.'/includes/mysql/conexion.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ../../index.php?pagina=registro');
+    header('Location: registro.php');
     exit;
 }
 
@@ -19,12 +19,12 @@ $imagen   = $_POST['imagen'] ?? null;
 $rol = 'cliente';
 
 if ($username === '' || $nombre === '' || $apellidos === '' || $email === '' || $pass1 === '' || $pass2 === '') {
-    header('Location: ../../index.php?pagina=registro');
+    header('Location: registro.php');
     exit;
 }
 
 if ($pass1 !== $pass2) {
-    header('Location: ../../index.php?pagina=registro');
+    header('Location: registro.php');
 }
 
 // Hash de contraseña
@@ -36,7 +36,7 @@ $sql = "INSERT INTO usuarios (user, email, nombre, apellidos, contrasena, rol, i
 
 $stmt = mysqli_prepare($conn, $sql);
 if (!$stmt) {
-    header('Location: ../../index.php?pagina=registro');
+    header('Location: registro.php');
     exit;
 }
 
@@ -44,12 +44,12 @@ mysqli_stmt_bind_param($stmt, "sssssss", $username, $email, $nombre, $apellidos,
 
 if (!mysqli_stmt_execute($stmt)) {
     // Duplicado de user/email (por las restricciones UNIQUE)
-    header('Location: ../../index.php?pagina=registro');
+    header('Location: registro.php');
     exit;
 }
 
 mysqli_stmt_close($stmt);
 
 // OK -> ir a login
-header('Location: ../../index.php?pagina=login&ok=1');
+header('Location: login.php');
 exit;

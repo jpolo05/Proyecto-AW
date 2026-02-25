@@ -10,8 +10,8 @@ $contenidoPrincipal = <<<EOS
 	<fieldset>
 	<legend>Usuario y contraseña</legend>
 	<div>
-		<label for="nombreUsuario">Nombre de usuario:</label>
-		<input id="nombreUsuario" type="text" name="nombreUsuario" />
+		<label for="username">Nombre de usuario:</label>
+		<input id="username" type="text" name="username" />
 	</div>
 	<div>
 		<label for="password">Password:</label>

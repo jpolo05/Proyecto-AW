@@ -11,7 +11,7 @@ function mostrarSaludo() {
 }
 ?>
 <header>
-	<h1>RUTA_APP: <?= RUTA_APP ?></h1>
+	<h1>Bistro FDI</h1>
 	<div class="saludo">
 	<?= mostrarSaludo() ?>
 	</div>

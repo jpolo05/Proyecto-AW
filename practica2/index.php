@@ -31,10 +31,10 @@ $contenidoPrincipal = <<<EOS
     </table>
     <br>
     <p align="center">
-        <a href="index.php?pagina=carta"><button>Ver carta</button></a>
+        <a href="carta.php"><button>Ver carta</button></a>
     </p>
     <p align="center">
-        <a href="index.php?pagina=carta"><button>¡ORDENA AHORA!</button></a>
+        <a href="carta.php"><button>¡ORDENA AHORA!</button></a>
     </p>
     <br>
     <p align="center">

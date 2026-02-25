@@ -1,15 +1,14 @@
 <?php
-// includes/vistas/procesarLogin.php
 
-require_once __DIR__ . '/../config.php';
-require_once __DIR__ . '/../mysql/conexion.php';
+require_once __DIR__.'/includes/config.php';
+require_once __DIR__.'/includes/mysql/conexion.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ../../index.php?pagina=login');
+    header('Location: login.php');
     exit;
 }
 
@@ -17,7 +16,7 @@ $username = trim($_POST['username'] ?? '');
 $password = $_POST['password'] ?? '';
 
 if ($username === '' || $password === '') {
-    header('Location: ../../index.php?pagina=login&err=Faltan%20datos');
+    header('Location: login.php?error=login&err=Faltan%20datos');
     exit;
 }
 
@@ -29,7 +28,7 @@ $sql = "SELECT user, email, nombre, apellidos, contrasena, rol, imagen
 
 $stmt = mysqli_prepare($conn, $sql);
 if (!$stmt) {
-    header('Location: ../../index.php?pagina=login&err=Error%20consulta');
+    header('Location: login.php?error=login&err=Error%20consulta');
     exit;
 }
 
@@ -41,7 +40,7 @@ $user = mysqli_fetch_assoc($res);
 mysqli_stmt_close($stmt);
 
 if (!$user) {
-    header('Location: ../../index.php?pagina=login&err=Usuario%20o%20contrase%C3%B1a%20incorrectos');
+    header('Location: login.php?error=login&err=Usuario%20o%20contrase%C3%B1a%20incorrectos');
     exit;
 }
 
@@ -51,7 +50,7 @@ if (!$user) {
 $ok = password_verify($password, $user['contrasena']) || hash_equals($user['contrasena'], $password);
 
 if (!$ok) {
-    header('Location: ../../index.php?pagina=login&err=Usuario%20o%20contrase%C3%B1a%20incorrectos');
+    header('Location: login.php?error=login&err=Usuario%20o%20contrase%C3%B1a%20incorrectos');
     exit;
 }
 
@@ -64,5 +63,5 @@ $_SESSION['imagen']    = $user['imagen'] ?? null;
 $_SESSION['logged']    = true;
 
 // Redirigir a inicio
-header('Location: ../../index.php');
+header('Location: index.php');
 exit;
