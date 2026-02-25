@@ -18,13 +18,8 @@ $imagen   = $_POST['imagen'] ?? null;
 // En registro normal, el rol debe ser cliente
 $rol = 'cliente';
 
-if ($username === '' || $nombre === '' || $apellidos === '' || $email === '' || $pass1 === '' || $pass2 === '') {
-    header('Location: registro.php');
-    exit;
-}
-
 if ($pass1 !== $pass2) {
-    header('Location: registro.php');
+    header('Location: registro.php?error=register&err=Contrasenas%20distintas');
 }
 
 // Hash de contraseña
@@ -44,12 +39,12 @@ mysqli_stmt_bind_param($stmt, "sssssss", $username, $email, $nombre, $apellidos,
 
 if (!mysqli_stmt_execute($stmt)) {
     // Duplicado de user/email (por las restricciones UNIQUE)
-    header('Location: registro.php');
+    header('Location: registro.php?error=register&err=email%20utilizado');
     exit;
 }
 
 mysqli_stmt_close($stmt);
 
 // OK -> ir a login
-header('Location: login.php');
+header('Location: login.php?correcto=true');
 exit;

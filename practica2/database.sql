@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS productos (
   disponible TINYINT(1) NOT NULL DEFAULT 1,
   ofertado TINYINT(1) NOT NULL DEFAULT 1,
   imagen VARCHAR(255) NULL,
-  FOREIGN KEY (id_categoria) REFERENCES categorias(id)
+  CONSTRAINT fk_categoria_productos FOREIGN KEY (id_categoria) REFERENCES categorias(id)
 );
 
 CREATE TABLE IF NOT EXISTS usuarios (
@@ -26,6 +26,27 @@ CREATE TABLE IF NOT EXISTS usuarios (
   contrasena VARCHAR(255) NOT NULL,
   rol ENUM('gerente', 'cliente', 'cocinero', 'camarero') NOT NULL DEFAULT 'cliente',
   imagen VARCHAR(255) NULL
+);
+
+CREATE TABLE IF NOT EXISTS pedidos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  numeroPedido INT NOT NULL,
+  estado ENUM('Nuevo', 'Recibido', 'En preparación', 'Cocinando', 'Listo cocina', 'Terminado', 'Entregado', 'Cancelado') NOT NULL DEFAULT 'Nuevo',
+  tipo ENUM('Local', 'Llevar') NOT NULL DEFAULT 'Local',
+  fecha DATETIME NOT NULL,
+  idCliente VARCHAR(20) NOT NULL,
+  total DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  CONSTRAINT fk_idUsuario_pedidos FOREIGN KEY (idCliente) REFERENCES usuarios(user)
+);
+
+CREATE TABLE IF NOT EXISTS linea_pedido (
+  numeroPedido INT NOT NULL,
+  idProducto INT NOT NULL,
+  cantidad SMALLINT NOT NULL DEFAULT 1,
+  subtotal DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  PRIMARY KEY (numeroPedido, idProducto),
+  CONSTRAINT fk_idPedido_lineaPedido FOREIGN KEY (numeroPedido) REFERENCES pedidos(id),
+  CONSTRAINT fk_idProducto_lineaPedido FOREIGN KEY (idProducto) REFERENCES productos(id)
 );
 
 -- Datos de prueba
