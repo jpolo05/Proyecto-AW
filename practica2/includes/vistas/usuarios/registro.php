@@ -7,7 +7,7 @@ $tituloPagina = 'Registro';
 $contenidoPrincipal = <<<EOS
 <div class="login-container">
     <h2>Acceso a Bistro FDI</h2>
-    <form action="procesarRegistro.php" method="POST">
+    <form action="procesarRegistro.php" method="POST" enctype="multipart/form-data>
         <fieldset>
             <legend>Datos Usuario</legend>
             <div>
@@ -52,7 +52,8 @@ $contenidoPrincipal = <<<EOS
                 <input type="file" name="imgUser" id="imgUser" accept="image/*">
             </div>
             <div>
-                <button type="submit">Create cuenta</button>
+                <button type="reset" name="limpiar">Reset</button>
+                <button type="submit">Crear cuenta</button>
             </div>
         </fieldset>
     </form>

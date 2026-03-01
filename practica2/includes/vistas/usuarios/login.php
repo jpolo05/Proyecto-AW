@@ -18,6 +18,7 @@ $contenidoPrincipal = <<<EOS
 		<input id="password" type="password" name="password" />
 	</div>
 	<div>
+		<button type="reset" name="limpiar">Reset</button>
 		<button type="submit" name="login">Entrar</button>
 	</div>
 	</fieldset>
