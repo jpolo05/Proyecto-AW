@@ -1,59 +1,46 @@
 <?php
 require_once __DIR__.'/../../config.php';
 require_once __DIR__.'/../../mysql/conexion.php';
+require_once __DIR__.'/../../mysql/usuario_mysql.php'; // IMPORTANTE: Importar la función
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: login.php'); // creo que a login está bien
-    exit;
-}
-
-$idUsuario = $_SESSION['id_usuario'] ?? null;
-if (!$idUsuario){
     header('Location: login.php');
     exit;
 }
 
-$username = trim($_POST['username'] ?? '');
-$nombre   = trim($_POST['nombre'] ?? '');
-$apellidos= trim($_POST['apellidos'] ?? '');
-$email    = trim($_POST['email'] ?? '');
-$pass1    = $_POST['password'] ?? '';
-$pass2    = $_POST['password_confirm'] ?? '';
-$imagen   = $_POST['imagen'] ?? null;
+$user = $_SESSION['user'] ?? null;
+if (!$user){
+    header('Location: login.php');
+    exit;
+}
 
-// Esta pagina solo la puede ver clientes o admin también?
-// hay que buscar la forma en la que el gerente puede cambiar esto
-$rol = $_POST['cliente'] ?? 'Cliente';
+$nombre    = trim($_POST['nombre'] ?? '');
+$apellidos = trim($_POST['apellidos'] ?? '');
+$email     = trim($_POST['email'] ?? '');
+$pass1     = $_POST['password'] ?? '';
+$pass2     = $_POST['password_confirm'] ?? '';
+$imagen    = $_POST['imagen'] ?? 'default.jpg';
+$rol       = $_POST['rol'] ?? 'Cliente';
 
 if ($pass1 !== $pass2) {
     header('Location: actualizarUsuarios.php?error=register&err=Contrasenas%20distintas');
+    exit;
 }
 
-// Hash de contraseña
 $hash = password_hash($pass1, PASSWORD_DEFAULT);
 
-// UPDATE
-$sql = "UPDATE usuarios 
-        SET user = ?, nombre = ?, apellidos = ?, email = ?, contrasena = ?, rol = ?, imagen =?
-        WHERE id = ?
-        ";
+$exito = usuarios_crear_editar($user, $email, $nombre, $apellidos, $hash, $rol, $imagen);
 
-$stmt = mysqli_prepare($conn, $sql);
-if (!$stmt) {
-    header('Location: actualizarUsuarios.php');
-    exit;
+if ($exito) {
+    
+    $_SESSION['nombre']    = $nombre;
+    $_SESSION['apellidos'] = $apellidos;
+    $_SESSION['rol']       = $rol;  
+    $_SESSION['imagen']    = $imagen;
+    $_SESSION['isAdmin']   = ($rol === 'Gerente');
+    
+    header('Location: perfil.php');
+} else {
+    header('Location: actualizarUsuarios.php?error=update&err=Error%20en%20la%20base%20de%20datos');
 }
-
-mysqli_stmt_bind_param($stmt, "sssssssi", $username, $nombre, $apellidos, $email, $hash, $rol, $imagen, $idUsuario);
-
-if (!mysqli_stmt_execute($stmt)) {
-    // Duplicado de user/email (por las restricciones UNIQUE)
-    header('Location: actualizarUsuarios.php?error=register&err=email%20utilizado');
-    exit;
-}
-
-mysqli_stmt_close($stmt);
-
-// OK -> ir a login
-header('Location: login.php?correcto=true');
 exit;

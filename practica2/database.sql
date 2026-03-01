@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
   nombre VARCHAR(50) NOT NULL,
   apellidos VARCHAR(50) NOT NULL,
   contrasena VARCHAR(255) NOT NULL,
-  rol ENUM('gerente', 'cliente', 'cocinero', 'camarero') NOT NULL DEFAULT 'cliente',
+  rol ENUM('Gerente', 'Cliente', 'Cocinero', 'Camarero') NOT NULL DEFAULT 'Cliente',
   imagen VARCHAR(255) NULL
 );
 

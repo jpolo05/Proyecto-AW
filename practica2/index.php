@@ -38,9 +38,9 @@ $contenidoPrincipal = <<<EOS
     </p>
     <br>
     <p align="center">
-        <img src="img/uploads/facebook.png" width="40" alt="Facebook"> &nbsp;&nbsp;&nbsp;
-        <img src="img/uploads/x.png" width="40" alt="X"> &nbsp;&nbsp;&nbsp;
-        <img src="img/uploads/instagram.png" width="40" alt="Instagram">
+        <img src="img/facebook.png" width="40" alt="Facebook"> &nbsp;&nbsp;&nbsp;
+        <img src="img/x.png" width="40" alt="X"> &nbsp;&nbsp;&nbsp;
+        <img src="img/instagram.png" width="40" alt="Instagram">
     </p>
 </div>
 EOS;

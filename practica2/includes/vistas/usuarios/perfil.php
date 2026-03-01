@@ -1,21 +1,14 @@
 <?php
-session_start();
 
 require_once __DIR__.'/../../config.php';
 require_once __DIR__.'/../../mysql/conexion.php';
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+$user = $_SESSION['user'] ?? null;
+if (!$user){
     header('Location: login.php');
     exit;
 }
 
-$idUsuario = $_SESSION['id_usuario'] ?? null;
-if (!$idUsuario){
-    header('Location: login.php');
-    exit;
-}
-
-$user = $_SESSION['user'] ?? '';
 $nombre = $_SESSION['nombre'] ?? '';
 $apellidos = $_SESSION['apellidos'] ?? '';
 $email = $_SESSION['email'] ?? '';

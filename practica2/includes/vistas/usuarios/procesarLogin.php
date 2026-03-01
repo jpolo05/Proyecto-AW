@@ -57,6 +57,7 @@ $_SESSION['nombre']    = $user['nombre'];
 $_SESSION['apellidos'] = $user['apellidos'];
 $_SESSION['imagen']    = $user['imagen'] ?? null;
 $_SESSION['login']     = true;
+$_SESSION['isAdmin']   = ($user['rol'] === 'Gerente');
 
 // Redirigir a inicio
 header('Location: ../../../index.php');
