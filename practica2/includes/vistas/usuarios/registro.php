@@ -6,8 +6,8 @@ $tituloPagina = 'Registro';
 
 $contenidoPrincipal = <<<EOS
 <div class="login-container">
-    <h2>Acceso a Bistro FDI</h2>
-    <form action="procesarRegistro.php" method="POST" enctype="multipart/form-data>
+    <h1>Registro a Bistro FDI</h1>
+    <form action="procesarRegistro.php" method="POST" enctype="multipart/form-data">
         <fieldset>
             <legend>Datos Usuario</legend>
             <div>
@@ -34,28 +34,28 @@ $contenidoPrincipal = <<<EOS
                 <label for="password_confirm">Introduzca la contraseña de nuevo:</label>
                 <input id="password_confirm" type="password" name="password_confirm" required />
             </div>
-            <div>
-                <label>Rol: Cliente</label>
-            </div>
-            <div>
-                <label for="imagen">Imagen:</label>
-                <select name="imagen" id="imagen" >
-                    <option value="default.jpg">Imagen por defecto</option>
-                    <option value="avatar1.jpg">Avatar 1</option>
-                    <option value="avatar2.jpg">Avatar 2</option>
-                    <option value="avatar3.jpg">Avatar 3</option>
-                    <option value="propia">Imagen Propia</option>
-                </select>
-            </div>
-            <div id="subir_archivo">
-                <label for="imgUser">Sube tu foto:</label>
-                <input type="file" name="imgUser" id="imgUser" accept="image/*">
-            </div>
-            <div>
-                <button type="reset" name="limpiar">Reset</button>
-                <button type="submit">Crear cuenta</button>
-            </div>
         </fieldset>
+        <div>
+            <label>Rol: Cliente</label>
+        </div>
+        <div>
+            <label for="imagen">Imagen:</label>
+            <select name="imagen" id="imagen" >
+                <option value="default.jpg">Imagen por defecto</option>
+                <option value="avatar1.jpg">Avatar 1</option>
+                <option value="avatar2.jpg">Avatar 2</option>
+                <option value="avatar3.jpg">Avatar 3</option>
+                <option value="propia">Imagen Propia</option>
+            </select>
+        </div>
+        <div id="subir_archivo">
+            <label for="imgUser">Sube tu foto:</label>
+            <input type="file" name="imgUser" id="imgUser" accept="image/*">
+        </div>
+        <div>
+            <button type="reset" name="limpiar">Reset</button>
+            <button type="submit">Crear cuenta</button>
+        </div>
     </form>
     <p>¿Ya tiene una cuenta? <a href="login.php">Inicia sesion aqui</a></p>
 </div>

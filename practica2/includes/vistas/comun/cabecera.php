@@ -10,7 +10,7 @@ function mostrarSaludo() {
 	return $html;
 }
 ?>
-<header>
+<header style="justify-content: space-between; display: flex; align-items: center;">
 	<h1>Bistro FDI</h1>
 	<div class="saludo">
 	<?= mostrarSaludo() ?>

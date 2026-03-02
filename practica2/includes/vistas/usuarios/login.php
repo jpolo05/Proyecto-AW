@@ -23,6 +23,7 @@ $contenidoPrincipal = <<<EOS
 	</div>
 	</fieldset>
 </form>
+<p>¿No tiene una cuenta? <a href="registro.php">Regístrate aquí</a></p>
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
