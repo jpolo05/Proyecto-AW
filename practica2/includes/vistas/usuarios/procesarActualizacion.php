@@ -7,6 +7,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+$usuarioEditar = $_POST['user'] ?? null;
+
+if($usuarioEditar) {
+    usuarios_actualiza_rol($usuarioEditar, $_POST['nuevoRol'] ?? 'Cliente');
+    header('Location: listarUsuarios.php');
+    exit;
+}
+
 $user = $_SESSION['user'] ?? null;
 if (!$user){
     header('Location: login.php');

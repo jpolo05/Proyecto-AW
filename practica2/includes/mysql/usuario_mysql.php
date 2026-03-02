@@ -54,6 +54,21 @@ function usuarios_crear_editar($user, $email, $nombre, $apellidos, $contrasena, 
     return $resultado;
 }
 
+function usuarios_actualiza_rol($user, $rol): bool {
+    global $conn;
+
+    $sql = "UPDATE usuarios SET rol = ? WHERE user = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "ss", $rol, $user);
+        $resultado = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $resultado;
+    }
+    return false;
+}
+
 function usuarios_borrar($user): bool {
     global $conn;
 
