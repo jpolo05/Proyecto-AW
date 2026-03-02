@@ -38,13 +38,11 @@ if (!$stmt) {
 mysqli_stmt_bind_param($stmt, "sssssss", $username, $email, $nombre, $apellidos, $hash, $rol, $imagen);
 
 if (!mysqli_stmt_execute($stmt)) {
-    // Duplicado de user/email (por las restricciones UNIQUE)
     header('Location: registro.php?error=register&err=email%20utilizado');
     exit;
 }
 
 mysqli_stmt_close($stmt);
 
-// OK -> ir a login
 header('Location: login.php?correcto=true');
 exit;

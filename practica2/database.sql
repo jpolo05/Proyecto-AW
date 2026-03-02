@@ -34,9 +34,11 @@ CREATE TABLE IF NOT EXISTS pedidos (
   estado ENUM('Nuevo', 'Recibido', 'En preparación', 'Cocinando', 'Listo cocina', 'Terminado', 'Entregado', 'Cancelado') NOT NULL DEFAULT 'Nuevo',
   tipo ENUM('Local', 'Llevar') NOT NULL DEFAULT 'Local',
   fecha DATETIME NOT NULL,
-  idCliente VARCHAR(20) NOT NULL,
+  cliente VARCHAR(20) NOT NULL,
+  cocinero VARCHAR(20) NULL,
   total DECIMAL(10,2) NOT NULL DEFAULT 0.00,
-  CONSTRAINT fk_idUsuario_pedidos FOREIGN KEY (idCliente) REFERENCES usuarios(user)
+  CONSTRAINT fk_cliente_pedidos FOREIGN KEY (cliente) REFERENCES usuarios(user),
+  CONSTRAINT fk_cocinero_pedidos FOREIGN KEY (cocinero) REFERENCES usuarios(user)
 );
 
 CREATE TABLE IF NOT EXISTS linea_pedido (

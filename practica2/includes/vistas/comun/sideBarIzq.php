@@ -1,6 +1,6 @@
 <?php require_once __DIR__.'/../../config.php';
 
-$isAdmin = $_SESSION['isAdmin'] ?? false;
+$isAdmin = ($_SESSION['rol'] ?? false) === 'Gerente';
 if($isAdmin){
 	$administracion = '<li><a href="'.RUTA_APP.'/admin.php">Administración</a></li>';
 }

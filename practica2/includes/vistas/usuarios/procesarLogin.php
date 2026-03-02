@@ -40,9 +40,6 @@ if (!$user) {
     exit;
 }
 
-// Verificación de contraseña:
-// 1) Si está hasheada (password_hash), usamos password_verify
-// 2) Si aún hay usuarios antiguos en texto plano, lo aceptamos también
 $ok = password_verify($password, $user['contrasena']) || hash_equals($user['contrasena'], $password);
 
 if (!$ok) {
@@ -58,8 +55,19 @@ $_SESSION['apellidos'] = $user['apellidos'];
 $_SESSION['email']     = $user['email'];
 $_SESSION['imagen']    = $user['imagen'] ?? null;
 $_SESSION['login']     = true;
-$_SESSION['isAdmin']   = ($user['rol'] === 'Gerente');
 
-// Redirigir a inicio
-header('Location: ../../../index.php');
-exit;
+
+switch ($user['rol']) {
+    case 'Gerente':
+        header('Location: '.RUTA_APP.'/admin.php');
+        exit;
+    case 'Cocinero':
+        header('Location: '.RUTA_APP.'/cocinero.php');
+        exit;
+    case 'Camarero':
+        header('Location: '.RUTA_APP.'/camarero.php');
+        exit;
+    default:
+        header('Location: '.RUTA_APP.'/index.php');
+        exit;
+}

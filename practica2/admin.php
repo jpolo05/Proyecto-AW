@@ -15,24 +15,24 @@ $contenidoPrincipal = <<<EOS
         <tr>
             <td align="center">
                 <a href="includes/vistas/usuarios/listarUsuarios.php">
-                    <strong>Usuarios</strong>
+                    <button>Usuarios</button>
                 </a>
             </td>
             <td align="center">
                 <a href="includes/vistas/categorias/listar.php">
-                    <strong>Categorías</strong>
+                    <button>Categorías</button>
                 </a>
             </td>
         </tr>
         <tr>
             <td align="center">
-                <a href="includes/vistas/pedidos/listar.php">
-                    <strong>Pedidos</strong>
+                <a href="includes/vistas/pedidos/listarPedidos.php">
+                    <button>Pedidos</button>
                 </a>
             </td>
             <td align="center">
                 <a href="includes/vistas/productos/listar.php">
-                    <strong>Productos</strong>
+                    <button>Productos</button>
                 </a>
             </td>
         </tr>

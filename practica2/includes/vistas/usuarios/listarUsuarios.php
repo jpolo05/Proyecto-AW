@@ -5,7 +5,6 @@ $users = usuarios_listar();
 
 $tituloPagina = 'Listado Usuarios';
 
-// Detectamos qué usuario se quiere editar por URL
 $editando = $_GET['user'] ?? null;
 
 $tablaUsuarios = '
@@ -49,7 +48,6 @@ foreach ($users as $u) {
                            </td>";
         $tablaUsuarios .= "</form>";
     } else {
-        // Fila normal (no se está editando)
         $tablaUsuarios .= "<td>" . $rolActual . "</td>";
         $tablaUsuarios .= "<td><a href='listarUsuarios.php?user=$user'>Editar</a></td>";
     }

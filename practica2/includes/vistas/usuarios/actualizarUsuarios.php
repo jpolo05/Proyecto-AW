@@ -9,13 +9,13 @@ $apellidos = $_SESSION['apellidos'] ?? '';
 $email = $_SESSION['email'] ?? '';
 $rol = $_SESSION['rol'] ?? 'Cliente';
 $imagen = $_SESSION['imagen'] ?? null;
-$esAdmin = $_SESSION['isAdmin'] ?? false;
+$isAdmin = $rol === 'Gerente';
 
 $tituloPagina = 'Actualizar usuario';
 
 $selectRol = '';
 
-if (!$esAdmin) {
+if (!$isAdmin) {
     $selectRol = "<label>Rol asignado: </label>";
     $selectRol .= "<span>$rol</span>";
     $selectRol .= "<input type='hidden' name='rol' value='$rol' />";

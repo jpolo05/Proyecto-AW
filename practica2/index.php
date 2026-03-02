@@ -10,7 +10,7 @@ $contenidoPrincipal = <<<EOS
     <hr style="width: 74%;">
     <p>
         Bistro FDI es una aplicación web que permite a los clientes consultar la carta
-        de productos, realizar pedidos y consultar el estado de los mismos de forma sencilla. [cite: 6]
+        de productos, realizar pedidos y consultar el estado de los mismos de forma sencilla.
     </p>
     <br>
     <table>
