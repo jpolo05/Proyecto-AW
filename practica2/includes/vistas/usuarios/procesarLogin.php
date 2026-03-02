@@ -55,6 +55,7 @@ $_SESSION['user']      = $user['user'];
 $_SESSION['rol']       = $user['rol'];
 $_SESSION['nombre']    = $user['nombre'];
 $_SESSION['apellidos'] = $user['apellidos'];
+$_SESSION['email']     = $user['email'];
 $_SESSION['imagen']    = $user['imagen'] ?? null;
 $_SESSION['login']     = true;
 $_SESSION['isAdmin']   = ($user['rol'] === 'Gerente');

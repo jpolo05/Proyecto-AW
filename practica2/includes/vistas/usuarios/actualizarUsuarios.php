@@ -16,7 +16,8 @@ $tituloPagina = 'Actualizar usuario';
 $selectRol = '';
 
 if (!$esAdmin) {
-    $selectRol = "<span>$rol</span>";
+    $selectRol = "<label>Rol asignado: </label>";
+    $selectRol .= "<span>$rol</span>";
     $selectRol .= "<input type='hidden' name='rol' value='$rol' />";
 } else {
     $roles = ['Cliente', 'Cocinero', 'Camarero', 'Gerente'];
@@ -26,6 +27,12 @@ if (!$esAdmin) {
         $selectRol .= "<label><input type='radio' name='rol' value='$r' $checked /> $r</label> ";
     }
 }
+
+$editandoPass = isset($_GET['editarPass']) && $_GET['editarPass'] == 1;
+
+$estadoInput = $editandoPass ? '' : 'disabled';
+$estadoBoton = $editandoPass ? 'disabled' : '';
+$enlaceBoton = $editandoPass ? '' : 'actualizarUsuarios.php?editarPass=1';
 
 $contenidoPrincipal = <<<EOS
 <h1>Acceso al sistema</h1>
@@ -46,14 +53,14 @@ $contenidoPrincipal = <<<EOS
     </div>
     <div>
         <label for="password">Password (dejar en blanco para no cambiar):</label>
-        <input id="password" type="password" name="password" />
+        <input id="password" type="password" name="password" $estadoInput />
     </div>
     <div>
         <label for="password_confirm">Confirme contraseña:</label>
-        <input id="password_confirm" type="password" name="password_confirm" />
+        <input id="password_confirm" type="password" name="password_confirm" $estadoInput />
     </div>
+    <a href="$enlaceBoton" type="button" $estadoBoton>Editar contraseña</a>
     <div>
-        <label>Rol asignado: </label>
         $selectRol
     </div>
     <div>

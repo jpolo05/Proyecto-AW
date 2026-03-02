@@ -15,14 +15,14 @@ $tablaUsuarios = '
         </tr>';
 
 foreach ($users as $u) {
-    $id = (int)$u['id'];
+    $user = $u['user'];
     $nombre = htmlspecialchars($u['nombre']);
     $email = htmlspecialchars($u['email']);
     $rol = htmlspecialchars($u['rol']);
 
     $tablaUsuarios .= "
     <tr>
-        <td>$id</td>
+        <td>$user</td>
         <td>$nombre</td>
         <td>$email</td>
         <td>$rol</td>

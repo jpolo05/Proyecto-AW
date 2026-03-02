@@ -18,7 +18,19 @@ function usuarios_listar(): array {
 function usuarios_crear_editar($user, $email, $nombre, $apellidos, $contrasena, $rol, $imagen): bool {
     global $conn;
 
-    $sql = "INSERT INTO usuarios (user, email, nombre, apellidos, contrasena, rol, imagen) 
+    if($contrasena === null) {
+        $sql = "UPDATE usuarios SET email = ?, nombre = ?, apellidos = ?, rol = ?, imagen = ? WHERE user = ?";
+        $stmt = mysqli_prepare($conn, $sql);
+
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "ssssss", $email, $nombre, $apellidos, $rol, $imagen, $user);
+        }
+        else{
+            return false;
+        } 
+    }
+    else{
+        $sql = "INSERT INTO usuarios (user, email, nombre, apellidos, contrasena, rol, imagen) 
             VALUES (?, ?, ?, ?, ?, ?, ?) 
             ON DUPLICATE KEY UPDATE 
                 user = VALUES(user),
@@ -28,60 +40,28 @@ function usuarios_crear_editar($user, $email, $nombre, $apellidos, $contrasena, 
                 contrasena = VALUES(contrasena),
                 rol = VALUES(rol), 
                 imagen = VALUES(imagen)";
+        $stmt = mysqli_prepare($conn, $sql);
 
-    $stmt = mysqli_prepare($conn, $sql);
-
-    if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "sssssss", $user, $email, $nombre, $apellidos, $contrasena, $rol, $imagen);
-        $resultado = mysqli_stmt_execute($stmt);
-
-        mysqli_stmt_close($stmt);
-        return $resultado;
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "sssssss", $user, $email, $nombre, $apellidos, $contrasena, $rol, $imagen);
+        }
+        else{
+            return false;
+        }
     }
-    return false;
+    $resultado = mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    return $resultado;
 }
 
-//ESTAS DOS FUNCIONES SOLO SERIAN UTILES EN CASO DE HACER ENLACES POR SEPARADO A EDITAR EL RESTO DE DATOS
-function usuario_actualizar_contrasena($email, $contrasena): bool {
+function usuarios_borrar($user): bool {
     global $conn;
 
-    $sql = "UPDATE usuarios SET contrasena = ? WHERE email = ?";
+    $sql = "DELETE FROM usuarios WHERE user = ?";
     $stmt = mysqli_prepare($conn, $sql);
 
     if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "ss", $contrasena, $email);
-        $resultado = mysqli_stmt_execute($stmt);
-        
-        mysqli_stmt_close($stmt);
-        return $resultado;
-    }
-    return false;
-}
-
-function usuario_actualizar_rol($email, $rol): bool {
-    global $conn;
-
-    $sql = "UPDATE usuarios SET rol = ? WHERE email = ?";
-    $stmt = mysqli_prepare($conn, $sql);
-
-    if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "ss", $rol, $email);
-        $resultado = mysqli_stmt_execute($stmt);
-        
-        mysqli_stmt_close($stmt);
-        return $resultado;
-    }
-    return false;
-}
-
-function usuarios_borrar($email): bool {
-    global $conn;
-
-    $sql = "DELETE FROM usuarios WHERE email = ?";
-    $stmt = mysqli_prepare($conn, $sql);
-
-    if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "s", $email);
+        mysqli_stmt_bind_param($stmt, "s", $user);
         $resultado = mysqli_stmt_execute($stmt);
 
         mysqli_stmt_close($stmt);
