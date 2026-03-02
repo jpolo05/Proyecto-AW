@@ -13,7 +13,7 @@ $nombre = $_SESSION['nombre'] ?? '';
 $apellidos = $_SESSION['apellidos'] ?? '';
 $email = $_SESSION['email'] ?? '';
 $rol = $_SESSION['rol'] ?? 'Cliente';
-$imagen = $_SESSION['imagen'] ?? null;
+$imagen = $_SESSION['imagen'] ?? '/img/uploads/usuarios/default.jpg'; //null o un enlace a una foto a un perfil vacio
 
 $tituloPagina = 'Perfil';
 
@@ -33,6 +33,7 @@ $contenidoPrincipal = <<<EOS
     </div>
     <div>
         <a href="actualizarUsuarios.php">Editar mis datos</a>
+        <a href="borrarUsuarios.php">Borrar mi cuenta</a>
     </div>
 EOS;
 
