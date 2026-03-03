@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS pedidos (
   fecha DATETIME NOT NULL,
   cliente VARCHAR(20) NOT NULL,
   cocinero VARCHAR(20) NULL,
+  imagenCocinero VARCHAR(255) NOT NULL DEFAULT '/uploads/usuarios/default.jpg',
   total DECIMAL(10,2) NOT NULL DEFAULT 0.00,
   CONSTRAINT fk_cliente_pedidos FOREIGN KEY (cliente) REFERENCES usuarios(user),
   CONSTRAINT fk_cocinero_pedidos FOREIGN KEY (cocinero) REFERENCES usuarios(user)

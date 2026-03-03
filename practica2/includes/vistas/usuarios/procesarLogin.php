@@ -59,15 +59,15 @@ $_SESSION['login']     = true;
 
 switch ($user['rol']) {
     case 'Gerente':
-        header('Location: '.RUTA_APP.'/admin.php');
+        header('Location: '.RUTA_APP.'admin.php');
         exit;
     case 'Cocinero':
-        header('Location: '.RUTA_APP.'/cocinero.php');
+        header('Location: '.RUTA_APP.'cocinero.php');
         exit;
     case 'Camarero':
-        header('Location: '.RUTA_APP.'/camarero.php');
+        header('Location: '.RUTA_APP.'camarero.php');
         exit;
     default:
-        header('Location: '.RUTA_APP.'/index.php');
+        header('Location: '.RUTA_APP.'index.php');
         exit;
 }

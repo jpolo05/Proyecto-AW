@@ -13,7 +13,7 @@ $nombre = $_SESSION['nombre'] ?? '';
 $apellidos = $_SESSION['apellidos'] ?? '';
 $email = $_SESSION['email'] ?? '';
 $rol = $_SESSION['rol'] ?? 'Cliente';
-$imagen = $_SESSION['imagen'] ?? '/img/uploads/usuarios/default.jpg'; //null o un enlace a una foto a un perfil vacio
+$imagen = $_SESSION['imagen'] ?? RUTA_IMGS.'/uploads/usuarios/default.jpg';
 
 $tituloPagina = 'Perfil';
 

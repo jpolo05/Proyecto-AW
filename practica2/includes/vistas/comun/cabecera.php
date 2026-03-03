@@ -1,6 +1,6 @@
 <?php
 function mostrarSaludo() {
-	$rutaUsuarios = RUTA_APP.'/includes/vistas/usuarios';
+	$rutaUsuarios = RUTA_APP.'includes/vistas/usuarios';
 	$html='';
 	if (isset($_SESSION["login"]) && ($_SESSION["login"]===true)) {
 		return "Bienvenido, {$_SESSION['nombre']} <a href='{$rutaUsuarios}/logout.php'>(salir)</a>";
@@ -12,16 +12,16 @@ function mostrarSaludo() {
 
 switch ($_SESSION['rol'] ?? '') {
 	case 'Gerente':
-		$ruta = RUTA_APP.'/admin.php';
+		$ruta = RUTA_APP.'admin.php';
 		break;
 	case 'Cocinero':
-		$ruta = RUTA_APP.'/cocinero.php';
+		$ruta = RUTA_APP.'cocinero.php';
 		break;
 	case 'Camarero':
-		$ruta = RUTA_APP.'/camarero.php';
+		$ruta = RUTA_APP.'camarero.php';
 		break;
 	default:
-		$ruta = RUTA_APP.'/index.php';
+		$ruta = RUTA_APP.'index.php';
 }
 
 ?>

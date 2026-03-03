@@ -11,3 +11,18 @@ function productos_listar(): array {
   while ($row = mysqli_fetch_assoc($res)) $out[] = $row;
   return $out;
 }
+
+function producto_nombre($id): string { 
+    global $conn;
+    $sql = "SELECT nombre FROM productos WHERE id = ?";
+    
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+
+    $res = mysqli_stmt_get_result($stmt);
+    $fila = mysqli_fetch_assoc($res);
+    mysqli_stmt_close($stmt);
+
+    return $fila['nombre'] ?? "";
+}
