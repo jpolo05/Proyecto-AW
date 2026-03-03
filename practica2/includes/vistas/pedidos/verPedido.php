@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__.'/../../auth.php';
+verificarAcceso('Cliente');
 
 require_once __DIR__ . '/../../mysql/pedido_mysql.php';
 
@@ -30,9 +32,17 @@ foreach ($pedido as $fila) {
 
 $lineaPedido .= '</table>';
 
+if($_SESSION['rol'] === 'Cliente') {
+    $url = RUTA_APP . 'index.php';
+    $txt = "⬅️Volver a inicio";
+} else {
+    $url = "listarPedidos.php";
+    $txt = "⬅️Volver a pedidos";
+}
+
 $contenidoPrincipal = <<<EOS
-    <a href='listarPedidos.php'>
-        <button>⬅️Volver a Pedidos</button>
+    <a href='$url'>
+        <button>$txt</button>
     </a>
     <h1>Pedido #$numeroPedido</h1>
     $lineaPedido

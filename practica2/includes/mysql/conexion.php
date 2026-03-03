@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../config.php';
 
 $conn = mysqli_connect(BD_HOST, BD_USER, BD_PASS, BD_NAME);

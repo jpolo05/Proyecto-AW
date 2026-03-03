@@ -1,4 +1,7 @@
 <?php
+require_once __DIR__.'/../../auth.php';
+verificarAcceso('Cliente');
+
 require_once __DIR__.'/../../config.php';
 require_once __DIR__.'/../../mysql/usuario_mysql.php';
 
@@ -37,7 +40,7 @@ else{
 }
 
 if ($pass1 !== $pass2) {
-    header('Location: actualizarUsuarios.php?error=register&err=Contrasenas%20distintas');
+    header('Location: '.RUTA_APP.'error.php?error=ActualizacionUsuario-Contrasenas%20distintas');
     exit;
 }
 
@@ -54,6 +57,6 @@ if ($exito) {
     
     header('Location: perfil.php');
 } else {
-    header('Location: actualizarUsuarios.php?error=update&err=Error%20en%20la%20base%20de%20datos');
+    header('Location: '.RUTA_APP.'error.php?error=ActualizacionUsuario-Error%20sql');
 }
 exit;

@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once __DIR__.'/../../config.php';
 require_once __DIR__.'/../../mysql/conexion.php';
 
@@ -19,7 +20,8 @@ $imagen   = $_POST['imagen'] ?? null;
 $rol = 'cliente';
 
 if ($pass1 !== $pass2) {
-    header('Location: registro.php?error=register&err=Contrasenas%20distintas');
+    header('Location: '.RUTA_APP.'error.php?error=Registro-Contrasenas%20distintas');
+    exit;
 }
 
 // Hash de contraseña
@@ -31,18 +33,18 @@ $sql = "INSERT INTO usuarios (user, email, nombre, apellidos, contrasena, rol, i
 
 $stmt = mysqli_prepare($conn, $sql);
 if (!$stmt) {
-    header('Location: registro.php');
+    header('Location: '.RUTA_APP.'error.php?error=Registro-Error%20sql');
     exit;
 }
 
 mysqli_stmt_bind_param($stmt, "sssssss", $username, $email, $nombre, $apellidos, $hash, $rol, $imagen);
 
 if (!mysqli_stmt_execute($stmt)) {
-    header('Location: registro.php?error=register&err=email%20utilizado');
+    header('Location: '.RUTA_APP.'error.php?error=Registro-Email%20utilizado');
     exit;
 }
 
 mysqli_stmt_close($stmt);
 
-header('Location: login.php?correcto=true');
+header('Location: login.php');
 exit;

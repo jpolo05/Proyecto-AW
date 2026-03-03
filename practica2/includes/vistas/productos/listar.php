@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__.'/../../auth.php';
+verificarAcceso('Gerente');
 
 require_once __DIR__ . '/../../mysql/producto_mysql.php';
 $prods = productos_listar();

@@ -1,5 +1,8 @@
 <?php
+require_once __DIR__.'/../../auth.php';
+verificarAcceso('Gerente');
 
+require_once __DIR__.'/../../config.php';
 require_once __DIR__ . '/../../mysql/pedido_mysql.php';
 $pedidos = pedidos_listar();
 

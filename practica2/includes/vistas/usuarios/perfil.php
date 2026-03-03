@@ -1,14 +1,11 @@
 <?php
+require_once __DIR__.'/../../auth.php';
+verificarAcceso('Cliente');
 
 require_once __DIR__.'/../../config.php';
 require_once __DIR__.'/../../mysql/conexion.php';
 
-$user = $_SESSION['user'] ?? null;
-if (!$user){
-    header('Location: login.php');
-    exit;
-}
-
+$user = $_SESSION['user'] ?? 'Usuario';
 $nombre = $_SESSION['nombre'] ?? '';
 $apellidos = $_SESSION['apellidos'] ?? '';
 $email = $_SESSION['email'] ?? '';

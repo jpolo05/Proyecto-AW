@@ -10,6 +10,7 @@ function mostrarSaludo() {
 	return $html;
 }
 
+$aux = '';
 switch ($_SESSION['rol'] ?? '') {
 	case 'Gerente':
 		$ruta = RUTA_APP.'admin.php';
@@ -21,14 +22,19 @@ switch ($_SESSION['rol'] ?? '') {
 		$ruta = RUTA_APP.'camarero.php';
 		break;
 	default:
-		$ruta = RUTA_APP.'index.php';
+		$aux = 'display:none;';
 }
 
 ?>
 <header style="justify-content: space-between; display: flex; align-items: center;">
 	<h1>
-		<a href="<?= $ruta ?>" style="color: black; text-decoration: none;">Bistro FDI</a>
+		<a href="<?= RUTA_APP.'index.php' ?>" style="color: black; text-decoration: none;">Bistro FDI</a>
 	</h1>
+	<h2>
+		<a href="<?= $ruta ?>" style="color: black; <?= $aux ?>">
+			Panel de Control
+		</a>
+	</h2>
 	<div class="saludo">
 	<?= mostrarSaludo() ?>
 	</div>

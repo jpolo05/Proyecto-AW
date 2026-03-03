@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS productos (
   disponible TINYINT(1) NOT NULL DEFAULT 1,
   ofertado TINYINT(1) NOT NULL DEFAULT 1,
   imagen VARCHAR(255) NULL,
-  CONSTRAINT fk_categoria_productos FOREIGN KEY (id_categoria) REFERENCES categorias(id)
+  CONSTRAINT fk_categoria_productos FOREIGN KEY (id_categoria) REFERENCES categorias(id) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS usuarios (
@@ -38,8 +38,8 @@ CREATE TABLE IF NOT EXISTS pedidos (
   cocinero VARCHAR(20) NULL,
   imagenCocinero VARCHAR(255) NOT NULL DEFAULT '/uploads/usuarios/default.jpg',
   total DECIMAL(10,2) NOT NULL DEFAULT 0.00,
-  CONSTRAINT fk_cliente_pedidos FOREIGN KEY (cliente) REFERENCES usuarios(user),
-  CONSTRAINT fk_cocinero_pedidos FOREIGN KEY (cocinero) REFERENCES usuarios(user)
+  CONSTRAINT fk_cliente_pedidos FOREIGN KEY (cliente) REFERENCES usuarios(user) ON DELETE CASCADE,
+  CONSTRAINT fk_cocinero_pedidos FOREIGN KEY (cocinero) REFERENCES usuarios(user) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS linea_pedido (
@@ -48,8 +48,8 @@ CREATE TABLE IF NOT EXISTS linea_pedido (
   cantidad SMALLINT NOT NULL DEFAULT 1,
   subtotal DECIMAL(10,2) NOT NULL DEFAULT 0.00,
   PRIMARY KEY (numeroPedido, idProducto),
-  CONSTRAINT fk_idPedido_lineaPedido FOREIGN KEY (numeroPedido) REFERENCES pedidos(id),
-  CONSTRAINT fk_idProducto_lineaPedido FOREIGN KEY (idProducto) REFERENCES productos(id)
+  CONSTRAINT fk_idPedido_lineaPedido FOREIGN KEY (numeroPedido) REFERENCES pedidos(id) ON DELETE CASCADE,
+  CONSTRAINT fk_idProducto_lineaPedido FOREIGN KEY (idProducto) REFERENCES productos(id) ON DELETE CASCADE
 );
 
 -- Datos de prueba

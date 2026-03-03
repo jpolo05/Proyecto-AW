@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once __DIR__.'/../../config.php';
 require_once __DIR__.'/../../mysql/conexion.php';
 
@@ -12,7 +12,7 @@ $username = trim($_POST['username'] ?? '');
 $password = $_POST['password'] ?? '';
 
 if ($username === '' || $password === '') {
-    header('Location: login.php?error=login&err=Faltan%20datos');
+    header('Location: '.RUTA_APP.'error.php?error=Login-Faltan%20datos');
     exit;
 }
 
@@ -24,7 +24,7 @@ $sql = "SELECT user, email, nombre, apellidos, contrasena, rol, imagen
 
 $stmt = mysqli_prepare($conn, $sql);
 if (!$stmt) {
-    header('Location: login.php?error=login&err=Error%20consulta');
+    header('Location: '.RUTA_APP.'error.php?error=Login-Error%20sql');
     exit;
 }
 
@@ -36,14 +36,14 @@ $user = mysqli_fetch_assoc($res);
 mysqli_stmt_close($stmt);
 
 if (!$user) {
-    header('Location: login.php?error=login&err=Usuario%20o%20contrase%C3%B1a%20incorrectos');
+    header('Location: '.RUTA_APP.'error.php?error=Login-Usuario%20o%20contrase%C3%B1a%20incorrectos');
     exit;
 }
 
 $ok = password_verify($password, $user['contrasena']) || hash_equals($user['contrasena'], $password);
 
 if (!$ok) {
-    header('Location: login.php?error=login&err=Usuario%20o%20contrase%C3%B1a%20incorrectos');
+    header('Location: '.RUTA_APP.'error.php?error=Login-Usuario%20o%20contrase%C3%B1a%20incorrectos');
     exit;
 }
 

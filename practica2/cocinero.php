@@ -1,4 +1,6 @@
 <?php
+require_once 'includes/auth.php';
+verificarAcceso('Cocinero');
 
 require_once __DIR__.'/includes/config.php';
 require_once __DIR__.'/includes/mysql/pedido_mysql.php';
@@ -20,9 +22,10 @@ if ($pedidos) {
                 Cliente: {$p['cliente']}<br>
                 Para {$p['tipo']}<br>
                 Total: {$p['total']}€<br>
-                <a href='cocinero.php?numeroPedido={$p['numeroPedido']}&accion=cocinar'>
-                    <button>Tomar Pedido</button>
-                </a>
+                <form action='includes/vistas/pedidos/procesarPedido.php' method='POST'>
+                    <input type='hidden' name='numeroPedido' value='{$p['numeroPedido']}'>
+                    <button type='submit'>Tomar Pedido</button>
+                </form>
             </div>
         ";
         } else if ($p['estado'] === 'Cocinando') {
@@ -32,7 +35,7 @@ if ($pedidos) {
                 Cliente: {$p['cliente']}<br>
                 Cocinero: {$p['cocinero']}<br>
                 Para {$p['tipo']}<br>
-                <a href='cocinero.php?numeroPedido={$p['numeroPedido']}&accion=listarElementos'>
+                <a href='includes/vistas/pedidos/verPedido.php?numeroPedido={$p['numeroPedido']}'>
                     <button>Ver Pedido</button>
                 </a>
             </div>

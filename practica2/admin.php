@@ -1,4 +1,6 @@
 <?php
+require_once 'includes/auth.php';
+verificarAcceso('Gerente');
 
 require_once __DIR__.'/includes/config.php';
 

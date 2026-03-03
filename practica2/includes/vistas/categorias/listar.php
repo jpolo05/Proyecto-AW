@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__.'/../../auth.php';
+verificarAcceso('Cliente');
 
 require_once __DIR__ . '/../../mysql/categoria_mysql.php';
 $cats = categorias_listar();

@@ -29,3 +29,12 @@ function pedido_listar($numeroPedido): array {
   }
   return $out;
 }
+
+function pedidos_actualizarEstado($numeroPedido, $nuevoEstado, $cocinero): bool {
+  global $conn;
+  $sql = "UPDATE pedidos SET estado = ?, cocinero = ? WHERE numeroPedido = ?";
+  
+  $stmt = mysqli_prepare($conn, $sql);
+  mysqli_stmt_bind_param($stmt, "ssi", $nuevoEstado, $cocinero, $numeroPedido);
+  return mysqli_stmt_execute($stmt);
+}
