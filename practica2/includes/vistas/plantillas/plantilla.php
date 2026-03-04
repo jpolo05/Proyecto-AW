@@ -3,14 +3,15 @@
 <head>
 	<meta charset="UTF-8">
     <title><?= $tituloPagina ?></title>
+    <link rel="stylesheet" href="<?= RUTA_APP.'css/custom.css' ?>">
 </head>
 <body>
-    <div id="contenedor" style="display: flex; flex-direction: column; min-height: 100vh;">
+    <div class="contenedor">
         <?php require(RAIZ_APP.'/vistas/comun/cabecera.php');?>
             
-        <main style="display: flex; flex: 1;">
+        <main>
             <?php require(RAIZ_APP.'/vistas/comun/sidebarIzq.php');?>
-            <article style="flex: 1; justify-content: center; align-items: center;">
+            <article>
                 <?= $contenidoPrincipal ?>
             </article>
             <?php require(RAIZ_APP.'/vistas/comun/sidebarDer.php');?>

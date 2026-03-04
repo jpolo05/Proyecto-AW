@@ -17,26 +17,26 @@ if ($pedidos) {
         
         if ($p['estado'] === 'En preparación') {
             $columnaPreparacion .= "
-            <div style='border: 1px solid #b0b0b0; margin: 5px; padding: 5px; border-radius: 5px; background: #eeeeee;'> 
+            <div class='pedido'> 
                 Pedido: #{$p['numeroPedido']}<br>
                 Cliente: {$p['cliente']}<br>
                 Para {$p['tipo']}<br>
                 Total: {$p['total']}€<br>
                 <form action='includes/vistas/pedidos/procesarPedido.php' method='POST'>
                     <input type='hidden' name='numeroPedido' value='{$p['numeroPedido']}'>
-                    <button type='submit'>Tomar Pedido</button>
+                    <button type='submit' class='button-estandar'>Tomar Pedido</button>
                 </form>
             </div>
         ";
         } else if ($p['estado'] === 'Cocinando') {
             $columnaCocinando .= "
-            <div style='border: 1px solid #b0b0b0; margin: 5px; padding: 5px; border-radius: 5px; background: #eeeeee;'> 
+            <div class='pedido'>
                 Pedido: #{$p['numeroPedido']}<br>
                 Cliente: {$p['cliente']}<br>
                 Cocinero: {$p['cocinero']}<br>
                 Para {$p['tipo']}<br>
                 <a href='includes/vistas/pedidos/verPedido.php?numeroPedido={$p['numeroPedido']}'>
-                    <button>Ver Pedido</button>
+                    <button class='button-estandar'>Ver Pedido</button>
                 </a>
             </div>
         ";
@@ -47,23 +47,23 @@ if ($pedidos) {
 $tituloPagina = 'Administración - Bistro FDI';
 
 $contenidoPrincipal = <<<EOS
-<div align="center">
-    <h2>Panel de Cocina - Bistro FDI</h2>
-    <hr style="width: 75%;">
+<div>
+    <h2 class="titulo">Panel de Cocina - Bistro FDI</h2>
+    <hr>
     <br>
 
-    <table cellpadding="15" border="1" style="width: 80%; border-collapse: collapse;">
+    <table class="cocina-table">
         <thead>
             <tr>
-                <th align="center" colspan="2">
+                <th colspan="2">
                     Cocinero: $nombreUsuario $apellidosUsuario
                 </th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <th align="center" width="50%">En preparación</th>
-                <th align="center" width="50%">Cocinando</th>
+                <th>En preparación</th>
+                <th>Cocinando</th>
             </tr>
             <tr>
                 <td valign="top">$columnaPreparacion</td>
@@ -73,7 +73,7 @@ $contenidoPrincipal = <<<EOS
     </table>
 
     <br><br>
-    <a href="index.php"><button>Volver al Inicio</button></a>
+    <a href="index.php"><button class="button-estandar">Volver al Inicio</button></a>
 </div>
 EOS;
 

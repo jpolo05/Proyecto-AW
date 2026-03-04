@@ -1,7 +1,7 @@
 <?php require_once __DIR__.'/../../config.php';
 ?>
 
-<nav id="sidebarIzq" style="display: flex;flex-direction: column;align-items: start;width: 200px; padding: 10px;">
+<nav>
 	<h3>Navegación</h3>
 	<ul>
 		<li><a href="<?= RUTA_APP ?>index.php">Inicio</a></li>

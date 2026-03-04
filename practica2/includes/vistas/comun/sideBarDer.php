@@ -1,4 +1,4 @@
-<aside id="sidebarDer" style="display: flex;flex-direction: column;align-items: end; width: 200px; padding: 10px;">
+<aside>
 	<h3>Información</h3>
     <ul>
         <li>Horario:</li>

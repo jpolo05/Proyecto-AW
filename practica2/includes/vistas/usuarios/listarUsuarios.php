@@ -51,7 +51,7 @@ foreach ($users as $u) {
         $tablaUsuarios .= "</form>";
     } else {
         $tablaUsuarios .= "<td>" . $rolActual . "</td>";
-        $tablaUsuarios .= "<td><a href='listarUsuarios.php?user=$user'>Editar</a></td>";
+        $tablaUsuarios .= "<td><a href='listarUsuarios.php?user=$user'><button class='button-estandar'>Editar</button></a></td>";
     }
 
     $tablaUsuarios .= "</tr>";

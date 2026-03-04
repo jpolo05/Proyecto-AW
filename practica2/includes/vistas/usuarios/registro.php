@@ -53,8 +53,8 @@ $contenidoPrincipal = <<<EOS
             <input type="file" name="imgUser" id="imgUser" accept="image/*">
         </div>
         <div>
-            <button type="reset" name="limpiar">Reset</button>
-            <button type="submit">Crear cuenta</button>
+            <button type="reset" name="limpiar" class="button-estandar">Reset</button>
+            <button type="submit" class="button-estandar">Crear cuenta</button>
         </div>
     </form>
     <p>¿Ya tiene una cuenta? <a href="login.php">Inicia sesion aqui</a></p>

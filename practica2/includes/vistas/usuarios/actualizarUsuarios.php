@@ -80,8 +80,8 @@ $contenidoPrincipal = <<<EOS
         <input type="file" name="imgUser" id="imgUser" accept="image/*">
     </div>
     <div>
-        <button type="reset">Reset</button>
-        <button type="submit" name="update">Actualizar</button>
+        <button type="reset" class="button-estandar">Reset</button>
+        <button type="submit" name="update" class="button-estandar">Actualizar</button>
     </div>
     </fieldset>
 </form>

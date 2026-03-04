@@ -21,7 +21,7 @@ $contenidoPrincipal = <<<EOS
         <p><strong> $user </strong></p> <br>
     </div>
     <div>
-        <img src="$imagen" style="width: 100px;" alt="Foto de perfil de $user"> <br>
+        <img src="$imagen" class="img-perfil" alt="Foto de perfil de $user"> <br>
     </div>
     <div>
         <p><strong> $nombre $apellidos </strong></p> <br>
@@ -29,8 +29,8 @@ $contenidoPrincipal = <<<EOS
         Rol: $rol </p> <br>
     </div>
     <div>
-        <a href="actualizarUsuarios.php">Editar mis datos</a>
-        <a href="borrarUsuarios.php">Borrar mi cuenta</a>
+        <a href="actualizarUsuarios.php"><button class="button-estandar">Editar mis datos</button></a>
+        <a href="borrarUsuarios.php"><button class="button-estandar">Borrar mi cuenta</button></a>
     </div>
 EOS;
 
