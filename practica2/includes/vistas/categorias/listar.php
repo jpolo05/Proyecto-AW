@@ -1,18 +1,19 @@
 <?php
-require_once __DIR__.'/../../auth.php';
-verificarAcceso('Cliente');
+use es\ucm\fdi\aw\Categoria;
 
-require_once __DIR__ . '/../../mysql/categoria_mysql.php';
-$cats = categorias_listar();
+require_once __DIR__.'/../../config.php';
+\es\ucm\fdi\aw\Auth::verificarAcceso('Cliente');
 
-$tituloPagina = 'Listado Categorías';
+$cats = Categoria::listar();
+
+$tituloPagina = 'Listado CategorÃ­as';
 
 $tablaCategorias = '
     <table border="1" cellpadding="6">
         <tr>
             <th>ID</th>
             <th>Nombre</th>
-            <th>Descripción</th>
+            <th>DescripciÃ³n</th>
         </tr>';
 
 foreach ($cats as $c) {
@@ -30,9 +31,12 @@ foreach ($cats as $c) {
 $tablaCategorias .= '</table>';
 
 $contenidoPrincipal = <<<EOS
-    <h1>Categorías</h1>
+    <h1>CategorÃ­as</h1>
     $tablaCategorias
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
+
+
+
 

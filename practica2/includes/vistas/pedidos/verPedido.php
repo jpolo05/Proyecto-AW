@@ -1,19 +1,19 @@
 <?php
-require_once __DIR__.'/../../auth.php';
-verificarAcceso('Cliente');
+use es\ucm\fdi\aw\Pedido;
 
-require_once __DIR__ . '/../../mysql/pedido_mysql.php';
+require_once __DIR__.'/../../config.php';
+\es\ucm\fdi\aw\Auth::verificarAcceso('Cliente');
 
 $numeroPedido = $_GET['numeroPedido'] ?? 0;
 
-$pedido = pedido_listar($numeroPedido);
+$pedido = Pedido::listarDetalle($numeroPedido);
 
 $tituloPagina = 'Contenido Pedido';
 
 $lineaPedido = '
     <table border="1" cellpadding="8">
         <tr>
-            <th>Número Pedido</th>
+            <th>NÃƒÂºmero Pedido</th>
             <th>Producto</th>
             <th>Cantidad</th>
             <th>Subtotal</th>
@@ -26,7 +26,7 @@ foreach ($pedido as $fila) {
         <td>$numeroPedido</td>
         <td>{$fila['idProducto']}</td>
         <td>{$fila['cantidad']}</td>
-        <td>{$fila['subtotal']} €</td>
+        <td>{$fila['subtotal']} Ã¢â€šÂ¬</td>
     </tr>";
 }
 
@@ -34,10 +34,10 @@ $lineaPedido .= '</table>';
 
 if($_SESSION['rol'] === 'Cliente') {
     $url = RUTA_APP . 'index.php';
-    $txt = "⬅️Volver a inicio";
+    $txt = "Ã¢Â¬â€¦Ã¯Â¸ÂVolver a inicio";
 } else {
     $url = "listarPedidos.php";
-    $txt = "⬅️Volver a pedidos";
+    $txt = "Ã¢Â¬â€¦Ã¯Â¸ÂVolver a pedidos";
 }
 
 $contenidoPrincipal = <<<EOS
@@ -49,4 +49,8 @@ $contenidoPrincipal = <<<EOS
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
+
+
+
+
 

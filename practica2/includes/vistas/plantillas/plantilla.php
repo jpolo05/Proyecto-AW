@@ -10,11 +10,11 @@
         <?php require(RAIZ_APP.'/vistas/comun/cabecera.php');?>
             
         <main>
-            <?php require(RAIZ_APP.'/vistas/comun/sidebarIzq.php');?>
+            <?php require(RAIZ_APP.'/vistas/comun/sideBarIzq.php');?>
             <article>
                 <?= $contenidoPrincipal ?>
             </article>
-            <?php require(RAIZ_APP.'/vistas/comun/sidebarDer.php');?>
+            <?php require(RAIZ_APP.'/vistas/comun/sideBarDer.php');?>
         </main>
 
         <?php require(RAIZ_APP.'/vistas/comun/pie.php');?>

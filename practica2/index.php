@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once __DIR__.'/includes/config.php';
 
 $tituloPagina = 'Portada';
@@ -15,15 +14,15 @@ $contenidoPrincipal = <<<EOS
     <br>
     <div class="center separation">
         <div>
-            <img src="img/personas.jpg" width="200" alt="Personas comiendo"><br>
+            <img src="img/ui/personas.jpg" width="200" alt="Personas comiendo"><br>
             Personas comiendo
         </div>
         <div>
-            <img src="img/tienda.jpg" width="200" alt="Nuestro local"><br>
+            <img src="img/ui/tienda.jpg" width="200" alt="Nuestro local"><br>
             Nuestro local
         </div>
         <div>
-            <img src="img/producto.jpg" width="200" alt="Nuestros productos"><br>
+            <img src="img/ui/producto.jpg" width="200" alt="Nuestros productos"><br>
             Nuestros productos
         </div>
     </div>
@@ -37,9 +36,9 @@ $contenidoPrincipal = <<<EOS
     </div>
     <br>
     <div class="center">
-        <img src="img/facebook.png" width="40" alt="Facebook"> &nbsp;&nbsp;&nbsp;
-        <img src="img/x.png" width="40" alt="X"> &nbsp;&nbsp;&nbsp;
-        <img src="img/instagram.png" width="40" alt="Instagram">
+        <img src="img/ui/facebook.png" width="40" alt="Facebook"> &nbsp;&nbsp;&nbsp;
+        <img src="img/ui/x.png" width="40" alt="X"> &nbsp;&nbsp;&nbsp;
+        <img src="img/ui/instagram.png" width="40" alt="Instagram">
     </div>
 </div>
 EOS;

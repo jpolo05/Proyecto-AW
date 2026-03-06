@@ -1,28 +1,31 @@
 <?php
-require_once 'includes/auth.php';
-verificarAcceso('Cocinero');
+use es\ucm\fdi\aw\Pedido;
 
-require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/mysql/pedido_mysql.php';
+require_once __DIR__.'/../../config.php';
+\es\ucm\fdi\aw\Auth::verificarAcceso('Cocinero');
+
+require_once __DIR__.'/../../config.php';
 
 $nombreUsuario = $_SESSION['nombre'] ?? 'Cocinero';
 $apellidosUsuario = $_SESSION['apellidos'] ?? '';
+$rutaProcesarPedido = RUTA_APP.'includes/vistas/pedidos/procesarPedido.php';
+$rutaVerPedido = RUTA_APP.'includes/vistas/pedidos/verPedido.php';
+$rutaInicio = RUTA_APP.'index.php';
 
-$pedidos = pedidos_listar();
+$pedidos = Pedido::listar();
 $columnaPreparacion = '';
 $columnaCocinando = '';
 
 if ($pedidos) {
     foreach ($pedidos as $p) {
-        
-        if ($p['estado'] === 'En preparación') {
+        if ($p['estado'] === 'En preparaciÃƒÂ³n') {
             $columnaPreparacion .= "
-            <div class='pedido'> 
+            <div class='pedido'>
                 Pedido: #{$p['numeroPedido']}<br>
                 Cliente: {$p['cliente']}<br>
                 Para {$p['tipo']}<br>
-                Total: {$p['total']}€<br>
-                <form action='includes/vistas/pedidos/procesarPedido.php' method='POST'>
+                Total: {$p['total']}Ã¢â€šÂ¬<br>
+                <form action='{$rutaProcesarPedido}' method='POST'>
                     <input type='hidden' name='numeroPedido' value='{$p['numeroPedido']}'>
                     <button type='submit' class='button-estandar'>Tomar Pedido</button>
                 </form>
@@ -35,7 +38,7 @@ if ($pedidos) {
                 Cliente: {$p['cliente']}<br>
                 Cocinero: {$p['cocinero']}<br>
                 Para {$p['tipo']}<br>
-                <a href='includes/vistas/pedidos/verPedido.php?numeroPedido={$p['numeroPedido']}'>
+                <a href='{$rutaVerPedido}?numeroPedido={$p['numeroPedido']}'>
                     <button class='button-estandar'>Ver Pedido</button>
                 </a>
             </div>
@@ -44,7 +47,7 @@ if ($pedidos) {
     }
 }
 
-$tituloPagina = 'Administración - Bistro FDI';
+$tituloPagina = 'AdministraciÃƒÂ³n - Bistro FDI';
 
 $contenidoPrincipal = <<<EOS
 <div>
@@ -62,7 +65,7 @@ $contenidoPrincipal = <<<EOS
         </thead>
         <tbody>
             <tr>
-                <th>En preparación</th>
+                <th>En preparaciÃƒÂ³n</th>
                 <th>Cocinando</th>
             </tr>
             <tr>
@@ -73,8 +76,12 @@ $contenidoPrincipal = <<<EOS
     </table>
 
     <br><br>
-    <a href="index.php"><button class="button-estandar">Volver al Inicio</button></a>
+    <a href="$rutaInicio"><button class="button-estandar">Volver al Inicio</button></a>
 </div>
 EOS;
 
-require __DIR__.'/includes/vistas/plantillas/plantilla.php';
+require __DIR__.'/../plantillas/plantilla.php';
+
+
+
+

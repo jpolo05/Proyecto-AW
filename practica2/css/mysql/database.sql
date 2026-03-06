@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS productos (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(120) NOT NULL,
   descripcion TEXT NOT NULL,
-  id_categoria INT NOT NULL,
+  id_categoria INT NULL,
   precio_base DECIMAL(10,2) NOT NULL,
   iva TINYINT NOT NULL,
   disponible TINYINT(1) NOT NULL DEFAULT 1,

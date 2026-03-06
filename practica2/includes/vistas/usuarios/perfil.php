@@ -1,16 +1,19 @@
 <?php
-require_once __DIR__.'/../../auth.php';
-verificarAcceso('Cliente');
-
 require_once __DIR__.'/../../config.php';
-require_once __DIR__.'/../../mysql/conexion.php';
+\es\ucm\fdi\aw\Auth::verificarAcceso('Cliente');
 
 $user = $_SESSION['user'] ?? 'Usuario';
 $nombre = $_SESSION['nombre'] ?? '';
 $apellidos = $_SESSION['apellidos'] ?? '';
 $email = $_SESSION['email'] ?? '';
 $rol = $_SESSION['rol'] ?? 'Cliente';
-$imagen = $_SESSION['imagen'] ?? RUTA_IMGS.'/uploads/usuarios/default.jpg';
+$imagenSesion = $_SESSION['imagen'] ?? 'img/uploads/usuarios/default.jpg';
+
+if (preg_match('/^https?:\\/\\//', $imagenSesion) === 1 || str_starts_with($imagenSesion, RUTA_APP)) {
+    $imagen = $imagenSesion;
+} else {
+    $imagen = RUTA_APP.ltrim($imagenSesion, '/');
+}
 
 $tituloPagina = 'Perfil';
 
@@ -35,3 +38,6 @@ $contenidoPrincipal = <<<EOS
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
+
+
+

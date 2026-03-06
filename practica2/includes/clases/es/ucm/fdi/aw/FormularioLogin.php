@@ -1,0 +1,74 @@
+<?php
+namespace es\ucm\fdi\aw;
+
+class FormularioLogin extends Formulario
+{
+    public function __construct()
+    {
+        parent::__construct('formLogin');
+    }
+
+    protected function generaCamposFormulario(&$datos)
+    {
+        $nombreUsuario = $datos['nombreUsuario'] ?? '';
+
+        $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
+        $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'password'], $this->errores, 'span', ['class' => 'error']);
+
+        return <<<EOF
+        $htmlErroresGlobales
+        <fieldset>
+            <legend>Usuario y contrasena</legend>
+            <div>
+                <label for="nombreUsuario">Nombre de usuario:</label>
+                <input id="nombreUsuario" type="text" name="nombreUsuario" value="$nombreUsuario" />
+                {$erroresCampos['nombreUsuario']}
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input id="password" type="password" name="password" />
+                {$erroresCampos['password']}
+            </div>
+            <div>
+                <button type="reset" name="limpiar" class="button-estandar">Reset</button>
+                <button type="submit" name="login" class="button-estandar">Entrar</button>
+            </div>
+        </fieldset>
+        EOF;
+    }
+
+    protected function procesaFormulario(&$datos)
+    {
+        $this->errores = [];
+
+        $nombreUsuario = trim($datos['nombreUsuario'] ?? '');
+        $nombreUsuario = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if (!$nombreUsuario) {
+            $this->errores['nombreUsuario'] = 'El nombre de usuario no puede estar vacio.';
+        }
+
+        $password = trim($datos['password'] ?? '');
+        $password = filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if (!$password) {
+            $this->errores['password'] = 'El password no puede estar vacio.';
+        }
+
+        if (count($this->errores) === 0) {
+            $usuario = Usuario::login($nombreUsuario, $password);
+            if (!$usuario) {
+                $this->errores[] = 'El usuario o el password no coinciden.';
+                return;
+            }
+
+            $_SESSION['login'] = true;
+            $_SESSION['user'] = $usuario->getNombreUsuario();
+            $_SESSION['nombre'] = $usuario->getNombre();
+            $_SESSION['apellidos'] = $usuario->getApellidos();
+            $_SESSION['email'] = $usuario->getEmail();
+            $_SESSION['rol'] = $usuario->getRol();
+            $_SESSION['imagen'] = $usuario->getImagen();
+
+            $this->urlRedireccion = Usuario::rutaPorRol($usuario->getRol());
+        }
+    }
+}

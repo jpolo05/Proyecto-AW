@@ -1,6 +1,6 @@
 <?php
 function mostrarSaludo() {
-	$rutaUsuarios = RUTA_APP.'includes/vistas/usuarios';
+	$rutaUsuarios = rtrim(RUTA_APP, '/');
 	$html='';
 	if (isset($_SESSION["login"]) && ($_SESSION["login"]===true)) {
 		return "Bienvenido, {$_SESSION['nombre']} <br><a href='{$rutaUsuarios}/logout.php'>(salir)</a>";
@@ -11,15 +11,16 @@ function mostrarSaludo() {
 }
 
 $aux = '';
+$ruta = RUTA_APP.'index.php';
 switch ($_SESSION['rol'] ?? '') {
 	case 'Gerente':
 		$ruta = RUTA_APP.'admin.php';
 		break;
 	case 'Cocinero':
-		$ruta = RUTA_APP.'cocinero.php';
+		$ruta = RUTA_APP.'includes/vistas/paneles/cocinero.php';
 		break;
 	case 'Camarero':
-		$ruta = RUTA_APP.'camarero.php';
+		$ruta = RUTA_APP.'includes/vistas/paneles/camarero.php';
 		break;
 	default:
 		$aux = 'class = "none"';
@@ -28,7 +29,7 @@ switch ($_SESSION['rol'] ?? '') {
 ?>
 <header>
 	<h1>
-		<a href="<?= RUTA_APP.'index.php' ?>"><img src="<?= RUTA_IMGS.'bistroFDILogo.png' ?>" alt="Logo Bistro FDI" width="100" height="100"></a>
+		<a href="<?= RUTA_APP.'index.php' ?>"><img src="<?= RUTA_IMGS.'ui/bistroFDILogo.png' ?>" alt="Logo Bistro FDI" width="100" height="100"></a>
 	</h1>
 	<h2>
 		<a href="<?= $ruta ?>"<?= $aux ?>>

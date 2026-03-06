@@ -1,23 +1,20 @@
 <?php
-use es\ucm\fdi\aw\Producto;
 
-require_once __DIR__.'/../../config.php';
-\es\ucm\fdi\aw\Auth::verificarAcceso('Gerente');
+require_once __DIR__.'/includes/config.php';
 
-$prods = Producto::listar();
-
-$tituloPagina = 'Listado Productos';
+$productos = \es\ucm\fdi\aw\Producto::listar();
+$tituloPagina = 'Carta';
 
 $tablaProductos = '
     <table border="1" cellpadding="6">
         <tr>
             <th>ID</th>
             <th>Nombre</th>
-            <th>DescripciÃ³n</th>
+            <th>Descripción</th>
             <th>Precio Base</th>
         </tr>';
 
-foreach ($prods as $p) {
+foreach ($productos as $p) {
     $id = (int)$p['id'];
     $nombre = $p['nombre'];
     $descripcion = $p['descripcion'];
@@ -28,18 +25,14 @@ foreach ($prods as $p) {
         <td>$id</td>
         <td>$nombre</td>
         <td>$descripcion</td>
-        <td>$precioBase</td>
+        <td>$precioBase €</td>
     </tr>";
 }
 $tablaProductos .= '</table>';
 
 $contenidoPrincipal = <<<EOS
-    <h1>Productos</h1>
+    <h1>Carta</h1>
     $tablaProductos
 EOS;
 
-require __DIR__.'/../plantillas/plantilla.php';
-
-
-
-
+require __DIR__.'/includes/vistas/plantillas/plantilla.php';
