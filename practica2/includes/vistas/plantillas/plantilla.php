@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
     <title><?= $tituloPagina ?></title>
-    <link rel="stylesheet" href="<?= RUTA_APP.'css/custom.css' ?>">
+    <link rel="stylesheet" href="<?= RUTA_CSS.'custom.css' ?>">
 </head>
 <body>
     <div class="contenedor">
