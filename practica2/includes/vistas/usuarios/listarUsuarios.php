@@ -1,8 +1,10 @@
 <?php
 require_once __DIR__.'/../../config.php';
+use \es\ucm\fdi\aw\Usuario;
+use \es\ucm\fdi\aw\FormularioActualizaRol;
 \es\ucm\fdi\aw\Auth::verificarAcceso('Gerente');
 
-$users = \es\ucm\fdi\aw\Usuario::listar();
+$users = Usuario::listar();
 
 $tituloPagina = 'Listado Usuarios';
 $editando = $_GET['user'] ?? null;
@@ -29,7 +31,7 @@ foreach ($users as $u) {
     $tablaUsuarios .= "<td>$email</td>";
 
     if ($editando === $user) {
-        $formRol = new \es\ucm\fdi\aw\FormularioActualizaRol($user, $rolActual);
+        $formRol = new FormularioActualizaRol($user, $rolActual);
         $htmlFormRol = $formRol->gestiona();
         $tablaUsuarios .= "<td colspan='2'>$htmlFormRol <a href='listarUsuarios.php'>Cancelar</a></td>";
     } else {

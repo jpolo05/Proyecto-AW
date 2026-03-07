@@ -1,9 +1,10 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
+use \es\ucm\fdi\aw\FormularioLogin;
 
 $tituloPagina = 'Login';
-$formulario = new \es\ucm\fdi\aw\FormularioLogin();
+$formulario = new FormularioLogin();
 $htmlFormularioLogin = $formulario->gestiona();
 
 $contenidoPrincipal = <<<EOS

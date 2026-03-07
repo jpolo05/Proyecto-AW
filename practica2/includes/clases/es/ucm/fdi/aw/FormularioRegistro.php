@@ -69,6 +69,11 @@ class FormularioRegistro extends Formulario
                     </select>
                 </div>
                 <div>
+                    <label for="imagenURL">Sube tu foto:</label>
+                    <input id="imagen" type="file" name="imagenURL>
+                    <br>
+                </div>
+                <div>
                     <button type="reset" name="limpiar" class="button-estandar">Reset</button>
                     <button type="submit" name="registro" class="button-estandar">Crear cuenta</button>
                 </div>

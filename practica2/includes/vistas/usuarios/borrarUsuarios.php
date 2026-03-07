@@ -1,15 +1,16 @@
 <?php
 require_once __DIR__.'/../../config.php';
+use \es\ucm\fdi\aw\FormularioBorrar;
 \es\ucm\fdi\aw\Auth::verificarAcceso('Cliente');
 
 require_once __DIR__.'/../../config.php';
 
 $tituloPagina = 'Eliminar mi usuario';
-$formulario = new \es\ucm\fdi\aw\FormularioBorrar();
+$formulario = new FormularioBorrar();
 $htmlFormulario = $formulario->gestiona();
 
 $contenidoPrincipal = <<<EOS
-<h1>EliminaciÃ³n de cuenta</h1>
+<h1>Eliminación de cuenta</h1>
 $htmlFormulario
 EOS;
 
