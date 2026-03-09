@@ -1,12 +1,14 @@
-<?php require_once __DIR__.'/../../config.php';
-?>
+<?php require_once __DIR__.'/../../config.php'; ?>
 
 <nav>
-	<h3>Navegación</h3>
+	<h3>Navegacion</h3>
 	<ul>
 		<li><a href="<?= RUTA_APP ?>index.php">Inicio</a></li>
+		<?php if (($_SESSION['rol'] ?? '') === 'Gerente') : ?>
+			<li><a href="<?= RUTA_APP ?>includes/vistas/paneles/gerente.php">Panel gerente</a></li>
+		<?php endif; ?>
 		<li><a href="<?= RUTA_APP ?>includes/vistas/productos/listarProductos.php">Carta</a></li>
 		<li><a href="<?= RUTA_APP ?>includes/vistas/pedidos/verPedido.php">Mis pedidos</a></li>
-		<li><a href="<?= RUTA_APP ?>includes/vistas/usuarios/perfil.php">Mi Perfil</a></li>
+		<li><a href="<?= RUTA_APP ?>includes/vistas/usuarios/perfil.php">Mi perfil</a></li>
 	</ul>
 </nav>

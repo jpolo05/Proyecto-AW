@@ -1,8 +1,9 @@
-<?php
+﻿<?php
+use es\ucm\fdi\aw\Auth;
 use es\ucm\fdi\aw\Pedido;
 
 require_once __DIR__.'/../../config.php';
-\es\ucm\fdi\aw\Auth::verificarAcceso('Cliente');
+Auth::verificarAcceso('Cliente');
 
 $numeroPedido = $_GET['numeroPedido'] ?? 0;
 
@@ -13,7 +14,7 @@ $tituloPagina = 'Contenido Pedido';
 $lineaPedido = '
     <table border="1" cellpadding="8">
         <tr>
-            <th>Número Pedido</th>
+            <th>NÃºmero Pedido</th>
             <th>Producto</th>
             <th>Cantidad</th>
             <th>Subtotal</th>
@@ -49,3 +50,5 @@ $contenidoPrincipal = <<<EOS
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
+
+

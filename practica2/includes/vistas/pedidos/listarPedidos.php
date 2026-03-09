@@ -1,8 +1,9 @@
-<?php
+﻿<?php
+use es\ucm\fdi\aw\Auth;
 use es\ucm\fdi\aw\Pedido;
 
 require_once __DIR__.'/../../config.php';
-\es\ucm\fdi\aw\Auth::verificarAcceso('Gerente');
+Auth::verificarAcceso('Gerente');
 
 require_once __DIR__.'/../../config.php';
 $pedidos = Pedido::listar();
@@ -12,7 +13,7 @@ $tituloPagina = 'Listado Pedidos';
 $tablaPedidos = '
     <table border="1" cellpadding="8">
         <tr>
-            <th>NÃƒÂºmero Pedido</th>
+            <th>NÃƒÆ’Ã‚Âºmero Pedido</th>
             <th>Estado</th>
             <th>Tipo</th>
             <th>Cocinero</th>
@@ -37,7 +38,7 @@ foreach ($pedidos as $p) {
         <td>$tipo</td>
         <td>$cocinero</td>
         <td><img src='$foto' width='50' height='50'></td>
-        <td>$total Ã¢â€šÂ¬</td>
+        <td>$total ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬</td>
         <td>
             <a href='verPedido.php?numeroPedido=$numeroPedido'>
                 <button>Ver Pedido</button>
@@ -53,6 +54,8 @@ $contenidoPrincipal = <<<EOS
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
+
+
 
 
 

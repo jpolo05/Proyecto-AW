@@ -1,8 +1,9 @@
-<?php
+﻿<?php
+use es\ucm\fdi\aw\Auth;
 use es\ucm\fdi\aw\Pedido;
 
 require_once __DIR__.'/../../config.php';
-\es\ucm\fdi\aw\Auth::verificarAcceso('Cocinero');//De momento solo a partir de cocinero
+Auth::verificarAcceso('Cocinero');//De momento solo a partir de cocinero
 
 require_once __DIR__.'/../../config.php';
 
@@ -21,6 +22,8 @@ if ($exito) {
     header('Location: '.RUTA_APP.'error.php?error=procesaPedido-Error%20sql');
 }
 exit;
+
+
 
 
 

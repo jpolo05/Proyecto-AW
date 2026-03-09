@@ -1,6 +1,6 @@
-<?php
+﻿<?php
 require_once __DIR__.'/../../config.php';
-use \es\ucm\fdi\aw\FormularioBorrarPedido;
+use es\ucm\fdi\aw\FormularioBorrarPedido;
 
 require_once __DIR__.'/../../config.php';
 
@@ -9,11 +9,13 @@ $formulario = new FormularioBorrarPedido();
 $htmlFormulario = $formulario->gestiona();
 
 $contenidoPrincipal = <<<EOS
-<h1>Eliminación de pedido</h1>
+<h1>EliminaciÃ³n de pedido</h1>
 $htmlFormulario
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
+
+
 
 
 

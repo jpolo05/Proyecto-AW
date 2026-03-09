@@ -1,8 +1,9 @@
-<?php
+﻿<?php
+use es\ucm\fdi\aw\Auth;
 use es\ucm\fdi\aw\Pedido;
 
 require_once __DIR__.'/../../config.php';
-\es\ucm\fdi\aw\Auth::verificarAcceso('Cocinero');
+Auth::verificarAcceso('Cocinero');
 
 require_once __DIR__.'/../../config.php';
 
@@ -18,13 +19,13 @@ $columnaCocinando = '';
 
 if ($pedidos) {
     foreach ($pedidos as $p) {
-        if ($p['estado'] === 'En preparaciÃƒÂ³n') {
+        if ($p['estado'] === 'En preparaciÃƒÆ’Ã‚Â³n') {
             $columnaPreparacion .= "
             <div class='pedido'>
                 Pedido: #{$p['numeroPedido']}<br>
                 Cliente: {$p['cliente']}<br>
                 Para {$p['tipo']}<br>
-                Total: {$p['total']}Ã¢â€šÂ¬<br>
+                Total: {$p['total']}ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬<br>
                 <form action='{$rutaProcesarPedido}' method='POST'>
                     <input type='hidden' name='numeroPedido' value='{$p['numeroPedido']}'>
                     <button type='submit' class='button-estandar'>Tomar Pedido</button>
@@ -47,7 +48,7 @@ if ($pedidos) {
     }
 }
 
-$tituloPagina = 'AdministraciÃƒÂ³n - Bistro FDI';
+$tituloPagina = 'AdministraciÃƒÆ’Ã‚Â³n - Bistro FDI';
 
 $contenidoPrincipal = <<<EOS
 <div>
@@ -65,7 +66,7 @@ $contenidoPrincipal = <<<EOS
         </thead>
         <tbody>
             <tr>
-                <th>En preparaciÃƒÂ³n</th>
+                <th>En preparaciÃƒÆ’Ã‚Â³n</th>
                 <th>Cocinando</th>
             </tr>
             <tr>
@@ -81,6 +82,8 @@ $contenidoPrincipal = <<<EOS
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
+
+
 
 
 

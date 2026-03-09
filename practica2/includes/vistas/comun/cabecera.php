@@ -12,10 +12,10 @@ function mostrarSaludo() {
 
 $aux = '';
 $ruta = RUTA_APP.'index.php';
-switch ($_SESSION['rol'] ?? '') {
-	case 'Gerente':
-		$ruta = RUTA_APP.'admin.php';
-		break;
+	switch ($_SESSION['rol'] ?? '') {
+		case 'Gerente':
+			$ruta = RUTA_APP.'includes/vistas/paneles/gerente.php';
+			break;
 	case 'Cocinero':
 		$ruta = RUTA_APP.'includes/vistas/paneles/cocinero.php';
 		break;

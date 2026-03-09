@@ -1,7 +1,8 @@
-<?php
+﻿<?php
+use es\ucm\fdi\aw\Auth;
 require_once __DIR__.'/../../config.php';
-use \es\ucm\fdi\aw\FormularioActualizacion;
-\es\ucm\fdi\aw\Auth::verificarAcceso('Cliente');
+use es\ucm\fdi\aw\FormularioActualizacion;
+Auth::verificarAcceso('Cliente');
 
 require_once __DIR__.'/../../config.php';
 
@@ -15,6 +16,8 @@ $htmlFormulario
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
+
+
 
 
 
