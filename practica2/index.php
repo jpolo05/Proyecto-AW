@@ -28,11 +28,11 @@ $contenidoPrincipal = <<<EOS
     </div>
     <br>
     <div class="center">
-        <a href="carta.php"><button class="button-estandar">Ver carta</button></a>
+        <a href="includes/vistas/productos/listarProductos.php"><button class="button-estandar">Ver carta</button></a>
     </div>
     <br>
     <div class="center">
-        <a href="carta.php"><button class="button-estandar">¡ORDENA AHORA!</button></a>
+        <a href="includes/vistas/productos/listarProductos.php"><button class="button-estandar">¡ORDENA AHORA!</button></a>
     </div>
     <br>
     <div class="center">

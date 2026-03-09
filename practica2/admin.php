@@ -31,7 +31,7 @@ $contenidoPrincipal = <<<EOS
                 </a>
             </td>
             <td>
-                <a href="includes/vistas/productos/listar.php">
+                <a href="includes/vistas/productos/listarProductos.php">
                     <button>Productos</button>
                 </a>
             </td>
