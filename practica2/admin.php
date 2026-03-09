@@ -2,13 +2,13 @@
 require_once __DIR__.'/includes/config.php';
 \es\ucm\fdi\aw\Auth::verificarAcceso('Gerente');
 
-$tituloPagina = 'AdministraciÃ³n - Bistro FDI';
+$tituloPagina = 'Administración - Bistro FDI';
 
 $contenidoPrincipal = <<<EOS
 <div>
-    <h2 class="titulo">Panel de AdministraciÃ³n - Bistro FDI</h2>
+    <h2 class="titulo">Panel de Administración - Bistro FDI</h2>
     <hr>
-    <p class="desc">Seleccione una categorÃ­a para gestionar los recursos del sistema:</p>
+    <p class="desc">Seleccione una categoría para gestionar los recursos del sistema:</p>
     <br>
 
     <table class="control-panel">
@@ -20,7 +20,7 @@ $contenidoPrincipal = <<<EOS
             </td>
             <td>
                 <a href="includes/vistas/categorias/listar.php">
-                    <button>CategorÃ­as</button>
+                    <button>Categorías</button>
                 </a>
             </td>
         </tr>

@@ -5,7 +5,10 @@ class FormularioRegistro extends Formulario
 {
     public function __construct()
     {
-        parent::__construct('formRegistro', ['urlRedireccion' => RUTA_APP.'login.php']);
+        parent::__construct('formRegistro', [
+        'urlRedireccion' => RUTA_APP.'login.php',
+        'enctype' => 'multipart/form-data'
+    ]);
     }
 
     protected function generaCamposFormulario(&$datos)

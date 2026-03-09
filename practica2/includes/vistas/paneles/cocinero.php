@@ -1,5 +1,6 @@
 <?php
 use es\ucm\fdi\aw\Pedido;
+use es\ucm\fdi\aw\FormularioActualizaPedido;
 
 require_once __DIR__.'/../../config.php';
 \es\ucm\fdi\aw\Auth::verificarAcceso('Cocinero');
@@ -8,7 +9,6 @@ require_once __DIR__.'/../../config.php';
 
 $nombreUsuario = $_SESSION['nombre'] ?? 'Cocinero';
 $apellidosUsuario = $_SESSION['apellidos'] ?? '';
-$rutaProcesarPedido = RUTA_APP.'includes/vistas/pedidos/procesarPedido.php';
 $rutaVerPedido = RUTA_APP.'includes/vistas/pedidos/verPedido.php';
 $rutaInicio = RUTA_APP.'index.php';
 
@@ -18,17 +18,17 @@ $columnaCocinando = '';
 
 if ($pedidos) {
     foreach ($pedidos as $p) {
-        if ($p['estado'] === 'En preparaciÃƒÂ³n') {
+        if ($p['estado'] === 'En preparación') {
+            $form = new FormularioActualizaPedido($p['numeroPedido'], 'Cocinando');
+            $htmlForm = $form->gestiona();
+        
             $columnaPreparacion .= "
             <div class='pedido'>
                 Pedido: #{$p['numeroPedido']}<br>
                 Cliente: {$p['cliente']}<br>
                 Para {$p['tipo']}<br>
-                Total: {$p['total']}Ã¢â€šÂ¬<br>
-                <form action='{$rutaProcesarPedido}' method='POST'>
-                    <input type='hidden' name='numeroPedido' value='{$p['numeroPedido']}'>
-                    <button type='submit' class='button-estandar'>Tomar Pedido</button>
-                </form>
+                Total: {$p['total']}€<br>
+                $htmlForm
             </div>
         ";
         } else if ($p['estado'] === 'Cocinando') {
@@ -38,8 +38,8 @@ if ($pedidos) {
                 Cliente: {$p['cliente']}<br>
                 Cocinero: {$p['cocinero']}<br>
                 Para {$p['tipo']}<br>
-                <a href='{$rutaVerPedido}?numeroPedido={$p['numeroPedido']}'>
-                    <button class='button-estandar'>Ver Pedido</button>
+                <a href='{$rutaVerPedido}?numeroPedido={$p['numeroPedido']}&accion=cocinar'>
+                    <button class='button-estandar'>Cocinar</button>
                 </a>
             </div>
         ";
@@ -47,7 +47,7 @@ if ($pedidos) {
     }
 }
 
-$tituloPagina = 'AdministraciÃƒÂ³n - Bistro FDI';
+$tituloPagina = 'Administración - Bistro FDI';
 
 $contenidoPrincipal = <<<EOS
 <div>
@@ -65,7 +65,7 @@ $contenidoPrincipal = <<<EOS
         </thead>
         <tbody>
             <tr>
-                <th>En preparaciÃƒÂ³n</th>
+                <th>En preparación</th>
                 <th>Cocinando</th>
             </tr>
             <tr>

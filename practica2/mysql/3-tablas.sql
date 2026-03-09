@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `pedidos` (
   `fecha` DATETIME NOT NULL,
   `cliente` VARCHAR(20) NOT NULL,
   `cocinero` VARCHAR(20) NULL,
-  `imagenCocinero` VARCHAR(255) NOT NULL DEFAULT '/uploads/usuarios/default.jpg',
+  `imagenCocinero` VARCHAR(255) NOT NULL DEFAULT 'img/uploads/usuarios/default.jpg',
   `total` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_cliente_pedidos`
@@ -63,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `linea_pedido` (
   `idProducto` INT NOT NULL,
   `cantidad` SMALLINT NOT NULL DEFAULT 1,
   `subtotal` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  `estado` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`numeroPedido`, `idProducto`),
   CONSTRAINT `fk_idPedido_lineaPedido`
     FOREIGN KEY (`numeroPedido`) REFERENCES `pedidos`(`id`) ON DELETE CASCADE,

@@ -4,8 +4,10 @@ use \es\ucm\fdi\aw\FormularioBorrarPedido;
 
 require_once __DIR__.'/../../config.php';
 
+$numeroPedido = $_GET['numeroPedido'] ?? 0;
+
 $tituloPagina = 'Eliminar pedido';
-$formulario = new FormularioBorrarPedido();
+$formulario = new FormularioBorrarPedido($numeroPedido);
 $htmlFormulario = $formulario->gestiona();
 
 $contenidoPrincipal = <<<EOS
