@@ -13,7 +13,7 @@ $tablaProductos = '
         <tr>
             <th>ID</th>
             <th>Nombre</th>
-            <th>DescripciÃ³n</th>
+            <th>Descripción</th>
             <th>Precio Base</th>
         </tr>';
 

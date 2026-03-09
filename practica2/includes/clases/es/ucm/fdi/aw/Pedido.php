@@ -60,5 +60,20 @@ class Pedido {
         mysqli_stmt_close($stmt);
         return $ok;
     }
+
+    private static function borrar($id) {
+        if(!$id){
+            return false;
+        }
+
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM Pedidos WHERE Pedidos.id = %d", $id);
+
+        if (!$conn->query($query)){
+            error_log("Error BD ({$conn->erno}): {$conn->error}");
+            return false;
+        }
+        return true;
+    }
 }
 

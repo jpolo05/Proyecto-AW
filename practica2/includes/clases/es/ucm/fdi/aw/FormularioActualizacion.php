@@ -91,7 +91,7 @@ class FormularioActualizacion extends Formulario
                 </select>
             </div>
             <div>
-                <button type="reset" class="button-estandar">Reset</button>
+                <button type="reset" name="limpiar" class="button-estandar">Reset</button>
                 <button type="submit" name="update" class="button-estandar">Actualizar</button>
             </div>
         </fieldset>

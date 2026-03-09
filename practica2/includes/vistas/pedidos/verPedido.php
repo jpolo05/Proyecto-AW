@@ -13,7 +13,7 @@ $tituloPagina = 'Contenido Pedido';
 $lineaPedido = '
     <table border="1" cellpadding="8">
         <tr>
-            <th>NÃƒÂºmero Pedido</th>
+            <th>Número Pedido</th>
             <th>Producto</th>
             <th>Cantidad</th>
             <th>Subtotal</th>
@@ -26,7 +26,7 @@ foreach ($pedido as $fila) {
         <td>$numeroPedido</td>
         <td>{$fila['idProducto']}</td>
         <td>{$fila['cantidad']}</td>
-        <td>{$fila['subtotal']} Ã¢â€šÂ¬</td>
+        <td>{$fila['subtotal']} eur.</td>
     </tr>";
 }
 
@@ -34,10 +34,10 @@ $lineaPedido .= '</table>';
 
 if($_SESSION['rol'] === 'Cliente') {
     $url = RUTA_APP . 'index.php';
-    $txt = "Ã¢Â¬â€¦Ã¯Â¸ÂVolver a inicio";
+    $txt = "Volver a inicio";
 } else {
     $url = "listarPedidos.php";
-    $txt = "Ã¢Â¬â€¦Ã¯Â¸ÂVolver a pedidos";
+    $txt = "Volver a pedidos";
 }
 
 $contenidoPrincipal = <<<EOS
@@ -49,8 +49,3 @@ $contenidoPrincipal = <<<EOS
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
-
-
-
-
-
