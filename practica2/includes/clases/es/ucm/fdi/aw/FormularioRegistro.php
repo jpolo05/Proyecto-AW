@@ -34,32 +34,32 @@ class FormularioRegistro extends Formulario
                 <legend>Datos Usuario</legend>
                 <div>
                     <label for="nombreUsuario">Usuario:</label>
-                    <input id="nombreUsuario" type="text" name="nombreUsuario" value="$nombreUsuario" required />
+                    <input id="nombreUsuario" type="text" name="nombreUsuario" value="$nombreUsuario" required>
                     {$erroresCampos['nombreUsuario']}
                 </div>
                 <div>
                     <label for="nombre">Nombre:</label>
-                    <input id="nombre" type="text" name="nombre" value="$nombre" required />
+                    <input id="nombre" type="text" name="nombre" value="$nombre" required>
                     {$erroresCampos['nombre']}
                 </div>
                 <div>
                     <label for="apellidos">Apellidos:</label>
-                    <input id="apellidos" type="text" name="apellidos" value="$apellidos" required />
+                    <input id="apellidos" type="text" name="apellidos" value="$apellidos" required>
                     {$erroresCampos['apellidos']}
                 </div>
                 <div>
                     <label for="email">Email:</label>
-                    <input id="email" type="email" name="email" value="$email" required />
+                    <input id="email" type="email" name="email" value="$email" required>
                     {$erroresCampos['email']}
                 </div>
                 <div>
                     <label for="password">Contrasena:</label>
-                    <input id="password" type="password" name="password" required />
+                    <input id="password" type="password" name="password" required>
                     {$erroresCampos['password']}
                 </div>
                 <div>
                     <label for="password2">Reintroduce la contrasena:</label>
-                    <input id="password2" type="password" name="password2" required />
+                    <input id="password2" type="password" name="password2" required>
                     {$erroresCampos['password2']}
                 </div>
                 <div>
@@ -73,8 +73,7 @@ class FormularioRegistro extends Formulario
                 </div>
                 <div>
                     <label for="imagenURL">Sube tu foto:</label>
-                    <input id="imagenURL" type="file" name="imagenURL" />
-                    <br>
+                    <input id="imagenURL" type="file" name="imagenURL">
                 </div>
                 <div>
                     <button type="reset" name="limpiar" class="button-estandar">Reset</button>

@@ -99,20 +99,19 @@ class Pedido {
         return $ok;
     }
 
-    public static function borrar($numeroPedido): bool {
-        $conn = Aplicacion::getInstance()->getConexionBd();
-
-        $sql = "DELETE FROM pedidos WHERE numeroPedido = ?";
-        $stmt = mysqli_prepare($conn, $sql);
-
-        if (!$stmt) {
+    public static function borrar($id): bool {
+        if(!$id){
             return false;
         }
 
-        mysqli_stmt_bind_param($stmt, "i", $numeroPedido);
-        $ok = mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
-        return $ok;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM Pedidos WHERE Pedidos.id = %d", $id);
+
+        if (!$conn->query($query)){
+            error_log("Error BD ({$conn->erno}): {$conn->error}");
+            return false;
+        }
+        return true;
     }
     
     public static function actualizarEstadoLinea($numeroPedido, $idProducto): bool {

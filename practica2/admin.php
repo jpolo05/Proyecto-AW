@@ -1,6 +1,7 @@
-<?php
+﻿<?php
+use es\ucm\fdi\aw\Auth;
 require_once __DIR__.'/includes/config.php';
-\es\ucm\fdi\aw\Auth::verificarAcceso('Gerente');
+Auth::verificarAcceso('Gerente');
 
 $tituloPagina = 'Administración - Bistro FDI';
 
@@ -44,5 +45,7 @@ $contenidoPrincipal = <<<EOS
 EOS;
 
 require __DIR__.'/includes/vistas/plantillas/plantilla.php';
+header('Location: '.RUTA_APP.'includes/vistas/paneles/gerente.php');
+exit;
 
 

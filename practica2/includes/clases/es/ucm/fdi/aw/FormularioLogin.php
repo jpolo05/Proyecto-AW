@@ -21,12 +21,12 @@ class FormularioLogin extends Formulario
             <legend>Usuario y contrasena</legend>
             <div>
                 <label for="nombreUsuario">Nombre de usuario:</label>
-                <input id="nombreUsuario" type="text" name="nombreUsuario" value="$nombreUsuario" />
+                <input id="nombreUsuario" type="text" name="nombreUsuario" value="$nombreUsuario">
                 {$erroresCampos['nombreUsuario']}
             </div>
             <div>
                 <label for="password">Password:</label>
-                <input id="password" type="password" name="password" />
+                <input id="password" type="password" name="password">
                 {$erroresCampos['password']}
             </div>
             <div>

@@ -1,6 +1,7 @@
-<?php
+﻿<?php
+use es\ucm\fdi\aw\Auth;
 require_once __DIR__.'/../../config.php';
-\es\ucm\fdi\aw\Auth::verificarAcceso('Cliente');
+Auth::verificarAcceso('Cliente');
 
 $user = $_SESSION['user'] ?? 'Usuario';
 $nombre = $_SESSION['nombre'] ?? '';
@@ -40,6 +41,8 @@ $contenidoPrincipal = <<<EOS
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
+
+
 
 
 

@@ -12,10 +12,10 @@ function mostrarSaludo() {
 
 $aux = '';
 $ruta = RUTA_APP.'index.php';
-switch ($_SESSION['rol'] ?? '') {
-	case 'Gerente':
-		$ruta = RUTA_APP.'admin.php';
-		break;
+	switch ($_SESSION['rol'] ?? '') {
+		case 'Gerente':
+			$ruta = RUTA_APP.'includes/vistas/paneles/gerente.php';
+			break;
 	case 'Cocinero':
 		$ruta = RUTA_APP.'includes/vistas/paneles/cocinero.php';
 		break;
@@ -32,7 +32,7 @@ switch ($_SESSION['rol'] ?? '') {
 		<a href="<?= RUTA_APP.'index.php' ?>"><img src="<?= RUTA_IMGS.'ui/bistroFDILogo.png' ?>" alt="Logo Bistro FDI" width="100" height="100"></a>
 	</h1>
 	<h2>
-		<a href="<?= $ruta ?>"<?= $aux ?>>
+		<a href="<?= $ruta ?>" <?= $aux ?>>
 			Panel de Control
 		</a>
 	</h2>

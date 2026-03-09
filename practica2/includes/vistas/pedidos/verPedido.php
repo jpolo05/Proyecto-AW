@@ -1,10 +1,11 @@
-<?php
+﻿<?php
+use es\ucm\fdi\aw\Auth;
 use es\ucm\fdi\aw\Pedido;
 use es\ucm\fdi\aw\FormularioActualizaLineaPedido;
 use es\ucm\fdi\aw\FormularioActualizaPedido;
 
 require_once __DIR__.'/../../config.php';
-\es\ucm\fdi\aw\Auth::verificarAcceso('Cliente');
+Auth::verificarAcceso('Cliente');
 
 $numeroPedido = $_GET['numeroPedido'] ?? 0;
 $accionSolicitada = $_GET['accion'] ?? null;
@@ -85,8 +86,5 @@ $contenidoPrincipal = <<<EOS
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
-
-
-
 
 

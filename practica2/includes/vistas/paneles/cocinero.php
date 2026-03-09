@@ -1,9 +1,10 @@
-<?php
+﻿<?php
+use es\ucm\fdi\aw\Auth;
 use es\ucm\fdi\aw\Pedido;
 use es\ucm\fdi\aw\FormularioActualizaPedido;
 
 require_once __DIR__.'/../../config.php';
-\es\ucm\fdi\aw\Auth::verificarAcceso('Cocinero');
+Auth::verificarAcceso('Cocinero');
 
 require_once __DIR__.'/../../config.php';
 
@@ -81,6 +82,8 @@ $contenidoPrincipal = <<<EOS
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
+
+
 
 
 

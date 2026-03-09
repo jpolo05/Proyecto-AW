@@ -1,7 +1,8 @@
-<?php
+﻿<?php
+use es\ucm\fdi\aw\Auth;
 require_once __DIR__.'/../../config.php';
-use \es\ucm\fdi\aw\FormularioBorrar;
-\es\ucm\fdi\aw\Auth::verificarAcceso('Cliente');
+use es\ucm\fdi\aw\FormularioBorrar;
+Auth::verificarAcceso('Cliente');
 
 require_once __DIR__.'/../../config.php';
 
@@ -10,11 +11,13 @@ $formulario = new FormularioBorrar();
 $htmlFormulario = $formulario->gestiona();
 
 $contenidoPrincipal = <<<EOS
-<h1>Eliminación de cuenta</h1>
+<h1>EliminaciÃ³n de cuenta</h1>
 $htmlFormulario
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
+
+
 
 
 

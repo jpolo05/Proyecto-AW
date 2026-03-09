@@ -1,8 +1,9 @@
-<?php
+﻿<?php
+use es\ucm\fdi\aw\Auth;
 require_once __DIR__.'/../../config.php';
-use \es\ucm\fdi\aw\Usuario;
-use \es\ucm\fdi\aw\FormularioActualizaRol;
-\es\ucm\fdi\aw\Auth::verificarAcceso('Gerente');
+use es\ucm\fdi\aw\Usuario;
+use es\ucm\fdi\aw\FormularioActualizaRol;
+Auth::verificarAcceso('Gerente');
 
 $users = Usuario::listar();
 
@@ -50,6 +51,8 @@ $contenidoPrincipal = <<<EOS
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
+
+
 
 
 

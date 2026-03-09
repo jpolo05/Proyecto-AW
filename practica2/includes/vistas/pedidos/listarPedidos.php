@@ -1,8 +1,9 @@
-<?php
+﻿<?php
+use es\ucm\fdi\aw\Auth;
 use es\ucm\fdi\aw\Pedido;
 
 require_once __DIR__.'/../../config.php';
-\es\ucm\fdi\aw\Auth::verificarAcceso('Gerente');
+Auth::verificarAcceso('Gerente');
 
 $pedidos = Pedido::listar();
 
@@ -52,6 +53,8 @@ $contenidoPrincipal = <<<EOS
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
+
+
 
 
 
