@@ -70,7 +70,7 @@ class FormularioRegistro extends Formulario
                 </div>
                 <div>
                     <label for="imagenURL">Sube tu foto:</label>
-                    <input id="imagen" type="file" name="imagenURL>
+                    <input id="imagenURL" type="file" name="imagenURL" />
                     <br>
                 </div>
                 <div>
