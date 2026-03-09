@@ -8,7 +8,6 @@
 			<li><a href="<?= RUTA_APP ?>includes/vistas/paneles/gerente.php">Panel gerente</a></li>
 		<?php endif; ?>
 		<li><a href="<?= RUTA_APP ?>includes/vistas/productos/listarProductos.php">Carta</a></li>
-		<li><a href="<?= RUTA_APP ?>includes/vistas/pedidos/verPedido.php">Mis pedidos</a></li>
 		<li><a href="<?= RUTA_APP ?>includes/vistas/usuarios/perfil.php">Mi perfil</a></li>
 	</ul>
 </nav>
