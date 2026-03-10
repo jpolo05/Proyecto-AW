@@ -77,11 +77,11 @@ class FormularioActualizacion extends Formulario
                 {$erroresCampos['password']}
             </div>
             <div>
-                <label for="password_confirm">Confirme contraseÃ±a:</label>
+                <label for="password_confirm">Confirme contrasena:</label>
                 <input id="password_confirm" type="password" name="password_confirm" $estadoInput />
                 {$erroresCampos['password_confirm']}
             </div>
-            <a href="$enlaceBoton" type="button" $estadoBoton>Editar contraseÃ±a</a>
+            <a href="$enlaceBoton" type="button" $estadoBoton>Editar contrasena</a>
             <div>
                 $selectRol
                 {$erroresCampos['rol']}
@@ -140,7 +140,7 @@ class FormularioActualizacion extends Formulario
 
         if ($pass1 !== '' || $pass2 !== '') {
             if ($pass1 !== $pass2) {
-                $this->errores['password_confirm'] = 'Las contraseÃ±as no coinciden.';
+                $this->errores['password_confirm'] = 'Las contrasenas no coinciden.';
             }
             $hash = password_hash($pass1, PASSWORD_DEFAULT);
         } else {
