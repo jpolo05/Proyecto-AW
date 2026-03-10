@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 use es\ucm\fdi\aw\Auth;
 use es\ucm\fdi\aw\Categoria;
 
@@ -7,14 +7,14 @@ Auth::verificarAcceso('Cliente');
 
 $cats = Categoria::listar();
 
-$tituloPagina = 'Listado Categorías';
+$tituloPagina = 'Listado Categorias';
 
 $tablaCategorias = '
     <table border="1" cellpadding="6">
         <tr>
             <th>ID</th>
             <th>Nombre</th>
-            <th>Descripción</th>
+            <th>Descripcion</th>
         </tr>';
 
 foreach ($cats as $c) {
@@ -32,7 +32,7 @@ foreach ($cats as $c) {
 $tablaCategorias .= '</table>';
 
 $contenidoPrincipal = <<<EOS
-    <h1>Categorías</h1>
+    <h1>Categorias</h1>
     $tablaCategorias
 EOS;
 
