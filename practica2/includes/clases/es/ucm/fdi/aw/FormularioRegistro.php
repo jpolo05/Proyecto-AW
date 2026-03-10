@@ -141,21 +141,21 @@ class FormularioRegistro extends Formulario
                 } elseif ($archivo['size'] > 2000000) { // 2MB
                     $this->errores[] = 'La imagen es demasiado grande (máximo 2MB).';
                 } else {
-                    // Generamos un nombre único para evitar colisiones y problemas con caracteres raros
+
                     $nuevoNombre = uniqid('img_', true) . '.' . $extension;
-                    // Ajusta RUTA_ALMACENAMIENTO a tu carpeta real de destino
-                    $rutaBase = __DIR__ . '/../../../../../../img/uploads/usuarios/';
-                    $rutaDestinoFisica = $rutaBase . $nuevoNombre;
+                    
+                    $rutaRelativaDestino = 'img/uploads/usuarios/' . $nuevoNombre;
+                    $rutaDestinoFisica = dirname(RAIZ_APP) . '/' . $rutaRelativaDestino;
 
                     if (move_uploaded_file($archivo['tmp_name'], $rutaDestinoFisica)) {
-                        $imagenFinal = 'img/uploads/usuarios/' . $nuevoNombre;
+                        $imagenFinal = $rutaRelativaDestino;
                     } else {
                         $this->errores[] = 'Error al guardar la imagen. Revisa los permisos de la carpeta.';
                     }
                 }
             }
         }
-        
+
         if (count($this->errores) === 0) {
             if (Usuario::buscaUsuario($nombreUsuario)) {
                 $this->errores[] = 'El usuario ya existe.';
