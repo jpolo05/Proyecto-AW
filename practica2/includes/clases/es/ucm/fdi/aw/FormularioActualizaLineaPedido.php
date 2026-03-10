@@ -8,12 +8,11 @@ class FormularioActualizaLineaPedido extends Formulario
 
     public function __construct($numPedido, $idProd)
     {
-        // Redireccionamos a la misma página para ver el cambio reflejado
         parent::__construct('formActualizaLinea_' . $numPedido . '_' . $idProd, [
-            'urlRedireccion' => RUTA_APP . "includes/vistas/pedidos/verPedido.php?numeroPedido=$numPedido&accion=cocinar"
+            'urlRedireccion' => RUTA_APP . "includes/vistas/pedidos/visualizarPedido.php?numeroPedido=$numPedido&accion=cocinar"
         ]);
-        $this->numPedido = $numPedido;
-        $this->idProd = $idProd;
+        $this->numPedido = (int)$numPedido;
+        $this->idProd = (int)$idProd;
     }
 
     protected function generaCamposFormulario(&$datos)
@@ -27,6 +26,17 @@ class FormularioActualizaLineaPedido extends Formulario
 
     protected function procesaFormulario(&$datos)
     {
-        Pedido::actualizarEstadoLinea($this->numPedido, $this->idProd);
+        $this->errores = [];
+        $rol = $_SESSION['rol'] ?? '';
+
+        if (!in_array($rol, ['Cocinero', 'Gerente'], true)) {
+            $this->errores[] = "No tienes permisos para actualizar lineas de pedido.";
+            return;
+        }
+
+        $ok = Pedido::actualizarEstadoLinea($this->numPedido, $this->idProd);
+        if (!$ok) {
+            $this->errores[] = "No se pudo actualizar la linea del pedido.";
+        }
     }
 }

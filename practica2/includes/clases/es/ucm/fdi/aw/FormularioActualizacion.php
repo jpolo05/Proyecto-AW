@@ -15,6 +15,11 @@ class FormularioActualizacion extends Formulario
         $apellidos = $datos['apellidos'] ?? ($_SESSION['apellidos'] ?? '');
         $email = $datos['email'] ?? ($_SESSION['email'] ?? '');
         $rol = $datos['rol'] ?? ($_SESSION['rol'] ?? 'Cliente');
+        $user = htmlspecialchars((string)$user, ENT_QUOTES, 'UTF-8');
+        $nombre = htmlspecialchars((string)$nombre, ENT_QUOTES, 'UTF-8');
+        $apellidos = htmlspecialchars((string)$apellidos, ENT_QUOTES, 'UTF-8');
+        $email = htmlspecialchars((string)$email, ENT_QUOTES, 'UTF-8');
+        $rol = htmlspecialchars((string)$rol, ENT_QUOTES, 'UTF-8');
         $imagen = $datos['imagen'] ?? ($_SESSION['imagen'] ?? 'default.jpg');
         $imagenBase = basename((string)$imagen);
         $isAdmin = $rol === 'Gerente';
@@ -72,11 +77,11 @@ class FormularioActualizacion extends Formulario
                 {$erroresCampos['password']}
             </div>
             <div>
-                <label for="password_confirm">Confirme contraseña:</label>
+                <label for="password_confirm">Confirme contraseÃ±a:</label>
                 <input id="password_confirm" type="password" name="password_confirm" $estadoInput />
                 {$erroresCampos['password_confirm']}
             </div>
-            <a href="$enlaceBoton" type="button" $estadoBoton>Editar contraseña</a>
+            <a href="$enlaceBoton" type="button" $estadoBoton>Editar contraseÃ±a</a>
             <div>
                 $selectRol
                 {$erroresCampos['rol']}
@@ -114,7 +119,8 @@ class FormularioActualizacion extends Formulario
         $pass1 = $datos['password'] ?? '';
         $pass2 = $datos['password_confirm'] ?? '';
         $imagen = $datos['imagen'] ?? ($_SESSION['imagen'] ?? 'default.jpg');
-        $rol = $datos['rol'] ?? ($_SESSION['rol'] ?? 'Cliente');
+        $rolSesion = $_SESSION['rol'] ?? 'Cliente';
+        $rol = $datos['rol'] ?? $rolSesion;
 
         if ($nombre === '') {
             $this->errores['nombre'] = 'El nombre es obligatorio.';
@@ -126,9 +132,15 @@ class FormularioActualizacion extends Formulario
             $this->errores['email'] = 'Email invalido.';
         }
 
+        if ($rolSesion !== 'Gerente') {
+            $rol = $rolSesion;
+        } elseif (!in_array($rol, ['Cliente', 'Cocinero', 'Camarero', 'Gerente'], true)) {
+            $this->errores['rol'] = 'Rol invalido.';
+        }
+
         if ($pass1 !== '' || $pass2 !== '') {
             if ($pass1 !== $pass2) {
-                $this->errores['password_confirm'] = 'Las contraseñas no coinciden.';
+                $this->errores['password_confirm'] = 'Las contraseÃ±as no coinciden.';
             }
             $hash = password_hash($pass1, PASSWORD_DEFAULT);
         } else {
@@ -153,6 +165,7 @@ class FormularioActualizacion extends Formulario
         $_SESSION['imagen'] = $usuarioActualizado ? $usuarioActualizado->getImagen() : $imagen;
         $_SESSION['isAdmin'] = ($rol === 'Gerente');
 
-        $this->urlRedireccion = RUTA_APP.'includes/vistas/usuarios/perfil.php';
+        $this->urlRedireccion = RUTA_APP.'includes/vistas/usuarios/visualizarUsuarios.php';
     }
 }
+

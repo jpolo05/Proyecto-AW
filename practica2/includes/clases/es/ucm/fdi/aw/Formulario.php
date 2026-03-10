@@ -90,6 +90,14 @@ abstract class Formulario
             return $this->generaFormulario();
         }
 
+        if (strcasecmp('GET', $this->method) !== 0) {
+            $token = $datos['csrfToken'] ?? null;
+            if (!Auth::validaCsrfToken($token)) {
+                $this->errores[] = 'Token CSRF invalido o ausente.';
+                return $this->generaFormulario($datos);
+            }
+        }
+
         $this->procesaFormulario($datos);
         $esValido = count($this->errores) === 0;
 
@@ -122,6 +130,7 @@ abstract class Formulario
     protected function generaFormulario(&$datos = [])
     {
         $htmlCamposFormularios = $this->generaCamposFormulario($datos);
+        $csrfToken = Auth::getCsrfToken();
 
         $classAtt = $this->classAtt != null ? "class=\"{$this->classAtt}\"" : '';
         $enctypeAtt = $this->enctype != null ? "enctype=\"{$this->enctype}\"" : '';
@@ -129,6 +138,7 @@ abstract class Formulario
         return <<<EOS
         <form method="{$this->method}" action="{$this->action}" id="{$this->formId}" {$classAtt} {$enctypeAtt}>
             <input type="hidden" name="formId" value="{$this->formId}">
+            <input type="hidden" name="csrfToken" value="{$csrfToken}">
             $htmlCamposFormularios
         </form>
         EOS;

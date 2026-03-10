@@ -4,6 +4,7 @@ use es\ucm\fdi\aw\Categoria;
 
 require_once __DIR__.'/../../config.php';
 Auth::verificarAcceso('Gerente');
+$csrfToken = Auth::getCsrfToken();
 
 $id = (int)($_GET['id'] ?? $_POST['id'] ?? 0);
 $categoria = $id > 0 ? Categoria::buscaPorId($id) : null;
@@ -14,8 +15,12 @@ if (!$categoria) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $ok = Categoria::borrar($id);
-    $msg = $ok ? 'Categoria+borrada' : 'No+se+pudo+borrar+la+categoria';
+    if (!Auth::validaCsrfToken($_POST['csrfToken'] ?? null)) {
+        $msg = 'Token+CSRF+invalido';
+    } else {
+        $ok = Categoria::borrar($id);
+        $msg = $ok ? 'Categoria+borrada' : 'No+se+pudo+borrar+la+categoria';
+    }
     header('Location: '.RUTA_APP.'includes/vistas/categorias/listarCategorias.php?msg='.$msg);
     exit;
 }
@@ -37,6 +42,7 @@ $contenidoPrincipal = <<<EOS
         <li><strong>Descripcion:</strong> {$descripcion}</li>
     </ul>
     <form method="POST" action="$action">
+        <input type="hidden" name="csrfToken" value="$csrfToken">
         <input type="hidden" name="id" value="{$idMostrado}">
         <button type="submit">Confirmar</button>
         <a href="$urlCancelar"><button type="button">Cancelar</button></a>

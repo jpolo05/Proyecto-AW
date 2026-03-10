@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 use es\ucm\fdi\aw\FormularioRegistro;
 require_once __DIR__.'/includes/config.php';
 

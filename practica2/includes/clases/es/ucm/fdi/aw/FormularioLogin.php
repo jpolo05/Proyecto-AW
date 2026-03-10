@@ -11,6 +11,7 @@ class FormularioLogin extends Formulario
     protected function generaCamposFormulario(&$datos)
     {
         $nombreUsuario = $datos['nombreUsuario'] ?? '';
+        $nombreUsuario = htmlspecialchars((string)$nombreUsuario, ENT_QUOTES, 'UTF-8');
 
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'password'], $this->errores, 'span', ['class' => 'error']);
@@ -60,6 +61,7 @@ class FormularioLogin extends Formulario
                 return;
             }
 
+            session_regenerate_id(true);
             $_SESSION['login'] = true;
             $_SESSION['user'] = $usuario->getNombreUsuario();
             $_SESSION['nombre'] = $usuario->getNombre();

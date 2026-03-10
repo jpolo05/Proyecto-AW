@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 use es\ucm\fdi\aw\Auth;
 require_once __DIR__.'/../../config.php';
 use es\ucm\fdi\aw\Usuario;
@@ -21,23 +21,28 @@ $tablaUsuarios = '
         </tr>';
 
 foreach ($users as $u) {
-    $user = $u['user'];
-    $nombre = $u['nombre'];
-    $email = $u['email'];
-    $rolActual = $u['rol'];
+    $userRaw = (string)$u['user'];
+    $nombreRaw = (string)$u['nombre'];
+    $emailRaw = (string)$u['email'];
+    $rolActualRaw = (string)$u['rol'];
+
+    $user = htmlspecialchars($userRaw, ENT_QUOTES, 'UTF-8');
+    $nombre = htmlspecialchars($nombreRaw, ENT_QUOTES, 'UTF-8');
+    $email = htmlspecialchars($emailRaw, ENT_QUOTES, 'UTF-8');
+    $rolActual = htmlspecialchars($rolActualRaw, ENT_QUOTES, 'UTF-8');
 
     $tablaUsuarios .= '<tr>';
     $tablaUsuarios .= "<td>$user</td>";
     $tablaUsuarios .= "<td>$nombre</td>";
     $tablaUsuarios .= "<td>$email</td>";
 
-    if ($editando === $user) {
-        $formRol = new FormularioActualizaRol($user, $rolActual);
+    if ($editando === $userRaw) {
+        $formRol = new FormularioActualizaRol($userRaw, $rolActualRaw);
         $htmlFormRol = $formRol->gestiona();
         $tablaUsuarios .= "<td colspan='2'>$htmlFormRol <a href='listarUsuarios.php'>Cancelar</a></td>";
     } else {
         $tablaUsuarios .= "<td>$rolActual</td>";
-        $tablaUsuarios .= "<td><a href='listarUsuarios.php?user=$user'><button class='button-estandar'>Editar</button></a></td>";
+        $tablaUsuarios .= "<td><a href='listarUsuarios.php?user=".urlencode($userRaw)."'><button class='button-estandar'>Editar</button></a></td>";
     }
 
     $tablaUsuarios .= '</tr>';

@@ -3,7 +3,8 @@ function mostrarSaludo() {
 	$rutaUsuarios = rtrim(RUTA_APP, '/');
 	$html='';
 	if (isset($_SESSION["login"]) && ($_SESSION["login"]===true)) {
-		return "Bienvenido, {$_SESSION['nombre']} <br><a href='{$rutaUsuarios}/logout.php'>(salir)</a>";
+		$nombre = htmlspecialchars((string)($_SESSION['nombre'] ?? ''), ENT_QUOTES, 'UTF-8');
+		return "Bienvenido, {$nombre} <br><a href='{$rutaUsuarios}/logout.php'>(salir)</a>";
 	} else {
 		return "Usuario desconocido. <br><a href='{$rutaUsuarios}/login.php'>Login</a> <a href='{$rutaUsuarios}/registro.php'>Registro</a>";
 	}

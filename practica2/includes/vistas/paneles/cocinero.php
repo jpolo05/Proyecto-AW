@@ -1,54 +1,70 @@
-﻿<?php
+<?php
 use es\ucm\fdi\aw\Auth;
-use es\ucm\fdi\aw\Pedido;
 use es\ucm\fdi\aw\FormularioActualizaPedido;
+use es\ucm\fdi\aw\Pedido;
 
 require_once __DIR__.'/../../config.php';
 Auth::verificarAcceso('Cocinero');
 
-require_once __DIR__.'/../../config.php';
+function h(string $text): string
+{
+    return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+}
 
-$nombreUsuario = $_SESSION['nombre'] ?? 'Cocinero';
-$apellidosUsuario = $_SESSION['apellidos'] ?? '';
-$rutaVerPedido = RUTA_APP.'includes/vistas/pedidos/verPedido.php';
+$nombreUsuario = h((string)($_SESSION['nombre'] ?? 'Cocinero'));
+$apellidosUsuario = h((string)($_SESSION['apellidos'] ?? ''));
+$rutaVerPedido = RUTA_APP.'includes/vistas/pedidos/visualizarPedido.php';
 $rutaInicio = RUTA_APP.'index.php';
 
 $pedidos = Pedido::listar();
 $columnaPreparacion = '';
 $columnaCocinando = '';
 
-if ($pedidos) {
-    foreach ($pedidos as $p) {
-        if ($p['estado'] === 'En preparación') {
-            $form = new FormularioActualizaPedido($p['numeroPedido'], 'Cocinando');
-            $htmlForm = $form->gestiona();
-        
-            $columnaPreparacion .= "
+foreach ($pedidos as $p) {
+    $estado = (string)($p['estado'] ?? '');
+    $numeroPedido = (int)($p['numeroPedido'] ?? 0);
+    $cliente = h((string)($p['cliente'] ?? ''));
+    $tipo = h((string)($p['tipo'] ?? ''));
+    $total = number_format((float)($p['total'] ?? 0), 2, '.', '');
+
+    if ($estado === Pedido::ESTADO_EN_PREPARACION) {
+        $form = new FormularioActualizaPedido($numeroPedido, Pedido::ESTADO_COCINANDO, [
+            'urlRedireccion' => RUTA_APP.'includes/vistas/paneles/cocinero.php',
+        ]);
+        $htmlForm = $form->gestiona();
+
+        $columnaPreparacion .= "
             <div class='pedido'>
-                Pedido: #{$p['numeroPedido']}<br>
-                Cliente: {$p['cliente']}<br>
-                Para {$p['tipo']}<br>
-                Total: {$p['total']}€<br>
-                $htmlForm
+                Pedido: #{$numeroPedido}<br>
+                Cliente: {$cliente}<br>
+                Para {$tipo}<br>
+                Total: {$total} EUR<br>
+                {$htmlForm}
             </div>
         ";
-        } else if ($p['estado'] === 'Cocinando') {
-            $columnaCocinando .= "
+    } elseif ($estado === Pedido::ESTADO_COCINANDO) {
+        $cocinero = h((string)($p['cocinero'] ?? ''));
+        $urlCocinar = $rutaVerPedido.'?numeroPedido='.$numeroPedido.'&accion=cocinar';
+        $columnaCocinando .= "
             <div class='pedido'>
-                Pedido: #{$p['numeroPedido']}<br>
-                Cliente: {$p['cliente']}<br>
-                Cocinero: {$p['cocinero']}<br>
-                Para {$p['tipo']}<br>
-                <a href='{$rutaVerPedido}?numeroPedido={$p['numeroPedido']}&accion=cocinar'>
-                    <button class='button-estandar'>Cocinar</button>
-                </a>
+                Pedido: #{$numeroPedido}<br>
+                Cliente: {$cliente}<br>
+                Cocinero: {$cocinero}<br>
+                Para {$tipo}<br>
+                <a href='{$urlCocinar}'><button class='button-estandar'>Cocinar</button></a>
             </div>
         ";
-        }
     }
 }
 
-$tituloPagina = 'Administración - Bistro FDI';
+if ($columnaPreparacion === '') {
+    $columnaPreparacion = '<p>No hay pedidos en preparacion.</p>';
+}
+if ($columnaCocinando === '') {
+    $columnaCocinando = '<p>No hay pedidos cocinando.</p>';
+}
+
+$tituloPagina = 'Administracion - Bistro FDI';
 
 $contenidoPrincipal = <<<EOS
 <div>
@@ -66,7 +82,7 @@ $contenidoPrincipal = <<<EOS
         </thead>
         <tbody>
             <tr>
-                <th>En preparación</th>
+                <th>En preparacion</th>
                 <th>Cocinando</th>
             </tr>
             <tr>
@@ -82,9 +98,3 @@ $contenidoPrincipal = <<<EOS
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
-
-
-
-
-
-

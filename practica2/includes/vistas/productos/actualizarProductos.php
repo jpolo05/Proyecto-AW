@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 use es\ucm\fdi\aw\Auth;
 use es\ucm\fdi\aw\Categoria;
 use es\ucm\fdi\aw\Producto;
@@ -15,8 +15,13 @@ if (!$producto) {
 }
 
 $error = '';
+$csrfToken = Auth::getCsrfToken();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!Auth::validaCsrfToken($_POST['csrfToken'] ?? null)) {
+        $error = 'Token CSRF invalido.';
+    }
+
     $nombre = trim($_POST['nombre'] ?? '');
     $descripcion = trim($_POST['descripcion'] ?? '');
     $idCategoria = (int)($_POST['id_categoria'] ?? 0);
@@ -26,9 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ofertado = isset($_POST['ofertado']);
     $imagen = trim($_POST['imagen'] ?? '');
 
-    if ($nombre === '' || $descripcion === '' || $precioBase <= 0 || !in_array($iva, [4, 10, 21], true)) {
+    if ($error === '' && ($nombre === '' || $descripcion === '' || $precioBase <= 0 || !in_array($iva, [4, 10, 21], true))) {
         $error = 'Revisa los datos del formulario.';
-    } else {
+    } elseif ($error === '') {
         $ok = Producto::actualizar(
             $id,
             $nombre,
@@ -82,6 +87,7 @@ $contenidoPrincipal = <<<EOS
     <h1>Actualizar producto #{$id}</h1>
     $errorHtml
     <form method="POST" action="$action">
+        <input type="hidden" name="csrfToken" value="$csrfToken">
         <input type="hidden" name="id" value="{$id}">
         <p><label>Nombre: <input type="text" name="nombre" value="$nombre" required></label></p>
         <p><label>Descripcion: <textarea name="descripcion" required>$descripcion</textarea></label></p>

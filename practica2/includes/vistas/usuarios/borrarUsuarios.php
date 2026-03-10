@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 use es\ucm\fdi\aw\Auth;
 require_once __DIR__.'/../../config.php';
 use es\ucm\fdi\aw\FormularioBorrar;

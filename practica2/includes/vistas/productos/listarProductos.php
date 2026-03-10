@@ -19,6 +19,7 @@ if ($esGerente) {
                 <th>Categoria</th>
                 <th>Precio base</th>
                 <th>IVA (%)</th>
+                <th>Precio final</th>
                 <th>Disponible</th>
                 <th>Ofertado</th>
                 <th>Imagen</th>
@@ -32,6 +33,7 @@ if ($esGerente) {
         $categoria = htmlspecialchars($p['categoria'] ?? '-', ENT_QUOTES, 'UTF-8');
         $precioBase = number_format((float)($p['precio_base'] ?? 0), 2, '.', '');
         $iva = (int)($p['iva'] ?? 0);
+        $precioFinal = number_format(((float)($p['precio_base'] ?? 0)) * (1 + ($iva / 100)), 2, '.', '');
         $disponible = ((int)($p['disponible'] ?? 0) === 1) ? 'Si' : 'No';
         $ofertado = ((int)($p['ofertado'] ?? 0) === 1) ? 'Si' : 'No';
         $imagenRaw = $p['imagen'] ?? '';
@@ -45,6 +47,7 @@ if ($esGerente) {
 
         $urlEditar = RUTA_APP."includes/vistas/productos/actualizarProductos.php?id={$id}";
         $urlBorrar = RUTA_APP."includes/vistas/productos/borrarProductos.php?id={$id}";
+        $urlVisualizar = RUTA_APP."includes/vistas/productos/visualizarProductos.php?id={$id}";
 
         $tablaProductos .= "
         <tr>
@@ -54,10 +57,12 @@ if ($esGerente) {
             <td>{$categoria}</td>
             <td>{$precioBase}</td>
             <td>{$iva}</td>
+            <td>{$precioFinal}</td>
             <td>{$disponible}</td>
             <td>{$ofertado}</td>
             <td>{$imgHtml}</td>
             <td>
+                <a href='{$urlVisualizar}'><button>Visualizar</button></a>
                 <a href='{$urlEditar}'><button>Actualizar</button></a>
                 <a href='{$urlBorrar}'><button>Borrar</button></a>
             </td>
@@ -84,33 +89,43 @@ if ($esGerente) {
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Descripcion</th>
-                <th>Precio base</th>
-                <th>IVA (%)</th>
-                <th>Precio final</th>
+                <th>Imagen</th>
+                <th>Precio</th>
+                <th>Accion</th>
             </tr>';
 
     foreach ($prods as $p) {
         $id = (int)$p['id'];
         $nombre = htmlspecialchars($p['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
         $descripcion = htmlspecialchars($p['descripcion'] ?? '', ENT_QUOTES, 'UTF-8');
+        $imagenRaw = $p['imagen'] ?? '';
+        $imagen = htmlspecialchars($imagenRaw, ENT_QUOTES, 'UTF-8');
         $precioBase = (float)($p['precio_base'] ?? 0);
         $iva = (int)($p['iva'] ?? 0);
         $precioFinal = $precioBase + ($precioBase * $iva / 100);
+        $urlVisualizar = RUTA_APP."includes/vistas/productos/visualizarProductos.php?id={$id}";
+        $imgHtml = '-';
+        if ($imagenRaw !== '') {
+            $src = preg_match('/^https?:\/\//', $imagenRaw) ? $imagen : RUTA_APP.ltrim($imagenRaw, '/');
+            $imgHtml = "<img src='{$src}' alt='Imagen producto' width='70' height='70'>";
+        }
 
         $tablaCarta .= '
         <tr>
             <td>'.$id.'</td>
             <td>'.$nombre.'</td>
             <td>'.$descripcion.'</td>
-            <td>'.number_format($precioBase, 2, '.', '').'</td>
-            <td>'.$iva.'</td>
+            <td>'.$imgHtml.'</td>
             <td>'.number_format($precioFinal, 2, '.', '').'</td>
+            <td><a href="'.$urlVisualizar.'"><button>Ver</button></a></td>
         </tr>';
     }
     $tablaCarta .= '</table>';
+    $urlCrearPedido = RUTA_APP.'includes/vistas/pedidos/crearPedido.php';
 
     $contenidoPrincipal = <<<EOS
         <h1>Carta</h1>
+        <p><a href="$urlCrearPedido"><button>Crear pedido</button></a></p>
         $tablaCarta
     EOS;
 }

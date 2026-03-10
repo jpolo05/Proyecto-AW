@@ -17,6 +17,10 @@ class FormularioRegistro extends Formulario
         $nombre = $datos['nombre'] ?? '';
         $apellidos = $datos['apellidos'] ?? '';
         $email = $datos['email'] ?? '';
+        $nombreUsuario = htmlspecialchars((string)$nombreUsuario, ENT_QUOTES, 'UTF-8');
+        $nombre = htmlspecialchars((string)$nombre, ENT_QUOTES, 'UTF-8');
+        $apellidos = htmlspecialchars((string)$apellidos, ENT_QUOTES, 'UTF-8');
+        $email = htmlspecialchars((string)$email, ENT_QUOTES, 'UTF-8');
         $imagen = $datos['imagen'] ?? 'default.jpg';
 
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
@@ -134,6 +138,7 @@ class FormularioRegistro extends Formulario
                 return;
             }
 
+            session_regenerate_id(true);
             $_SESSION['login'] = true;
             $_SESSION['user'] = $usuario->getNombreUsuario();
             $_SESSION['nombre'] = $usuario->getNombre();

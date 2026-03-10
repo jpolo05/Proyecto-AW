@@ -223,7 +223,7 @@ class Usuario
 
     public function compruebaPassword($password)
     {
-        return password_verify($password, $this->password) || hash_equals($this->password, $password);
+        return password_verify($password, $this->password);
     }
 
     private static function normalizaImagen($imagen): string

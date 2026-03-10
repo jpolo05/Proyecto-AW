@@ -1,13 +1,13 @@
-﻿<?php
+<?php
 use es\ucm\fdi\aw\Auth;
 require_once __DIR__.'/../../config.php';
 Auth::verificarAcceso('Cliente');
 
-$user = $_SESSION['user'] ?? 'Usuario';
-$nombre = $_SESSION['nombre'] ?? '';
-$apellidos = $_SESSION['apellidos'] ?? '';
-$email = $_SESSION['email'] ?? '';
-$rol = $_SESSION['rol'] ?? 'Cliente';
+$user = htmlspecialchars((string)($_SESSION['user'] ?? 'Usuario'), ENT_QUOTES, 'UTF-8');
+$nombre = htmlspecialchars((string)($_SESSION['nombre'] ?? ''), ENT_QUOTES, 'UTF-8');
+$apellidos = htmlspecialchars((string)($_SESSION['apellidos'] ?? ''), ENT_QUOTES, 'UTF-8');
+$email = htmlspecialchars((string)($_SESSION['email'] ?? ''), ENT_QUOTES, 'UTF-8');
+$rol = htmlspecialchars((string)($_SESSION['rol'] ?? 'Cliente'), ENT_QUOTES, 'UTF-8');
 $imagenSesion = $_SESSION['imagen'] ?? 'img/uploads/usuarios/default.jpg';
 
 if (preg_match('/^https?:\\/\\//', $imagenSesion) === 1 || str_starts_with($imagenSesion, RUTA_APP)) {
@@ -17,7 +17,7 @@ if (preg_match('/^https?:\\/\\//', $imagenSesion) === 1 || str_starts_with($imag
 }
 
 $tituloPagina = 'Perfil';
-$rutaPedidos = RUTA_APP.'includes/vistas/pedidos/pedidosUsuario.php';
+$rutaPedidos = RUTA_APP.'includes/vistas/pedidos/listarPedidos.php';
 
 $contenidoPrincipal = <<<EOS
     <h1>MI PERFIL</h1>

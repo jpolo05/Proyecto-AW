@@ -37,6 +37,12 @@ class FormularioActualizaRol extends Formulario
     protected function procesaFormulario(&$datos)
     {
         $this->errores = [];
+        $rolSesion = $_SESSION['rol'] ?? '';
+        if ($rolSesion !== 'Gerente') {
+            $this->errores[] = 'No tienes permisos para actualizar roles.';
+            return;
+        }
+
         $rol = $datos['nuevoRol'] ?? '';
 
         if (!in_array($rol, ['Cliente', 'Cocinero', 'Camarero', 'Gerente'], true)) {

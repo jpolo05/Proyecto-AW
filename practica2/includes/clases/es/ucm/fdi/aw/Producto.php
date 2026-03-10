@@ -31,9 +31,10 @@ class Producto {
     public static function buscaPorId(int $id): ?array
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $sql = 'SELECT id, nombre, descripcion, id_categoria, precio_base, iva, disponible, ofertado, imagen
-                FROM productos
-                WHERE id = ? LIMIT 1';
+        $sql = 'SELECT p.id, p.nombre, p.descripcion, p.id_categoria, p.precio_base, p.iva, p.disponible, p.ofertado, p.imagen, c.nombre AS categoria
+                FROM productos p
+                LEFT JOIN categorias c ON p.id_categoria = c.id
+                WHERE p.id = ? LIMIT 1';
         $stmt = mysqli_prepare($conn, $sql);
         if (!$stmt) {
             return null;

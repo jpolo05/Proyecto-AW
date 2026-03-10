@@ -1,9 +1,10 @@
-﻿<?php
+<?php
 use es\ucm\fdi\aw\Auth;
 use es\ucm\fdi\aw\Producto;
 
 require_once __DIR__.'/../../config.php';
 Auth::verificarAcceso('Gerente');
+$csrfToken = Auth::getCsrfToken();
 
 $id = (int)($_GET['id'] ?? $_POST['id'] ?? 0);
 $producto = $id > 0 ? Producto::buscaPorId($id) : null;
@@ -14,8 +15,12 @@ if (!$producto) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $ok = Producto::desofertar($id);
-    $msg = $ok ? 'Producto+retirado+de+la+oferta' : 'No+se+pudo+retirar+el+producto';
+    if (!Auth::validaCsrfToken($_POST['csrfToken'] ?? null)) {
+        $msg = 'Token+CSRF+invalido';
+    } else {
+        $ok = Producto::desofertar($id);
+        $msg = $ok ? 'Producto+retirado+de+la+oferta' : 'No+se+pudo+retirar+el+producto';
+    }
     header('Location: '.RUTA_APP.'includes/vistas/productos/listarProductos.php?msg='.$msg);
     exit;
 }
@@ -38,6 +43,7 @@ $contenidoPrincipal = <<<EOS
         <li><strong>Descripcion:</strong> {$descripcion}</li>
     </ul>
     <form method="POST" action="$action">
+        <input type="hidden" name="csrfToken" value="$csrfToken">
         <input type="hidden" name="id" value="{$idMostrado}">
         <button type="submit">Confirmar</button>
         <a href="$urlCancelar"><button type="button">Cancelar</button></a>
