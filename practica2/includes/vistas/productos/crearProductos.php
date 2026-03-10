@@ -21,47 +21,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $iva = (int)($_POST['iva'] ?? 10);
     $disponible = isset($_POST['disponible']);
     $ofertado = isset($_POST['ofertado']);
-    $imagen = trim($_POST['imagen'] ?? '');
 
-    $archivoSubido = $_FILES['imagenArchivo'] ?? null;
-    if ($error === '' && $archivoSubido && is_array($archivoSubido)) {
-        if (($archivoSubido['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_OK) {
-            $tamMax = 2 * 1024 * 1024; // 2MB
-            $tam = (int)($archivoSubido['size'] ?? 0);
-            if ($tam <= 0 || $tam > $tamMax) {
-                $error = 'La imagen debe pesar entre 1 byte y 2MB.';
+    $imagenFinal = '';
+
+    if (isset($_FILES['imagenArchivo']) && $_FILES['imagenArchivo']['error'] !== UPLOAD_ERR_NO_FILE) {
+        if ($_FILES['imagenArchivo']['error'] !== UPLOAD_ERR_OK) {
+            $this->errores[] = 'Error al subir la imagen.';
+        } else {
+            $archivo = $_FILES['imagenArchivo'];
+            $extensionesValidas = ['jpg', 'jpeg', 'png'];
+            $extension = strtolower(pathinfo($archivo['name'], PATHINFO_EXTENSION));
+
+            if (!in_array($extension, $extensionesValidas)) {
+                $this->errores[] = 'Formato de imagen no permitido (solo JPG o PNG).';
+            } elseif ($archivo['size'] > 2000000) { // 2MB
+                $this->errores[] = 'La imagen es demasiado grande (máximo 2MB).';
             } else {
-                $tmp = $archivoSubido['tmp_name'] ?? '';
-                $nombreOriginal = (string)($archivoSubido['name'] ?? '');
-                $ext = strtolower(pathinfo($nombreOriginal, PATHINFO_EXTENSION));
-                $permitidas = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
 
-                if (!in_array($ext, $permitidas, true)) {
-                    $error = 'Formato de imagen no permitido.';
-                } elseif (!is_uploaded_file($tmp)) {
-                    $error = 'Error al procesar la imagen subida.';
+                $nuevoNombre = uniqid('img_', true) . '.' . $extension;
+                
+                $rutaRelativaDestino = 'img/uploads/productos/' . $nuevoNombre;
+                $rutaDestinoFisica = dirname(RAIZ_APP) . '/' . $rutaRelativaDestino;
+
+                if (move_uploaded_file($archivo['tmp_name'], $rutaDestinoFisica)) {
+                    $imagenFinal = $rutaRelativaDestino;
                 } else {
-                    $uploadsDir = dirname(RAIZ_APP).'/img/uploads/productos';
-                    if (!is_dir($uploadsDir)) {
-                        mkdir($uploadsDir, 0775, true);
-                    }
-
-                    try {
-                        $nombreFichero = bin2hex(random_bytes(16)).'.'.$ext;
-                    } catch (\Throwable $e) {
-                        $nombreFichero = uniqid('prod_', true).'.'.$ext;
-                    }
-                    $destino = $uploadsDir.'/'.$nombreFichero;
-
-                    if (!move_uploaded_file($tmp, $destino)) {
-                        $error = 'No se pudo guardar la imagen subida.';
-                    } else {
-                        $imagen = 'img/uploads/productos/'.$nombreFichero;
-                    }
+                    $this->errores[] = 'Error al guardar la imagen. Revisa los permisos de la carpeta.';
                 }
             }
-        } elseif (($archivoSubido['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE) {
-            $error = 'Fallo al subir la imagen.';
         }
     }
 
@@ -76,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $iva,
             $disponible,
             $ofertado,
-            $imagen !== '' ? $imagen : null
+            $imagenFinal !== '' ? $imagenFinal : null
         );
 
         if ($ok) {
@@ -123,8 +110,7 @@ $contenidoPrincipal = <<<EOS
             </select>
         </label></p>
         <p><label>Precio final: <input type="text" id="precio_final" readonly></label></p>
-        <p><label>Imagen desde ordenador: <input type="file" name="imagenArchivo" accept=".jpg,.jpeg,.png,.webp,.gif"></label></p>
-        <p><label>Imagen (ruta relativa o URL): <input type="text" name="imagen"></label></p>
+        <p><label>Imagen: <input type="file" name="imagenArchivo" accept=".jpg,.jpeg,.png,.webp,.gif"></label></p>
         <p><label><input type="checkbox" name="disponible" checked> Disponible</label></p>
         <p><label><input type="checkbox" name="ofertado" checked> Ofertado</label></p>
         <p>
