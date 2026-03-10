@@ -1,4 +1,4 @@
-﻿/*
+/*
   Recuerda deshabilitar "Enable foreign key checks" para evitar problemas al importar.
 */
 DROP TABLE IF EXISTS `linea_pedido`;
