@@ -125,14 +125,45 @@ class FormularioRegistro extends Formulario
             $this->errores['password2'] = 'Los passwords deben coincidir.';
         }
 
+        $imagenFinal = $datos['imagen'] ?? 'default.jpg';
+
+        // Si el usuario ha subido un archivo propio, este tiene prioridad
+        if (isset($_FILES['imagenURL']) && $_FILES['imagenURL']['error'] !== UPLOAD_ERR_NO_FILE) {
+            if ($_FILES['imagenURL']['error'] !== UPLOAD_ERR_OK) {
+                $this->errores[] = 'Error al subir la imagen.';
+            } else {
+                $archivo = $_FILES['imagenURL'];
+                $extensionesValidas = ['jpg', 'jpeg', 'png'];
+                $extension = strtolower(pathinfo($archivo['name'], PATHINFO_EXTENSION));
+
+                if (!in_array($extension, $extensionesValidas)) {
+                    $this->errores[] = 'Formato de imagen no permitido (solo JPG o PNG).';
+                } elseif ($archivo['size'] > 2000000) { // 2MB
+                    $this->errores[] = 'La imagen es demasiado grande (máximo 2MB).';
+                } else {
+                    // Generamos un nombre único para evitar colisiones y problemas con caracteres raros
+                    $nuevoNombre = uniqid('img_', true) . '.' . $extension;
+                    // Ajusta RUTA_ALMACENAMIENTO a tu carpeta real de destino
+                    $rutaBase = __DIR__ . '/../../../../../../img/uploads/usuarios/';
+                    $rutaDestinoFisica = $rutaBase . $nuevoNombre;
+
+                    if (move_uploaded_file($archivo['tmp_name'], $rutaDestinoFisica)) {
+                        $imagenFinal = 'img/uploads/usuarios/' . $nuevoNombre;
+                    } else {
+                        $this->errores[] = 'Error al guardar la imagen. Revisa los permisos de la carpeta.';
+                    }
+                }
+            }
+        }
+        
         if (count($this->errores) === 0) {
             if (Usuario::buscaUsuario($nombreUsuario)) {
                 $this->errores[] = 'El usuario ya existe.';
                 return;
             }
 
-            $imagen = $datos['imagen'] ?? 'default.jpg';
-            $usuario = Usuario::crea($nombreUsuario, $password, $nombre, $apellidos, $email, 'Cliente', $imagen);
+            $usuario = Usuario::crea($nombreUsuario, $password, $nombre, $apellidos, $email, 'Cliente', $imagenFinal);
+
             if (!$usuario) {
                 $this->errores[] = 'No se pudo registrar el usuario.';
                 return;
