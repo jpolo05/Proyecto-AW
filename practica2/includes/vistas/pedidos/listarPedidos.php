@@ -26,7 +26,7 @@ foreach ($pedidos as $p) {
     $estado = $p['estado'];
     $tipo = $p['tipo'];
     $cocinero = $p['cocinero'];
-    $foto = RUTA_IMGS;
+    $foto = RUTA_APP;
     $foto .= $p['imagenCocinero'];
     $total = $p['total'];
 

@@ -11,7 +11,7 @@ $formulario = new FormularioBorrarPedido($numeroPedido);
 $htmlFormulario = $formulario->gestiona();
 
 $contenidoPrincipal = <<<EOS
-<h1>EliminaciÃ³n de pedido</h1>
+<h1>Eliminación de pedido</h1>
 $htmlFormulario
 EOS;
 

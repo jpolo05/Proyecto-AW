@@ -7,14 +7,14 @@ Auth::verificarAcceso('Cliente');
 
 $cats = Categoria::listar();
 
-$tituloPagina = 'Listado CategorÃƒÂ­as';
+$tituloPagina = 'Listado Categorías';
 
 $tablaCategorias = '
     <table border="1" cellpadding="6">
         <tr>
             <th>ID</th>
             <th>Nombre</th>
-            <th>DescripciÃƒÂ³n</th>
+            <th>Descripción</th>
         </tr>';
 
 foreach ($cats as $c) {
@@ -32,7 +32,7 @@ foreach ($cats as $c) {
 $tablaCategorias .= '</table>';
 
 $contenidoPrincipal = <<<EOS
-    <h1>CategorÃƒÂ­as</h1>
+    <h1>Categorías</h1>
     $tablaCategorias
 EOS;
 

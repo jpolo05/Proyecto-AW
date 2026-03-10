@@ -10,7 +10,7 @@ $htmlFormularioLogin = $formulario->gestiona();
 $contenidoPrincipal = <<<EOS
 <h1>Acceso al sistema</h1>
 $htmlFormularioLogin
-<p>Â¿No tiene una cuenta? <a href="registro.php">RegÃ­strate aquÃ­</a></p>
+<p>¿No tiene una cuenta? <a href="registro.php">Regí­strate aquí­</a></p>
 EOS;
 
 require __DIR__.'/includes/vistas/plantillas/plantilla.php';
