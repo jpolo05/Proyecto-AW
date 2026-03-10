@@ -68,5 +68,21 @@ class Categoria {
         mysqli_stmt_close($stmt);
         return $ok;
     }
+
+    public static function actualizar(int $id, string $nombre, string $descripcion, ?string $imagen = null): bool
+    {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $sql = 'UPDATE categorias SET nombre = ?, descripcion = ?, imagen = ? WHERE id = ?';
+        $stmt = mysqli_prepare($conn, $sql);
+        if (!$stmt) {
+            return false;
+        }
+
+        $imagen = ($imagen !== null && $imagen !== '') ? $imagen : null;
+        mysqli_stmt_bind_param($stmt, 'sssi', $nombre, $descripcion, $imagen, $id);
+        $ok = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $ok;
+    }
 }
 
