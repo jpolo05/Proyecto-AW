@@ -5,7 +5,7 @@ class Categoria {
     public static function listar(): array {
         $conn = Aplicacion::getInstance()->getConexionBd();
 
-        $sql = "SELECT id, nombre, descripcion, imagen FROM categorias ORDER BY nombre";
+        $sql = "SELECT id, nombre, descripcion, imagen FROM categorias ORDER BY id";
         $res = mysqli_query($conn, $sql);
         if (!$res) {
             return [];

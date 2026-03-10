@@ -20,6 +20,7 @@ if (!$producto) {
 }
 
 $esGerente = (($_SESSION['rol'] ?? '') === 'Gerente');
+$idCategoriaContexto = (int)($_GET['id_categoria'] ?? ($producto['id_categoria'] ?? 0));
 
 $nombre = h((string)($producto['nombre'] ?? ''));
 $descripcion = h((string)($producto['descripcion'] ?? ''));
@@ -42,9 +43,13 @@ if ($imagenRaw !== '') {
 }
 
 $urlVolver = RUTA_APP.'includes/vistas/productos/listarProductos.php';
+if (!$esGerente && $idCategoriaContexto > 0) {
+    $urlVolver .= '?id_categoria='.$idCategoriaContexto;
+}
 $accionesGerente = '';
 $bloquePrecioGerente = '';
 $bloquePrecioPublico = '';
+$accionCliente = '';
 if ($esGerente) {
     $urlEditar = RUTA_APP.'includes/vistas/productos/actualizarProductos.php?id='.$id;
     $urlBorrar = RUTA_APP.'includes/vistas/productos/borrarProductos.php?id='.$id;
@@ -62,6 +67,8 @@ EOS;
 EOS;
 } else {
     $bloquePrecioPublico = "<p><strong>Precio:</strong> $precioFinalFmt EUR</p>";
+    $urlCrearPedido = RUTA_APP.'includes/vistas/pedidos/crearPedido.php';
+    $accionCliente = "<p><a href=\"{$urlCrearPedido}\"><button>Crear pedido</button></a></p>";
 }
 
 $tituloPagina = 'Visualizar producto';
@@ -75,6 +82,7 @@ $contenidoPrincipal = <<<EOS
     <p><strong>Disponible:</strong> $disponible</p>
     <div>$imgHtml</div>
     $accionesGerente
+    $accionCliente
     <p><a href="$urlVolver"><button>Volver</button></a></p>
 EOS;
 

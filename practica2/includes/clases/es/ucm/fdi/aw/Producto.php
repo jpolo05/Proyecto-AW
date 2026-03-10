@@ -203,5 +203,41 @@ class Producto {
 
         return $fila['nombre'] ?? "";
     }
+
+    public static function listarPorCategoria(int $idCategoria, bool $soloOfertados = false): array
+    {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+
+        $sql = 'SELECT p.id, p.nombre, p.descripcion, p.id_categoria, p.precio_base, p.iva, p.disponible, p.ofertado, p.imagen, c.nombre AS categoria
+                FROM productos p
+                LEFT JOIN categorias c ON p.id_categoria = c.id
+                WHERE p.id_categoria = ?';
+
+        if ($soloOfertados) {
+            $sql .= ' AND p.ofertado = 1 AND p.disponible = 1';
+        }
+
+        $sql .= ' ORDER BY p.id';
+        $stmt = mysqli_prepare($conn, $sql);
+        if (!$stmt) {
+            return [];
+        }
+
+        mysqli_stmt_bind_param($stmt, 'i', $idCategoria);
+        mysqli_stmt_execute($stmt);
+        $res = mysqli_stmt_get_result($stmt);
+        if (!$res) {
+            mysqli_stmt_close($stmt);
+            return [];
+        }
+
+        $out = [];
+        while ($row = mysqli_fetch_assoc($res)) {
+            $out[] = $row;
+        }
+
+        mysqli_stmt_close($stmt);
+        return $out;
+    }
 }
 
