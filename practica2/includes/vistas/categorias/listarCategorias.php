@@ -15,18 +15,21 @@ $tablaCategorias = '
             <th>ID</th>
             <th>Nombre</th>
             <th>Descripcion</th>
+            <th>Acciones</th>
         </tr>';
 
 foreach ($cats as $c) {
     $id = (int)$c['id'];
-    $nombre = $c['nombre'];
-    $descripcion = $c['descripcion'];
+    $nombre = htmlspecialchars($c['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
+    $descripcion = htmlspecialchars($c['descripcion'] ?? '', ENT_QUOTES, 'UTF-8');
+    $urlVer = htmlspecialchars(RUTA_APP.'includes/vistas/categorias/visualizarCategorias.php?id='.$id, ENT_QUOTES, 'UTF-8');
 
     $tablaCategorias .= "
     <tr>
         <td>$id</td>
         <td>$nombre</td>
         <td>$descripcion</td>
+        <td><a href=\"$urlVer\">Ver</a></td>
     </tr>";
 }
 $tablaCategorias .= '</table>';
