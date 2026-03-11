@@ -12,7 +12,7 @@ if ($esGerente) {
     $tituloPagina = 'Listado productos';
 
     $tablaProductos = '
-        <table border="1" cellpadding="6">
+        <table>
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
@@ -63,9 +63,9 @@ if ($esGerente) {
             <td>{$ofertado}</td>
             <td>{$imgHtml}</td>
             <td>
-                <a href='{$urlVisualizar}'><button>Visualizar</button></a>
-                <a href='{$urlEditar}'><button>Actualizar</button></a>
-                <a href='{$urlBorrar}'><button>Borrar</button></a>
+                <a href='{$urlVisualizar}' class='button-estandar'>Visualizar</a>
+                <a href='{$urlEditar}' class='button-estandar'>Actualizar</a>
+                <a href='{$urlBorrar}' class='button-estandar'>Borrar</a>
             </td>
         </tr>";
     }
@@ -75,9 +75,9 @@ if ($esGerente) {
     $mensajeHtml = $msg !== '' ? '<p><strong>'.htmlspecialchars($msg, ENT_QUOTES, 'UTF-8').'</strong></p>' : '';
 
     $contenidoPrincipal = <<<EOS
-        <h1>Productos</h1>
+        <h2>Productos</h2>
         $mensajeHtml
-        <p><a href="$urlCrear"><button>Crear producto</button></a></p>
+        <p><a href="$urlCrear" class="button-estandar">Crear producto</a></p>
         $tablaProductos
     EOS;
 } else {
@@ -88,7 +88,7 @@ if ($esGerente) {
         $tituloPagina = 'Carta';
 
         $tablaCategorias = '
-            <table border="1" cellpadding="6">
+            <table>
                 <tr>
                     <th>ID</th>
                     <th>Categoria</th>
@@ -107,14 +107,14 @@ if ($esGerente) {
                 <td>'.$idCat.'</td>
                 <td>'.$nombreCat.'</td>
                 <td>'.$descripcionCat.'</td>
-                <td><a href="'.$urlCategoria.'"><button>Ver productos</button></a></td>
+                <td><a href="'.$urlCategoria.'" class="button-estandar">Ver productos</a></td>
             </tr>';
         }
         $tablaCategorias .= '</table>';
         $mensajeHtml = $msg !== '' ? '<p><strong>'.htmlspecialchars($msg, ENT_QUOTES, 'UTF-8').'</strong></p>' : '';
 
         $contenidoPrincipal = <<<EOS
-            <h1>Carta</h1>
+            <h2>Carta</h2>
             $mensajeHtml
             $tablaCategorias
         EOS;
@@ -130,7 +130,7 @@ if ($esGerente) {
         $tituloPagina = 'Carta - '.$nombreCategoria;
 
         $tablaCarta = '
-            <table border="1" cellpadding="6">
+            <table>
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
@@ -163,7 +163,7 @@ if ($esGerente) {
                 <td>'.$descripcion.'</td>
                 <td>'.$imgHtml.'</td>
                 <td>'.number_format($precioFinal, 2, '.', '').'</td>
-                <td><a href="'.$urlVisualizar.'"><button>Ver</button></a></td>
+                <td><a href="'.$urlVisualizar.'" class="button-estandar">Ver</a></td>
             </tr>';
         }
         $tablaCarta .= '</table>';
@@ -172,11 +172,11 @@ if ($esGerente) {
         $urlCrearPedido = RUTA_APP.'includes/vistas/pedidos/crearPedido.php';
         $mensajeHtml = $msg !== '' ? '<p><strong>'.htmlspecialchars($msg, ENT_QUOTES, 'UTF-8').'</strong></p>' : '';
         $contenidoPrincipal = <<<EOS
-            <h1>Carta - $nombreCategoria</h1>
+            <h2>Carta - $nombreCategoria</h2>
             $mensajeHtml
             <p>
-                <a href="$urlVolverCategorias"><button>Volver a categorias</button></a>
-                <a href="$urlCrearPedido"><button>Crear pedido</button></a>
+                <a href="$urlVolverCategorias" class="button-estandar">Volver a categorias</a>
+                <a href="$urlCrearPedido" class="button-estandar">Crear pedido</a>
             </p>
             $tablaCarta
         EOS;

@@ -5,7 +5,7 @@ class FormularioActualizacion extends Formulario
 {
     public function __construct()
     {
-        parent::__construct('formActualizacionUsuario');
+        parent::__construct('formActualizacionUsuario', ['enctype' => 'multipart/form-data']);
     }
 
     protected function generaCamposFormulario(&$datos)
@@ -38,12 +38,12 @@ class FormularioActualizacion extends Formulario
         );
 
         if (!$isAdmin) {
-            $selectRol = "<label>Rol asignado: </label><span>$rol</span><input type='hidden' name='rol' value='$rol' />";
+            $selectRol = "<label>Rol asignado: </label><span>$rol</span><input type='hidden' name='rol' value='$rol'>";
         } else {
             $selectRol = '';
             foreach (['Cliente', 'Cocinero', 'Camarero', 'Gerente'] as $r) {
                 $checked = ($r === $rol) ? 'checked' : '';
-                $selectRol .= "<label><input type='radio' name='rol' value='$r' $checked /> $r</label> ";
+                $selectRol .= "<label><input type='radio' name='rol' value='$r' $checked> $r</label> ";
             }
         }
 
@@ -58,30 +58,30 @@ class FormularioActualizacion extends Formulario
             <legend><strong>Edita tu perfil: $user</strong></legend>
             <div>
                 <label for="nombre">Nombre:</label>
-                <input id="nombre" type="text" name="nombre" value="$nombre" required />
+                <input id="nombre" type="text" name="nombre" value="$nombre" required>
                 {$erroresCampos['nombre']}
             </div>
             <div>
                 <label for="apellidos">Apellidos:</label>
-                <input id="apellidos" type="text" name="apellidos" value="$apellidos" required />
+                <input id="apellidos" type="text" name="apellidos" value="$apellidos" required>
                 {$erroresCampos['apellidos']}
             </div>
             <div>
                 <label for="email">Email:</label>
-                <input id="email" type="email" name="email" value="$email" required />
+                <input id="email" type="email" name="email" value="$email" required>
                 {$erroresCampos['email']}
             </div>
             <div>
                 <label for="password">Password (dejar en blanco para no cambiar):</label>
-                <input id="password" type="password" name="password" $estadoInput />
+                <input id="password" type="password" name="password" $estadoInput>
                 {$erroresCampos['password']}
             </div>
             <div>
                 <label for="password_confirm">Confirme contrasena:</label>
-                <input id="password_confirm" type="password" name="password_confirm" $estadoInput />
+                <input id="password_confirm" type="password" name="password_confirm" $estadoInput>
                 {$erroresCampos['password_confirm']}
             </div>
-            <a href="$enlaceBoton" type="button" $estadoBoton>Editar contrasena</a>
+            <a href="$enlaceBoton" class="button-estandar" $estadoBoton>Editar contrasena</a>
             <div>
                 $selectRol
                 {$erroresCampos['rol']}
@@ -89,11 +89,16 @@ class FormularioActualizacion extends Formulario
             <div>
                 <label for="imagen">Imagen:</label>
                 <select name="imagen" id="imagen">
+                    <option value="">Mantener imagen actual</option>
                     <option value="default.jpg" $selDefault>Imagen por defecto</option>
                     <option value="avatar1.jpg" $selA1>Avatar 1</option>
                     <option value="avatar2.jpg" $selA2>Avatar 2</option>
                     <option value="avatar3.jpg" $selA3>Avatar 3</option>
                 </select>
+            </div>
+            <div>
+                <label for="imagenURL">Sube tu foto:</label>
+                <input id="imagenURL" type="file" name="imagenURL">
             </div>
             <div>
                 <button type="reset" name="limpiar" class="button-estandar">Reset</button>
@@ -145,6 +150,34 @@ class FormularioActualizacion extends Formulario
             $hash = password_hash($pass1, PASSWORD_DEFAULT);
         } else {
             $hash = null;
+        }
+
+        if (isset($_FILES['imagenURL']) && $_FILES['imagenURL']['error'] !== UPLOAD_ERR_NO_FILE) {
+            if ($_FILES['imagenURL']['error'] !== UPLOAD_ERR_OK) {
+                $this->errores[] = 'Error al subir la imagen.';
+            } else {
+                $archivo = $_FILES['imagenURL'];
+                $extensionesValidas = ['jpg', 'jpeg', 'png'];
+                $extension = strtolower(pathinfo($archivo['name'], PATHINFO_EXTENSION));
+
+                if (!in_array($extension, $extensionesValidas)) {
+                    $this->errores[] = 'Formato de imagen no permitido (solo JPG o PNG).';
+                } elseif ($archivo['size'] > 2000000) { // 2MB
+                    $this->errores[] = 'La imagen es demasiado grande (máximo 2MB).';
+                } else {
+
+                    $nuevoNombre = uniqid('img_', true) . '.' . $extension;
+                    
+                    $rutaRelativaDestino = 'img/uploads/usuarios/' . $nuevoNombre;
+                    $rutaDestinoFisica = dirname(RAIZ_APP) . '/' . $rutaRelativaDestino;
+
+                    if (move_uploaded_file($archivo['tmp_name'], $rutaDestinoFisica)) {
+                        $imagen = $rutaRelativaDestino;
+                    } else {
+                        $this->errores[] = 'Error al guardar la imagen. Revisa los permisos de la carpeta.';
+                    }
+                }
+            }
         }
 
         if (count($this->errores) > 0) {

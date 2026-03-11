@@ -34,12 +34,12 @@ $contenidoPrincipal = <<<EOS
     </div>
     <br>
     <div class="center">
-        <a href="includes/vistas/productos/listarProductos.php"><button class="button-estandar">Ver carta</button></a>
+        <a href="includes/vistas/productos/listarProductos.php" class="button-estandar">Ver carta</a>
     </div>
     <br>
     $botonGerente
     <div class="center">
-        <a href="includes/vistas/productos/listarProductos.php"><button class="button-estandar">ORDENA AHORA</button></a>
+        <a href="includes/vistas/pedidos/crearPedido.php" class="button-estandar">ORDENA AHORA</a>
     </div>
     <br>
     <div class="center">

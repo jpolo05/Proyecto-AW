@@ -17,7 +17,7 @@ class FormularioBorrar extends Formulario
         <p>¿Estas seguro de que quieres eliminar tu cuenta para siempre?</p>
         <div>
             <button type="submit" name="borrar" class="button-estandar">Si</button>
-            <a href="visualizarUsuarios.php"><button type="button" class="button-estandar">No</button></a>
+            <a href="visualizarUsuarios.php" class="button-estandar">No</a>
         </div>
         EOF;
     }

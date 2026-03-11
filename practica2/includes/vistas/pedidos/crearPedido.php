@@ -73,7 +73,6 @@ foreach ($productos as $p) {
 
     $filasProductos .= '
     <tr>
-        <td>'.$id.'</td>
         <td>'.$nombre.'</td>
         <td>'.number_format($precioFinal, 2, '.', '').'</td>
         <td><input type="number" min="0" step="1" name="cantidad['.$id.']" value="'.$cantidadDefecto.'"></td>
@@ -87,7 +86,6 @@ if ($filasProductos === '') {
     $bloqueProductos = '
     <table border="1" cellpadding="6">
         <tr>
-            <th>ID</th>
             <th>Producto</th>
             <th>Precio (IVA incl.)</th>
             <th>Cantidad</th>

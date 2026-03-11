@@ -21,32 +21,24 @@ $contenidoPrincipal = <<<EOS
     <table class="control-panel">
         <tr>
             <td>
-                <a href="$rutaUsuarios">
-                    <button>Usuarios</button>
-                </a>
+                <a href="$rutaUsuarios">Usuarios</a>
             </td>
             <td>
-                <a href="$rutaCategorias">
-                    <button>Categorias</button>
-                </a>
+                <a href="$rutaCategorias">Categorias</a>
             </td>
         </tr>
         <tr>
             <td>
-                <a href="$rutaPedidos">
-                    <button>Pedidos</button>
-                </a>
+                <a href="$rutaPedidos">Pedidos</a>
             </td>
             <td>
-                <a href="$rutaProductos">
-                    <button>Productos</button>
-                </a>
+                <a href="$rutaProductos">Productos</a>
             </td>
         </tr>
     </table>
 
     <br><br>
-    <a href="$rutaInicio"><button>Volver al Inicio</button></a>
+    <a href="$rutaInicio" class="button-estandar">Volver al Inicio</a>
 </div>
 EOS;
 

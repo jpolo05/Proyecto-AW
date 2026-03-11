@@ -20,7 +20,7 @@ $tituloPagina = 'Perfil';
 $rutaPedidos = RUTA_APP.'includes/vistas/pedidos/listarPedidos.php';
 
 $contenidoPrincipal = <<<EOS
-    <h1>MI PERFIL</h1>
+    <h2>MI PERFIL</h2>
     
     <div>
         <p><strong> $user </strong></p> <br>

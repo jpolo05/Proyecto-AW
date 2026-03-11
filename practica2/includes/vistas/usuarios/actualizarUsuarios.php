@@ -11,13 +11,8 @@ $formulario = new FormularioActualizacion();
 $htmlFormulario = $formulario->gestiona();
 
 $contenidoPrincipal = <<<EOS
-<h1>Acceso al sistema</h1>
+<h2>Actualizar usuario</h2>
 $htmlFormulario
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
-
-
-
-
-

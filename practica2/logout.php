@@ -7,7 +7,7 @@ session_destroy();
 $tituloPagina = 'Logout';
 
 $contenidoPrincipal = <<<EOS
-<h1>Hasta pronto!</h1>
+<h2>Hasta pronto!</h2>
 EOS;
 
 require __DIR__.'/includes/vistas/plantillas/plantilla.php';

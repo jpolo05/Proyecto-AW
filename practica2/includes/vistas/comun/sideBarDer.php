@@ -1,5 +1,5 @@
 <aside>
-	<h3>Información</h3>
+	<h2>Información</h2>
     <ul>
         <li>Horario:</li>
         <li>9:00 - 22:00</li>

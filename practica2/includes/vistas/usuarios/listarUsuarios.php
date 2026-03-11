@@ -51,7 +51,7 @@ foreach ($users as $u) {
 $tablaUsuarios .= '</table>';
 
 $contenidoPrincipal = <<<EOS
-    <h1>Gestión de Usuarios</h1>
+    <h2>Gestión de Usuarios</h2>
     $tablaUsuarios
 EOS;
 

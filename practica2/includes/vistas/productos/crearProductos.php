@@ -90,7 +90,7 @@ $action = htmlspecialchars(RUTA_APP.'includes/vistas/productos/crearProductos.ph
 $urlCancelar = htmlspecialchars(RUTA_APP.'includes/vistas/productos/listarProductos.php', ENT_QUOTES, 'UTF-8');
 
 $contenidoPrincipal = <<<EOS
-    <h1>Crear producto</h1>
+    <h2>Crear producto</h2>
     $errorHtml
     <form method="POST" action="$action" enctype="multipart/form-data">
         <input type="hidden" name="csrfToken" value="$csrfToken">
@@ -115,7 +115,7 @@ $contenidoPrincipal = <<<EOS
         <p><label><input type="checkbox" name="ofertado" checked> Ofertado</label></p>
         <p>
             <button type="submit">Guardar</button>
-            <a href="$urlCancelar"><button type="button">Cancelar</button></a>
+            <a href="$urlCancelar" class="button-estandar">Cancelar</a>
         </p>
     </form>
     <script>

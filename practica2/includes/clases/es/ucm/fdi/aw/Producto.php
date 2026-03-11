@@ -13,7 +13,7 @@ class Producto {
             $sql .= ' WHERE p.ofertado = 1 AND p.disponible = 1';
         }
 
-        $sql .= ' ORDER BY p.nombre';
+        $sql .= ' ORDER BY p.id_categoria, p.nombre';
         $res = mysqli_query($conn, $sql);
         if (!$res) {
             return [];

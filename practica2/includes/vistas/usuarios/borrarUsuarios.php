@@ -11,7 +11,7 @@ $formulario = new FormularioBorrar();
 $htmlFormulario = $formulario->gestiona();
 
 $contenidoPrincipal = <<<EOS
-<h1>Eliminación de cuenta</h1>
+<h2>Eliminación de cuenta</h2>
 $htmlFormulario
 EOS;
 
