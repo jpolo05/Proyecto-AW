@@ -301,6 +301,15 @@ class Pedido
         return $out;
     }
 
+    public static function clientePuedeCancelarEstado(string $estado): bool
+    {
+        return in_array($estado, [
+            self::ESTADO_NUEVO,
+            self::ESTADO_RECIBIDO,
+            self::ESTADO_EN_PREPARACION,
+        ], true);
+    }
+
     public static function actualizarEstado(
         int $numeroPedido,
         string $nuevoEstado,

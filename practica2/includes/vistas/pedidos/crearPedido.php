@@ -63,6 +63,7 @@ $selLocal = ($tipo === 'Local') ? 'selected' : '';
 $selLlevar = ($tipo === 'Llevar') ? 'selected' : '';
 
 $filasProductos = '';
+$totalInicial = 0.0;
 foreach ($productos as $p) {
     $id = (int)($p['id'] ?? 0);
     $nombre = h((string)($p['nombre'] ?? ''));
@@ -70,12 +71,14 @@ foreach ($productos as $p) {
     $iva = (int)($p['iva'] ?? 0);
     $precioFinal = $precioBase + ($precioBase * $iva / 100);
     $cantidadDefecto = (int)($_POST['cantidad'][$id] ?? 0);
+    $totalInicial += ($precioFinal * $cantidadDefecto);
+    $precioFinalTexto = number_format($precioFinal, 2, '.', '');
 
     $filasProductos .= '
     <tr>
         <td>'.$nombre.'</td>
-        <td>'.number_format($precioFinal, 2, '.', '').'</td>
-        <td><input type="number" min="0" step="1" name="cantidad['.$id.']" value="'.$cantidadDefecto.'"></td>
+        <td>'.$precioFinalTexto.'</td>
+        <td><input type="number" min="0" step="1" name="cantidad['.$id.']" value="'.$cantidadDefecto.'" class="cantidad-producto" data-precio="'.$precioFinalTexto.'"></td>
     </tr>';
 }
 
@@ -93,6 +96,38 @@ if ($filasProductos === '') {
         '.$filasProductos.'
     </table>';
 }
+$totalInicialTexto = number_format($totalInicial, 2, '.', '');
+$bloqueTotal = '<p><strong>Total del pedido: <span id="totalPedido">'.$totalInicialTexto.'</span> EUR</strong></p>';
+$scriptTotal = <<<EOS
+    <script>
+    (function () {
+        function recalcularTotalPedido() {
+            var total = 0;
+            var inputs = document.querySelectorAll('.cantidad-producto');
+            inputs.forEach(function (input) {
+                var cantidad = parseInt(input.value, 10);
+                var precio = parseFloat(input.dataset.precio || '0');
+                if (!Number.isFinite(cantidad) || cantidad < 0) {
+                    cantidad = 0;
+                }
+                if (!Number.isFinite(precio) || precio < 0) {
+                    precio = 0;
+                }
+                total += cantidad * precio;
+            });
+            var nodoTotal = document.getElementById('totalPedido');
+            if (nodoTotal) {
+                nodoTotal.textContent = total.toFixed(2);
+            }
+        }
+
+        document.querySelectorAll('.cantidad-producto').forEach(function (input) {
+            input.addEventListener('input', recalcularTotalPedido);
+        });
+        recalcularTotalPedido();
+    })();
+    </script>
+EOS;
 
 $contenidoPrincipal = <<<EOS
     <h1>Crear pedido</h1>
@@ -108,11 +143,13 @@ $contenidoPrincipal = <<<EOS
             </label>
         </p>
         $bloqueProductos
+        $bloqueTotal
         <p>
             <button type="submit">Crear pedido</button>
             <a href="$urlVolver"><button type="button">Volver</button></a>
         </p>
     </form>
+    $scriptTotal
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';

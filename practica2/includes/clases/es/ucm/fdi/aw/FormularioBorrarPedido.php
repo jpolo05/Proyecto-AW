@@ -59,6 +59,11 @@ class FormularioBorrarPedido extends Formulario
             return;
         }
 
+        if ($rol === 'Cliente' && !Pedido::clientePuedeCancelarEstado((string)($pedido['estado'] ?? ''))) {
+            $this->errores[] = 'No puedes cancelar un pedido que ya esta en cocina o finalizado.';
+            return;
+        }
+
         $exito = ($rol === 'Cliente')
             ? Pedido::borrar($num, $usuario)
             : Pedido::borrar($num);

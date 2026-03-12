@@ -44,6 +44,8 @@ if ($esModoCocina && !$rolPuedeCocinar) {
 
 $pedido = Pedido::listarDetalle($numeroPedido);
 $tituloPagina = 'Contenido pedido';
+$totalPedido = number_format((float)($cabeceraPedido['total'] ?? 0), 2, '.', '');
+$bloqueTotalPedido = "<p><strong>Total del pedido: {$totalPedido} EUR</strong></p>";
 
 $lineaPedido = '
     <table border="1" cellpadding="8">
@@ -114,6 +116,7 @@ if ($esModoCocina) {
 $contenidoPrincipal = <<<EOS
     $botonVolver
     <h1>Pedido #$numeroPedido</h1>
+    $bloqueTotalPedido
     $lineaPedido
     $botonFinalizar
 EOS;

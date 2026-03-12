@@ -62,7 +62,18 @@ if ($rol === 'Gerente') {
     $urlCrearPedido = RUTA_APP.'includes/vistas/pedidos/crearPedido.php';
     $encabezadoExtra = '<p><a href="'.$urlCrearPedido.'"><button>Crear pedido</button></a></p>';
 
-    $tablaPedidos = '
+    $pedidosEnCurso = [];
+    $pedidosCompletados = [];
+    foreach ($pedidos as $p) {
+        $estadoPedido = (string)($p['estado'] ?? '');
+        if ($estadoPedido === Pedido::ESTADO_ENTREGADO) {
+            $pedidosCompletados[] = $p;
+        } else {
+            $pedidosEnCurso[] = $p;
+        }
+    }
+
+    $tablaPedidosEnCurso = '
         <table border="1" cellpadding="8">
             <tr>
                 <th>Numero pedido</th>
@@ -72,15 +83,21 @@ if ($rol === 'Gerente') {
                 <th>Accion</th>
             </tr>';
 
-    foreach ($pedidos as $p) {
+    foreach ($pedidosEnCurso as $p) {
         $numeroPedido = (int)($p['numeroPedido'] ?? 0);
-        $estado = h((string)($p['estado'] ?? ''));
+        $estadoPedido = (string)($p['estado'] ?? '');
+        $estado = h($estadoPedido);
         $tipo = h((string)($p['tipo'] ?? ''));
         $total = number_format((float)($p['total'] ?? 0), 2, '.', '');
         $urlVer = 'visualizarPedido.php?numeroPedido='.$numeroPedido;
         $urlBorrar = 'borrarPedido.php?numeroPedido='.$numeroPedido;
+        $accionCancelar = '';
 
-        $tablaPedidos .= "
+        if (Pedido::clientePuedeCancelarEstado($estadoPedido)) {
+            $accionCancelar = "<br><a href='{$urlBorrar}'><button>Cancelar/Borrar pedido</button></a>";
+        }
+
+        $tablaPedidosEnCurso .= "
         <tr>
             <td>{$numeroPedido}</td>
             <td>{$estado}</td>
@@ -88,12 +105,53 @@ if ($rol === 'Gerente') {
             <td>{$total}</td>
             <td>
                 <a href='{$urlVer}'><button>Ver pedido</button></a>
-                <br>
-                <a href='{$urlBorrar}'><button>Cancelar/Borrar pedido</button></a>
+                {$accionCancelar}
             </td>
         </tr>";
     }
-    $tablaPedidos .= '</table>';
+    $tablaPedidosEnCurso .= '</table>';
+
+    if (empty($pedidosEnCurso)) {
+        $tablaPedidosEnCurso = '<p>No tienes pedidos en curso.</p>';
+    } else {
+        $tablaPedidosEnCurso = '<h2>Pedidos en curso</h2>'.$tablaPedidosEnCurso;
+    }
+
+    $tablaPedidosCompletados = '
+        <table border="1" cellpadding="8">
+            <tr>
+                <th>Numero pedido</th>
+                <th>Estado</th>
+                <th>Tipo</th>
+                <th>Total</th>
+                <th>Accion</th>
+            </tr>';
+
+    foreach ($pedidosCompletados as $p) {
+        $numeroPedido = (int)($p['numeroPedido'] ?? 0);
+        $estado = h((string)($p['estado'] ?? ''));
+        $tipo = h((string)($p['tipo'] ?? ''));
+        $total = number_format((float)($p['total'] ?? 0), 2, '.', '');
+        $urlVer = 'visualizarPedido.php?numeroPedido='.$numeroPedido;
+
+        $tablaPedidosCompletados .= "
+        <tr>
+            <td>{$numeroPedido}</td>
+            <td>{$estado}</td>
+            <td>{$tipo}</td>
+            <td>{$total}</td>
+            <td><a href='{$urlVer}'><button>Ver pedido</button></a></td>
+        </tr>";
+    }
+    $tablaPedidosCompletados .= '</table>';
+
+    if (empty($pedidosCompletados)) {
+        $tablaPedidosCompletados = '<p>No tienes pedidos completados.</p>';
+    } else {
+        $tablaPedidosCompletados = '<h2>Pedidos completados</h2>'.$tablaPedidosCompletados;
+    }
+
+    $tablaPedidos = $tablaPedidosEnCurso.'<br>'.$tablaPedidosCompletados;
 }
 
 $contenidoPrincipal = <<<EOS
