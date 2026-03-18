@@ -1,29 +1,23 @@
-<?php
-$params['app']->doInclude('/vistas/helpers/plantilla.php');
-$mensajes = mensajesPeticionAnterior();
-?>
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 	<meta charset="UTF-8">
-    <title><?= $params['tituloPagina'] ?></title>
-	<link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/estilo.css') ?>" /></head>
+    <title><?= $tituloPagina ?></title>
+    <link rel="stylesheet" href="<?= RUTA_CSS.'custom.css' ?>">
+</head>
 <body>
-<?= $mensajes ?>
-<div id="contenedor">
-<?php
-$params['app']->doInclude('/vistas/comun/cabecera.php', $params);
-$params['app']->doInclude('/vistas/comun/sidebarIzq.php', $params);
-?>
-	<main>
-		<article>
-			<?= $params['contenidoPrincipal'] ?>
-		</article>
-	</main>
-<?php
-$params['app']->doInclude('/vistas/comun/sidebarDer.php', $params);
-$params['app']->doInclude('/vistas/comun/pie.php', $params);
-?>
-</div>
+    <div class="contenedor">
+        <?php require(RAIZ_APP.'/vistas/comun/cabecera.php');?>
+            
+        <main>
+            <?php require(RAIZ_APP.'/vistas/comun/sideBarIzq.php');?>
+            <article>
+                <?= $contenidoPrincipal ?>
+            </article>
+            <?php require(RAIZ_APP.'/vistas/comun/sideBarDer.php');?>
+        </main>
+
+        <?php require(RAIZ_APP.'/vistas/comun/pie.php');?>
+    </div>
 </body>
 </html>

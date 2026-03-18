@@ -1,16 +1,16 @@
 <?php
-
+use es\ucm\fdi\aw\FormularioRegistro;
 require_once __DIR__.'/includes/config.php';
 
-$formRegistro = new \es\ucm\fdi\aw\usuarios\FormularioRegistro();
-$formRegistro = $formRegistro->gestiona();
-
-
 $tituloPagina = 'Registro';
-$contenidoPrincipal=<<<EOF
-  	<h1>Registro de usuario</h1>
-    $formRegistro
-EOF;
+$formulario = new FormularioRegistro();
+$htmlFormularioRegistro = $formulario->gestiona();
 
-$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
-$app->generaVista('/plantillas/plantilla.php', $params);
+$contenidoPrincipal = <<<EOS
+<h2>Registro a Bistro FDI</h2>
+$htmlFormularioRegistro
+<p>¿Ya tiene una cuenta? <a href="login.php">Inicia sesión aquí</a></p>
+EOS;
+
+require __DIR__.'/includes/vistas/plantillas/plantilla.php';
+

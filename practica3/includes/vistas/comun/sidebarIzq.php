@@ -1,13 +1,20 @@
-<?php
-use es\ucm\fdi\aw\Aplicacion;
+<?php require_once __DIR__.'/../../config.php'; ?>
 
-$app = Aplicacion::getInstance();
-?>
-<nav id="sidebarIzq">
-	<h3>Navegación</h3>
+<nav>
+	<h2>Navegacion</h2>
 	<ul>
-		<li><a href="<?= $app->resuelve('/index.php')?>">Inicio</a></li>
-		<li><a href="<?= $app->resuelve('/contenido.php')?>">Ver contenido</a></li>
-		<li><a href="<?= $app->resuelve('/admin.php')?>">Administrar</a></li>
+		<li><a href="<?= RUTA_APP ?>index.php">Inicio</a></li>
+		<?php if (($_SESSION['rol'] ?? '') === 'Gerente') : ?>
+			<li><a href="<?= RUTA_APP ?>includes/vistas/paneles/gerente.php">Panel gerente</a></li>
+		<?php endif; ?>
+		<?php if (($_SESSION['rol'] ?? '') === 'Cocinero') : ?>
+			<li><a href="<?= RUTA_APP ?>includes/vistas/paneles/cocinero.php">Panel cocinero</a></li>
+		<?php endif; ?>
+		<?php if (($_SESSION['rol'] ?? '') === 'Camarero') : ?>
+			<li><a href="<?= RUTA_APP ?>includes/vistas/paneles/camarero.php">Panel camarero</a></li>
+		<?php endif; ?>
+		<li><a href="<?= RUTA_APP ?>includes/vistas/productos/listarProductos.php">Carta</a></li>
+		<li><a href="<?= RUTA_APP ?>includes/vistas/usuarios/visualizarUsuarios.php">Mi perfil</a></li>
 	</ul>
 </nav>
+
