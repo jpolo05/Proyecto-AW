@@ -1,5 +1,6 @@
 <?php
 
+/* Revisar el código de este fichero para ver qué se ha modificado y si algo sirve para la práctica. */
 use es\ucm\fdi\aw\Aplicacion;
 
 function mensajesPeticionAnterior()
