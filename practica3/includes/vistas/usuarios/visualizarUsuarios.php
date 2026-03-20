@@ -1,5 +1,5 @@
 <?php
-use es\ucm\fdi\aw\Auth;
+use es\ucm\fdi\aw\usuarios\Auth;
 require_once __DIR__.'/../../config.php';
 Auth::verificarAcceso('Cliente');
 

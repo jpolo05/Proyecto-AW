@@ -1,8 +1,8 @@
 <?php
-use es\ucm\fdi\aw\Auth;
+use es\ucm\fdi\aw\usuarios\Auth;
 require_once __DIR__.'/../../config.php';
-use es\ucm\fdi\aw\Usuario;
-use es\ucm\fdi\aw\FormularioActualizaRol;
+use es\ucm\fdi\aw\usuarios\Usuario;
+use es\ucm\fdi\aw\usuarios\FormularioActualizaRol;
 Auth::verificarAcceso('Gerente');
 
 $users = Usuario::listar();
