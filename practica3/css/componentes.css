@@ -1,227 +1,152 @@
-/* Botones estándar */
-.button-estandar, .control-panel a {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #3498db;
-    color: white !important;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background 0.3s;
-    border: none;
-    cursor: pointer;
-}
-
-/* Componentes de cabecera */
-.separador {
-    text-decoration: none !important; /* Quita el subrayado */
-}
-
+/* Logo y Letras */
 .logo-enlace {
     display: flex;
     align-items: center;
+    gap: 10px;
     text-decoration: none;
 }
 
-.img-logo {
-    height: 50px;
-    width: auto;
-}
+.img-logo { height: 50px; width: auto; }
+.img-letras { height: 30px; width: auto; }
 
-.img-letras {
-    height: 30px;
-    width: auto;
-}
+/*Sidebar izquierdo*/
 
-.saludo {
-    text-align: right;
-    color: black;
-    line-height: 1.2;
+nav a {
+    display: block;
+    color: #f1ebd8;
+    text-decoration: none;
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
 }
-
-/* Componentes de body */
 
 /* Banner Hero */
 .banner-hero {
     position: relative;
-    width: 100%;       /*Ancho de Hero*/
-    height: 140px;      /*Largo de Hero*/
+    width: 100%;
+    height: 180px; /* Altura en móvil */
     background-size: cover;
     background-position: center;
-    border-radius: 10px 10px 10px 10px; /* Bordes de Hero */
-    margin-top: 0px; /* Espacio encima de Hero */
-    margin-bottom: 10px; /* Espacio debajo de Hero */
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
 }
 
 .banner-capa-oscura {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Capa oscura sutil */
-    border-radius: 10px 10px 10px 10px; /* Bordes de Hero */
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    padding: 15px;
 }
 
 .banner-texto h1 {
-    font-size: 2.5rem;   /* Tamaño texto */
-    font-weight: 700;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
     color: white;
-    margin-bottom: -10px;
+    margin-bottom: -5px;
 }
 
 .banner-texto p {
-    font-size: 1.4rem;
-    font-weight: 400;
-    opacity: 0.9;
-    text-align: center;
-    color: white;
+    font-size: 1.1rem;
+    color: #f1ebd8;
 }
 
-/* --- ESTO ARREGLA LAS COLUMNAS --- */
-.seccion-grid-bistro {
-    display: flex;       /* Activamos flexbox */
-    gap: 25px;           /* Espacio entre columna izquierda y derecha */
-    align-items: stretch; /* Obliga a que ambas columnas tengan el mismo alto */
-    width: 100%;
-}
-
-.columna-izq {
-    flex: 1;             /* Toma la mitad del ancho */
+/* Contenedor de las 3 tarjetas */
+.contenedor-tarjetas {
     display: flex;
     flex-direction: column;
-    gap: 20px;           /* Espacio entre las dos tarjetas pequeñas */
+    gap: 20px;
 }
 
-.columna-der {
-    flex: 1;             /* Toma la otra mitad del ancho */
-}
-/* ---------------------------------- */
-
-/* Contenedor general */
-.contenido-interior {
-    background-color: #f1ebd8; 
-    padding: 30px;
-    border-radius: 20px;
-}
-
-/* Estilo base para TODAS las tarjetas */
-.card-bistro {
+.tarjeta {
+    display: flex;
     background: white;
+    border: 1px solid #ddd;
     border-radius: 15px;
     overflow: hidden;
-    display: flex;
-    border: 1px solid rgba(0,0,0,0.05);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    height: 140px; /* Altura fija para que todas sean iguales */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
 }
 
-.card-bistro img {
-    width: 80%;
-    height: 100px;
-    object-fit: cover;
-    display: block;
+.tarjeta:hover {
+    transform: translateY(-5px);
+    border-color: #b79754;
 }
 
-/* Tarjetas horizontales (Izquierda) */
-.card-bistro.horizontal {
-    flex-direction: row;
-    height: 100px; 
-}
-
-.card-bistro.horizontal img {
-    width: 45%; 
-}
-
-/* Tarjeta vertical verde (Derecha) */
-.card-bistro.card-verde {
-    background-color: #21352a;
-    color: #f1ebd8;
-    flex-direction: row;
+.tarjeta img {
+    width: 40%;
     height: 100%;
-}
-
-.card-bistro.card-verde img {
-    width: 100%;
-    height: 55%;
     object-fit: cover;
 }
 
-.card-contenido {
-    padding: 20px;
+.info {
+    padding: 15px;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.card-contenido h3 {
-    margin: 0 0 10px 0;
-    font-family: 'Playfair Display', serif;
-    color: #21352a;
+.info h3 { color: #21352a; margin-bottom: 5px; }
+
+/*Selecciona la SEGUNDA tarjeta */
+.contenedor-tarjetas .tarjeta:nth-child(2) {
+    background-color: #21352a; 
+    color: #f1ebd8;
+    border-color: #21352a;
 }
 
-.card-verde .card-contenido h3 {
+/*Ajuste hover para la tarjeta verde*/
+.contenedor-tarjetas .tarjeta:nth-child(2):hover {
+    transform: translateY(-5px);
+    border-color: #b79754;
+}
+
+/* Ajuste título tarjeta verde*/
+.contenedor-tarjetas .tarjeta:nth-child(2) .info h3 {
     color: #b79754;
 }
 
-
-
-/* Componentes de Perfil Usuarios */
-.img-perfil {
-    width: 100px;
-    height: 100px;
-    border-radius: 25%;
+/* Ajuste párrafo tarjeta verde*/
+.contenedor-tarjetas .tarjeta:nth-child(2) .info p {
+    color: #f1ebd8;
 }
 
-/* Efecto botones */
-
-.button-estandar {
+/* Botones */
+.btn-dorado {
     display: inline-block;
-    padding: 5px 10px;
-    font-size: 1rem;
-    cursor: pointer;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    color: black !important;
-    text-decoration: none !important;
+    padding: 8px 16px;
+    background-color: #b79754;
+    color: #21352a !important;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    width: fit-content;
 }
 
-.button-estandar:hover {
-    background-color: #e5e5e5;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-}
+/* --- AJUSTES DE COMPONENTES PARA PC --- */
+@media (min-width: 992px) {
+    .banner-hero { height: 300px; } /* Banner más grande en PC */
+    
+    .contenedor-tarjetas {
+        flex-direction: row; /* Las 3 tarjetas en fila */
+    }
 
-/* Tablas de datos (como la de visualizar usuarios) */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
+    .tarjeta {
+        flex: 1;
+        flex-direction: column; /* Imagen arriba, texto abajo */
+        height: auto;
+        min-height: 320px;
+    }
 
-th {
-    background-color: #f8f9fa;
-    padding: 12px;
-    text-align: left;
-    border-bottom: 2px solid #dee2e6;
-}
-
-td {
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-}
-
-tr:hover { background-color: #f1f1f1; }
-
-/* Errores de PHP */
-.error {
-    color: #721c24;
-    background-color: #f8d7da;
-    border: 1px solid #f5c6cb;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 4px;
+    .tarjeta img {
+        width: 100%;
+        height: 180px;
+    }
 }

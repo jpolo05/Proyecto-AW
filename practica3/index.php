@@ -22,36 +22,31 @@ $contenidoPrincipal = <<<EOS
 </section>
 
 <div class="contenido-interior">
-    <div class="seccion-grid-bistro">
+    <div class="contenedor-tarjetas">
         
-        <div class="columna-izq">
-            <article class="card-bistro horizontal">
-                <img src="{$rutaImgs}personas.jpg" alt="Experiencia">
-                <div class="card-contenido">
-                    <h3>Experiencia </h3>
-                    <p>Para los amantes de la buena mesa.</p>
-                </div>
-            </article>
+        <article class="tarjeta">
+            <img src="{$rutaImgs}personas_comiendo.jpg" alt="Experiencia">
+            <div class="info">
+                <h3>Experiencia</h3>
+                <p>Para los amantes de la buena mesa.</p>
+            </div>
+        </article>
 
-            <article class="card-bistro horizontal">
-                <img src="{$rutaImgs}producto.jpg" alt="Nuestros productos">
-                <div class="card-contenido">
-                    <h3>Nuestros productos</h3>
-                    <p>Los mejores platillos de la región, solo en Bistro FDI.</p>
-                </div>
-            </article>
-        </div>
+        <article class="tarjeta">
+            <img src="{$rutaImgs}platillos.jpg" alt="Productos">
+            <div class="info">
+                <h3>Productos</h3>
+                <p>Los mejores platillos de la región.</p>
+            </div>
+        </article>
 
-        <div class="columna-der">
-            <article class="card-bistro card-verde vertical">
-                <img src="{$rutaImgs}tienda.jpg" alt="Nuestro local">
-                <div class="card-contenido">
-                    <h3>Nuestro local</h3>
-                    <p>Consulta nuestra carta, realiza pedidos y sigue su estado en tiempo real.</p>
-                    <a href="construccion.php" class="btn-dorado">VER CARTA</a>
-                </div>
-            </article>
-        </div>
+        <article class="tarjeta">
+            <img src="{$rutaImgs}tienda.jpg" alt="Local">
+            <div class="info">
+                <h3>Nuestro local</h3>
+                <p>Realiza tus pedidos en tiempo real.</p>
+            </div>
+        </article>
 
     </div>
 </div>

@@ -1,4 +1,4 @@
-/* Reset básico para que todo mida igual */
+/* Reset básico */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,73 +6,79 @@
 }
 
 body {
+    font-family: 'Segoe UI', sans-serif;
     line-height: 1.6;
+    background-color: #f1ebd8; /* Fondo crema global */
     color: #333;
 }
 
 .contenedor {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Ocupa toda la altura de la pantalla */
+    min-height: 100vh;
 }
 
+/* Header flexible */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    height: 60px;
+    padding: 10px 5%;
     background-color: #f1ebd8;
-    color: black;
+    min-height: 70px;
+    flex-wrap: wrap; /* En móviles el saludo baja si no cabe */
+    gap: 15px;
 }
 
-header a { 
-    color: black; 
-    text-decoration: underline;
-    font-weight: bold;
-}
-
+/* Cuerpo de la página */
 main {
     display: flex;
-    flex: 1; /* Empuja el footer al fondo */
+    flex-direction: column; /* Móvil: Menú, Contenido y Aside uno sobre otro */
+    flex: 1;
 }
 
-.center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.separation {
-    justify-content: space-around;
-}
-
-/* Sidebars */
+/* Laterales (Nav y Aside) */
 nav, aside {
-    width: 220px;
-    background-color: #ecf0f1;
+    width: 100%;
+    background-color: #21352a;
     padding: 20px;
-    text-align: center;
+    border-radius: 10px;
+    color: #f1ebd8;
+    margin-bottom: 0px;
 }
 
 /* Contenido Principal */
 article {
     flex: 1;
+    background-color: white;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f1ebd8;
 }
 
+/* Div para dar aire al contenido dentro del article */
 .contenido-interior {
-    padding: 30px 40px;
+    padding: 20px;
     width: 100%;
-    max-width: 1200px; /* Para que en pantallas gigantes no se estire infinito */
+    max-width: 1200px;
 }
 
 footer {
     background-color: #f1ebd8;
-    color: black;
-    padding: 15px;
+    padding: 20px;
     text-align: center;
+    border-top: 1px solid #ddd;
+    color: #21352a;
+}
+
+/* --- RESPONSIVE PARA TABLET Y PC --- */
+@media (min-width: 768px) {
+    main {
+        flex-direction: row; /* En PC se ponen de lado a lado */
+    }
+
+    nav, aside {
+        width: 200px; /* Ancho fijo para laterales en PC */
+    }
 }
