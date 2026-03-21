@@ -1,14 +1,17 @@
 <?php
 function mostrarSaludo() {
 	$rutaUsuarios = rtrim(RUTA_APP, '/');
-	$html='';
-	if (isset($_SESSION["login"]) && ($_SESSION["login"]===true)) {
-		$nombre = htmlspecialchars((string)($_SESSION['nombre'] ?? ''), ENT_QUOTES, 'UTF-8');
-		return "Bienvenido, {$nombre} <br><a href='{$rutaUsuarios}/logout.php'>(salir)</a>";
-	} else {
-		return "Usuario desconocido. <br><a href='{$rutaUsuarios}/login.php'>Login</a> <a href='{$rutaUsuarios}/registro.php'>Registro</a>";
-	}
-	return $html;
+	
+	if (isset($_SESSION["login"]) && ($_SESSION["login"] === true)) {
+        $nombre = htmlspecialchars((string)($_SESSION['nombre'] ?? ''), ENT_QUOTES, 'UTF-8');
+        return "Bienvenido, <strong>{$nombre}</strong> <br>
+                <a href='{$rutaUsuarios}/logout.php' class='link-usuario'>(salir)</a>";
+    } else {
+        return "Usuario desconocido <br>
+                <a href='{$rutaUsuarios}/login.php' class='link-usuario'>Login</a>
+                <span class='separador'> / </span>
+                <a href='{$rutaUsuarios}/registro.php' class='link-usuario'>Registro</a>";
+    }
 }
 
 $aux = '';
@@ -28,17 +31,19 @@ $ruta = RUTA_APP.'index.php';
 }
 
 ?>
-<header>
-	<h1>
-		<a href="<?= RUTA_APP.'index.php' ?>"><img src="<?= RUTA_IMGS.'ui/bistroFDILogo.png' ?>" alt="Logo Bistro FDI" width="100" height="100"></a>
-	</h1>
-	<h2>
-		<a href="<?= $ruta ?>" <?= $aux ?>>
-			Panel de Control
-		</a>
-	</h2>
-	<div class="saludo">
-		<?= mostrarSaludo() ?>
-	</div>
-</header>
 
+<header>
+    <div class="logo-seccion">
+        <a href="<?= RUTA_APP.'index.php' ?>" class="logo-enlace">
+            <img src="<?= RUTA_IMGS ?>ui/bistroFDILogo.png?v=1" 
+                 alt="Logo Bistro" class="img-logo">
+            
+            <img src="<?= RUTA_IMGS ?>ui/letrasBistroFDI.png" 
+                 alt="Bistro FDI" class="img-letras">
+        </a>
+    </div>
+
+    <div class="saludo">
+        <?= mostrarSaludo() ?>
+    </div>
+</header>

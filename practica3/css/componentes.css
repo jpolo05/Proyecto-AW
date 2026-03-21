@@ -1,0 +1,76 @@
+/* Botones estándar */
+.button-estandar, .control-panel a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white !important;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+/* Componentes de cabecera */
+.separador {
+    text-decoration: none !important; /* Quita el subrayado */
+}
+
+.logo-enlace {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.img-logo {
+    height: 50px;
+    width: auto;
+}
+
+.img-letras {
+    height: 30px;
+    width: auto;
+}
+
+.saludo {
+    text-align: right;
+    color: black;
+    line-height: 1.2;
+}
+
+/* Efecto botones */
+.button-estandar:hover {
+    background-color: #2980b9;
+}
+
+/* Tablas de datos (como la de visualizar usuarios) */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+th {
+    background-color: #f8f9fa;
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid #dee2e6;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+tr:hover { background-color: #f1f1f1; }
+
+/* Errores de PHP */
+.error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+}
