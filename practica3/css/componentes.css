@@ -38,9 +38,37 @@
     line-height: 1.2;
 }
 
+/* Componentes de body */
+.titulo {
+    text-align: center;
+}
+.desc {
+    text-align: center;
+}
+.img-perfil {
+    width: 100px;
+    height: 100px;
+    border-radius: 25%;
+}
+
+
 /* Efecto botones */
+
+.button-estandar {
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    color: black !important;
+    text-decoration: none !important;
+}
+
 .button-estandar:hover {
-    background-color: #2980b9;
+    background-color: #e5e5e5;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 
 /* Tablas de datos (como la de visualizar usuarios) */
