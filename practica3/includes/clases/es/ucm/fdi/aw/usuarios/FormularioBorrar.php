@@ -18,14 +18,21 @@ class FormularioBorrar extends Formulario
         <p>¿Estas seguro de que quieres eliminar tu cuenta para siempre?</p>
         <div>
             <button type="submit" name="borrar" class="button-estandar">Si</button>
-            <a href="visualizarUsuarios.php" class="button-estandar">No</a>
+            <button type="submit" name="cancelar" class="button-estandar">No</button>
         </div>
         EOF;
     }
 
+    //<a href="visualizarUsuarios.php" class="button-estandar">No</a>
+
     protected function procesaFormulario(&$datos)
     {
         $this->errores = [];
+
+        if (isset($datos['cancelar'])){
+            $this->urlRedireccion = 'visualizarUsuarios.php';
+            return;
+        }
 
         $user = $_SESSION['user'] ?? null;
         if (!$user) {
