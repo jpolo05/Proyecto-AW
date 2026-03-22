@@ -130,6 +130,19 @@ nav a {
     width: fit-content;
 }
 
+.btn-panelAdmin{
+    display: inline-block;
+    padding: 10px;
+    background-color: #21352a;
+    color: white !important;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    width: 150px;
+    text-align: center;
+}
+
 .button-estandar {
     display: inline-block;
     padding: 5px 10px;
@@ -181,3 +194,4 @@ th{
 th:last-child, td:last-child{
     width:18%;
 }
+
