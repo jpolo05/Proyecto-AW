@@ -21,18 +21,18 @@ $contenidoPrincipal = <<<EOS
     <table class="control-panel">
         <tr>
             <td>
-                <a href="$rutaUsuarios" class='btn-panelAdmin'>Usuarios</a>
+                <a href="$rutaUsuarios">Usuarios</a>
             </td>
             <td>
-                <a href="$rutaCategorias" class='btn-panelAdmin'>Categorias</a>
+                <a href="$rutaCategorias">Categorias</a>
             </td>
         </tr>
         <tr>
             <td>
-                <a href="$rutaPedidos" class='btn-panelAdmin'>Pedidos</a>
+                <a href="$rutaPedidos">Pedidos</a>
             </td>
             <td>
-                <a href="$rutaProductos" class='btn-panelAdmin'>Productos</a>
+                <a href="$rutaProductos">Productos</a>
             </td>
         </tr>
     </table>

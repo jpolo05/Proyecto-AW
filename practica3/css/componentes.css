@@ -130,19 +130,6 @@ nav a {
     width: fit-content;
 }
 
-.btn-panelAdmin{
-    display: inline-block;
-    padding: 10px;
-    background-color: #21352a;
-    color: white !important;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 0.9rem;
-    width: 150px;
-    text-align: center;
-}
-
 .button-estandar {
     display: inline-block;
     padding: 5px 10px;
@@ -195,3 +182,34 @@ th:last-child, td:last-child{
     width:18%;
 }
 
+.control-panel{
+    width: 60%;
+    margin: auto;
+    border-collapse: separate;
+    border-spacing: 20px;
+    border: 0;
+}
+
+.control-panel td {
+    text-align: center;
+    vertical-align: middle;
+    border: 0;
+}
+
+.control-panel a {
+    display: inline-block;
+    padding: 20px;
+    background-color: #21352a;
+    color: white !important;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1.5rem;
+    width: 250px;
+    text-align: center;
+}
+
+.control-panel a:hover {
+    background-color: #e0e0e0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
