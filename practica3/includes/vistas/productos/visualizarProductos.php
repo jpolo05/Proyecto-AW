@@ -68,7 +68,7 @@ EOS;
 } else {
     $bloquePrecioPublico = "<p><strong>Precio:</strong> $precioFinalFmt EUR</p>";
     $urlCrearPedido = RUTA_APP.'includes/vistas/pedidos/crearPedido.php';
-    $accionCliente = "<p><a href=\"{$urlCrearPedido}\"><button>Crear pedido</button></a></p>";
+    $accionCliente = "<p><a href=\"{$urlCrearPedido}\" class='button-estandar'>Crear pedido</a></p>";
 }
 
 $tituloPagina = 'Visualizar producto';
@@ -83,7 +83,7 @@ $contenidoPrincipal = <<<EOS
     <div>$imgHtml</div>
     $accionesGerente
     $accionCliente
-    <p><a href="$urlVolver"><button>Volver</button></a></p>
+    <p><a href="$urlVolver" class='button-estandar'>Volver</a></p>
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';

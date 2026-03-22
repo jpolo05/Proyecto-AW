@@ -34,9 +34,9 @@ $contenidoPrincipal = <<<EOS
         Rol: $rol </p> <br>
     </div>
     <div>
-        <a href="{$rutaPedidos}"><button class="button-estandar">Mis Pedidos</button></a>
-        <a href="actualizarUsuarios.php"><button class="button-estandar">Editar mis datos</button></a>
-        <a href="borrarUsuarios.php"><button class="button-estandar">Borrar mi cuenta</button></a>
+        <a href="{$rutaPedidos}" class="button-estandar">Mis Pedidos</a>
+        <a href="actualizarUsuarios.php" class="button-estandar">Editar mis datos</a>
+        <a href="borrarUsuarios.php" class="button-estandar">Borrar mi cuenta</a>
     </div>
 EOS;
 

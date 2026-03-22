@@ -104,6 +104,7 @@ class FormularioActualizacion extends Formulario
             <div>
                 <button type="reset" name="limpiar" class="button-estandar">Reset</button>
                 <button type="submit" name="update" class="button-estandar">Actualizar</button>
+                <button type="submit" name="cancelar" class="button-estandar">Cancelar</button>
             </div>
         </fieldset>
         EOF;
@@ -112,6 +113,11 @@ class FormularioActualizacion extends Formulario
     protected function procesaFormulario(&$datos)
     {
         $this->errores = [];
+
+        if(isset($datos['cancelar'])){
+            $this->urlRedireccion = RUTA_APP.'includes/vistas/usuarios/visualizarUsuarios.php';
+            return;
+        }
 
         $user = $_SESSION['user'] ?? null;
         if (!$user) {
