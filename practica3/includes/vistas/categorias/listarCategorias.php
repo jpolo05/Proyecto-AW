@@ -29,7 +29,7 @@ foreach ($cats as $c) {
         <td>$id</td>
         <td>$nombre</td>
         <td>$descripcion</td>
-        <td><a href=\"$urlVer\">Ver</a></td>
+        <td><a href=\"$urlVer\" class='btn-general'>Ver</a></td>
     </tr>";
 }
 $tablaCategorias .= '</table>';

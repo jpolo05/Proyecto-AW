@@ -145,8 +145,8 @@ $contenidoPrincipal = <<<EOS
         $bloqueProductos
         $bloqueTotal
         <p>
-            <button type="submit">Crear pedido</button>
-            <a href="$urlVolver"><button type="button">Volver</button></a>
+            <button type="submit" class='button-estandar'>Crear pedido</button>
+            <a href="$urlVolver" class='button-estandar'>Volver</a>
         </p>
     </form>
     $scriptTotal

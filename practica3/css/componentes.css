@@ -130,6 +130,18 @@ nav a {
     width: fit-content;
 }
 
+.button-estandar {
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    color: black !important;
+    text-decoration: none !important;
+}
+
 /* --- AJUSTES DE COMPONENTES PARA PC --- */
 @media (min-width: 992px) {
     .banner-hero { height: 300px; } /* Banner más grande en PC */
@@ -161,6 +173,11 @@ th, td{
     text-align: left;
 }
 
+th{
+    background-color: #21352a;
+    color: #f1ebd8;
+}
+
 th:last-child, td:last-child{
-    width:15%;
+    width:18%;
 }

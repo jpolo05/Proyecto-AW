@@ -10,8 +10,9 @@ $users = Usuario::listar();
 $tituloPagina = 'Listado Usuarios';
 $editando = $_GET['user'] ?? null;
 
+//border="1" cellpadding="6"
 $tablaUsuarios = '
-    <table border="1" cellpadding="6">
+    <table>
         <tr>
             <th>ID</th>
             <th>Nombre</th>
@@ -42,7 +43,8 @@ foreach ($users as $u) {
         $tablaUsuarios .= "<td colspan='2'>$htmlFormRol <a href='listarUsuarios.php'>Cancelar</a></td>";
     } else {
         $tablaUsuarios .= "<td>$rolActual</td>";
-        $tablaUsuarios .= "<td><a href='listarUsuarios.php?user=".urlencode($userRaw)."'><button class='button-estandar'>Editar</button></a></td>";
+        //$tablaUsuarios .= "<td><a href='listarUsuarios.php?user=".urlencode($userRaw)."'><button class='button-estandar'>Editar</button></a></td>";
+        $tablaUsuarios .= "<td><a href='listarUsuarios.php?user=".urlencode($userRaw)."' class='button-estandar'>Editar</a></td>";
     }
 
     $tablaUsuarios .= '</tr>';

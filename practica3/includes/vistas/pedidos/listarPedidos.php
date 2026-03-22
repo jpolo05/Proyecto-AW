@@ -53,7 +53,7 @@ if ($rol === 'Gerente') {
             <td>{$cocinero}</td>
             <td>{$foto}</td>
             <td>{$total}</td>
-            <td><a href='{$urlVer}'><button>Ver pedido</button></a></td>
+            <td><a href='{$urlVer}' class='button-estandar'>Ver pedido</a></td>
         </tr>";
     }
     $tablaPedidos .= '</table>';
@@ -61,7 +61,7 @@ if ($rol === 'Gerente') {
     $usuario = $_SESSION['user'] ?? '';
     $pedidos = Pedido::listar_cliente($usuario);
     $urlCrearPedido = RUTA_APP.'includes/vistas/pedidos/crearPedido.php';
-    $encabezadoExtra = '<p><a href="'.$urlCrearPedido.'"><button>Crear pedido</button></a></p>';
+    $encabezadoExtra = '<p><a href="'.$urlCrearPedido.'" class="button-estandar">Crear pedido</a></p>';
 
     $pedidosEnCurso = [];
     $pedidosCompletados = [];
@@ -74,8 +74,9 @@ if ($rol === 'Gerente') {
         }
     }
 
+    //border="1" cellpadding="8"
     $tablaPedidosEnCurso = '
-        <table border="1" cellpadding="8">
+        <table>
             <tr>
                 <th>Numero pedido</th>
                 <th>Estado</th>
@@ -95,7 +96,7 @@ if ($rol === 'Gerente') {
         $accionCancelar = '';
 
         if (Pedido::clientePuedeCancelarEstado($estadoPedido)) {
-            $accionCancelar = "<br><a href='{$urlBorrar}'><button>Cancelar/Borrar pedido</button></a>";
+            $accionCancelar = "<br><a href='{$urlBorrar}' class='button-estandar'>Cancelar/Borrar pedido</a>";
         }
 
         $tablaPedidosEnCurso .= "
@@ -105,7 +106,7 @@ if ($rol === 'Gerente') {
             <td>{$tipo}</td>
             <td>{$total}</td>
             <td>
-                <a href='{$urlVer}'><button>Ver pedido</button></a>
+                <a href='{$urlVer}' class='button-estandar'>Ver pedido</a>
                 {$accionCancelar}
             </td>
         </tr>";
@@ -142,7 +143,7 @@ if ($rol === 'Gerente') {
             <td>{$estado}</td>
             <td>{$tipo}</td>
             <td>{$total}</td>
-            <td><a href='{$urlVer}'><button>Ver pedido</button></a></td>
+            <td><a href='{$urlVer}' class='button-estandar'>Ver pedido</a></td>
         </tr>";
     }
     $tablaPedidosCompletados .= '</table>';
