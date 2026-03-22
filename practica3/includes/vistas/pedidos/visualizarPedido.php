@@ -47,8 +47,9 @@ $tituloPagina = 'Contenido pedido';
 $totalPedido = number_format((float)($cabeceraPedido['total'] ?? 0), 2, '.', '');
 $bloqueTotalPedido = "<p><strong>Total del pedido: {$totalPedido} EUR</strong></p>";
 
+// border="1" cellpadding="8"
 $lineaPedido = '
-    <table border="1" cellpadding="8">
+    <table>
         <tr>
             <th>Numero pedido</th>
             <th>Producto</th>

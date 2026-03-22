@@ -13,10 +13,11 @@ $rol = $_SESSION['rol'] ?? 'Cliente';
 $tituloPagina = 'Pedidos';
 $encabezadoExtra = '';
 
+//border="1" cellpadding="8"
 if ($rol === 'Gerente') {
     $pedidos = Pedido::listar();
     $tablaPedidos = '
-        <table border="1" cellpadding="8">
+        <table>
             <tr>
                 <th>Numero pedido</th>
                 <th>Estado</th>
@@ -117,8 +118,9 @@ if ($rol === 'Gerente') {
         $tablaPedidosEnCurso = '<h2>Pedidos en curso</h2>'.$tablaPedidosEnCurso;
     }
 
+    //border="1" cellpadding="8"
     $tablaPedidosCompletados = '
-        <table border="1" cellpadding="8">
+        <table>
             <tr>
                 <th>Numero pedido</th>
                 <th>Estado</th>

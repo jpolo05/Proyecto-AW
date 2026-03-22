@@ -150,3 +150,17 @@ nav a {
         height: 180px;
     }
 }
+
+/* --- Para tablas --- */
+table{
+    width: 70%;
+}
+
+th, td{
+    padding: 6px 6px 0px 0px;
+    text-align: left;
+}
+
+th:last-child, td:last-child{
+    width:15%;
+}

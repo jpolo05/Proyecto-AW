@@ -8,9 +8,9 @@ Auth::verificarAcceso('Cliente');
 $cats = Categoria::listar();
 
 $tituloPagina = 'Listado Categorias';
-
+//border="1" cellpadding="6"
 $tablaCategorias = '
-    <table border="1" cellpadding="6">
+    <table>
         <tr>
             <th>ID</th>
             <th>Nombre</th>
