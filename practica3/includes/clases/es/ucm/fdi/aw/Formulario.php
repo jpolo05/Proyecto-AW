@@ -1,6 +1,6 @@
 <?php
 namespace es\ucm\fdi\aw;
-
+use es\ucm\fdi\aw\usuarios\Auth;
 abstract class Formulario
 {
     protected static function generaListaErroresGlobales($errores = [], $classAtt = '')

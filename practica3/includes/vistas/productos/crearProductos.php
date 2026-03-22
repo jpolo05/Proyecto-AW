@@ -1,7 +1,7 @@
 <?php
-use es\ucm\fdi\aw\Auth;
-use es\ucm\fdi\aw\Categoria;
-use es\ucm\fdi\aw\Producto;
+use es\ucm\fdi\aw\usuarios\Auth;
+use es\ucm\fdi\aw\usuarios\Categoria;
+use es\ucm\fdi\aw\usuarios\Producto;
 
 require_once __DIR__.'/../../config.php';
 Auth::verificarAcceso('Gerente');

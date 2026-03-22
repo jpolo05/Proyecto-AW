@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-use es\ucm\fdi\aw\FormularioLogin;
+use es\ucm\fdi\aw\usuarios\FormularioLogin;
 
 $tituloPagina = 'Login';
 $formulario = new FormularioLogin();

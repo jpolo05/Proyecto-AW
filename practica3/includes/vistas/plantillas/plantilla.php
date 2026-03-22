@@ -3,7 +3,9 @@
 <head>
 	<meta charset="UTF-8">
     <title><?= $tituloPagina ?></title>
-    <link rel="stylesheet" href="<?= RUTA_CSS.'custom.css' ?>">
+    <link rel="stylesheet" href="<?= RUTA_CSS.'layout.css' ?>">
+    <link rel="stylesheet" href="<?= RUTA_CSS.'componentes.css' ?>">
+    <link rel="stylesheet" href="<?= RUTA_CSS.'formulario.css' ?>">
 </head>
 <body>
     <div class="contenedor">

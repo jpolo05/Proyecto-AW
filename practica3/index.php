@@ -9,43 +9,45 @@ if (($_SESSION['rol'] ?? '') === 'Gerente') {
     $botonGerente = '<div class="center"><a href="'.$rutaPanelGerente.'"><button class="button-estandar">Panel gerente</button></a></div><br>';
 }
 
+$rutaImgs = RUTA_IMGS . 'ui/'; // Ruta a la carpeta de interfaz
+
 $contenidoPrincipal = <<<EOS
-<div>
-    <h2 class="titulo">Descripcion de Bistro FDI</h2>
-    <hr>
-    <p class="desc">
-        Bistro FDI es una aplicacion web que permite a los clientes consultar la carta
-        de productos, realizar pedidos y consultar el estado de los mismos de forma sencilla.
-    </p>
-    <br>
-    <div class="center separation">
-        <div>
-            <img src="img/ui/personas.jpg" width="200" alt="Personas comiendo"><br>
-            Personas comiendo
-        </div>
-        <div>
-            <img src="img/ui/tienda.jpg" width="200" alt="Nuestro local"><br>
-            Nuestro local
-        </div>
-        <div>
-            <img src="img/ui/producto.jpg" width="200" alt="Nuestros productos"><br>
-            Nuestros productos
+<section class="banner-hero" style="background-image: url('{$rutaImgs}tienda.jpg');">
+    <div class="banner-capa-oscura">
+        <div class="banner-texto">
+            <h1>Bienvenido a Bistro FDI</h1>
+            <p>Tu experiencia culinaria comienza aquí</p>
         </div>
     </div>
-    <br>
-    <div class="center">
-        <a href="includes/vistas/productos/listarProductos.php" class="button-estandar">Ver carta</a>
-    </div>
-    <br>
-    $botonGerente
-    <div class="center">
-        <a href="includes/vistas/pedidos/crearPedido.php" class="button-estandar">ORDENA AHORA</a>
-    </div>
-    <br>
-    <div class="center">
-        <img src="img/ui/facebook.png" width="40" alt="Facebook"> &nbsp;&nbsp;&nbsp;
-        <img src="img/ui/x.png" width="40" alt="X"> &nbsp;&nbsp;&nbsp;
-        <img src="img/ui/instagram.png" width="40" alt="Instagram">
+</section>
+
+<div class="contenido-interior">
+    <div class="contenedor-tarjetas">
+        
+        <article class="tarjeta">
+            <img src="{$rutaImgs}personas_comiendo.jpg" alt="Experiencia">
+            <div class="info">
+                <h3>Experiencia</h3>
+                <p>Para los amantes de la buena mesa.</p>
+            </div>
+        </article>
+
+        <article class="tarjeta">
+            <img src="{$rutaImgs}platillos.jpg" alt="Productos">
+            <div class="info">
+                <h3>Productos</h3>
+                <p>Los mejores platillos de la región.</p>
+            </div>
+        </article>
+
+        <article class="tarjeta">
+            <img src="{$rutaImgs}tienda.jpg" alt="Local">
+            <div class="info">
+                <h3>Nuestro local</h3>
+                <p>Realiza tus pedidos en tiempo real.</p>
+            </div>
+        </article>
+
     </div>
 </div>
 EOS;
