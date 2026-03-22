@@ -213,3 +213,24 @@ th:last-child, td:last-child{
     background-color: #e0e0e0;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
+
+.cocina-table {
+    width: 100%;
+    margin: auto;
+    border-collapse: separate;
+    border-spacing: 20px;
+    border: 0;
+}
+
+.cocina-table thead th {
+    text-align: center;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #ccc;
+}
+
+.cocina-table tbody th {
+    text-align: center;
+    font-size: 1.5rem;
+    width: 50%;
+    border-bottom: 1px solid #ccc;
+}

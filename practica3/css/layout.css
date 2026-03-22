@@ -47,6 +47,11 @@ nav, aside {
     margin-bottom: 0px;
 }
 
+/* Listas de los laterales */
+nav ul, aside ul { 
+    padding: 20px;
+}
+
 /* Contenido Principal */
 article {
     flex: 1;
