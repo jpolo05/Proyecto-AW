@@ -71,6 +71,12 @@ nav a {
     height: 140px; /* Altura fija para que todas sean iguales */
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
     transition: transform 0.3s;
+    
+}
+
+a:has(.tarjeta){
+    text-decoration: none !important;
+    color: #333;
 }
 
 .tarjeta:hover {
