@@ -32,6 +32,7 @@ $contenidoPrincipal = <<<EOS
             </div>
         </article>
 
+        <a href="includes/vistas/productos/listarProductos.php">
         <article class="tarjeta">
             <img src="{$rutaImgs}platillos.jpg" alt="Productos">
             <div class="info">
@@ -39,6 +40,7 @@ $contenidoPrincipal = <<<EOS
                 <p>Los mejores platillos de la región.</p>
             </div>
         </article>
+        </a>
 
         <article class="tarjeta">
             <img src="{$rutaImgs}tienda.jpg" alt="Local">
