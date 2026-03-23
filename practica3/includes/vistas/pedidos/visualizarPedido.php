@@ -105,13 +105,13 @@ if ($esModoCocina && !$hayLineasPendientes && !empty($pedido)) {
 $botonVolver = '';
 if ($esModoCocina) {
     $urlVolver = RUTA_APP.'includes/vistas/paneles/cocinero.php';
-    $botonVolver = "<a href='{$urlVolver}'><button>Volver al panel de cocina</button></a>";
+    $botonVolver = "<a href='{$urlVolver}' class='button-estandar'>Volver al panel de cocina</a>";
 } elseif ($rol === 'Gerente') {
     $urlVolver = RUTA_APP.'includes/vistas/pedidos/listarPedidos.php';
-    $botonVolver = "<a href='{$urlVolver}'><button>Volver a todos los pedidos</button></a>";
+    $botonVolver = "<a href='{$urlVolver}' class='button-estandar'>Volver a todos los pedidos</a>";
 } else {
     $urlVolver = RUTA_APP.'includes/vistas/pedidos/listarPedidos.php';
-    $botonVolver = "<a href='{$urlVolver}'><button>Volver a mis pedidos</button></a>";
+    $botonVolver = "<a href='{$urlVolver}' class='button-estandar'>Volver a mis pedidos</a>";
 }
 
 $contenidoPrincipal = <<<EOS

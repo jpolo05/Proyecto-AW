@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="<?= RUTA_CSS.'layout.css' ?>">
     <link rel="stylesheet" href="<?= RUTA_CSS.'componentes.css' ?>">
     <link rel="stylesheet" href="<?= RUTA_CSS.'formulario.css' ?>">
+    <link rel="icon" type="image/x-icon" href="<?= RUTA_IMGS.'ui/favicon.ico' ?>">
 </head>
 <body>
     <div class="contenedor">

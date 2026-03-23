@@ -51,7 +51,7 @@ foreach ($pedidos as $p) {
                 Cliente: {$cliente}<br>
                 Cocinero: {$cocinero}<br>
                 Para {$tipo}<br>
-                <a href='{$urlCocinar}'><button class='button-estandar'>Cocinar</button></a>
+                <a href='{$urlCocinar}' class='button-estandar'>Cocinar</a>
             </div>
         ";
     }
@@ -93,7 +93,7 @@ $contenidoPrincipal = <<<EOS
     </table>
 
     <br><br>
-    <a href="$rutaInicio"><button class="button-estandar">Volver al Inicio</button></a>
+    <a href="$rutaInicio" class="button-estandar">Volver al Inicio</a>
 </div>
 EOS;
 

@@ -90,7 +90,6 @@ if ($esGerente) {
         $tablaCategorias = '
             <table>
                 <tr>
-                    <th>ID</th>
                     <th>Categoria</th>
                     <th>Descripcion</th>
                     <th>Accion</th>
@@ -104,7 +103,6 @@ if ($esGerente) {
 
             $tablaCategorias .= '
             <tr>
-                <td>'.$idCat.'</td>
                 <td>'.$nombreCat.'</td>
                 <td>'.$descripcionCat.'</td>
                 <td><a href="'.$urlCategoria.'" class="button-estandar">Ver productos</a></td>
@@ -132,7 +130,6 @@ if ($esGerente) {
         $tablaCarta = '
             <table>
                 <tr>
-                    <th>ID</th>
                     <th>Nombre</th>
                     <th>Descripcion</th>
                     <th>Imagen</th>
@@ -158,11 +155,10 @@ if ($esGerente) {
 
             $tablaCarta .= '
             <tr>
-                <td>'.$id.'</td>
                 <td>'.$nombre.'</td>
                 <td>'.$descripcion.'</td>
                 <td>'.$imgHtml.'</td>
-                <td>'.number_format($precioFinal, 2, '.', '').'</td>
+                <td>'.number_format($precioFinal, 2, '.', '').' EUR</td>
                 <td><a href="'.$urlVisualizar.'" class="button-estandar">Ver</a></td>
             </tr>';
         }
