@@ -1,11 +1,13 @@
 /*
   Recuerda deshabilitar "Enable foreign key checks" para evitar problemas al importar.
 */
-DROP TABLE IF EXISTS `lineas_oferta`;
-DROP TABLE IF EXISTS `ofertas`;
+DROP TABLE IF EXISTS `linea_pedido`;
+DROP TABLE IF EXISTS `pedidos`;
 DROP TABLE IF EXISTS `productos`;
 DROP TABLE IF EXISTS `usuarios`;
 DROP TABLE IF EXISTS `categorias`;
+DROP TABLE IF EXISTS `ofertas`;
+DROP TABLE IF EXISTS `linea_ofertas`;
 
 CREATE TABLE IF NOT EXISTS `categorias` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -41,24 +43,56 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   PRIMARY KEY (`user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE IF NOT EXISTS `pedidos` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `numeroPedido` INT NOT NULL,
+  `estado` ENUM('Nuevo', 'Recibido', 'En preparación', 'Cocinando', 'Listo cocina', 'Terminado', 'Entregado', 'Cancelado') NOT NULL DEFAULT 'Nuevo',
+  `tipo` ENUM('Local', 'Llevar') NOT NULL DEFAULT 'Local',
+  `fecha` DATETIME NOT NULL,
+  `cliente` VARCHAR(20) NOT NULL,
+  `cocinero` VARCHAR(20) NULL,
+  `imagenCocinero` VARCHAR(255) NOT NULL DEFAULT 'img/uploads/usuarios/default.jpg',
+  `total` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_cliente_pedidos`
+    FOREIGN KEY (`cliente`) REFERENCES `usuarios`(`user`) ON DELETE CASCADE,
+  CONSTRAINT `fk_cocinero_pedidos`
+    FOREIGN KEY (`cocinero`) REFERENCES `usuarios`(`user`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS `linea_pedido` (
+  `numeroPedido` INT NOT NULL,
+  `idProducto` INT NOT NULL,
+  `cantidad` SMALLINT NOT NULL DEFAULT 1,
+  `subtotal` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  `estado` TINYINT(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`numeroPedido`, `idProducto`),
+  CONSTRAINT `fk_idPedido_lineaPedido`
+    FOREIGN KEY (`numeroPedido`) REFERENCES `pedidos`(`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_idProducto_lineaPedido`
+    FOREIGN KEY (`idProducto`) REFERENCES `productos`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS `linea_ofertas`(
+  `numeroOferta` INT NOT NULL,
+  `idProducto` INT NOT NULL,
+  PRIMARY KEY (`numeroOferta`, `idProducto`),
+  CONSTRAINT `fk_numeroOferta_lineaOferta`
+    FOREIGN KEY (`numeroOferta`) REFERENCES `ofertas`(`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_idProducto_lineaOferta`
+    FOREIGN KEY (`idProducto`) REFERENCES `productos`(`id`) ON DELETE CASCADE,
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 CREATE TABLE IF NOT EXISTS `ofertas` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(120) NOT NULL,
-  `descripcion` TEXT NOT NULL,
+  `nombre` VARCHAR(50) NOT NULL,
+  `descripcion` VARCHAR(255) NOT NULL,
+  `productos` INT NOT NULL,
+  `cantidades` INT NOT NULL,
   `comienzo` DATETIME NOT NULL,
-  `fin` DATETIME NOT NULL,
-  `descuento` DECIMAL(5,2) NOT NULL DEFAULT 0.00,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-CREATE TABLE IF NOT EXISTS `lineas_oferta` (
-  `id` INT NOT NULL,
-  `producto` INT NOT NULL,
-  `cantidad` SMALLINT NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id`, `producto`),
-  CONSTRAINT `fk_idOferta_lineasOferta`
-    FOREIGN KEY (`id`) REFERENCES `ofertas`(`id`) ON DELETE CASCADE,
-  CONSTRAINT `fk_producto_lineasOferta`
+  `fin` DATETIME,
+  `descuento` DECIMAL(10, 2),
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_productos`
     FOREIGN KEY (`producto`) REFERENCES `productos`(`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
