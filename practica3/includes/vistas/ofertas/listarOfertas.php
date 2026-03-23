@@ -8,158 +8,62 @@ function h(string $text): string {
     return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
 }
 
-$rol = $_SESSION['rol'] ?? 'Cliente';
 $tituloPagina = 'Ofertas';
-$encabezadoExtra = '';
 
-//border="1" cellpadding="8"
-if ($rol === 'Gerente') {
-    $ofertas = Oferta::listar();
-    $tablaOfertas = '
-        <table>
-            <tr>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Tipo</th>
-                <th>Cocinero</th>
-                <th>Foto</th>
-                <th>Total</th>
-                <th>Accion</th>
-            </tr>';
+$ofertas = Oferta::listar();
 
-    foreach ($pedidos as $p) {
-        $numeroPedido = (int)($p['numeroPedido'] ?? 0);
-        $estado = h((string)($p['estado'] ?? ''));
-        $tipo = h((string)($p['tipo'] ?? ''));
-        $cocinero = h((string)($p['cocinero'] ?? ''));
-        $imagenCocinero = (string)($p['imagenCocinero'] ?? '');
-        $total = number_format((float)($p['total'] ?? 0), 2, '.', '');
-
-        $foto = '-';
-        if ($imagenCocinero !== '') {
-            $src = preg_match('/^https?:\/\//', $imagenCocinero)
-                ? h($imagenCocinero)
-                : RUTA_APP.ltrim($imagenCocinero, '/');
-            $foto = "<img src='{$src}' width='50' height='50' alt='Cocinero'>";
-        }
-
-        $urlVer = 'visualizarPedido.php?numeroPedido='.$numeroPedido;
-        $tablaPedidos .= "
-        <tr>
-            <td>{$numeroPedido}</td>
-            <td>{$estado}</td>
-            <td>{$tipo}</td>
-            <td>{$cocinero}</td>
-            <td>{$foto}</td>
-            <td>{$total}</td>
-            <td><a href='{$urlVer}' class='button-estandar'>Ver pedido</a></td>
-        </tr>";
-    }
-    $tablaPedidos .= '</table>';
+if (empty($ofertas)) {
+    $contenidoPrincipal = "<h1>Ofertas</h1><p>No hay ofertas registradas actualmente.</p>";
 } else {
-    $usuario = $_SESSION['user'] ?? '';
-    $pedidos = Pedido::listar_cliente($usuario);
-    $urlCrearPedido = RUTA_APP.'includes/vistas/pedidos/crearPedido.php';
-    $encabezadoExtra = '<p><a href="'.$urlCrearPedido.'" class="button-estandar">Crear pedido</a></p>';
+    $tabla = '<table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Productos</th>
+                        <th>Comienzo</th>
+                        <th>Fin</th>
+                        <th>Descuento</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>';
 
-    $pedidosEnCurso = [];
-    $pedidosCompletados = [];
-    foreach ($pedidos as $p) {
-        $estadoPedido = (string)($p['estado'] ?? '');
-        if ($estadoPedido === Pedido::ESTADO_ENTREGADO) {
-            $pedidosCompletados[] = $p;
+    foreach ($ofertas as $o) {
+        $nombre = h((string)($o['nombre'] ?? ''));
+        $descripcion = h((string)($o['descripcion'] ?? ''));
+        $productos = $o['lineas'] ?? [];
+        $comienzo = h((string)($o['comienzo'] ?? ''));
+        $fin = h((string)($o['fin'] ?? ''));
+        $descuento = (float)($o['descuento'] ?? 0);
+        
+        $productosHtml = '<ul>';
+        if (empty($productos)) {
+            $productosHtml .= '<li>Sin productos</li>';
         } else {
-            $pedidosEnCurso[] = $p;
+            foreach ($productos as $p) {
+                $pNombre = h((string)($p['producto'] ?? ''));
+                $cantidad = (int)($p['cantidad'] ?? 0);
+                $productosHtml .= "<li>{$pNombre} ({$cantidad})</li>";
+            }
         }
+        $productosHtml .= '</ul>';
+
+        $urlVer = 'visualizarOferta.php?id=' . urlencode($o['id']);
+        
+        $tabla .= "<tr>
+                    <td>{$nombre}</td>
+                    <td>{$descripcion}</td>
+                    <td>{$productosHtml}</td>
+                    <td>{$comienzo}</td>
+                    <td>{$fin}</td>
+                    <td>{$descuento}%</td>
+                    <td><a href='{$urlVer}' class='button-estandar'>Ver oferta</a></td>
+                  </tr>";
     }
 
-    //border="1" cellpadding="8"
-    $tablaPedidosEnCurso = '
-        <table>
-            <tr>
-                <th>Numero pedido</th>
-                <th>Estado</th>
-                <th>Tipo</th>
-                <th>Total</th>
-                <th>Accion</th>
-            </tr>';
-
-    foreach ($pedidosEnCurso as $p) {
-        $numeroPedido = (int)($p['numeroPedido'] ?? 0);
-        $estadoPedido = (string)($p['estado'] ?? '');
-        $estado = h($estadoPedido);
-        $tipo = h((string)($p['tipo'] ?? ''));
-        $total = number_format((float)($p['total'] ?? 0), 2, '.', '');
-        $urlVer = 'visualizarPedido.php?numeroPedido='.$numeroPedido;
-        $urlBorrar = 'borrarPedido.php?numeroPedido='.$numeroPedido;
-        $accionCancelar = '';
-
-        if (Pedido::clientePuedeCancelarEstado($estadoPedido)) {
-            $accionCancelar = "<br><a href='{$urlBorrar}' class='button-estandar'>Cancelar/Borrar pedido</a>";
-        }
-
-        $tablaPedidosEnCurso .= "
-        <tr>
-            <td>{$numeroPedido}</td>
-            <td>{$estado}</td>
-            <td>{$tipo}</td>
-            <td>{$total}</td>
-            <td>
-                <a href='{$urlVer}' class='button-estandar'>Ver pedido</a>
-                {$accionCancelar}
-            </td>
-        </tr>";
-    }
-    $tablaPedidosEnCurso .= '</table>';
-
-    if (empty($pedidosEnCurso)) {
-        $tablaPedidosEnCurso = '<p>No tienes pedidos en curso.</p>';
-    } else {
-        $tablaPedidosEnCurso = '<h2>Pedidos en curso</h2>'.$tablaPedidosEnCurso;
-    }
-
-    //border="1" cellpadding="8"
-    $tablaPedidosCompletados = '
-        <table>
-            <tr>
-                <th>Numero pedido</th>
-                <th>Estado</th>
-                <th>Tipo</th>
-                <th>Total</th>
-                <th>Accion</th>
-            </tr>';
-
-    foreach ($pedidosCompletados as $p) {
-        $numeroPedido = (int)($p['numeroPedido'] ?? 0);
-        $estado = h((string)($p['estado'] ?? ''));
-        $tipo = h((string)($p['tipo'] ?? ''));
-        $total = number_format((float)($p['total'] ?? 0), 2, '.', '');
-        $urlVer = 'visualizarPedido.php?numeroPedido='.$numeroPedido;
-
-        $tablaPedidosCompletados .= "
-        <tr>
-            <td>{$numeroPedido}</td>
-            <td>{$estado}</td>
-            <td>{$tipo}</td>
-            <td>{$total}</td>
-            <td><a href='{$urlVer}' class='button-estandar'>Ver pedido</a></td>
-        </tr>";
-    }
-    $tablaPedidosCompletados .= '</table>';
-
-    if (empty($pedidosCompletados)) {
-        $tablaPedidosCompletados = '<p>No tienes pedidos completados.</p>';
-    } else {
-        $tablaPedidosCompletados = '<h2>Pedidos completados</h2>'.$tablaPedidosCompletados;
-    }
-
-    $tablaPedidos = $tablaPedidosEnCurso.'<br>'.$tablaPedidosCompletados;
+    $tabla .= '</tbody></table>';
+    $contenidoPrincipal = "<h1>Ofertas</h1>" . $tabla;
 }
-
-$contenidoPrincipal = <<<EOS
-    <h1>Pedidos</h1>
-    $encabezadoExtra
-    $tablaPedidos
-EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
