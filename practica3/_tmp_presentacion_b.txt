@@ -1,0 +1,949 @@
+SOURCE: C:\Users\Richi\Desktop\proyecto-01-presentacion_B.pdf
+PAGES: 8
+
+--- PAGE 1 ---
+Bistro FDI
+ 
+1.
+ 
+Descripción del proyecto
+ 
+El proyecto a realizar
+ 
+en grupo consiste en especificar, prototipar e implementar una 
+aplicación web para gestionar el restaurante Bistro FDI. Para ello, emplearéis distintas 
+tecnologías y consejos de desarrollo que se irán viendo durante el curso.
+ 
+ 
+Bistro FDI es una aplicación
+ 
+web que permite a los clientes realizar sus pedidos y realizar el 
+seguimiento del estado de los mismos. Bistro FDI también permite al personal de la 
+cafetería organizar la preparación de los pedidos que realizan los clientes para atenderlos 
+con rapidez.
+ 
+ 
+Nota: Puedes tomar como referencia tu experiencia personal en el uso de aplicaciones 
+asociadas a las cadenas de restaurantes más conocidas.
+ 
+2.
+ 
+Formación de los grupos y valoración de los proyectos
+ 
+Los grupos de trabajo pueden ser de 4 a 5 miembros. Se espera 
+que en todos los grupos 
+todos los miembros contribuyan al proyecto de forma significativa. Para la valoración final 
+del proyecto, los miembros de cada grupo deberán indicar su valoración (autoevaluación) 
+sobre el nivel de participación del resto de miembro
+s del grupo.
+ 
+3.
+ 
+Desarrollo del proyecto
+ 
+El proyecto se desarrollará siguiendo una serie de etapas, en las que se aprovecharán las 
+entregas de prácticas para ir avanzando el proyecto final.
+ 
+●
+ 
+Etapa 0: Formación de los grupos.
+ 
+●
+ 
+Práctica 1
+: Descripción detallada de
+l proyecto, en forma de página web simple con 
+varios documentos descriptivos (fecha de entrega: 13/02/2026).
+ 
+●
+ 
+Práctica 2
+: Diseño e implementación de las funcionalidades 0, 1, 2. Si el tamaño del 
+grupo es 5, habrá que implementar también la funcionalidad 3. 
+(fecha de entrega: 
+06/03/2026)
+ 
+●
+ 
+Práctica 3
+: Mejora de la implementación de las funcionalidades anteriores e 
+implementación de la siguiente funcionalidad, mejorando la apariencia de la 
+aplicación usando hojas de estilo. Para los grupos de tamaño 4, la nueva 
+funcionalidad será la 3, mientras que para los grupos de tamaño 5, será la 4.
+ 
+(
+fecha 
+de entrega: 10/04/2026
+)
+ 
+●
+ 
+Entrega final: Aplicación Web completa y funcional (fecha de entrega: 03/05/2026)
+
+--- PAGE 2 ---
+4.
+ 
+Usuarios
+ 
+●
+ 
+Cliente:
+ 
+Consumidor de los productos y servicios que ofrece Bistro FDI.
+ 
+●
+ 
+Cocinero:
+ 
+Perso
+nal del Bistro FDI que se encarga de preparar los pedidos.
+ 
+●
+ 
+Camarero:
+ 
+Personal del Bistro FDI que se encarga de entregar los pedidos 
+preparados a los clientes y, si no se ha hecho previamente, cobrar a los clientes por 
+los servicios ofrecidos.
+ 
+●
+ 
+Gerente:
+ 
+Pers
+onal del Bistro FDI que se encarga de gestionar los productos y 
+servicios que se ofrecen en el Bistro FDI.
+ 
+ 
+5.
+ 
+Funcionalidades
+ 
+Todas las funcionalidades que se describen a continuación requieren implementar 
+operaciones para gestionar algún aspecto de la 
+aplicación como los productos a la venta.
+ 
+Para que el proceso de gestión de la funcionalidad 
+se considere implementado
+, deben 
+existir acciones para:
+ 
+1.
+ 
+Listar y visualizar. Por ejemplo, el listado de productos (Carta de Productos) y la 
+visualización detallada
+ 
+de un producto.
+ 
+2.
+ 
+Creación. Por ejemplo, la creación de nuevos productos.
+ 
+3.
+ 
+Actualización. Por ejemplo, la actualización de algún dato de un producto (nombre, 
+descripción, precio, etc.)
+ 
+4.
+ 
+Borrado. Por ejemplo, el borrado de un producto. Este borrado puede ser t
+anto un 
+borrado real en la base de datos, o un borrado lógico (usar una columna / flag).
+ 
+Ten en cuenta que:
+ 
+●
+ 
+Crear y actualizar son acciones que están muy relacionadas, por lo que es habitual 
+que si se implementa adecuadamente, una gran parte del código (ló
+gica de negocio) 
+estará compartida.
+ 
+●
+ 
+Cuando diseñes la base de datos, aunque descubras claves naturales (las claves 
+que habitualmente has diseñado en la asignatura de Bases de Datos)  durante la 
+implementación estas claves naturales se convierten en restric
+ciones de clave única 
+e internamente se usan columnas autonuméricas como clave primaria.
+ 
+0. Funcionalidad 0: Gestión de Usuarios
+ 
+Creación de usuarios asociados al personal del Bistro FDI y de los clientes habituales que 
+se podrán beneficiar de ofertas y de
+scuentos.
+ 
+Para los usuarios es necesario almacenar la siguiente información: 
+ 
+●
+ 
+Nombre de usuario: Nombre de usuario que potencialmente puede ser público. 
+Además es único en el sistema, es decir, no puede haber dos usuarios con el mismo 
+nombre de usuario.
+ 
+●
+ 
+Em
+ail: Email asociado al usuario.
+ 
+●
+ 
+Nombre: Nombre del usuario.
+ 
+●
+ 
+Apellidos: Apellidos del usuario.
+ 
+●
+ 
+Contraseña: Contraseña para poder acceder a la aplicación.
+ 
+●
+ 
+Rol: El rol que tiene asignado el usuario
+ 
+●
+ 
+Avatar / Foto: Avatar o foto del usuario.
+
+--- PAGE 3 ---
+Roles existentes e
+n la aplicación:
+ 
+●
+ 
+Cliente. Ver descripción del usuario.
+ 
+●
+ 
+Cocinero. Ver descripción del usuario.
+ 
+●
+ 
+Camarero. Ver descripción del usuario.
+ 
+●
+ 
+Gerente. Ver descripción del usuario.
+ 
+ 
+Ten en cuenta a la hora de diseñar e implementar esta funcionalidad que:
+ 
+●
+ 
+Como se 
+indicó previamente, es necesario que existan vistas diferenciadas para 
+llevar a cabo las acciones: 1) listar / visualizar, 2) crear, 3) actualizar y 4) borrar.
+ 
+●
+ 
+Por defecto todos los usuarios se crean con el rol “cliente”. Un gerente puede 
+cambiar el rol de
+ 
+un usuario.
+ 
+●
+ 
+Los roles son jerárquicos, en el siguiente orden de prioridad (ordenado de menos a 
+más prioridad): cliente, camarero, cocinero, gerente. Esto es, las acciones que 
+puede hacer un usuario son las que tiene asignadas su rol y todas las acciones d
+e 
+roles con menor prioridad.
+ 
+●
+ 
+Para los avatares se debe poder: a) seleccionar de una serie de imágenes 
+disponibles previamente, b) foto o imagen específica subida por el usuario o d) 
+avatar por defecto.
+ 
+●
+ 
+Los usuarios deben de poder cambiar / actualizar sus d
+atos y su perfil (incluido 
+eliminar una foto / avatar personalizado).
+ 
+●
+ 
+Un potencial usuario debe poder registrarse como usuario tipo cliente en la 
+aplicación.
+ 
+●
+ 
+Los usuarios deben poder hacer login en la aplicación.
+ 
+ 
+Nota:
+ 
+Esta funcionalidad debe existir, per
+o no cuenta de cara a las funcionalidades 
+implementadas por el proyecto ya que en la plantilla o en los ejercicios se proporciona una 
+gran parte de esta funcionalidad. 
+ 
+1. Funcionalidad 1: Gestión de Productos
+ 
+El Gerente es el encargado de dar de alta las 
+categorías y productos
+ 
+que se ofrecen. 
+Normalmente, el gerente usará un ordenador (escritorio o portátil) para realizar las 
+diferentes actuaciones.
+ 
+Las 
+categorías de productos
+ 
+deben de ser gestionables por parte del Gerente y se debe 
+de almacenar la siguie
+nte información;
+ 
+1.
+ 
+Nombre. Nombre de la categoría
+ 
+2.
+ 
+Descripción. Descripción de la categoría.
+ 
+3.
+ 
+Imagen (opcional). Opcionalmente, una categoría puede tener asociada una 
+(pequeña) imagen que podrá ser utilizada en la interfaz de la aplicación para poder 
+acceder a
+ 
+los productos de la categoría.
+ 
+Los 
+productos
+ 
+deben ser gestionados por parte del Gerente y se debe de almacenar la 
+siguiente información:
+ 
+1.
+ 
+Nombre. Nombre del producto
+ 
+2.
+ 
+Descripción. Descripción del producto.
+ 
+3.
+ 
+Categoría. Categoría a la que está asignado el pro
+ducto.
+ 
+4.
+ 
+Imagen(es) asociadas. Una o más imágenes que se utilizarán para mostrar al 
+potencial cliente.
+ 
+5.
+ 
+Precio. Precio base (sin IVA) del producto.
+
+--- PAGE 4 ---
+6.
+ 
+IVA. Tipo de IVA aplicable al producto (4, 10, 21).
+ 
+7.
+ 
+Si está disponible. Un producto puede estar temporalmente n
+o disponible si no hay 
+stock o los productos necesarios para poder prepararlo.
+ 
+8.
+ 
+Ofertado. Si el producto está actualmente ofertado en la carta de Bistro FDI o si se 
+ha retirado.
+ 
+ 
+Ten en cuenta a la hora de diseñar e implementar esta funcionalidad que:
+ 
+●
+ 
+Como se indicó previamente, es necesario que existan vistas diferenciadas para 
+llevar a cabo las acciones: 1) listar / visualizar, 2) crear, 3) actualizar y 4) borrar.
+ 
+○
+ 
+En el caso de los productos, ya que forman parte de los pedidos, borrar 
+corresponde a ac
+tualizar la propiedad “ofertado” del producto.
+ 
+●
+ 
+Se debe de tener en cuenta la usabilidad de las vistas que usa el Gerente, en 
+particular:
+ 
+○
+ 
+Selector que facilite la elección de categorías en los productos.
+ 
+○
+ 
+Visualización y actualización automática del precio f
+inal de los productos: 
+precio base + IVA
+ 
+2. Funcionalidad 2: Gestión de Pedidos
+ 
+Esta funcionalidad es clave en el proyecto ya que intervienen múltiples vistas y roles de la 
+aplicación. Además, requiere adaptarse a diferentes tipos de dispositivos.
+ 
+Creación
+ 
+de nuevos pedidos
+ 
+Los clientes realizan sus pedidos en su 
+smartphone
+ 
+(una vez se han identificado en la 
+aplicación) o bien a través de su laptop / equipo de escritorio para realizar y gestionar los 
+pedidos.
+ 
+ 
+En ambos casos, se debe preparar la aplicación 
+para que se pueda utilizar con el dispositivo 
+en vertical, y la interfaz debe adaptarse al tamaño de la pantalla.
+ 
+ 
+En la aplicación web, los usuarios deben identificarse obligatoriamente.
+ 
+ 
+Un pedido pasa por los siguientes estados:
+ 
+●
+ 
+Nuevo: el pedido está en
+ 
+proceso de creación. Los clientes todavía están añadiendo 
+o modificando productos.
+ 
+●
+ 
+Recibido: el pedido se ha terminado de crear, pero todavía no se ha pagado.
+ 
+●
+ 
+En preparación: el pedido se ha pagado y está a la espera de que un cocinero 
+empiece a 
+prepararlo.
+ 
+●
+ 
+Cocinando: los diferentes productos de un pedido están siendo preparados por un 
+cocinero.
+ 
+●
+ 
+Listo cocina: el pedido ya se ha completado en cocina, y está pendiente de que un 
+camarero prepare el pedido para ser recogido  por el cliente.
+ 
+●
+ 
+Terminado:
+ 
+el pedido ya se ha completado, y está pendiente de que sea recogido 
+por el cliente.
+ 
+●
+ 
+Entregado: el pedido ha sido entregado al cliente.
+ 
+●
+ 
+Cancelado: Un pedido puede ser cancelado cuando todavía está en estado nuevo o 
+recibido.
+ 
+Además, los pedidos pueden ser 
+de uno de estos dos tipos:
+
+--- PAGE 5 ---
+●
+ 
+Local: Para consumir en Bistro FDI
+ 
+●
+ 
+Llevar: El pedido es para recoger y consumir fuera de Bistro FDI.
+ 
+ 
+Para cada pedido se deberá de almacenar:
+ 
+●
+ 
+Productos: Productos y las cantidades (unidades) de cada uno de los productos 
+solicitados.
+ 
+●
+ 
+Estado: estado del pedido.
+ 
+●
+ 
+Número de pedido: número entero. Este número se usa para que el cliente pueda 
+saber el estado de sus pedidos.
+ 
+●
+ 
+Fecha y hora del pedido: Instante en el que se ha creado el pedido.
+ 
+●
+ 
+Tipo: tipo del pedido.
+ 
+●
+ 
+Cliente: El usu
+ario que está realizando el pedido.
+ 
+Total: Total pagado por el cliente incluido el IVA aplicable a cada uno de los 
+productos.
+ 
+ 
+El flujo más habitual para los pedidos se compone de los siguientes pasos:
+ 
+1.
+ 
+Identificarse.
+ 
+2.
+ 
+El cliente debe elegir si el pedido es 
+para consumir en el local o para llevar.
+ 
+3.
+ 
+El cliente añade los productos al carrito.
+ 
+○
+ 
+El cliente navega por las categorías de productos, donde se mostrará un 
+listado de los productos existentes, elegirá uno y una cantidad de unidades 
+del producto para añadir
+ 
+al pedido.
+ 
+○
+ 
+Una vez que el cliente solicita un producto, se añadirá al carrito y podrá 
+modificar el número de unidades del producto que quiere incluir en el pedido 
+si accede al carrito.
+ 
+4.
+ 
+Confirmar o cancelar el pedido.
+ 
+○
+ 
+Cuando el cliente no quiera añadir nue
+vos productos, el usuario deberá ir al 
+carrito y confirmar el pedido, pero también podrá cancelar el pedido.
+ 
+○
+ 
+Si confirma el pedido, en ese instante se crea y almacena el pedido en la 
+base de datos asignándole un número de pedido que es único para un día 
+co
+ncreto.
+ 
+○
+ 
+En caso de cancelar el pedido, no se creará el pedido en la base de datos.
+ 
+5.
+ 
+Pago.
+ 
+○
+ 
+El cliente introduce los detalles de su tarjeta o bien solicita pagar al camarero
+ 
+○
+ 
+Nota: El formulario de la tarjeta debe realizar validaciones, pero es una 
+simulación,
+ 
+no intentes integrar la aplicación con una plataforma de 
+pago (e.g. PayPal, Stripe, etc.)
+.
+ 
+6.
+ 
+Confirmación
+ 
+○
+ 
+En esta pantalla se mostrará el número de pedido asignado, su estado y un 
+botón para “volver al inicio”. Este botón simplemente recargará la página par
+a 
+volver al paso 1.
+ 
+ 
+Puedes personalizar o mejorar este flujo, por ejemplo, para permitir cancelar el pedido en 
+cualquier momento, pero se debe poder seguir este proceso para realizar el proceso de 
+compra.
+ 
+ 
+Ten en cuenta a la hora de diseñar e 
+implementar esta funcionalidad que:
+
+--- PAGE 6 ---
+●
+ 
+Como se indicó previamente, es necesario que existan vistas diferenciadas para 
+llevar a cabo las acciones: 1) listar / visualizar, 2) crear, 3) actualizar y 4) borrar.
+ 
+●
+ 
+Los pedidos cancelados no se almacenan en la base de
+ 
+datos.
+ 
+●
+ 
+El “número de pedido” comienza en 
+1 cada día y se incrementa cada vez que se 
+formaliza un pedido
+ 
+(estado recibido).
+ 
+●
+ 
+Si se conoce el cliente que ha realizado el pedido, éste debe de poder consultarse 
+en el listado de pedidos pasados que debe de incl
+uirse en el perfil del cliente.
+ 
+●
+ 
+Si el cliente se ha identificado, un pedido confirmado se le asociará y quedará 
+registrado y disponible para su consulta en su perfil de usuario.
+ 
+●
+ 
+Un gerente puede consultar los pedidos asociados.
+ 
+Pago / Entrega de los pedido
+s
+ 
+Asumimos que cada camarero tiene en su puesto de trabajo una 
+tablet que está colocada 
+en un atril en formato apaisado
+. Las dos principales acciones que pueden hacer los 
+camareros son:
+ 
+1.
+ 
+Cobrar a un cliente
+ 
+2.
+ 
+Entregar un pedido a un cliente.
+ 
+ 
+Cuando un 
+cliente decide pagar al camarero, asumimos que se realiza la transacción 
+económica fuera de la aplicación, pero el camarero debe poder seleccionar un pedido 
+“Recibido” y confirmar el pago cambiando su estado a “En preparación”.
+ 
+ 
+Cuando los cocineros notifi
+can que un pedido está preparado (estado “Listo cocina”), el 
+camarero debe poder revisar si falta algún producto que no se prepara en cocina (e.g. 
+bebidas), o si es necesario preparar el pedido para llevar y pasa su estado a “Terminado”.  
+Una vez el camare
+ro entrega al cliente el pedido, debe poder seleccionar un pedido 
+“Terminado”, confirmar su entrega cambiando su estado a “Entregado”.
+ 
+ 
+Ten en cuenta a la hora de diseñar e implementar esta funcionalidad que:
+ 
+●
+ 
+Ya que los camareros están muy atareados, deben
+ 
+de tener una interfaz sencilla 
+para poder agilizar la gestión de los pedidos.
+ 
+●
+ 
+Deben poder ver en todo momento su avatar para no utilizar la tablet de otro 
+camarero.
+ 
+Consulta del estado de los pedidos
+ 
+Un cliente puede consultar el estado de su pedido:
+ 
+●
+ 
+Si e
+l cliente se ha identificado, podrá consultar en su perfil del usuario el estado del 
+pedido. En particular se deben de mostrar los pedidos en los estados relevantes: En 
+preparación, Cocinando, Listo cocina, Terminado.
+ 
+3. Funcionalidad 3: Preparación de los
+ 
+pedidos
+ 
+Asumimos que cada cocinero tiene en su puesto de trabajo una 
+tablet que está colocada 
+en un atril en formato apaisado
+. Las dos principales acciones que pueden hacer los 
+cocineros son:
+ 
+1.
+ 
+Quedarse con un pedido a preparar (en estado “En preparación”).
+ 
+Al quedarse con el 
+pedido, pasará a estado “Cocinando”.
+
+--- PAGE 7 ---
+2.
+ 
+Confirmar cuando un producto (independientemente de la cantidad solicitada) se ha 
+preparado.
+ 
+3.
+ 
+Finalizar la preparación del pedido para que esté disponible y que el cliente lo recoja.
+ 
+ 
+Un Gerente debe poder ver el estado de los pedidos pendientes (Recibido, En preparación, 
+Cocinando, Listo cocina, Terminado). Además, en el caso de los pedidos “En preparación” 
+debe de poder ver claramente el avatar/foto del cocinero que lo está preparando
+, de modo 
+que pueda revisar o dar instrucciones concretas para pedidos de clientes VIP.
+ 
+ 
+Ten en cuenta a la hora de diseñar e implementar esta funcionalidad que:
+ 
+●
+ 
+Ya que los cocineros están muy atareados, deben de tener una interfaz sencilla para 
+poder agil
+izar la gestión de los pedidos.
+ 
+●
+ 
+El Gerente debe poder visualizar en una única vista el estado de los pedidos 
+pendientes. En el caso que sea necesario, debe de poder consultar el estado de 
+cada uno de los productos solicitados de un pedido para ver cómo va 
+la preparación 
+del pedido.
+ 
+4. Funcionalidad 4: Gestión de Ofertas
+ 
+Una oferta es un pack de uno o varios productos con un porcentaje de descuento.
+ 
+Para cada oferta se deberá de almacenar:
+ 
+●
+ 
+Nombre: Nombre de la oferta.
+ 
+●
+ 
+Descripción: Descripción de la oferta.
+ 
+●
+ 
+P
+roducto(s) y cantidad(es) para que la oferta sea aplicable.
+ 
+●
+ 
+Comienzo: Fecha a partir de la cual está disponible la oferta.
+ 
+●
+ 
+Fin: Fecha de finalización a partir de la cual la oferta dejará de estar disponible.
+ 
+●
+ 
+Descuento: Porcentaje de descuento.
+ 
+ 
+Un Gerente 
+debe poder gestionar las ofertas:
+ 
+1.
+ 
+Listar ofertas actuales y pasadas (caducadas).
+ 
+2.
+ 
+Crear nuevas ofertas.
+ 
+3.
+ 
+Actualizar ofertas.
+ 
+4.
+ 
+Borrar ofertas.
+ 
+ 
+Los clientes pueden decidir aplicar una o varias de las ofertas actualmente disponibles para 
+el pedido actual. Una v
+ez activada una o varias ofertas, los clientes pueden consultar si la 
+oferta es aplicable a su pedido. Además, 
+debe de quedar registrado en el pedido el coste 
+del pedido (sin descuentos) y el dinero que se ha descontado al aplicar las ofertas
+.
+ 
+Por ejemplo 
+la oferta “Desayuno Andaluz” incluye:
+ 
+●
+ 
+Café: 1 (con un precio de 1,25
+€)
+ 
+●
+ 
+Tostada de aceite y tomate: 1 (con un precio de 1,3
+€)
+ 
+●
+ 
+Descuento: 0,215 (~21,5%)
+ 
+●
+ 
+Precio sin descuento: 2,55 
+€
+ 
+●
+ 
+Descuento: 0,55
+€ (redondeado)
+ 
+●
+ 
+Precio: 2
+€
+ 
+ 
+Ten en cuenta a la hora de 
+diseñar e implementar esta funcionalidad que:
+
+--- PAGE 8 ---
+●
+ 
+Los clientes deben de poder consultar, además de su nombre y descripción, los 
+detalles de la oferta para saber qué productos deben de poder solicitar (incluidas las 
+cantidades) para que la oferta sea aplicable.
+ 
+●
+ 
+La interfaz del Gerente debería ayudarle en el proceso de creación, especialmente, 
+con el descuento. Por ejemplo, mostrando el precio del pack sin descuento (incluido 
+IVA aplicable a cada producto), permitiéndole especificar el precio final de la oferta y
+ 
+calculando automáticamente el porcentaje de descuento.
+ 
+●
+ 
+Los descuentos se pueden aplicar múltiples veces en el pedido si se cumplen las 
+condiciones.
+ 
+○
+ 
+Por ejemplo, si se activa la oferta de “Desayuno Andaluz” y el pedido incluye 
+3 cafés y 2 tostadas de aceit
+e y tomate. Se aplicará la oferta a los dos 
+desayunos y el café restante se pagará al precio normal.
+ 
+○
+ 
+Sólo se puede aplicar una oferta.
+ 
+●
+ 
+Múltiples ofertas no se pueden aplicar a los mismos productos del pedido.
+ 
+ 
+5. Funcionalidad 5: Gestión de 
+Recompensas
+ 
+Los clientes que se han identificado al realizar los pedidos, recibirán “BistroCoins” como 
+parte del programa de fidelización de Bistro FDI a razón de 1 BistroCoin por cada 1
+€ 
+gastado. Las recompensas consisten en productos de la carta que se p
+agarán con 
+BistroCoins en vez de dinero.
+ 
+ 
+Para cada recompensa se deberá de almacenar:
+ 
+●
+ 
+Producto de la carta aplicable.
+ 
+●
+ 
+bistrocoins: Número de BistroCoins necesarias.
+ 
+ 
+Un Gerente debe poder gestionar las recompensas:
+ 
+1.
+ 
+Listar recompensas actuales.
+ 
+2.
+ 
+Crear nueva
+s recompensas.
+ 
+3.
+ 
+Actualizar recompensas.
+ 
+4.
+ 
+Borrar recompensas.
+ 
+ 
+Ten en cuenta a la hora de diseñar e implementar esta funcionalidad que:
+ 
+●
+ 
+Los clientes deben poder consultar los “BistroCoins” que tienen acumulados en su 
+perfil personal.
+ 
+●
+ 
+Los clientes deben 
+poder visualizar las recompensas disponibles, destacando 
+aquellas que pueden ser aplicables (tienes saldo de BitCoins suficiente).
+ 
+●
+ 
+Los clientes deben poder añadir recompensas al pedido.
+ 
+●
+ 
+En el pedido debe quedar almacenado que el producto(s) se ha conseguid
+o 
+mediante una recompensa. En el histórico de los pedidos de un cliente, debe poder 
+verse este detalle.
+ 
+○
+ 
+Por ejemplo, si un pedido contiene 3 cafés con leche y 1 de ellos ha sido 
+conseguido como recompensa, en el pedido debe poder visualizarse:
+ 
+■
+ 
+Café con lec
+he: 2
+ 
+■
+ 
+Café con leche (Recompensa): 1
+ 
+●
+ 
+Los BistroCoins se detraen del saldo una vez ha pagado el pedido actual.
+

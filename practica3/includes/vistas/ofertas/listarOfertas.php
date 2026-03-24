@@ -9,11 +9,13 @@ function h(string $text): string {
 }
 
 $tituloPagina = 'Ofertas';
+$msg = $_GET['msg'] ?? '';
 
 $ofertas = Oferta::listar();
+$mensajeHtml = $msg !== '' ? '<p><strong>'.h($msg).'</strong></p>' : '';
 
 if (empty($ofertas)) {
-    $contenidoPrincipal = "<h1>Ofertas</h1><p>No hay ofertas registradas actualmente.</p>";
+    $contenidoPrincipal = "<h1>Ofertas</h1>{$mensajeHtml}<p>No hay ofertas registradas actualmente.</p>";
 } else {
     $tabla = '<table>
                 <thead>
@@ -63,7 +65,7 @@ if (empty($ofertas)) {
     }
 
     $tabla .= '</tbody></table>';
-    $contenidoPrincipal = "<h1>Ofertas</h1>" . $tabla;
+    $contenidoPrincipal = "<h1>Ofertas</h1>{$mensajeHtml}" . $tabla;
 }
 
 require __DIR__.'/../plantillas/plantilla.php';
