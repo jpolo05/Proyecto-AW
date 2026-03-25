@@ -1,6 +1,7 @@
 /*
   Recuerda deshabilitar "Enable foreign key checks" para evitar problemas al importar.
 */
+
 TRUNCATE TABLE `linea_pedido`;
 TRUNCATE TABLE `pedidos`;
 TRUNCATE TABLE `productos`;

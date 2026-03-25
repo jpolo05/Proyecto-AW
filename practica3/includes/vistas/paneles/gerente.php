@@ -9,6 +9,7 @@ $rutaUsuarios = RUTA_APP.'includes/vistas/usuarios/listarUsuarios.php';
 $rutaCategorias = RUTA_APP.'includes/vistas/categorias/listarCategorias.php';
 $rutaPedidos = RUTA_APP.'includes/vistas/pedidos/listarPedidos.php';
 $rutaProductos = RUTA_APP.'includes/vistas/productos/listarProductos.php';
+$rutaOfertas = RUTA_APP.'includes/vistas/ofertas/listarOfertas.php';
 $rutaInicio = RUTA_APP.'index.php';
 
 $contenidoPrincipal = <<<EOS
@@ -33,6 +34,11 @@ $contenidoPrincipal = <<<EOS
             </td>
             <td>
                 <a href="$rutaProductos">Productos</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="$rutaOfertas">Ofertas</a>
             </td>
         </tr>
     </table>

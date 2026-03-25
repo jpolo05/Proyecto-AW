@@ -29,6 +29,36 @@ class Producto {
         return $out;
     }
 
+    public static function listarNombres(bool $soloOfertados = false): array {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+
+        $sql = 'SELECT p.id, p.nombre, p.id_categoria, p.precio_base, p.iva
+                FROM productos p';
+        if ($soloOfertados) {
+            $sql .= ' WHERE p.ofertado = 1 AND p.disponible = 1';
+        }
+        $sql .= ' ORDER BY p.id_categoria ASC, p.nombre ASC';
+
+        $res = mysqli_query($conn, $sql);
+        
+        if (!$res) {
+            return [];
+        }
+
+        $out = [];
+        while ($row = mysqli_fetch_assoc($res)) {
+            $out[] = [
+                'id' => (int) $row['id'],
+                'nombre' => $row['nombre'],
+                'precio_base' => (float) $row['precio_base'],
+                'iva' => (int) $row['iva']
+            ];
+        }
+
+        mysqli_free_result($res);
+        return $out;
+    }
+
     public static function buscaPorId(int $id): ?array
     {
         $conn = Aplicacion::getInstance()->getConexionBd();

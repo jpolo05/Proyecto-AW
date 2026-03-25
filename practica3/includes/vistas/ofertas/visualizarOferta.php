@@ -28,7 +28,6 @@ $descripcion = h((string) ($oferta['descripcion'] ?? ''));
 $comienzo = h((string) ($oferta['comienzo'] ?? ''));
 $fin = h((string) ($oferta['fin'] ?? ''));
 $descuento = number_format((float) ($oferta['descuento'] ?? 0), 2, ',', '.');
-$cantidad = (int) ($oferta['cantidad'] ?? 1);
 $lineas = $oferta['lineas'] ?? [];
 $urlVolver = h(RUTA_APP.'includes/vistas/ofertas/listarOfertas.php');
 $accionesGerente = '';
@@ -45,7 +44,7 @@ if (!empty($lineas)) {
     $items = [];
     foreach ($lineas as $linea) {
         $producto = h((string) ($linea['producto'] ?? ''));
-        $cantidadLinea = (int) ($linea['cantidad'] ?? $cantidad);
+        $cantidadLinea = (int) ($linea['cantidad'] ?? 1);
         $items[] = "<li>{$producto} ({$cantidadLinea})</li>";
     }
     $productosHtml = implode('', $items);
@@ -58,7 +57,6 @@ $contenidoPrincipal = <<<EOS
     <p><strong>Comienzo:</strong> {$comienzo}</p>
     <p><strong>Fin:</strong> {$fin}</p>
     <p><strong>Descuento:</strong> {$descuento}%</p>
-    <p><strong>Cantidad por producto:</strong> {$cantidad}</p>
     <h2>Productos incluidos</h2>
     <ul>
         {$productosHtml}

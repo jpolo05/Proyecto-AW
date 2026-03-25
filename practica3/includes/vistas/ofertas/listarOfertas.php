@@ -3,6 +3,7 @@ use es\ucm\fdi\aw\usuarios\Auth;
 use es\ucm\fdi\aw\usuarios\Oferta;
 
 require_once __DIR__.'/../../config.php';
+$esGerente = (($_SESSION['rol'] ?? '') === 'Gerente');
 
 function h(string $text): string {
     return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
@@ -14,8 +15,18 @@ $msg = $_GET['msg'] ?? '';
 $ofertas = Oferta::listar();
 $mensajeHtml = $msg !== '' ? '<p><strong>'.h($msg).'</strong></p>' : '';
 
+if($esGerente) {
+    $urlCrear = htmlspecialchars(RUTA_APP.'includes/vistas/ofertas/crearOfertas.php', ENT_QUOTES, 'UTF-8');
+    $aux = '';
+} else {
+    $urlCrear = '#';
+    $aux = 'none';
+}
+
+$contenidoPrincipal = "<h1>Ofertas</h1>{$mensajeHtml}" . "<p><a href='$urlCrear' class='button-estandar $aux' >Crear oferta</a></p>";
+
 if (empty($ofertas)) {
-    $contenidoPrincipal = "<h1>Ofertas</h1>{$mensajeHtml}<p>No hay ofertas registradas actualmente.</p>";
+    $contenidoPrincipal .= '<p>No hay ofertas registradas actualmente.</p>';
 } else {
     $tabla = '<table>
                 <thead>
@@ -65,7 +76,7 @@ if (empty($ofertas)) {
     }
 
     $tabla .= '</tbody></table>';
-    $contenidoPrincipal = "<h1>Ofertas</h1>{$mensajeHtml}" . $tabla;
+    $contenidoPrincipal .= $tabla;
 }
 
 require __DIR__.'/../plantillas/plantilla.php';

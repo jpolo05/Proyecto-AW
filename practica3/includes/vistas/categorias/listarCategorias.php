@@ -4,6 +4,7 @@ use es\ucm\fdi\aw\usuarios\Categoria;
 
 require_once __DIR__.'/../../config.php';
 Auth::verificarAcceso('Cliente');
+$esGerente = (($_SESSION['rol'] ?? '') === 'Gerente');
 
 $cats = Categoria::listar();
 
@@ -34,8 +35,17 @@ foreach ($cats as $c) {
 }
 $tablaCategorias .= '</table>';
 
+if($esGerente) {
+    $urlCrear = htmlspecialchars(RUTA_APP.'includes/vistas/categorias/crearCategorias.php', ENT_QUOTES, 'UTF-8');
+    $aux = '';
+} else {
+    $urlCrear = '#';
+    $aux = 'none';
+}
+
 $contenidoPrincipal = <<<EOS
     <h1>Categorias</h1>
+    <p><a href="$urlCrear" class="button-estandar $aux" >Crear categoria</a></p>
     $tablaCategorias
 EOS;
 

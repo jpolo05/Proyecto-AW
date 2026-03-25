@@ -6,10 +6,10 @@ class Oferta {
     public static function listar(): array {
         $conn = Aplicacion::getInstance()->getConexionBd();
 
-        $sql = 'SELECT o.id, o.nombre, o.descripcion, o.cantidad, o.comienzo, o.fin, o.descuento,
-                       p.nombre AS producto_nombre
+        $sql = 'SELECT o.id, o.nombre, o.descripcion, o.comienzo, o.fin, o.descuento,
+                       p.nombre AS producto_nombre, lo.cantidad
                 FROM ofertas o
-                LEFT JOIN lineas_oferta lo ON lo.id = o.id
+                LEFT JOIN lineas_oferta lo ON lo.id_oferta = o.id
                 LEFT JOIN productos p ON p.id = lo.producto
                 ORDER BY o.id, p.nombre';
         $res = mysqli_query($conn, $sql);
@@ -25,7 +25,6 @@ class Oferta {
                     'id' => $id,
                     'nombre' => $row['nombre'],
                     'descripcion' => $row['descripcion'],
-                    'cantidad' => (int) ($row['cantidad'] ?? 1),
                     'comienzo' => $row['comienzo'],
                     'fin' => $row['fin'],
                     'descuento' => $row['descuento'],
@@ -45,28 +44,15 @@ class Oferta {
         return array_values($out);
     }
 
-    public static function crear(string $nombre, string $descripcion, ?string $imagen = null): bool
-    {
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $sql = 'INSERT INTO categorias (nombre, descripcion, imagen) VALUES (?, ?, ?)';
-        $stmt = mysqli_prepare($conn, $sql);
-        if (!$stmt) {
-            return false;
-        }
-
-        $imagen = ($imagen !== null && $imagen !== '') ? $imagen : null;
-        mysqli_stmt_bind_param($stmt, 'sss', $nombre, $descripcion, $imagen);
-        $ok = mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
-        return $ok;
-    }
-
     public static function buscaPorId(int $id): ?array
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $sql = 'SELECT id, nombre, descripcion, cantidad, comienzo, fin, descuento
+        
+        // 1. Obtener los datos principales de la oferta
+        $sql = 'SELECT id, nombre, descripcion, comienzo, fin, descuento
                 FROM ofertas
                 WHERE id = ? LIMIT 1';
+                
         $stmt = mysqli_prepare($conn, $sql);
         if (!$stmt) {
             return null;
@@ -82,52 +68,49 @@ class Oferta {
             return null;
         }
 
-        $cantidad = (int) ($fila['cantidad'] ?? 1);
-        $sqlLineas = 'SELECT p.nombre
-                      FROM lineas_oferta lo
-                      INNER JOIN productos p ON p.id = lo.producto
-                      WHERE lo.id = ?
-                      ORDER BY p.nombre';
+        // 2. Obtener las líneas asociadas (incluyendo la cantidad)
+        $fila['lineas'] = [];
+        $sqlLineas = 'SELECT p.nombre, lo.cantidad 
+                    FROM lineas_oferta lo
+                    INNER JOIN productos p ON p.id = lo.producto
+                    WHERE lo.id_oferta = ?
+                    ORDER BY p.nombre';
+        
+        // NOTA: Asegúrate de que la columna en lineas_oferta sea 'id_oferta' o la FK correspondiente
         $stmtLineas = mysqli_prepare($conn, $sqlLineas);
         if ($stmtLineas) {
             mysqli_stmt_bind_param($stmtLineas, 'i', $id);
             mysqli_stmt_execute($stmtLineas);
             $resLineas = mysqli_stmt_get_result($stmtLineas);
-            $fila['lineas'] = [];
 
             if ($resLineas) {
                 while ($linea = mysqli_fetch_assoc($resLineas)) {
                     $fila['lineas'][] = [
                         'producto' => $linea['nombre'],
-                        'cantidad' => $cantidad,
+                        'cantidad' => (int) $linea['cantidad'], // Ahora la variable existe
                     ];
                 }
             }
-
             mysqli_stmt_close($stmtLineas);
-        } else {
-            $fila['lineas'] = [];
         }
 
-        return $fila ?: null;
+        return $fila;
     }
 
     public static function borrar(int $id): bool
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $sqlLineas = 'DELETE FROM lineas_oferta WHERE id = ?';
-        $stmtLineas = mysqli_prepare($conn, $sqlLineas);
-        if (!$stmtLineas) {
+
+        $sql = 'DELETE FROM lineas_oferta WHERE id_oferta = ?';
+        $stmt = mysqli_prepare($conn, $sql);
+        if (!$stmt) {
             return false;
         }
 
-        mysqli_stmt_bind_param($stmtLineas, 'i', $id);
-        $okLineas = mysqli_stmt_execute($stmtLineas);
-        mysqli_stmt_close($stmtLineas);
+        mysqli_stmt_bind_param($stmt, 'i', $id);
+        $result = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
 
-        if (!$okLineas) {
-            return false;
-        }
 
         $sql = 'DELETE FROM ofertas WHERE id = ?';
         $stmt = mysqli_prepare($conn, $sql);
@@ -136,25 +119,51 @@ class Oferta {
         }
 
         mysqli_stmt_bind_param($stmt, 'i', $id);
-        $ok = mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
-        return $ok;
-    }
 
-    public static function actualizar(int $id, string $nombre, string $descripcion, ?string $imagen = null): bool
+        return $result !== false;
+    }
+    public static function crear(string $nombre, string $descripcion, ?string $comienzo, ?string $fin, int $descuento, array $productos, array $cantidades): bool
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $sql = 'UPDATE categorias SET nombre = ?, descripcion = ?, imagen = ? WHERE id = ?';
+
+        // 1. Insertar la oferta
+        $sql = 'INSERT INTO ofertas (nombre, descripcion, comienzo, fin, descuento) VALUES (?, ?, ?, ?, ?)';
         $stmt = mysqli_prepare($conn, $sql);
         if (!$stmt) {
             return false;
         }
 
-        $imagen = ($imagen !== null && $imagen !== '') ? $imagen : null;
-        mysqli_stmt_bind_param($stmt, 'sssi', $nombre, $descripcion, $imagen, $id);
-        $ok = mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_param($stmt, 'ssssi', $nombre, $descripcion, $comienzo, $fin, $descuento);
+        if (!mysqli_stmt_execute($stmt)) {
+            mysqli_stmt_close($stmt);
+            return false;
+        }
+
+        $idOferta = mysqli_insert_id($conn);
         mysqli_stmt_close($stmt);
-        return $ok;
+
+        // 2. Insertar las líneas de oferta
+        $sqlLinea = 'INSERT INTO lineas_oferta (id_oferta, producto, cantidad) VALUES (?, ?, ?)';
+        foreach ($productos as $index => $productoId) {
+            if (empty($productoId)) {
+                continue; // Saltar productos no seleccionados
+            }
+
+            $cantidad = isset($cantidades[$index]) && is_numeric($cantidades[$index]) && (int)$cantidades[$index] > 0 ? (int)$cantidades[$index] : 1;
+
+            $stmtLinea = mysqli_prepare($conn, $sqlLinea);
+            if (!$stmtLinea) {
+                continue; // O manejar el error de otra forma
+            }
+
+            mysqli_stmt_bind_param($stmtLinea, 'iii', $idOferta, $productoId, $cantidad);
+            mysqli_stmt_execute($stmtLinea);
+            mysqli_stmt_close($stmtLinea);
+        }
+
+        return true;
     }
 }
 

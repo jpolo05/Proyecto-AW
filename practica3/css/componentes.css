@@ -249,3 +249,7 @@ th:last-child, td:last-child{
     background: #f1ebd8;
     height: 150px;
 }
+
+.none {
+    display: none;
+}
