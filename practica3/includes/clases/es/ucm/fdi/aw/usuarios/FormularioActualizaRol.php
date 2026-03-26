@@ -31,7 +31,7 @@ class FormularioActualizaRol extends Formulario
             $options
         </select>
         {$erroresCampos['nuevoRol']}
-        <button type="submit">Guardar</button>
+        <button type="submit" class="button-estandar">Guardar</button>
         EOF;
     }
 

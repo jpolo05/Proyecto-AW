@@ -40,7 +40,7 @@ foreach ($users as $u) {
     if ($editando === $userRaw) {
         $formRol = new FormularioActualizaRol($userRaw, $rolActualRaw);
         $htmlFormRol = $formRol->gestiona();
-        $tablaUsuarios .= "<td colspan='2'>$htmlFormRol <a href='listarUsuarios.php'>Cancelar</a></td>";
+        $tablaUsuarios .= "<td colspan='2'>$htmlFormRol <a href='listarUsuarios.php' class='button-estandar'>Cancelar</a></td>";
     } else {
         $tablaUsuarios .= "<td>$rolActual</td>";
         //$tablaUsuarios .= "<td><a href='listarUsuarios.php?user=".urlencode($userRaw)."'><button class='button-estandar'>Editar</button></a></td>";

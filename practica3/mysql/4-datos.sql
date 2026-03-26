@@ -7,6 +7,8 @@ TRUNCATE TABLE `pedidos`;
 TRUNCATE TABLE `productos`;
 TRUNCATE TABLE `usuarios`;
 TRUNCATE TABLE `categorias`;
+TRUNCATE TABLE `lineas_oferta`;
+TRUNCATE TABLE `ofertas`;
 
 -- Datos de prueba
 INSERT INTO `categorias` (`nombre`, `descripcion`, `imagen`) VALUES

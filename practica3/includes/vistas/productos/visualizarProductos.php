@@ -55,8 +55,8 @@ if ($esGerente) {
     $urlBorrar = RUTA_APP.'includes/vistas/productos/borrarProductos.php?id='.$id;
     $accionesGerente = <<<EOS
     <p>
-        <a href="$urlEditar"><button>Actualizar</button></a>
-        <a href="$urlBorrar"><button>Retirar</button></a>
+        <a href="$urlEditar" class="button-estandar">Actualizar</a>
+        <a href="$urlBorrar" class="button-estandar">Retirar</a>
     </p>
 EOS;
     $bloquePrecioGerente = <<<EOS
