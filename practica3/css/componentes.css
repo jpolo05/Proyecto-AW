@@ -68,7 +68,8 @@ nav a {
     border: 1px solid #ddd;
     border-radius: 15px;
     overflow: hidden;
-    height: 140px; /* Altura fija para que todas sean iguales */
+    height: auto; /*140px;  Altura fija para que todas sean iguales */
+    min-height: 120px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
     transition: transform 0.3s;
     

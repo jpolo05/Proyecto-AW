@@ -52,14 +52,11 @@ foreach ($users as $u) {
 
 $tablaUsuarios .= '</table>';
 
+$rutaPanelGerente = RUTA_APP.'includes/vistas/paneles/gerente.php';
 $contenidoPrincipal = <<<EOS
     <h2>Gestión de Usuarios</h2>
+    <a href="$rutaPanelGerente" class="button-estandar">Volver</a>
     $tablaUsuarios
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
-
-
-
-
-

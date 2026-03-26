@@ -33,15 +33,15 @@ $contenidoPrincipal = <<<EOS
         </article>
 
         <a href="includes/vistas/productos/listarProductos.php">
-        <article class="tarjeta">
-            <img src="{$rutaImgs}platillos.jpg" alt="Productos">
-            <div class="info">
-                <h3>Productos</h3>
-                <p>Los mejores platillos de la región.</p>
-            </div>
-        </article>
+            <article class="tarjeta">
+                <img src="{$rutaImgs}platillos.jpg" alt="Productos">
+                <div class="info">
+                    <h3>Productos</h3>
+                    <p>Los mejores platillos de la región.</p>
+                </div>
+            </article>
         </a>
-
+        
         <article class="tarjeta">
             <img src="{$rutaImgs}tienda.jpg" alt="Local">
             <div class="info">
