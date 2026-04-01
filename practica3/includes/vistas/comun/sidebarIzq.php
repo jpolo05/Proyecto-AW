@@ -1,7 +1,7 @@
 <?php require_once __DIR__.'/../../config.php'; ?>
 
-<nav>
-	<h2>Navegacion</h2>
+<nav class="menu-lateral">
+	<h2>Navegación</h2>
 	<ul>
 		<li><a href="<?= RUTA_APP ?>index.php">Inicio</a></li>
 		<?php if (($_SESSION['rol'] ?? '') === 'Gerente') : ?>

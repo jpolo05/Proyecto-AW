@@ -70,9 +70,9 @@ nav a {
     overflow: hidden;
     height: auto; /*140px;  Altura fija para que todas sean iguales */
     min-height: 120px;
+    flex-shrink: 0;
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
     transition: transform 0.3s;
-    
 }
 
 a:has(.tarjeta){
@@ -100,6 +100,19 @@ a:has(.tarjeta){
 }
 
 .info h3 { color: #21352a; margin-bottom: 5px; }
+
+.redes-sociales {
+    display: flex;
+    justify-content: center; /* Centra los iconos */
+    gap: 25px;               /* Da un espacio exacto de 25px entre cada uno */
+    padding: 20px 0;         /* Reemplaza los <br> dando espacio arriba y abajo */
+}
+
+.redes-sociales img {
+    width: 35px;
+    height: auto;
+    cursor: pointer;
+}
 
 /*Selecciona la SEGUNDA tarjeta */
 .contenedor-tarjetas .tarjeta:nth-child(2) {
@@ -148,6 +161,49 @@ a:has(.tarjeta){
     color: black !important;
     text-decoration: none !important;
 }
+
+/* Contenedor para centrar el botón y darle aire */
+.boton-ordenar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0; /* Espacio arriba y abajo para no usar <br> */
+    width: 100%;
+}
+
+/*Botón principal "ORDENA AHORA" */
+.button-estandar {
+    display: inline-block;
+    background-color: #21352a;
+    color: #f1ebd8 !important; 
+
+    border-radius: 30px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: 2px solid #21352a;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Efecto al pasar el ratón */
+.button-estandar:hover {
+    transform: translateY(-3px); /* Pequeño salto hacia arriba */
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/*SIDEBAR IZQUIERDO*/
+.menu-lateral h2 {
+    color: #f1ebd8;
+    padding: 0 15px;
+    border-bottom: 2px solid #b79754; /* Línea dorada bajo el título */
+    padding-bottom: 6px;
+}
+
+/*SIDEBAR DERECHO*/
+.sidebar-derecho h2 {
+    color: #f1ebd8;
+    padding: 0 15px;
+}
+
 
 /* --- AJUSTES DE COMPONENTES PARA PC --- */
 @media (min-width: 992px) {

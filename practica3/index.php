@@ -32,12 +32,13 @@ $contenidoPrincipal = <<<EOS
             </div>
         </article>
 
-        <a href="includes/vistas/productos/listarProductos.php">
+        <a href="includes/vistas/productos/listarProductos.php" class="enlace-tarjeta">
             <article class="tarjeta">
                 <img src="{$rutaImgs}platillos.jpg" alt="Productos">
                 <div class="info">
                     <h3>Productos</h3>
-                    <p>Los mejores platillos de la región.</p>
+                    <p>Los mejores platillos de la región. </p>
+                    <p><strong>Pulsa aquí para ver la carta.</strong></p>
                 </div>
             </article>
         </a>
@@ -49,8 +50,19 @@ $contenidoPrincipal = <<<EOS
                 <p>Realiza tus pedidos en tiempo real.</p>
             </div>
         </article>
-
     </div>
+</div>
+
+<br>
+$botonGerente
+<div class="boton-ordenar">
+<a href="includes/vistas/pedidos/crearPedido.php" class="button-estandar">ORDENA AHORA</a>
+</div>
+
+<div class="redes-sociales">
+    <img src="img/ui/facebook.png" alt="Facebook">
+    <img src="img/ui/x.png" alt="X">
+    <img src="img/ui/instagram.png" alt="Instagram">
 </div>
 EOS;
 

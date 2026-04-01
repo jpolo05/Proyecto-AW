@@ -77,7 +77,7 @@ footer {
     color: #21352a;
 }
 
-/* --- RESPONSIVE PARA TABLET Y PC --- */
+/* ---  TABLET Y PC --- */
 @media (min-width: 768px) {
     main {
         flex-direction: row; /* En PC se ponen de lado a lado */
