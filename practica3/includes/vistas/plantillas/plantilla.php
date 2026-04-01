@@ -1,3 +1,6 @@
+<?php 
+    $funcionesJS = $funcionesJS ?? '';
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>

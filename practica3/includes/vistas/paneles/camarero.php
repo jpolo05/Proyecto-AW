@@ -39,7 +39,6 @@ foreach ($pedidos as $p) {
             <div class='pedido'>
                 Pedido: #{$numeroPedido}<br>
                 Cliente: {$cliente}<br>
-                Para {$tipo}<br>
                 Total: {$total} EUR<br>
                 <a href='{$urlDetalle}'><button class='button-estandar'>Ver detalle</button></a>
                 {$htmlForm}
@@ -58,8 +57,6 @@ foreach ($pedidos as $p) {
                 Pedido: #{$numeroPedido}<br>
                 Cliente: {$cliente}<br>
                 Cocinero: {$cocinero}<br>
-                Para {$tipo}<br>
-                Total: {$total} EUR<br>
                 <a href='{$urlDetalle}'><button class='button-estandar'>Ver detalle</button></a>
                 {$htmlForm}
             </div>
