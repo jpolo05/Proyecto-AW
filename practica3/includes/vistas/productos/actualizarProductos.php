@@ -90,8 +90,8 @@ $contenidoPrincipal = <<<EOS
         <input type="hidden" name="csrfToken" value="$csrfToken">
         <input type="hidden" name="id" value="{$id}">
         <p><label>Nombre: <input type="text" name="nombre" value="$nombre" required></label></p>
-        <p><label>Descripcion: <textarea name="descripcion" required>$descripcion</textarea></label></p>
-        <p><label>Categoria:
+        <p><label>Descripción: <textarea name="descripcion" required>$descripcion</textarea></label></p>
+        <p><label>Categoría:
             <select name="id_categoria">
                 $opcionesCategorias
             </select>

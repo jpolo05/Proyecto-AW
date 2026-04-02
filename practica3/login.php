@@ -8,7 +8,9 @@ $formulario = new FormularioLogin();
 $htmlFormularioLogin = $formulario->gestiona();
 
 $contenidoPrincipal = <<<EOS
-<h2>Acceso al sistema</h2>
+<div class="seccion-titulo">
+    <h2>Acceso al sistema</h2>
+</div>
 $htmlFormularioLogin
 <p>¿No tiene una cuenta? <a href="registro.php">Regí­strate aquí­</a></p>
 EOS;

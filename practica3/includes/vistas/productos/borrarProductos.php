@@ -40,7 +40,7 @@ $contenidoPrincipal = <<<EOS
     <ul>
         <li><strong>ID:</strong> {$idMostrado}</li>
         <li><strong>Nombre:</strong> {$nombre}</li>
-        <li><strong>Descripcion:</strong> {$descripcion}</li>
+        <li><strong>Descripción:</strong> {$descripcion}</li>
     </ul>
     <form method="POST" action="$action">
         <input type="hidden" name="csrfToken" value="$csrfToken">

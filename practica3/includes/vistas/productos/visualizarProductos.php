@@ -73,17 +73,29 @@ EOS;
 
 $tituloPagina = 'Visualizar producto';
 $contenidoPrincipal = <<<EOS
-    <h1>Producto #$id</h1>
-    <p><strong>Nombre:</strong> $nombre</p>
-    <p><strong>Descripcion:</strong> $descripcion</p>
-    <p><strong>Categoria:</strong> $categoria</p>
-    $bloquePrecioGerente
-    $bloquePrecioPublico
-    <p><strong>Disponible:</strong> $disponible</p>
-    <div>$imgHtml</div>
-    $accionesGerente
-    $accionCliente
-    <p><a href="$urlVolver" class='button-estandar'>Volver</a></p>
+<div class="contenedor-producto">
+    <div class="fila-superior">
+        <div class="info-producto">
+            <h1>Producto #$id</h1>
+            <p><strong>Nombre:</strong> $nombre</p>
+            <p><strong>Descripción:</strong> $descripcion</p>
+            <p><strong>Categoría:</strong> $categoria</p>
+            $bloquePrecioGerente
+            $bloquePrecioPublico
+            <p><strong>Disponible:</strong> $disponible</p>
+        </div>
+
+        <div class="imagen-producto">
+            $imgHtml
+        </div>
+    </div>
+</div>
+<div class="botones-ordenar">
+    <a href="$urlVolver" class="button-estandar">Volver</a>
+        $accionesGerente
+        $accionCliente
+    </div>
+
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';

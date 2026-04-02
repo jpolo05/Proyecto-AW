@@ -95,8 +95,8 @@ $contenidoPrincipal = <<<EOS
     <form method="POST" action="$action" enctype="multipart/form-data">
         <input type="hidden" name="csrfToken" value="$csrfToken">
         <p><label>Nombre: <input type="text" name="nombre" required></label></p>
-        <p><label>Descripcion: <textarea name="descripcion" required></textarea></label></p>
-        <p><label>Categoria:
+        <p><label>Descripción: <textarea name="descripcion" required></textarea></label></p>
+        <p><label>Categoría:
             <select name="id_categoria">
                 $opcionesCategorias
             </select>

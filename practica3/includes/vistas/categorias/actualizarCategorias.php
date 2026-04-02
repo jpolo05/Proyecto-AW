@@ -60,7 +60,7 @@ $contenidoPrincipal = <<<EOS
         <input type="hidden" name="csrfToken" value="$csrfToken">
         <input type="hidden" name="id" value="{$id}">
         <p><label>Nombre: <input type="text" name="nombre" value="$nombre" required></label></p>
-        <p><label>Descripcion: <textarea name="descripcion" required>$descripcion</textarea></label></p>
+        <p><label>Descripción: <textarea name="descripcion" required>$descripcion</textarea></label></p>
         <p><label>Imagen (ruta relativa o URL): <input type="text" name="imagen" value="$imagen"></label></p>
         <p>
             <button type="submit">Guardar cambios</button>

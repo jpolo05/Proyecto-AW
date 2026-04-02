@@ -88,7 +88,7 @@ a:has(.tarjeta){
 
 .tarjeta:hover {
     transform: translateY(-5px);
-    border-color: #b79754;
+    border-color: #a9a9a9;
 }
 
 .tarjeta img {
@@ -226,6 +226,77 @@ th:last-child, td:last-child {
 .seccion-titulo {
     margin-bottom: 10px;
     padding: 10px;
+}
+
+.img-producto-lista {
+    /* Definimos el tamaño aquí */
+    width: 70px;
+    height: 70px;
+    
+    /* EL BORDE QUE QUERÍAS */
+    border: 1px solid #a9a9a9; /* Grosor, tipo (solid) y color dorado Bistro */
+    object-fit: cover;
+    border-radius: 5px;
+    
+    /* Opcional: una pequeña sombra */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+    
+    display: block;            /* Evita espacios extra debajo de la imagen */
+}
+
+/*DETALLE DE PRODUCTO*/
+.contenedor-producto {
+    width: 100%;           /* Casi todo el ancho en móviles */
+    max-width: 600px;    /* Límite de ancho en pantallas grandes */
+    margin: 40px auto 0 auto;    /* 60px de separación arriba/abajo y centrado horizontal */
+    padding: 40px;        /* Espacio interno para que el contenido respire */
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 20px 30px rgba(0,0,0,0.08); 
+    
+    /* Aseguramos que sea un bloque independiente */
+    display: block; 
+    overflow: hidden; 
+}
+
+.fila-superior {
+    display: flex !important;
+    flex-direction: row; /* Fuerza la horizontalidad */
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+    width: 100%;
+}
+
+.info-producto {
+    flex: 1; /* El texto toma el espacio de la izquierda */
+    text-align: left;
+}
+
+.imagen-producto {
+    flex: 0 0 300px; /* La imagen se queda a la derecha con 300px */
+}
+
+.imagen-producto img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Responsive: En móvil se pone uno debajo del otro */
+@media (max-width: 768px) {
+    .fila-superior {
+        flex-direction: column; /* Apila los elementos */
+        align-items: center;
+        text-align: center;
+    }
+
+    .imagen-producto {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 300px;
+        order: -1; /* Opcional: pone la imagen arriba del texto en móvil */
+    }
 }
 
 

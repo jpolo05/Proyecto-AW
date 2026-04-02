@@ -133,10 +133,10 @@ if ($esGerente) {
             <table>
                 <tr>
                     <th>Nombre</th>
-                    <th>Descripcion</th>
+                    <th>Descripción</th>
                     <th>Imagen</th>
                     <th>Precio</th>
-                    <th>Accion</th>
+                    <th>Acción</th>
                 </tr>';
 
         foreach ($prods as $p) {
@@ -152,7 +152,7 @@ if ($esGerente) {
             $imgHtml = '-';
             if ($imagenRaw !== '') {
                 $src = preg_match('/^https?:\/\//', $imagenRaw) ? $imagen : RUTA_APP.ltrim($imagenRaw, '/');
-                $imgHtml = "<img src='{$src}' alt='Imagen producto' width='70' height='70'>";
+                $imgHtml = "<img src='{$src}' alt='Imagen producto' class='img-producto-lista'>";
             }
 
             $tablaCarta .= '
@@ -177,7 +177,7 @@ if ($esGerente) {
             $tablaCarta
 
             <div class="botones-ordenar">
-                <a href="$urlVolverCategorias" class="button-estandar">Volver a Categorías</a>
+                <a href="$urlVolverCategorias" class="button-estandar">Volver</a>
                 <a href="$urlCrearPedido" class="button-estandar">Crear pedido</a>
             </div>
         EOS;

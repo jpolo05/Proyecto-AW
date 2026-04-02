@@ -15,7 +15,7 @@ $tablaCategorias = '
         <tr>
             <th>ID</th>
             <th>Nombre</th>
-            <th>Descripcion</th>
+            <th>Descripción</th>
             <th>Acciones</th>
         </tr>';
 
@@ -44,8 +44,8 @@ if($esGerente) {
 }
 
 $contenidoPrincipal = <<<EOS
-    <h1>Categorias</h1>
-    <p><a href="$urlCrear" class="button-estandar $aux" >Crear categoria</a></p>
+    <h1>Categorías</h1>
+    <p><a href="$urlCrear" class="button-estandar $aux" >Crear categoría</a></p>
     $tablaCategorias
 EOS;
 

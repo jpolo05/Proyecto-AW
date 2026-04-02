@@ -46,7 +46,7 @@ $contenidoPrincipal = <<<EOS
     <form method="POST" action="$action">
         <input type="hidden" name="csrfToken" value="$csrfToken">
         <p><label>Nombre: <input type="text" name="nombre" required></label></p>
-        <p><label>Descripcion: <textarea name="descripcion" required></textarea></label></p>
+        <p><label>Descripción: <textarea name="descripcion" required></textarea></label></p>
         <p><label>Imagen (ruta relativa o URL): <input type="text" name="imagen"></label></p>
         <p>
             <button type="submit">Guardar</button>
