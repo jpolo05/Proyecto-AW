@@ -120,40 +120,12 @@ a:has(.tarjeta){
     cursor: pointer;
 }
 
-/*Selecciona la SEGUNDA tarjeta */
-.contenedor-tarjetas .tarjeta:nth-child(2) {
-    background-color: #21352a; 
-    color: #f1ebd8;
-    border-color: #21352a;
-}
-
-/*Ajuste hover para la tarjeta verde*/
-.contenedor-tarjetas .tarjeta:nth-child(2):hover {
-    transform: translateY(-5px);
-    border-color: #b79754;
-}
-
-/* Ajuste título tarjeta verde*/
-.contenedor-tarjetas .tarjeta:nth-child(2) .info h3 {
-    color: #b79754;
-}
-
-/* Ajuste párrafo tarjeta verde*/
-.contenedor-tarjetas .tarjeta:nth-child(2) .info p {
-    color: #f1ebd8;
-}
-
-/* Botones */
-.btn-dorado {
-    display: inline-block;
-    padding: 8px 16px;
-    background-color: #b79754;
-    color: #21352a !important;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 0.9rem;
-    width: fit-content;
+.boton-ordenar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    width: 100%;
 }
 
 .button-estandar {
@@ -166,14 +138,6 @@ a:has(.tarjeta){
     border-radius: 10px;
     color: black !important;
     text-decoration: none !important;
-}
-
-.boton-ordenar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 0;
-    width: 100%;
 }
 
 /*Botón principal "ORDENA AHORA" */
@@ -192,6 +156,16 @@ a:has(.tarjeta){
 .button-estandar:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* Botones de la tabla */
+.botones-ordenar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    width: 100%;
+    gap: 20px;
 }
 
 /*SIDEBAR IZQUIERDO*/

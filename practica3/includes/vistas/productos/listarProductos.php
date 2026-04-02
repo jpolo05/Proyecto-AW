@@ -170,13 +170,16 @@ if ($esGerente) {
         $urlCrearPedido = RUTA_APP.'includes/vistas/pedidos/crearPedido.php';
         $mensajeHtml = $msg !== '' ? '<p><strong>'.htmlspecialchars($msg, ENT_QUOTES, 'UTF-8').'</strong></p>' : '';
         $contenidoPrincipal = <<<EOS
-            <h2>Carta - $nombreCategoria</h2>
+            <div class="seccion-titulo">
+                <h2>Carta - $nombreCategoria</h2>
+            </div>
             $mensajeHtml
-            <p>
-                <a href="$urlVolverCategorias" class="button-estandar">Volver a categorias</a>
-                <a href="$urlCrearPedido" class="button-estandar">Crear pedido</a>
-            </p>
             $tablaCarta
+
+            <div class="botones-ordenar">
+                <a href="$urlVolverCategorias" class="button-estandar">Volver a Categorías</a>
+                <a href="$urlCrearPedido" class="button-estandar">Crear pedido</a>
+            </div>
         EOS;
     }
 }
