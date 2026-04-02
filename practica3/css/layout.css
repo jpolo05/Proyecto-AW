@@ -62,7 +62,7 @@ article {
     align-items: center;
 }
 
-/* Div para dar aire al contenido dentro del article */
+/* Div para dar aire al contenido dentro del article  REVISAR- NO SE ESTA APLICANDO*/ 
 .contenido-interior {
     padding: 20px;
     width: 100%;

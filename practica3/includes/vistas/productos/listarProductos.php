@@ -16,8 +16,8 @@ if ($esGerente) {
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>Descripcion</th>
-                <th>Categoria</th>
+                <th>Descripción</th>
+                <th>Categoría</th>
                 <th>Precio base</th>
                 <th>IVA (%)</th>
                 <th>Precio final</th>
@@ -90,9 +90,9 @@ if ($esGerente) {
         $tablaCategorias = '
             <table>
                 <tr>
-                    <th>Categoria</th>
-                    <th>Descripcion</th>
-                    <th>Accion</th>
+                    <th>Categoría</th>
+                    <th>Descripción</th>
+                    <th>Acción</th>
                 </tr>';
 
         foreach ($cats as $c) {
@@ -112,7 +112,9 @@ if ($esGerente) {
         $mensajeHtml = $msg !== '' ? '<p><strong>'.htmlspecialchars($msg, ENT_QUOTES, 'UTF-8').'</strong></p>' : '';
 
         $contenidoPrincipal = <<<EOS
+        <div class="seccion-titulo">
             <h2>Carta</h2>
+        </div>
             $mensajeHtml
             $tablaCategorias
         EOS;

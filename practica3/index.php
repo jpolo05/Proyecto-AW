@@ -12,7 +12,8 @@ if (($_SESSION['rol'] ?? '') === 'Gerente') {
 $rutaImgs = RUTA_IMGS . 'ui/'; // Ruta a la carpeta de interfaz
 
 $contenidoPrincipal = <<<EOS
-<section class="banner-hero" style="background-image: url('{$rutaImgs}tienda.jpg');">
+<section class="banner-hero"> 
+    <img src="{$rutaImgs}tienda.jpg" alt="Banner principal"> 
     <div class="banner-capa-oscura">
         <div class="banner-texto">
             <h1>Bienvenido a Bistro FDI</h1>
