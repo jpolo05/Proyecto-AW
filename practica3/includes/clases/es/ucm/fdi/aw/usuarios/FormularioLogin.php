@@ -19,23 +19,29 @@ class FormularioLogin extends Formulario
 
         return <<<EOF
         $htmlErroresGlobales
-        <fieldset>
-            <legend>Usuario y contrasena</legend>
-            <div>
+        <div class="contenedor-login">
+        
+            <div class="seccion-titulo">
+                <h2>Iniciar sesión</h2>
+            </div>
+
+            <div class="campo-login">
                 <label for="nombreUsuario">Nombre de usuario:</label>
                 <input id="nombreUsuario" type="text" name="nombreUsuario" value="$nombreUsuario">
                 {$erroresCampos['nombreUsuario']}
             </div>
-            <div>
-                <label for="password">Password:</label>
-                <input id="password" type="password" name="password">
+            
+            <div class="campo-login">
+                <label for="password">Contraseña:</label>
+                <input id="password" type="password" name="password" placeholder="••••••••">
                 {$erroresCampos['password']}
             </div>
-            <div>
-                <button type="reset" name="limpiar" class="button-estandar">Reset</button>
-                <button type="submit" name="login" class="button-estandar">Entrar</button>
-            </div>
-        </fieldset>
+        </div>
+
+        <div class="botones-ordenar">
+            <button type="reset" name="limpiar" class="button-estandar">Limpiar</button>
+            <button type="submit" name="login" class="button-estandar">Entrar</button>
+        </div>
         EOF;
     }
 

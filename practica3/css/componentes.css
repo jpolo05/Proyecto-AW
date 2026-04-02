@@ -128,24 +128,15 @@ a:has(.tarjeta){
     width: 100%;
 }
 
+
+/*BOTÓN PRINCIPAL*/
 .button-estandar {
     display: inline-block;
     padding: 5px 10px;
-    font-size: 1rem;
-    cursor: pointer;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    color: black !important;
-    text-decoration: none !important;
-}
-
-/*Botón principal "ORDENA AHORA" */
-.button-estandar {
-    display: inline-block;
     background-color: #21352a;
     color: #f1ebd8 !important;
-
+    font-size: 1rem;
+    cursor: pointer;
     border-radius: 30px;
     font-weight: bold;
     transition: all 0.3s ease;
@@ -282,6 +273,64 @@ th:last-child, td:last-child {
     height: auto;
     border-radius: 8px;
 }
+
+/*LOGIN*/
+/* Caja blanca para los inputs */
+.contenedor-login {
+    background-color: #fff;
+    max-width: 450px;
+    margin: 40px auto 0 auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+}
+
+.campo-login {
+    margin-bottom: 20px;
+}
+
+.campo-login:last-child {
+    margin-bottom: 0;
+}
+
+/* Estilo de los Labels */
+.campo-login label {
+    display: block;
+    font-weight: bold;
+    color: #21352a; /* El verde oscuro de tu marca */
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+/* Estilo de los Inputs (siguiendo el estilo de la web) */
+.campo-login input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #a9a9a9;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none;
+}
+
+.contenedor-login .seccion-titulo {
+    text-align: center;
+    width: 100%;
+}
+
+.enlace-registro {
+    text-align: center;
+    width: 100%;
+    color: #444;
+}
+
+.enlace-registro a {
+    color: #21352a;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+
 
 /* Responsive: En móvil se pone uno debajo del otro */
 @media (max-width: 768px) {
