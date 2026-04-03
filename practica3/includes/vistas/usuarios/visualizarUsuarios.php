@@ -40,12 +40,12 @@ $contenidoPrincipal = <<<EOS
             </div>
         </div>
     </div>
+</div>
 
-    <div class="buttons-estandar">
-        <a href="{$rutaPedidos}" class="button-estandar">Mis Pedidos</a>
-        <a href="actualizarUsuarios.php" class="button-estandar">Editar datos</a>
-        <a href="borrarUsuarios.php" class="button-delete">Borrar cuenta</a>
-    </div>
+<div class="buttons-estandar">
+    <a href="{$rutaPedidos}" class="button-estandar">Mis Pedidos</a>
+    <a href="actualizarUsuarios.php" class="button-estandar">Editar datos</a>
+    <a href="borrarUsuarios.php" class="button-delete">Borrar cuenta</a>
 </div>
 EOS;
 

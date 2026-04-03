@@ -19,13 +19,13 @@ if ($rol === 'Gerente') {
     $tablaPedidos = '
         <table>
             <tr>
-                <th>Numero pedido</th>
+                <th>Número pedido</th>
                 <th>Estado</th>
                 <th>Tipo</th>
                 <th>Cocinero</th>
                 <th>Foto</th>
                 <th>Total</th>
-                <th>Accion</th>
+                <th>Acción</th>
             </tr>';
 
     foreach ($pedidos as $p) {
