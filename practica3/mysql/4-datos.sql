@@ -35,4 +35,4 @@ INSERT INTO `usuarios` (`user`, `email`, `nombre`, `apellidos`, `contrasena`, `r
 ('camarero', 'camarero@gmail.com', 'Luisa', 'Perez', '$2y$10$LnEzbAdQLlY/RryEvXmzLumCAFnNZX4ZkajoWDnovEIGP8fc5RRAS', 'Camarero', 'img/uploads/usuarios/img_69b14259473ea8.36904842.png'),
 ('cliente', 'cliente@gmail.com', 'Pablo', 'Galindo', '$2y$10$Q1FYw7v/1VXDDpPK0GoVuOLZSpCY4UFOfIVdmBYy/e3hAWVBli7DC', 'Cliente', 'img/uploads/usuarios/default.jpg'),
 ('cocinero', 'cocinero@gmail.com', 'Jorge', 'Garcia', '$2y$10$D07t97MRNseN16VXPwfUCu8ARLahI9csWUiK/UBbs7XXoL20rxBRy', 'Cocinero', 'img/uploads/usuarios/img_69b14288349b83.44261640.png'),
-('gerente', 'gerente@gmail.com', 'Juan', 'Lopez', '$2y$10$zxIuzR7iyrlWarfISYkgu.FAECOvX5z5ToF126Kn3l7r9CjLNenWC', 'Gerente', 'img/uploads/usuarios/img_69b1422d2b95c4.04711911.png');
+('gerente', 'gerente@gmail.com', 'Juan', 'Lopez', '$2y$10$zxIuzR7iyrlWarfISYkgu.FAECOvX5z5ToF126Kn3l7r9CjLNenWC', 'Gerente', 'img/uploads/usuarios/gerente.png');
