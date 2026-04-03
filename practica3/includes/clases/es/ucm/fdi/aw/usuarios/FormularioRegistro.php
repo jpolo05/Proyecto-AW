@@ -82,7 +82,7 @@ class FormularioRegistro extends Formulario
                 <input id="imagenURL" type="file" name="imagenURL">
             </div>
         </div>
-        <div class="botones-ordenar">
+        <div class="buttons-estandar">
             <button type="reset" name="limpiar" class="button-estandar">Limpiar</button>
             <button type="submit" name="registro" class="button-estandar">Crear cuenta</button>
         </div>

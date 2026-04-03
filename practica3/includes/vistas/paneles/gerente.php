@@ -30,7 +30,7 @@ $contenidoPrincipal = <<<EOS
             <a href="$rutaOfertas" class="boton-panel">Ofertas</a>
         </div>
 
-        <div class="botones-ordenar">
+        <div class="buttons-estandar">
             <a href="$rutaInicio" class="button-estandar">Volver al Inicio</a>
         </div>
     </div>

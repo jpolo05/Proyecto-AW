@@ -20,24 +20,33 @@ $tituloPagina = 'Perfil';
 $rutaPedidos = RUTA_APP.'includes/vistas/pedidos/listarPedidos.php';
 
 $contenidoPrincipal = <<<EOS
-    <h2>MI PERFIL</h2>
-    
-    <div>
-        <p><strong> $user </strong></p> <br>
+<div class="contenedor-perfil">
+    <div class="seccion-titulo">
+        <h2>Mi Perfil</h2>
     </div>
-    <div>
-        <img src="$imagen" class="img-perfil" alt="Foto de perfil de $user"> <br>
+
+    <div class="tarjeta-usuario">
+        <div class="foto-perfil">
+            <img src="$imagen" class="img-perfil-grande" alt="Foto de $user">
+        </div>
+
+        <div class="info-personal">
+            <p class="nickname">@$user</p>
+            <h3 class="nombre-completo">$nombre $apellidos</h3>
+            
+            <div class="datos-contacto">
+                <p><strong>Email:</strong> $email</p>
+                <p><strong>Rol:</strong> <span class="badge-rol">$rol</span></p>
+            </div>
+        </div>
     </div>
-    <div>
-        <p><strong> $nombre $apellidos </strong></p> <br>
-        <p> Email: $email  <br>
-        Rol: $rol </p> <br>
-    </div>
-    <div>
+
+    <div class="buttons-estandar">
         <a href="{$rutaPedidos}" class="button-estandar">Mis Pedidos</a>
-        <a href="actualizarUsuarios.php" class="button-estandar">Editar mis datos</a>
-        <a href="borrarUsuarios.php" class="button-estandar">Borrar mi cuenta</a>
+        <a href="actualizarUsuarios.php" class="button-estandar">Editar datos</a>
+        <a href="borrarUsuarios.php" class="button-delete">Borrar cuenta</a>
     </div>
+</div>
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';

@@ -176,7 +176,7 @@ if ($esGerente) {
             $mensajeHtml
             $tablaCarta
 
-            <div class="botones-ordenar">
+            <div class="buttons-estandar">
                 <a href="$urlVolverCategorias" class="button-estandar">Volver</a>
                 <a href="$urlCrearPedido" class="button-estandar">Crear pedido</a>
             </div>

@@ -90,7 +90,7 @@ $contenidoPrincipal = <<<EOS
         </div>
     </div>
 </div>
-<div class="botones-ordenar">
+<div class="buttons-estandar">
     <a href="$urlVolver" class="button-estandar">Volver</a>
         $accionesGerente
         $accionCliente

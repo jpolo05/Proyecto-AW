@@ -156,13 +156,34 @@ a:has(.tarjeta){
 }
 
 /* Botones de la tabla */
-.botones-ordenar {
+.buttons-estandar {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px 0;
     width: 100%;
     gap: 20px;
+}
+
+/* Botón de borrar */
+.button-delete {
+    display: inline-block;
+    text-decoration: none !important;
+    padding: 5px 10px;
+    background-color: #a33;
+    color: #f1ebd8 !important;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: 2px solid #a33;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.button-delete:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
 /*SIDEBAR IZQUIERDO*/
@@ -356,53 +377,73 @@ th:last-child, td:last-child {
     background-size: 15px;
 }
 
-
-/* Responsive: En móvil se pone uno debajo del otro */
-@media (max-width: 768px) {
-    .fila-superior {
-        flex-direction: column; /* Apila los elementos */
-        align-items: center;
-        text-align: center;
-    }
-
-    .imagen-producto {
-        flex: 0 0 auto;
-        width: 100%;
-        max-width: 300px;
-        order: -1; /* Opcional: pone la imagen arriba del texto en móvil */
-    }
+/*MI PERFIL*/
+/* Contenedor principal tipo Tarjeta */
+.contenedor-perfil {
+    max-width: 600px;
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    text-align: center;
 }
 
-
-/* Ajuste para móviles: si la pantalla es pequeña, la tabla no se aplasta */
-@media (max-width: 600px) {
-    table {
-        font-size: 0.85rem; /* Letra un poco más pequeña en móvil */
-    }
+/* Flex para alinear foto y texto */
+.info-usuario-flex {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
 }
 
-/* --- AJUSTES DE COMPONENTES PARA PC --- */
-@media (min-width: 992px) {
-    .banner-hero { height: 300px; } /* Banner más grande en PC */
-    
-    .contenedor-tarjetas {
-        flex-direction: row; /* Las 3 tarjetas en fila */
-    }
-
-    .tarjeta {
-        flex: 1;
-        flex-direction: column; /* Imagen arriba, texto abajo */
-        height: auto;
-        min-height: 320px;
-    }
-
-    .tarjeta img {
-        width: 100%;
-        height: 180px;
-    }
+/* Estilo de la imagen */
+.img-perfil-grande {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%; /* Foto circular */
+    border: 4px solid #f1ebd8;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* Contenedor principal */
+/* Tipografía de los detalles */
+.detalles-usuario {
+    text-align: left;
+    min-width: 250px;
+}
+
+.usuario-nickname {
+    color: #b79754;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.usuario-nombre-completo {
+    color: #21352a;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.separador-perfil {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 15px 0;
+}
+
+.etiqueta-rol {
+    background-color: #21352a;
+    color: #f1ebd8;
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+/* PANEL DE ADMINISTRACIÓN */
 .contenedor-admin {
     max-width: 900px;
     margin: 0 auto;
@@ -480,4 +521,49 @@ th:last-child, td:last-child {
 
 .none {
     display: none;
+}
+
+/* Responsive: En móvil se pone uno debajo del otro */
+@media (max-width: 768px) {
+    .fila-superior {
+        flex-direction: column; /* Apila los elementos */
+        align-items: center;
+        text-align: center;
+    }
+
+    .imagen-producto {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 300px;
+        order: -1; /* Opcional: pone la imagen arriba del texto en móvil */
+    }
+}
+
+
+/* Ajuste para móviles: si la pantalla es pequeña, la tabla no se aplasta */
+@media (max-width: 600px) {
+    table {
+        font-size: 0.85rem; /* Letra un poco más pequeña en móvil */
+    }
+}
+
+/* --- AJUSTES DE COMPONENTES PARA PC --- */
+@media (min-width: 992px) {
+    .banner-hero { height: 300px; } /* Banner más grande en PC */
+    
+    .contenedor-tarjetas {
+        flex-direction: row; /* Las 3 tarjetas en fila */
+    }
+
+    .tarjeta {
+        flex: 1;
+        flex-direction: column; /* Imagen arriba, texto abajo */
+        height: auto;
+        min-height: 320px;
+    }
+
+    .tarjeta img {
+        width: 100%;
+        height: 180px;
+    }
 }

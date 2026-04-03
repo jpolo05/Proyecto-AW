@@ -38,7 +38,7 @@ class FormularioLogin extends Formulario
             </div>
         </div>
 
-        <div class="botones-ordenar">
+        <div class="buttons-estandar">
             <button type="reset" name="limpiar" class="button-estandar">Limpiar</button>
             <button type="submit" name="login" class="button-estandar">Entrar</button>
         </div>
