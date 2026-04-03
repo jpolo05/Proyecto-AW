@@ -9,33 +9,11 @@
 .img-logo { height: 50px; width: auto; }
 .img-letras { height: 30px; width: auto; }
 
-/*REVISAR*/
-/* Estilo específico para los enlaces de login/registro en el saludo */
 .link-usuario {
-    color: #b79754;       /* Tu dorado Bistro */
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-
-.link-usuario:hover {
-    color: #21352a;       /* Verde oscuro al pasar el ratón */
-    text-decoration: underline;
-}
-
-.separador {
-    color: #999;          /* Color gris suave para la barra '/' */
-    margin: 0 5px;
-    font-weight: normal;
-}
-
-/* Aseguramos que el strong del nombre tenga el color de la marca */
-.enlace-registro strong {
     color: #21352a;
+    font-weight: bold;
+    text-decoration: none;
 }
-/*REVISAR ^*/
-
-
 
 /*SIDEBAR IZQ*/
 nav a {
