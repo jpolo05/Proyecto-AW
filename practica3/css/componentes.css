@@ -224,22 +224,26 @@ th:last-child, td:last-child {
 .seccion-titulo {
     margin-bottom: 10px;
     padding: 10px;
+    text-align: center;
+}
+
+.subtitulo-admin {
+    text-align: center;
+    color: #333;
+    font-size: 1.1rem;
+    padding: 20px 0 0 0;
+    
 }
 
 .img-producto-lista {
     /* Definimos el tamaño aquí */
     width: 70px;
     height: 70px;
-    
-    /* EL BORDE QUE QUERÍAS */
-    border: 1px solid #a9a9a9; /* Grosor, tipo (solid) y color dorado Bistro */
+    border: 1px solid #a9a9a9;
     object-fit: cover;
     border-radius: 5px;
-    
-    /* Opcional: una pequeña sombra */
     box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
-    
-    display: block;            /* Evita espacios extra debajo de la imagen */
+    display: block;
 }
 
 /*DETALLE DE PRODUCTO*/
@@ -398,38 +402,51 @@ th:last-child, td:last-child {
     }
 }
 
-
-
-.control-panel{
-    width: 60%;
-    margin: auto;
-    border-collapse: separate;
-    border-spacing: 20px;
-    border: 0;
-}
-
-.control-panel td {
-    text-align: center;
-    vertical-align: middle;
-    border: 0;
-}
-
-.control-panel a {
-    display: inline-block;
+/* Contenedor principal */
+.contenedor-admin {
+    max-width: 900px;
+    margin: 0 auto;
     padding: 20px;
+}
+
+/* El motor Flex */
+.flex-panel {
+    display: flex;
+    flex-wrap: wrap;       /* Permite que los botones bajen a la siguiente fila */
+    justify-content: center; /* Centra los botones si queda espacio a los lados */
+    gap: 20px;             /* Espacio uniforme entre botones */
+    margin-bottom: 50px;
+}
+
+/* Las tarjetas de administración */
+.boton-panel {
+    /* flex: grow | shrink | basis 
+       1: Crece para ocupar espacio.
+       1: Se encoge si es necesario.
+       220px: Tamaño base ideal de cada botón.
+    */
+    flex: 0 1 160px; 
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;     /* Altura fija para que todos sean simétricos */
+    padding: 10px;
     background-color: #21352a;
-    color: white !important;
+    color: #f1ebd8 !important;
     text-decoration: none;
-    border-radius: 10px;
+    border-radius: 15px;
     font-weight: bold;
-    font-size: 1.5rem;
-    width: 250px;
+    font-size: 1.4rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     text-align: center;
 }
 
-.control-panel a:hover {
-    background-color: #e0e0e0;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+/* Efecto interactivo */
+.boton-panel:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
 .cocina-table {

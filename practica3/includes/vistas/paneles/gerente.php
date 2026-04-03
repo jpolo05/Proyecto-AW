@@ -14,37 +14,26 @@ $rutaInicio = RUTA_APP.'index.php';
 
 $contenidoPrincipal = <<<EOS
 <div>
-    <h2 class="titulo">Panel de Administracion - Bistro FDI</h2>
+    <div class="seccion-titulo">
+        <h1>Panel de Administración</h1>
+    </div>
     <hr>
-    <p class="desc">Seleccione una categoria para gestionar los recursos del sistema:</p>
+    <p class="subtitulo-admin">Seleccione una categoría para gestionar los recursos del sistema:</p>
     <br>
 
-    <table class="control-panel">
-        <tr>
-            <td>
-                <a href="$rutaUsuarios">Usuarios</a>
-            </td>
-            <td>
-                <a href="$rutaCategorias">Categorias</a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="$rutaPedidos">Pedidos</a>
-            </td>
-            <td>
-                <a href="$rutaProductos">Productos</a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="$rutaOfertas">Ofertas</a>
-            </td>
-        </tr>
-    </table>
+    <div class="contenedor-admin">
+        <div class="flex-panel">
+            <a href="$rutaUsuarios" class="boton-panel">Usuarios</a>
+            <a href="$rutaCategorias" class="boton-panel">Categorías</a>
+            <a href="$rutaPedidos" class="boton-panel">Pedidos</a>
+            <a href="$rutaProductos" class="boton-panel">Productos</a>
+            <a href="$rutaOfertas" class="boton-panel">Ofertas</a>
+        </div>
 
-    <br><br>
-    <a href="$rutaInicio" class="button-estandar">Volver al Inicio</a>
+        <div class="botones-ordenar">
+            <a href="$rutaInicio" class="button-estandar">Volver al Inicio</a>
+        </div>
+    </div>
 </div>
 EOS;
 
