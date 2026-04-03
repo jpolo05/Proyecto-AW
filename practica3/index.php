@@ -54,7 +54,6 @@ $contenidoPrincipal = <<<EOS
     </div>
 </div>
 
-$botonGerente
 <div class="boton-ordenar">
 <a href="includes/vistas/pedidos/crearPedido.php" class="button-estandar">ORDENA AHORA</a>
 </div>
