@@ -7,9 +7,10 @@ $formulario = new FormularioRegistro();
 $htmlFormularioRegistro = $formulario->gestiona();
 
 $contenidoPrincipal = <<<EOS
-<h2>Registro a Bistro FDI</h2>
 $htmlFormularioRegistro
-<p>¿Ya tiene una cuenta? <a href="login.php">Inicia sesión aquí</a></p>
+<div class="enlace-registro">
+    <p>¿Ya tienes una cuenta? <a href="login.php">Inicia sesión</a></p>
+</div>
 EOS;
 
 require __DIR__.'/includes/vistas/plantillas/plantilla.php';

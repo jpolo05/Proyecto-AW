@@ -33,58 +33,58 @@ class FormularioRegistro extends Formulario
         );
 
         return <<<EOF
-        <div class="login-container">
+        <div class="contenedor-login">
             $htmlErroresGlobales
-            <fieldset>
-                <legend>Datos Usuario</legend>
-                <div>
-                    <label for="nombreUsuario">Usuario:</label>
-                    <input id="nombreUsuario" type="text" name="nombreUsuario" value="$nombreUsuario" required>
-                    {$erroresCampos['nombreUsuario']}
-                </div>
-                <div>
-                    <label for="nombre">Nombre:</label>
-                    <input id="nombre" type="text" name="nombre" value="$nombre" required>
-                    {$erroresCampos['nombre']}
-                </div>
-                <div>
-                    <label for="apellidos">Apellidos:</label>
-                    <input id="apellidos" type="text" name="apellidos" value="$apellidos" required>
-                    {$erroresCampos['apellidos']}
-                </div>
-                <div>
-                    <label for="email">Email:</label>
-                    <input id="email" type="email" name="email" value="$email" required>
-                    {$erroresCampos['email']}
-                </div>
-                <div>
-                    <label for="password">Contrasena:</label>
-                    <input id="password" type="password" name="password" required>
-                    {$erroresCampos['password']}
-                </div>
-                <div>
-                    <label for="password2">Reintroduce la contrasena:</label>
-                    <input id="password2" type="password" name="password2" required>
-                    {$erroresCampos['password2']}
-                </div>
-                <div>
-                    <label for="imagen">Imagen:</label>
-                    <select name="imagen" id="imagen">
-                        <option value="default.jpg">Imagen por defecto</option>
-                        <option value="avatar1.jpg">Avatar 1</option>
-                        <option value="avatar2.jpg">Avatar 2</option>
-                        <option value="avatar3.jpg">Avatar 3</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="imagenURL">Sube tu foto:</label>
-                    <input id="imagenURL" type="file" name="imagenURL">
-                </div>
-                <div>
-                    <button type="reset" name="limpiar" class="button-estandar">Reset</button>
-                    <button type="submit" name="registro" class="button-estandar">Crear cuenta</button>
-                </div>
-            </fieldset>
+            <div class="seccion-titulo">
+                <h2>Registro</h2>
+            </div>
+            <div class="campo-login">
+                <label for="nombreUsuario">Usuario:</label>
+                <input id="nombreUsuario" type="text" name="nombreUsuario" value="$nombreUsuario" required>
+                {$erroresCampos['nombreUsuario']}
+            </div>  
+            <div class="campo-login">
+                <label for="nombre">Nombre:</label>
+                <input id="nombre" type="text" name="nombre" value="$nombre" required>
+                {$erroresCampos['nombre']}
+            </div>
+            <div class="campo-login">
+                <label for="apellidos">Apellidos:</label>
+                <input id="apellidos" type="text" name="apellidos" value="$apellidos" required>
+                {$erroresCampos['apellidos']}
+            </div>
+            <div class="campo-login">
+                <label for="email">Email:</label>
+                <input id="email" type="email" name="email" value="$email" required>
+                {$erroresCampos['email']}
+            </div>
+            <div class="campo-login">
+                <label for="password">Contraseña:</label>
+                <input id="password" type="password" name="password" required>
+                {$erroresCampos['password']}
+            </div>
+            <div class="campo-login">
+                <label for="password2">Confirmar contraseña:</label>
+                <input id="password2" type="password" name="password2" required>
+                {$erroresCampos['password2']}
+            </div>
+            <div class="campo-login">
+                <label for="imagen">Imagen:</label>
+                <select name="imagen" id="imagen">
+                    <option value="default.jpg">Imagen por defecto</option>
+                    <option value="avatar1.jpg">Avatar 1</option>
+                    <option value="avatar2.jpg">Avatar 2</option>
+                    <option value="avatar3.jpg">Avatar 3</option>
+                </select>
+            </div>
+            <div class="campo-login">
+                <label for="imagenURL">Sube tu foto:</label>
+                <input id="imagenURL" type="file" name="imagenURL">
+            </div>
+        </div>
+        <div class="botones-ordenar">
+            <button type="reset" name="limpiar" class="button-estandar">Limpiar</button>
+            <button type="submit" name="registro" class="button-estandar">Crear cuenta</button>
         </div>
         EOF;
     }

@@ -9,6 +9,33 @@
 .img-logo { height: 50px; width: auto; }
 .img-letras { height: 30px; width: auto; }
 
+/*REVISAR*/
+/* Estilo específico para los enlaces de login/registro en el saludo */
+.link-usuario {
+    color: #b79754;       /* Tu dorado Bistro */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.link-usuario:hover {
+    color: #21352a;       /* Verde oscuro al pasar el ratón */
+    text-decoration: underline;
+}
+
+.separador {
+    color: #999;          /* Color gris suave para la barra '/' */
+    margin: 0 5px;
+    font-weight: normal;
+}
+
+/* Aseguramos que el strong del nombre tenga el color de la marca */
+.enlace-registro strong {
+    color: #21352a;
+}
+/*REVISAR ^*/
+
+
 
 /*SIDEBAR IZQ*/
 nav a {
@@ -132,6 +159,7 @@ a:has(.tarjeta){
 /*BOTÓN PRINCIPAL*/
 .button-estandar {
     display: inline-block;
+    text-decoration: none !important;
     padding: 5px 10px;
     background-color: #21352a;
     color: #f1ebd8 !important;
@@ -214,6 +242,7 @@ th:last-child, td:last-child {
     min-width: 160px;
 }
 
+/* Título general */
 .seccion-titulo {
     margin-bottom: 10px;
     padding: 10px;
@@ -239,8 +268,8 @@ th:last-child, td:last-child {
 .contenedor-producto {
     width: 100%;           /* Casi todo el ancho en móviles */
     max-width: 600px;    /* Límite de ancho en pantallas grandes */
-    margin: 40px auto 0 auto;    /* 60px de separación arriba/abajo y centrado horizontal */
-    padding: 40px;        /* Espacio interno para que el contenido respire */
+    margin: 40px auto 0 auto;
+    padding: 40px;
     background-color: #fff;
     border-radius: 15px;
     box-shadow: 0 20px 30px rgba(0,0,0,0.08); 
@@ -260,12 +289,12 @@ th:last-child, td:last-child {
 }
 
 .info-producto {
-    flex: 1; /* El texto toma el espacio de la izquierda */
+    flex: 1;
     text-align: left;
 }
 
 .imagen-producto {
-    flex: 0 0 300px; /* La imagen se queda a la derecha con 300px */
+    flex: 0 0 300px;
 }
 
 .imagen-producto img {
@@ -274,7 +303,7 @@ th:last-child, td:last-child {
     border-radius: 8px;
 }
 
-/*LOGIN*/
+/*LOGIN & REGISTRO*/
 /* Caja blanca para los inputs */
 .contenedor-login {
     background-color: #fff;
@@ -297,9 +326,9 @@ th:last-child, td:last-child {
 .campo-login label {
     display: block;
     font-weight: bold;
-    color: #21352a; /* El verde oscuro de tu marca */
-    margin-bottom: 8px;
-    font-size: 0.95rem;
+    color: #21352a;
+    margin-bottom: 2px;
+    font-size: 1rem;
 }
 
 /* Estilo de los Inputs (siguiendo el estilo de la web) */
@@ -307,10 +336,9 @@ th:last-child, td:last-child {
     width: 100%;
     padding: 12px 15px;
     border: 1px solid #a9a9a9;
+    color: #333;
     border-radius: 8px;
     font-size: 1rem;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    outline: none;
 }
 
 .contenedor-login .seccion-titulo {
@@ -321,7 +349,8 @@ th:last-child, td:last-child {
 .enlace-registro {
     text-align: center;
     width: 100%;
-    color: #444;
+    color: #333;
+    padding: 0 0 50px 0;
 }
 
 .enlace-registro a {
@@ -330,6 +359,20 @@ th:last-child, td:last-child {
     text-decoration: underline;
 }
 
+/* Aplicamos el mismo estilo del input al select */
+.campo-login select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #a9a9a9;
+    border-radius: 8px;
+    font-size: 1rem;
+    color:#333;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center; /* Pone una flecha dorada a la derecha */
+    background-size: 15px;
+}
 
 
 /* Responsive: En móvil se pone uno debajo del otro */
