@@ -1,6 +1,5 @@
 <?php
 use es\ucm\fdi\aw\usuarios\Auth;
-use es\ucm\fdi\aw\usuarios\Pedido;
 use es\ucm\fdi\aw\usuarios\Producto;
 
 require_once __DIR__.'/../../config.php';
@@ -10,14 +9,22 @@ function h(string $text): string {
     return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
 }
 
+if (!isset($_SESSION['carrito']) || !is_array($_SESSION['carrito'])) {
+    $_SESSION['carrito'] = [
+        'tipo' => 'Local',
+        'items' => [],
+    ];
+}
+
 $error = '';
-$tipo = $_POST['tipo'] ?? 'Local';
+$mensaje = '';
+$tipo = $_POST['tipo'] ?? ($_SESSION['carrito']['tipo'] ?? 'Local');
 $productos = Producto::listar(true);
 $csrfToken = Auth::getCsrfToken();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!Auth::validaCsrfToken($_POST['csrfToken'] ?? null)) {
-        $error = 'Token CSRF invalido.';
+        $error = 'Token CSRF inválido.';
     }
 
     $cantidades = $_POST['cantidad'] ?? [];
@@ -27,40 +34,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $cantidades = [];
     }
 
+    $itemsSeleccionados = [];
+    $itemsAñadidos = 0;
+
     foreach ($cantidades as $idProducto => $cantidad) {
         $id = (int)$idProducto;
         $cant = (int)$cantidad;
         if ($id > 0 && $cant > 0) {
-            $lineas[] = [
-                'idProducto' => $id,
-                'cantidad' => $cant,
-            ];
+            $itemsSeleccionados[$id] = $cant;
+            $itemsAñadidos += $cant;
         }
     }
 
-    if ($error === '' && empty($lineas)) {
+    if ($error === '' && $itemsAñadidos === 0) {
         $error = 'Debes seleccionar al menos un producto con cantidad mayor que cero.';
     } elseif ($error === '' && !in_array($tipo, ['Local', 'Llevar'], true)) {
-        $error = 'Tipo de pedido no valido.';
-    } elseif ($error === '') {
-        $cliente = $_SESSION['user'] ?? '';
-        $numeroPedido = Pedido::crear($cliente, $tipo, $lineas);
-
-        if ($numeroPedido !== null) {
-            header('Location: '.RUTA_APP.'includes/vistas/pedidos/visualizarPedido.php?numeroPedido='.$numeroPedido);
-            exit;
-        }
-
-        $error = 'No se pudo crear el pedido.';
+        $error = 'Tipo de pedido no válido.';
+    } else {
+        $_SESSION['carrito']['tipo'] = $tipo;
+        $_SESSION['carrito']['items'] = $itemsSeleccionados;
+        header('Location: '.RUTA_APP.'includes/vistas/pedidos/carrito.php?msg=Carrito+actualizado');
+        exit;
     }
 }
 
+$itemsCarrito = is_array($_SESSION['carrito']['items'] ?? null) ? $_SESSION['carrito']['items'] : [];
+$unidadesCarrito = array_sum(array_map('intval', $itemsCarrito));
+
 $tituloPagina = 'Crear pedido';
 $errorHtml = $error !== '' ? '<p><strong>'.h($error).'</strong></p>' : '';
-$urlVolver = RUTA_APP.'includes/vistas/pedidos/listarPedidos.php';
+$mensaje = $_GET['msg'] ?? '';
+$mensajeHtml = $mensaje !== '' ? '<p><strong>'.h($mensaje).'</strong></p>' : '';
+$urlVolver = RUTA_APP.'includes/vistas/pedidos/carrito.php';
 $action = h(RUTA_APP.'includes/vistas/pedidos/crearPedido.php');
 $selLocal = ($tipo === 'Local') ? 'selected' : '';
 $selLlevar = ($tipo === 'Llevar') ? 'selected' : '';
+$urlCarrito = RUTA_APP.'includes/vistas/pedidos/carrito.php';
 
 $filasProductos = '';
 $totalInicial = 0.0;
@@ -70,7 +79,7 @@ foreach ($productos as $p) {
     $precioBase = (float)($p['precio_base'] ?? 0);
     $iva = (int)($p['iva'] ?? 0);
     $precioFinal = $precioBase + ($precioBase * $iva / 100);
-    $cantidadDefecto = (int)($_POST['cantidad'][$id] ?? 0);
+    $cantidadDefecto = (int)($_POST['cantidad'][$id] ?? ($itemsCarrito[$id] ?? 0));
     $totalInicial += ($precioFinal * $cantidadDefecto);
     $precioFinalTexto = number_format($precioFinal, 2, '.', '');
 
@@ -132,6 +141,8 @@ EOS;
 $contenidoPrincipal = <<<EOS
     <h1>Crear pedido</h1>
     $errorHtml
+    $mensajeHtml
+    <p><strong>Carrito actual:</strong> {$unidadesCarrito} producto(s). <a href="$urlCarrito" class="button-estandar">Ver carrito</a></p>
     <form method="POST" action="$action">
         <input type="hidden" name="csrfToken" value="$csrfToken">
         <p>
@@ -145,8 +156,8 @@ $contenidoPrincipal = <<<EOS
         $bloqueProductos
         $bloqueTotal
         <p>
-            <button type="submit" class='button-estandar'>Crear pedido</button>
-            <a href="$urlVolver" class='button-estandar'>Volver</a>
+            <button type="submit" class='button-estandar'>Añadir al carrito</button>
+            <a href="$urlVolver" class='button-estandar'>Ir al carrito</a>
         </p>
     </form>
     $scriptTotal

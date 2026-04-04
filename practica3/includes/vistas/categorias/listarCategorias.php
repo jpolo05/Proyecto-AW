@@ -24,13 +24,19 @@ foreach ($cats as $c) {
     $nombre = htmlspecialchars($c['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
     $descripcion = htmlspecialchars($c['descripcion'] ?? '', ENT_QUOTES, 'UTF-8');
     $urlVer = htmlspecialchars(RUTA_APP.'includes/vistas/categorias/visualizarCategorias.php?id='.$id, ENT_QUOTES, 'UTF-8');
+    $acciones = "<a href=\"$urlVer\" class='btn-general'>Ver</a>";
+
+    if ($esGerente) {
+        $urlActualizar = htmlspecialchars(RUTA_APP.'includes/vistas/categorias/actualizarCategorias.php?id='.$id, ENT_QUOTES, 'UTF-8');
+        $acciones .= " <a href=\"$urlActualizar\" class='btn-general'>Actualizar</a>";
+    }
 
     $tablaCategorias .= "
     <tr>
         <td>$id</td>
         <td>$nombre</td>
         <td>$descripcion</td>
-        <td><a href=\"$urlVer\" class='btn-general'>Ver</a></td>
+        <td>$acciones</td>
     </tr>";
 }
 $tablaCategorias .= '</table>';

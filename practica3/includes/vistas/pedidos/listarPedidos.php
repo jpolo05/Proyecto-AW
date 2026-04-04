@@ -61,7 +61,8 @@ if ($rol === 'Gerente') {
     $usuario = $_SESSION['user'] ?? '';
     $pedidos = Pedido::listar_cliente($usuario);
     $urlCrearPedido = RUTA_APP.'includes/vistas/pedidos/crearPedido.php';
-    $encabezadoExtra = '<p><a href="'.$urlCrearPedido.'" class="button-estandar">Crear pedido</a></p>';
+    $urlCarrito = RUTA_APP.'includes/vistas/pedidos/carrito.php';
+    $encabezadoExtra = '<p><a href="'.$urlCrearPedido.'" class="button-estandar">Añadir productos</a> <a href="'.$urlCarrito.'" class="button-estandar">Ver carrito</a></p>';
 
     $pedidosEnCurso = [];
     $pedidosCompletados = [];
@@ -78,11 +79,11 @@ if ($rol === 'Gerente') {
     $tablaPedidosEnCurso = '
         <table>
             <tr>
-                <th>Numero pedido</th>
+                <th>Número pedido</th>
                 <th>Estado</th>
                 <th>Tipo</th>
                 <th>Total</th>
-                <th>Accion</th>
+                <th>Acción</th>
             </tr>';
 
     foreach ($pedidosEnCurso as $p) {
@@ -123,11 +124,11 @@ if ($rol === 'Gerente') {
     $tablaPedidosCompletados = '
         <table>
             <tr>
-                <th>Numero pedido</th>
+                <th>Número pedido</th>
                 <th>Estado</th>
                 <th>Tipo</th>
                 <th>Total</th>
-                <th>Accion</th>
+                <th>Acción</th>
             </tr>';
 
     foreach ($pedidosCompletados as $p) {

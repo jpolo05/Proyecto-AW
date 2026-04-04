@@ -37,6 +37,20 @@ class Pedido
         return (int)($fila['siguiente'] ?? 1);
     }
 
+    private static function siguienteIdInterno(): int
+    {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $sql = "SELECT COALESCE(MAX(id), 0) + 1 AS siguiente FROM pedidos";
+        $res = mysqli_query($conn, $sql);
+        if (!$res) {
+            return 1;
+        }
+
+        $fila = mysqli_fetch_assoc($res);
+        mysqli_free_result($res);
+        return (int)($fila['siguiente'] ?? 1);
+    }
+
     private static function idInternoDesdeNumero(int $numeroPedido): ?int
     {
         if ($numeroPedido <= 0) {
@@ -69,8 +83,12 @@ class Pedido
         mysqli_begin_transaction($conn);
 
         try {
-            // Primero se crea cabecera para obtener el id interno que usa la FK de linea_pedido.
-            $sqlPedido = "INSERT INTO pedidos (numeroPedido, estado, tipo, fecha, cliente, total) VALUES (0, ?, ?, NOW(), ?, 0)";
+            $idPedido = self::siguienteIdInterno();
+            $numeroPedido = self::siguienteNumeroPedido();
+
+            // Se inserta también el id interno para soportar instalaciones donde la tabla
+            // pedidos todavía no tenga AUTO_INCREMENT configurado correctamente.
+            $sqlPedido = "INSERT INTO pedidos (id, numeroPedido, estado, tipo, fecha, cliente, total) VALUES (?, ?, ?, ?, NOW(), ?, 0)";
             $stmtPedido = mysqli_prepare($conn, $sqlPedido);
             if (!$stmtPedido) {
                 mysqli_rollback($conn);
@@ -78,28 +96,11 @@ class Pedido
             }
 
             $estadoInicial = self::ESTADO_RECIBIDO;
-            mysqli_stmt_bind_param($stmtPedido, "sss", $estadoInicial, $tipo, $cliente);
+            mysqli_stmt_bind_param($stmtPedido, "iisss", $idPedido, $numeroPedido, $estadoInicial, $tipo, $cliente);
             $okPedido = mysqli_stmt_execute($stmtPedido);
-            $idPedido = (int)mysqli_insert_id($conn);
             mysqli_stmt_close($stmtPedido);
 
             if (!$okPedido || $idPedido <= 0) {
-                mysqli_rollback($conn);
-                return null;
-            }
-
-            // numeroPedido visible se alinea con id para que sea estable y coherente con FK.
-            $sqlNumero = "UPDATE pedidos SET numeroPedido = ? WHERE id = ?";
-            $stmtNumero = mysqli_prepare($conn, $sqlNumero);
-            if (!$stmtNumero) {
-                mysqli_rollback($conn);
-                return null;
-            }
-            mysqli_stmt_bind_param($stmtNumero, "ii", $idPedido, $idPedido);
-            $okNumero = mysqli_stmt_execute($stmtNumero);
-            mysqli_stmt_close($stmtNumero);
-
-            if (!$okNumero) {
                 mysqli_rollback($conn);
                 return null;
             }
@@ -170,9 +171,10 @@ class Pedido
             }
 
             mysqli_commit($conn);
-            return $idPedido;
+            return $numeroPedido;
         } catch (\Throwable $e) {
             mysqli_rollback($conn);
+            error_log('Error al crear pedido: '.$e->getMessage());
             return null;
         }
     }

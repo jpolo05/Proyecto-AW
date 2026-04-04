@@ -48,7 +48,7 @@ CREATE TABLE `productos` (
 
 -- 4. Tabla Pedidos
 CREATE TABLE `pedidos` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `numeroPedido` INT(11) NOT NULL,
   `estado` ENUM('Nuevo','Recibido','En preparación','Cocinando','Listo cocina','Terminado','Entregado','Cancelado') NOT NULL DEFAULT 'Nuevo',
   `tipo` ENUM('Local','Llevar') NOT NULL DEFAULT 'Local',

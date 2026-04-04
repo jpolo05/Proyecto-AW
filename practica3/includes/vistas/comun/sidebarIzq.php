@@ -14,6 +14,7 @@
 			<li><a href="<?= RUTA_APP ?>includes/vistas/paneles/camarero.php">Panel camarero</a></li>
 		<?php endif; ?>
 		<li><a href="<?= RUTA_APP ?>includes/vistas/productos/listarProductos.php">Carta</a></li>
+		<li><a href="<?= RUTA_APP ?>includes/vistas/pedidos/carrito.php">Mi carrito</a></li>
 		<li><a href="<?= RUTA_APP ?>includes/vistas/usuarios/visualizarUsuarios.php">Mi perfil</a></li>
 	</ul>
 </nav>

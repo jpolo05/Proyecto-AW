@@ -18,6 +18,7 @@ if (preg_match('/^https?:\\/\\//', $imagenSesion) === 1 || str_starts_with($imag
 
 $tituloPagina = 'Perfil';
 $rutaPedidos = RUTA_APP.'includes/vistas/pedidos/listarPedidos.php';
+$rutaCarrito = RUTA_APP.'includes/vistas/pedidos/carrito.php';
 
 $contenidoPrincipal = <<<EOS
 <div class="contenedor-perfil">
@@ -43,6 +44,7 @@ $contenidoPrincipal = <<<EOS
 </div>
 
 <div class="buttons-estandar">
+    <a href="{$rutaCarrito}" class="button-estandar">Mi Carrito</a>
     <a href="{$rutaPedidos}" class="button-estandar">Mis Pedidos</a>
     <a href="actualizarUsuarios.php" class="button-estandar">Editar datos</a>
     <a href="borrarUsuarios.php" class="button-delete">Borrar cuenta</a>
