@@ -28,11 +28,10 @@ $contenidoPrincipal = <<<EOS
             <a href="$rutaPedidos" class="boton-panel">Pedidos</a>
             <a href="$rutaProductos" class="boton-panel">Productos</a>
             <a href="$rutaOfertas" class="boton-panel">Ofertas</a>
-        </div>
-
-        <div class="buttons-estandar">
+        </div> 
+    </div>
+    <div class="buttons-estandar">
             <a href="$rutaInicio" class="button-estandar">Volver al Inicio</a>
-        </div>
     </div>
 </div>
 EOS;

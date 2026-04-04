@@ -54,9 +54,17 @@ $tablaUsuarios .= '</table>';
 
 $rutaPanelGerente = RUTA_APP.'includes/vistas/paneles/gerente.php';
 $contenidoPrincipal = <<<EOS
-    <h2>Gestión de Usuarios</h2>
-    <a href="$rutaPanelGerente" class="button-estandar">Volver</a>
+<div class="contenedor-gestion">
+    <div class="header-admin">
+        <h2 class="seccion-titulo">Gestión de Usuarios</h2>
+    </div>
+    
     $tablaUsuarios
+    
+    <div class="buttons-estandar">
+        <a href="$rutaPanelGerente" class="button-estandar">Volver al Panel</a>
+    </div>
+
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';

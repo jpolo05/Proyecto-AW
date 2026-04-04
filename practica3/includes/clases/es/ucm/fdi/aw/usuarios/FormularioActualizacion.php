@@ -82,7 +82,7 @@ class FormularioActualizacion extends Formulario
                 <input id="password_confirm" type="password" name="password_confirm" $estadoInput>
                 {$erroresCampos['password_confirm']}
             </div>
-            <a href="$enlaceBoton" class="button-estandar" $estadoBoton>Editar contrasena</a>
+            <a href="$enlaceBoton" class="button-estandar" $estadoBoton>Editar contraseña</a>
             <div>
                 $selectRol
                 {$erroresCampos['rol']}

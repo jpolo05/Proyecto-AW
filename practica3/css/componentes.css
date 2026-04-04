@@ -408,10 +408,9 @@ th:last-child, td:last-child {
 /* El motor Flex */
 .flex-panel {
     display: flex;
-    flex-wrap: wrap;       /* Permite que los botones bajen a la siguiente fila */
+    flex-wrap: wrap;    /* los botones bajan a la siguiente fila */
     justify-content: center; /* Centra los botones si queda espacio a los lados */
     gap: 20px;             /* Espacio uniforme entre botones */
-    margin-bottom: 50px;
 }
 
 .boton-panel {
@@ -442,6 +441,9 @@ th:last-child, td:last-child {
     transform: translateY(-3px);
     box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
+
+/*PANEL USUARIOS*/
+
 
 .cocina-table {
     width: 100%;
