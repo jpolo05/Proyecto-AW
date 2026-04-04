@@ -24,11 +24,12 @@ foreach ($cats as $c) {
     $nombre = htmlspecialchars($c['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
     $descripcion = htmlspecialchars($c['descripcion'] ?? '', ENT_QUOTES, 'UTF-8');
     $urlVer = htmlspecialchars(RUTA_APP.'includes/vistas/categorias/visualizarCategorias.php?id='.$id, ENT_QUOTES, 'UTF-8');
-    $acciones = "<a href=\"$urlVer\" class='btn-general'>Ver</a>";
+    $acciones = "<a href=\"$urlVer\" class='link-usuario'>Ver</a>";
 
     if ($esGerente) {
         $urlActualizar = htmlspecialchars(RUTA_APP.'includes/vistas/categorias/actualizarCategorias.php?id='.$id, ENT_QUOTES, 'UTF-8');
-        $acciones .= " <a href=\"$urlActualizar\" class='btn-general'>Actualizar</a>";
+        $acciones .= " <span class='separador-tabla'> / </span> ";
+        $acciones .= " <a href=\"$urlActualizar\" class='link-usuario'>Actualizar</a>";
     }
 
     $tablaCategorias .= "
@@ -50,9 +51,13 @@ if($esGerente) {
 }
 
 $contenidoPrincipal = <<<EOS
-    <h1>Categorías</h1>
-    <p><a href="$urlCrear" class="button-estandar $aux" >Crear categoría</a></p>
+    <div class ="seccion-titulo">
+        <h1>Categorías</h1>
+    </div>
     $tablaCategorias
+    <div class="buttons-estandar">
+        <a href="$urlCrear" class="button-estandar $aux" >Crear categoría</a>
+    </div>
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';

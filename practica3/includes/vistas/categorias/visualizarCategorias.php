@@ -32,7 +32,7 @@ $contenidoPrincipal = <<<EOS
     <ul>
         <li><strong>ID:</strong> {$idMostrado}</li>
         <li><strong>Nombre:</strong> {$nombre}</li>
-        <li><strong>Descripcion:</strong><br>{$descripcion}</li>
+        <li><strong>Descripción:</strong><br>{$descripcion}</li>
     </ul>
     $bloqueImagen
     <p><a href="$urlVolver"><button type="button">Volver</button></a></p>

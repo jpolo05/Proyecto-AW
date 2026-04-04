@@ -18,7 +18,7 @@ $csrfToken = Auth::getCsrfToken();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!Auth::validaCsrfToken($_POST['csrfToken'] ?? null)) {
-        $error = 'Token CSRF invalido.';
+        $error = 'Token CSRF inválido.';
     }
 
     $nombre = trim($_POST['nombre'] ?? '');
@@ -40,11 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        $error = 'No se pudo actualizar la categoria.';
+        $error = 'No se pudo actualizar la categoría.';
     }
 }
 
-$tituloPagina = 'Actualizar categoria';
+$tituloPagina = 'Actualizar categoría';
 
 $nombre = htmlspecialchars($categoria['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
 $descripcion = htmlspecialchars($categoria['descripcion'] ?? '', ENT_QUOTES, 'UTF-8');
@@ -54,7 +54,7 @@ $action = htmlspecialchars(RUTA_APP.'includes/vistas/categorias/actualizarCatego
 $urlCancelar = htmlspecialchars(RUTA_APP.'includes/vistas/categorias/listarCategorias.php', ENT_QUOTES, 'UTF-8');
 
 $contenidoPrincipal = <<<EOS
-    <h1>Actualizar categoria #{$id}</h1>
+    <h1>Actualizar categoría #{$id}</h1>
     $errorHtml
     <form method="POST" action="$action">
         <input type="hidden" name="csrfToken" value="$csrfToken">
