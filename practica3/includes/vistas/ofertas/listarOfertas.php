@@ -1,5 +1,4 @@
 <?php
-use es\ucm\fdi\aw\usuarios\Auth;
 use es\ucm\fdi\aw\usuarios\Oferta;
 
 require_once __DIR__.'/../../config.php';
@@ -13,34 +12,31 @@ $tituloPagina = 'Ofertas';
 $msg = $_GET['msg'] ?? '';
 
 $ofertas = Oferta::listar();
-$mensajeHtml = $msg !== '' ? '<p><strong>'.h($msg).'</strong></p>' : '';
+$mensajeHtml = $msg !== '' ? '<div class="mensaje-alerta"><p><strong>'.h($msg).'</strong></p></div>' : '';
 
-if($esGerente) {
-    $urlCrear = htmlspecialchars(RUTA_APP.'includes/vistas/ofertas/crearOfertas.php', ENT_QUOTES, 'UTF-8');
-    $aux = '';
-} else {
-    $urlCrear = '#';
-    $aux = 'none';
-}
+$contenidoPrincipal = '
+<div class="seccion-titulo">
+    <h1>Ofertas</h1>
+</div>' . $mensajeHtml;
 
-$contenidoPrincipal = "<h1>Ofertas</h1>{$mensajeHtml}" . "<p><a href='$urlCrear' class='button-estandar $aux' >Crear oferta</a></p>";
-
+// Conenido central
 if (empty($ofertas)) {
-    $contenidoPrincipal .= '<p>No hay ofertas registradas actualmente.</p>';
+    $contenidoPrincipal .= '<p class="texto-centrado">No hay ofertas registradas actualmente.</p>';
 } else {
-    $tabla = '<table>
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Descripción</th>
-                        <th>Productos</th>
-                        <th>Comienzo</th>
-                        <th>Fin</th>
-                        <th>Descuento</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody>';
+    $tabla = '<div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Productos</th>
+                            <th>Comienzo</th>
+                            <th>Fin</th>
+                            <th>Descuento</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>';
 
     foreach ($ofertas as $o) {
         $nombre = h((string)($o['nombre'] ?? ''));
@@ -50,7 +46,7 @@ if (empty($ofertas)) {
         $fin = h((string)($o['fin'] ?? ''));
         $descuento = (float)($o['descuento'] ?? 0);
         
-        $productosHtml = '<ul>';
+        $productosHtml = '<ul class="lista-tabla">';
         if (empty($productos)) {
             $productosHtml .= '<li>Sin productos</li>';
         } else {
@@ -71,12 +67,20 @@ if (empty($ofertas)) {
                     <td>{$comienzo}</td>
                     <td>{$fin}</td>
                     <td>{$descuento}%</td>
-                    <td><a href='{$urlVer}' class='button-estandar'>Ver oferta</a></td>
+                    <td><a href='{$urlVer}' class='link-usuario'>Ver</a></td>
                   </tr>";
     }
 
-    $tabla .= '</tbody></table>';
+    $tabla .= '</tbody></table></div>';
     $contenidoPrincipal .= $tabla;
+}
+
+if($esGerente) {
+    $urlCrear = htmlspecialchars(RUTA_APP.'includes/vistas/ofertas/crearOfertas.php', ENT_QUOTES, 'UTF-8');
+    $contenidoPrincipal .= "
+    <div class='buttons-estandar'>
+        <a href='$urlCrear' class='button-estandar'>Crear oferta</a>
+    </div>";
 }
 
 require __DIR__.'/../plantillas/plantilla.php';

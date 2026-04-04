@@ -159,7 +159,9 @@ if ($rol === 'Gerente') {
 }
 
 $contenidoPrincipal = <<<EOS
-    <h1>Pedidos</h1>
+    <div class="seccion-titulo">
+        <h1>Pedidos</h1>
+    </div>
     $encabezadoExtra
     $tablaPedidos
 EOS;

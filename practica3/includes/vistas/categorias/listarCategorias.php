@@ -7,9 +7,8 @@ Auth::verificarAcceso('Cliente');
 $esGerente = (($_SESSION['rol'] ?? '') === 'Gerente');
 
 $cats = Categoria::listar();
-
 $tituloPagina = 'Listado Categorias';
-//border="1" cellpadding="6"
+
 $tablaCategorias = '
     <table>
         <tr>
@@ -61,9 +60,3 @@ $contenidoPrincipal = <<<EOS
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
-
-
-
-
-
-

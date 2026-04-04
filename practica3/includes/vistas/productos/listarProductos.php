@@ -75,10 +75,14 @@ if ($esGerente) {
     $mensajeHtml = $msg !== '' ? '<p><strong>'.htmlspecialchars($msg, ENT_QUOTES, 'UTF-8').'</strong></p>' : '';
 
     $contenidoPrincipal = <<<EOS
-        <h2>Productos</h2>
+        <div class="seccion-titulo">
+            <h1>Productos</h1>
+        </div>
         $mensajeHtml
-        <p><a href="$urlCrear" class="button-estandar">Crear producto</a></p>
         $tablaProductos
+        <div class="buttons-estandar">
+            <a href="$urlCrear" class="button-estandar">Crear producto</a>
+        </div>
     EOS;
 } else {
     $idCategoria = (int)($_GET['id_categoria'] ?? 0);
