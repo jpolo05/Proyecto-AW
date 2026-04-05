@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fin = trim($_POST['fin'] ?? '');
     $productosElegidos = $_POST['productos'] ?? [];
     $cantidadesElegidas = $_POST['cantidades'] ?? [];
-    $descuento = (int)($_POST['descuento'] ?? 0);
+    $descuento = (float)($_POST['descuento'] ?? 0.00);
 
     if ($error === '' && ($nombre === '' || $descripcion === '')) {
         $error = 'Revisa los datos del formulario.';
@@ -72,7 +72,7 @@ $contenidoPrincipal = <<<EOS
             <p><label>Comienzo: <input type="date" name="comienzo"></label></p>
             <p><label>Fin: <input type="date" name="fin"></label></p>
             <p>Descuento aplicado: <span id="porcentajeMostrado">0</span>%</p>
-            <input type="hidden" name="descuento" id="inputDescuento" value="0">
+            <input type="hidden" name="descuento" id="inputDescuento" value="0.00">
         </fieldset>
 
         <fieldset>
@@ -83,7 +83,7 @@ $contenidoPrincipal = <<<EOS
         </fieldset>
         <div>
             precio previo total: <span id="precioTotal">0</span> €
-            precio con descuento: <input type="number" id="precioDescuento" oninput="recalcularDescuento()"> €
+            precio con descuento: <input type="number" id="precioDescuento" step="0.01" oninput="recalcularDescuento()"> €
         </div>
         
         <div>

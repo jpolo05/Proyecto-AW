@@ -70,7 +70,7 @@ class Oferta {
 
         // 2. Obtener las líneas asociadas (incluyendo la cantidad)
         $fila['lineas'] = [];
-        $sqlLineas = 'SELECT p.nombre, lo.cantidad 
+        $sqlLineas = 'SELECT p.id AS idProd, p.nombre, lo.cantidad 
                     FROM lineas_oferta lo
                     INNER JOIN productos p ON p.id = lo.producto
                     WHERE lo.id_oferta = ?
@@ -86,6 +86,7 @@ class Oferta {
             if ($resLineas) {
                 while ($linea = mysqli_fetch_assoc($resLineas)) {
                     $fila['lineas'][] = [
+                        'idProd' => (int) $linea['idProd'],
                         'producto' => $linea['nombre'],
                         'cantidad' => (int) $linea['cantidad'], // Ahora la variable existe
                     ];
@@ -124,7 +125,7 @@ class Oferta {
 
         return $result !== false;
     }
-    public static function crear(string $nombre, string $descripcion, ?string $comienzo, ?string $fin, int $descuento, array $productos, array $cantidades): bool
+    public static function crear(string $nombre, string $descripcion, ?string $comienzo, ?string $fin, float $descuento, array $productos, array $cantidades): bool
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
 
@@ -135,7 +136,7 @@ class Oferta {
             return false;
         }
 
-        mysqli_stmt_bind_param($stmt, 'ssssi', $nombre, $descripcion, $comienzo, $fin, $descuento);
+        mysqli_stmt_bind_param($stmt, 'ssssd', $nombre, $descripcion, $comienzo, $fin, $descuento);
         if (!mysqli_stmt_execute($stmt)) {
             mysqli_stmt_close($stmt);
             return false;
@@ -164,6 +165,27 @@ class Oferta {
         }
 
         return true;
+    }
+
+    public static function obtenerOfertasActivas(): array {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $hoy = date('Y-m-d H:i:s');
+        
+        $sql = 'SELECT o.id, o.descuento 
+                FROM ofertas o 
+                WHERE (o.comienzo <= ? OR o.comienzo IS NULL) 
+                AND (o.fin >= ? OR o.fin IS NULL)';
+                
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, 'ss', $hoy, $hoy);
+        mysqli_stmt_execute($stmt);
+        $res = mysqli_stmt_get_result($stmt);
+        
+        $ofertas = [];
+        while ($fila = mysqli_fetch_assoc($res)) {
+            $ofertas[] = self::buscaPorId((int)$fila['id']);
+        }
+        return $ofertas;
     }
 }
 

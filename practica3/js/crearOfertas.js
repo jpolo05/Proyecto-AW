@@ -46,12 +46,12 @@ function recalcularDescuento() {
     const totalBase = parseFloat(document.getElementById('precioTotal').innerText);
     const precioFinal = parseFloat(document.getElementById('precioDescuento').value);
     
-    let porcentaje = 0;
+    let porcentaje = 0.00;
     if (totalBase > 0 && !isNaN(precioFinal)) {
-        porcentaje = Math.round((1 - (precioFinal / totalBase)) * 100);
+        porcentaje = (1 - (precioFinal / totalBase)) * 100;
         porcentaje = porcentaje < 0 ? 0 : porcentaje;
     }
 
-    document.getElementById('porcentajeMostrado').innerText = porcentaje;
-    document.getElementById('inputDescuento').value = porcentaje;
+    document.getElementById('porcentajeMostrado').innerText = porcentaje.toFixed(2);
+    document.getElementById('inputDescuento').value = porcentaje.toFixed(2);
 }

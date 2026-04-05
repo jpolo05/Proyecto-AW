@@ -5,6 +5,7 @@ use es\ucm\fdi\aw\usuarios\Producto;
 
 require_once __DIR__.'/../../config.php';
 Auth::verificarAcceso('Cliente');
+$ofertasActivas = \es\ucm\fdi\aw\usuarios\Oferta::obtenerOfertasActivas();
 
 function h(string $text): string {
     return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
@@ -20,6 +21,7 @@ if (!isset($_SESSION['carrito']) || !is_array($_SESSION['carrito'])) {
 $csrfToken = Auth::getCsrfToken();
 $error = '';
 $mensaje = $_GET['msg'] ?? '';
+$descuentoTotal = 0.0;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!Auth::validaCsrfToken($_POST['csrfToken'] ?? null)) {
@@ -142,45 +144,20 @@ if ($filas === '') {
 }
 
 $totalTexto = number_format($total, 2, '.', '');
-$scriptTotal = <<<EOS
-    <script>
-    (function () {
-        function recalcularTotales() {
-            var total = 0;
-            document.querySelectorAll('.cantidad-carrito').forEach(function (input) {
-                var cantidad = parseInt(input.value, 10);
-                var precio = parseFloat(input.dataset.precio || '0');
-                if (!Number.isFinite(cantidad) || cantidad < 0) {
-                    cantidad = 0;
-                }
-                if (!Number.isFinite(precio) || precio < 0) {
-                    precio = 0;
-                }
-                var subtotal = cantidad * precio;
-                total += subtotal;
-                var celda = input.closest('tr').querySelector('.subtotal-linea');
-                if (celda) {
-                    celda.textContent = subtotal.toFixed(2) + ' EUR';
-                }
-            });
-            var nodoTotal = document.getElementById('totalCarrito');
-            if (nodoTotal) {
-                nodoTotal.textContent = total.toFixed(2);
-            }
-        }
-
-        document.querySelectorAll('.cantidad-carrito').forEach(function (input) {
-            input.addEventListener('input', recalcularTotales);
-        });
-        recalcularTotales();
-    })();
-    </script>
-EOS;
+$ofertasJSON = json_encode($ofertasActivas);
+$funcionesJS = "
+<script>
+    const CONFIG_OFERTAS = $ofertasJSON;
+</script>
+<script src='".RUTA_JS."carrito.js'></script>";
 
 $contenidoPrincipal = <<<EOS
     <h1>Mi carrito</h1>
     $errorHtml
     $mensajeHtml
+    <div id="contenedorOfertas">
+        <ul id="listaOfertasAplicadas"></ul>
+    </div>
     <form method="POST">
         <input type="hidden" name="csrfToken" value="$csrfToken">
         <p>
@@ -192,14 +169,14 @@ $contenidoPrincipal = <<<EOS
             </label>
         </p>
         $bloqueTabla
-        <p><strong>Total del carrito: <span id="totalCarrito">$totalTexto</span> EUR</strong></p>
+        <p><strong>Total: <span id="totalCarrito">0.00</span> EUR</strong></p>
+        <p><strong>Total: <span id="totalCarritoDescuento">0.00</span> EUR</strong></p>
         <div class="buttons-estandar">
             <button type="submit" name="accion" value="actualizar" class="button-estandar">Actualizar carrito</button>
             <button type="submit" name="accion" value="finalizar" class="button-estandar">Finalizar pedido</button>
             <button type="submit" name="accion" value="vaciar" class="button-delete">Vaciar carrito</button>
         </div>
     </form>
-    $scriptTotal
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
