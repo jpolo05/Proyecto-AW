@@ -198,6 +198,13 @@ class Oferta {
             return false;
         }
 
+        mysqli_stmt_bind_param($stmt, 'ssssdi', $nombre, $descripcion, $comienzo, $fin, $descuento, $id);
+        if (!mysqli_stmt_execute($stmt)) {
+            mysqli_stmt_close($stmt);
+            return false;
+        }
+        mysqli_stmt_close($stmt);
+
 
         return true;
     }
