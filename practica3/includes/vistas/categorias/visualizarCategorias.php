@@ -19,12 +19,15 @@ $idMostrado = (int)$categoria['id'];
 $nombre = htmlspecialchars($categoria['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
 $descripcion = nl2br(htmlspecialchars($categoria['descripcion'] ?? '', ENT_QUOTES, 'UTF-8'));
 $imagenRaw = trim((string)($categoria['imagen'] ?? ''));
-$imagen = htmlspecialchars($imagenRaw, ENT_QUOTES, 'UTF-8');
+$imagenRaw = htmlspecialchars($imagenRaw, ENT_QUOTES, 'UTF-8');
 $urlVolver = htmlspecialchars(RUTA_APP.'includes/vistas/categorias/listarCategorias.php', ENT_QUOTES, 'UTF-8');
 
-$bloqueImagen = '';
+$imgHtml = '<p>Sin imagen</p>';
 if ($imagenRaw !== '') {
-    $bloqueImagen = '<p><img src="'.$imagen.'" alt="Imagen categoria" style="max-width: 320px; height: auto;"></p>';
+    $src = preg_match('/^https?:\/\//', $imagenRaw)
+        ? h($imagenRaw)
+        : RUTA_APP.ltrim($imagenRaw, '/');
+    $imgHtml = "<img src='{$src}' alt='Imagen de {$nombre}' width='220'>";
 }
 
 $contenidoPrincipal = <<<EOS
@@ -37,7 +40,7 @@ $contenidoPrincipal = <<<EOS
         <li><strong>Nombre:</strong> {$nombre}</li>
         <li><strong>Descripción:</strong><br>{$descripcion}</li>
     </ul>
-    $bloqueImagen
+    $imgHtml
     <div class="buttons-estandar">
     <p><a href="$urlVolver" class="button-estandar">Volver</a></p>
     </div>

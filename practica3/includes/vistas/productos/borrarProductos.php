@@ -45,8 +45,8 @@ $contenidoPrincipal = <<<EOS
     <form method="POST" action="$action">
         <input type="hidden" name="csrfToken" value="$csrfToken">
         <input type="hidden" name="id" value="{$idMostrado}">
-        <button type="submit">Confirmar</button>
-        <a href="$urlCancelar"><button type="button">Cancelar</button></a>
+        <button type="submit" class="button-estandar">Confirmar</button>
+        <a href="$urlCancelar"><button type="button" class="button-estandar">Cancelar</button></a>
     </form>
 EOS;
 

@@ -63,8 +63,8 @@ $contenidoPrincipal = <<<EOS
         <p><label>Descripción: <textarea name="descripcion" required>$descripcion</textarea></label></p>
         <p><label>Imagen (ruta relativa o URL): <input type="text" name="imagen" value="$imagen"></label></p>
         <p>
-            <button type="submit">Guardar cambios</button>
-            <a href="$urlCancelar"><button type="button">Cancelar</button></a>
+            <button type="submit" class="button-estandar">Guardar cambios</button>
+            <a href="$urlCancelar"><button type="button" class="button-estandar">Cancelar</button></a>
         </p>
     </form>
 EOS;

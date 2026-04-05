@@ -26,16 +26,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_FILES['imagenArchivo']) && $_FILES['imagenArchivo']['error'] !== UPLOAD_ERR_NO_FILE) {
         if ($_FILES['imagenArchivo']['error'] !== UPLOAD_ERR_OK) {
-            $this->errores[] = 'Error al subir la imagen.';
+           $error = 'Error al subir la imagen.';
         } else {
             $archivo = $_FILES['imagenArchivo'];
             $extensionesValidas = ['jpg', 'jpeg', 'png'];
             $extension = strtolower(pathinfo($archivo['name'], PATHINFO_EXTENSION));
 
             if (!in_array($extension, $extensionesValidas)) {
-                $this->errores[] = 'Formato de imagen no permitido (solo JPG o PNG).';
+                $error = 'Formato de imagen no permitido (solo JPG o PNG).';
             } elseif ($archivo['size'] > 2000000) { // 2MB
-                $this->errores[] = 'La imagen es demasiado grande (máximo 2MB).';
+                $error = 'La imagen es demasiado grande (máximo 2MB).';
             } else {
 
                 $nuevoNombre = uniqid('img_', true) . '.' . $extension;
@@ -46,13 +46,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (move_uploaded_file($archivo['tmp_name'], $rutaDestinoFisica)) {
                     $imagenFinal = $rutaRelativaDestino;
                 } else {
-                    $this->errores[] = 'Error al guardar la imagen. Revisa los permisos de la carpeta.';
+                    $error = 'Error al guardar la imagen. Revisa los permisos de la carpeta.';
                 }
             }
         }
     }
 
-    if ($error === '' && ($nombre === '' || $descripcion === '' || $precioBase <= 0 || !in_array($iva, [4, 10, 21], true))) {
+    if ($error !== '' && ($nombre === '' || $descripcion === '' || $precioBase <= 0 || !in_array($iva, [4, 10, 21], true))) {
         $error = 'Revisa los datos del formulario.';
     } elseif ($error === '') {
         $ok = Producto::crear(
@@ -114,7 +114,7 @@ $contenidoPrincipal = <<<EOS
         <p><label><input type="checkbox" name="disponible" checked> Disponible</label></p>
         <p><label><input type="checkbox" name="ofertado" checked> Ofertado</label></p>
         <p>
-            <button type="submit">Guardar</button>
+            <button type="submit" class="button-estandar">Guardar</button>
             <a href="$urlCancelar" class="button-estandar">Cancelar</a>
         </p>
     </form>
