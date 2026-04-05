@@ -10,6 +10,7 @@ $msg = $_GET['msg'] ?? '';
 if ($esGerente) {
     $prods = Producto::listar();
     $tituloPagina = 'Listado productos';
+    $rutaPanelGerente = RUTA_APP.'includes/vistas/paneles/gerente.php';
 
     $tablaProductos = '
         <table>
@@ -82,6 +83,7 @@ if ($esGerente) {
         $tablaProductos
         <div class="buttons-estandar">
             <a href="$urlCrear" class="button-estandar">Crear producto</a>
+            <a href="$rutaPanelGerente" class="button-estandar">Volver al Panel</a>
         </div>
     EOS;
 } else {

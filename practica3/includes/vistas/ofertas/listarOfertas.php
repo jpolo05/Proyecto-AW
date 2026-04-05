@@ -77,9 +77,11 @@ if (empty($ofertas)) {
 
 if($esGerente) {
     $urlCrear = htmlspecialchars(RUTA_APP.'includes/vistas/ofertas/crearOfertas.php', ENT_QUOTES, 'UTF-8');
+    $rutaPanelGerente = htmlspecialchars(RUTA_APP.'includes/vistas/paneles/gerente.php', ENT_QUOTES, 'UTF-8');
     $contenidoPrincipal .= "
     <div class='buttons-estandar'>
         <a href='$urlCrear' class='button-estandar'>Crear oferta</a>
+        <a href='$rutaPanelGerente' class='button-estandar'>Volver al Panel</a>
     </div>";
 }
 

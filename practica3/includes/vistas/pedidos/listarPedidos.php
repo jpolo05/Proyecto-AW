@@ -16,6 +16,7 @@ $encabezadoExtra = '';
 //border="1" cellpadding="8"
 if ($rol === 'Gerente') {
     $pedidos = Pedido::listar();
+    $rutaPanelGerente = RUTA_APP.'includes/vistas/paneles/gerente.php';
     $tablaPedidos = '
         <table>
             <tr>
@@ -57,6 +58,7 @@ if ($rol === 'Gerente') {
         </tr>";
     }
     $tablaPedidos .= '</table>';
+    $encabezadoExtra = '<div class="buttons-estandar"><a href="'.$rutaPanelGerente.'" class="button-estandar">Volver al Panel</a></div>';
 } else {
     $usuario = $_SESSION['user'] ?? '';
     $pedidos = Pedido::listar_cliente($usuario);

@@ -24,7 +24,7 @@ $csrfToken = Auth::getCsrfToken();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!Auth::validaCsrfToken($_POST['csrfToken'] ?? null)) {
-        $error = 'Token CSRF inválido.';
+        $error = 'Token CSRF invalido.';
     }
 
     $cantidades = $_POST['cantidad'] ?? [];
@@ -34,26 +34,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $cantidades = [];
     }
 
-    $itemsSeleccionados = [];
+    $itemsActuales = is_array($_SESSION['carrito']['items'] ?? null) ? $_SESSION['carrito']['items'] : [];
     $itemsAñadidos = 0;
 
     foreach ($cantidades as $idProducto => $cantidad) {
         $id = (int)$idProducto;
         $cant = (int)$cantidad;
         if ($id > 0 && $cant > 0) {
-            $itemsSeleccionados[$id] = $cant;
-            $itemsAñadidos += $cant;
+            $itemsActuales[$id] = ((int)($itemsActuales[$id] ?? 0)) + $cant;
+            $itemsAnadidos += $cant;
         }
     }
 
-    if ($error === '' && $itemsAñadidos === 0) {
+    if ($error === '' && $itemsAnadidos === 0) {
         $error = 'Debes seleccionar al menos un producto con cantidad mayor que cero.';
     } elseif ($error === '' && !in_array($tipo, ['Local', 'Llevar'], true)) {
-        $error = 'Tipo de pedido no válido.';
+        $error = 'Tipo de pedido no valido.';
     } else {
         $_SESSION['carrito']['tipo'] = $tipo;
-        $_SESSION['carrito']['items'] = $itemsSeleccionados;
-        header('Location: '.RUTA_APP.'includes/vistas/pedidos/carrito.php?msg=Carrito+actualizado');
+        $_SESSION['carrito']['items'] = $itemsActuales;
+        header('Location: '.RUTA_APP.'includes/vistas/pedidos/carrito.php?msg=Productos+anadidos+al+carrito');
         exit;
     }
 }
@@ -79,7 +79,7 @@ foreach ($productos as $p) {
     $precioBase = (float)($p['precio_base'] ?? 0);
     $iva = (int)($p['iva'] ?? 0);
     $precioFinal = $precioBase + ($precioBase * $iva / 100);
-    $cantidadDefecto = (int)($_POST['cantidad'][$id] ?? ($itemsCarrito[$id] ?? 0));
+    $cantidadDefecto = (int)($_POST['cantidad'][$id] ?? 0);
     $totalInicial += ($precioFinal * $cantidadDefecto);
     $precioFinalTexto = number_format($precioFinal, 2, '.', '');
 
@@ -156,7 +156,7 @@ $contenidoPrincipal = <<<EOS
         $bloqueProductos
         $bloqueTotal
         <p>
-            <button type="submit" class='button-estandar'>Añadir al carrito</button>
+            <button type="submit" class='button-estandar'>Anadir al carrito</button>
             <a href="$urlVolver" class='button-estandar'>Ir al carrito</a>
         </p>
     </form>

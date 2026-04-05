@@ -106,6 +106,12 @@ $botonVolver = '';
 if ($esModoCocina) {
     $urlVolver = RUTA_APP.'includes/vistas/paneles/cocinero.php';
     $botonVolver = "<a href='{$urlVolver}' class='button-estandar'>Volver al panel de cocina</a>";
+} elseif ($rol === 'Cocinero') {
+    $urlVolver = RUTA_APP.'includes/vistas/paneles/cocinero.php';
+    $botonVolver = "<a href='{$urlVolver}' class='button-estandar'>Volver al panel de cocina</a>";
+} elseif ($rol === 'Camarero') {
+    $urlVolver = RUTA_APP.'includes/vistas/paneles/camarero.php';
+    $botonVolver = "<a href='{$urlVolver}' class='button-estandar'>Volver al panel de camarero</a>";
 } elseif ($rol === 'Gerente') {
     $urlVolver = RUTA_APP.'includes/vistas/pedidos/listarPedidos.php';
     $botonVolver = "<a href='{$urlVolver}' class='button-estandar'>Volver a todos los pedidos</a>";

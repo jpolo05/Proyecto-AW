@@ -26,6 +26,7 @@ foreach ($pedidos as $p) {
     $cliente = h((string)($p['cliente'] ?? ''));
     $tipo = h((string)($p['tipo'] ?? ''));
     $total = number_format((float)($p['total'] ?? 0), 2, '.', '');
+    $urlDetalle = $rutaVerPedido.'?numeroPedido='.$numeroPedido;
 
     if ($estado === Pedido::ESTADO_EN_PREPARACION) {
         $form = new FormularioActualizaPedido($numeroPedido, Pedido::ESTADO_COCINANDO, [
@@ -39,6 +40,7 @@ foreach ($pedidos as $p) {
                 Cliente: {$cliente}<br>
                 Para {$tipo}<br>
                 Total: {$total} EUR<br>
+                <a href='{$urlDetalle}'><button class='button-estandar'>Ver detalle</button></a>
                 {$htmlForm}
             </div>
         ";

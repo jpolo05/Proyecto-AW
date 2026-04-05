@@ -41,21 +41,26 @@ foreach ($cats as $c) {
 }
 $tablaCategorias .= '</table>';
 
-if($esGerente) {
+if ($esGerente) {
     $urlCrear = htmlspecialchars(RUTA_APP.'includes/vistas/categorias/crearCategorias.php', ENT_QUOTES, 'UTF-8');
+    $rutaPanelGerente = htmlspecialchars(RUTA_APP.'includes/vistas/paneles/gerente.php', ENT_QUOTES, 'UTF-8');
     $aux = '';
 } else {
     $urlCrear = '#';
+    $rutaPanelGerente = '#';
     $aux = 'none';
 }
 
+$botonPanel = $esGerente ? '<a href="'.$rutaPanelGerente.'" class="button-estandar">Volver al Panel</a>' : '';
+
 $contenidoPrincipal = <<<EOS
-    <div class ="seccion-titulo">
+    <div class="seccion-titulo">
         <h1>Categorías</h1>
     </div>
     $tablaCategorias
     <div class="buttons-estandar">
-        <a href="$urlCrear" class="button-estandar $aux" >Crear categoría</a>
+        <a href="$urlCrear" class="button-estandar $aux">Crear categoría</a>
+        $botonPanel
     </div>
 EOS;
 
