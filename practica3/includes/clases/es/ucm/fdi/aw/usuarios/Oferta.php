@@ -213,6 +213,23 @@ class Oferta {
             mysqli_stmt_close($stmtDelete);
         }
 
+        $sqlLinea = 'INSERT INTO lineas_oferta (id_oferta, producto, cantidad) VALUES (?, ?, ?)';
+        foreach ($productos as $index => $productoId) {
+            if (empty($productoId)) {
+                continue;
+            }
+
+            $cantidad = isset($cantidades[$index]) && is_numeric($cantidades[$index]) && (int)$cantidades[$index] > 0 ? (int)$cantidades[$index] : 1;
+
+            $stmtLinea = mysqli_prepare($conn, $sqlLinea);
+            if (!$stmtLinea) {
+                continue;
+            }
+
+            mysqli_stmt_bind_param($stmtLinea, 'iii', $id, $productoId, $cantidad);
+            mysqli_stmt_execute($stmtLinea);
+            mysqli_stmt_close($stmtLinea);
+        }
 
         return true;
     }
