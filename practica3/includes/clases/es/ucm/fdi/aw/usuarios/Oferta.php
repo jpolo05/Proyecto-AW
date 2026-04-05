@@ -205,6 +205,14 @@ class Oferta {
         }
         mysqli_stmt_close($stmt);
 
+        $sqlDelete = 'DELETE FROM lineas_oferta WHERE id_oferta = ?';
+        $stmtDelete = mysqli_prepare($conn, $sqlDelete);
+        if ($stmtDelete) {
+            mysqli_stmt_bind_param($stmtDelete, 'i', $id);
+            mysqli_stmt_execute($stmtDelete);
+            mysqli_stmt_close($stmtDelete);
+        }
+
 
         return true;
     }
