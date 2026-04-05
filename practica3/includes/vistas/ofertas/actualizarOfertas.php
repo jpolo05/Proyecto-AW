@@ -74,3 +74,26 @@ foreach ($productos as $p) {
     $idP = $p['id'];
     $opcionesProductos .= "<option value='$idP'>$nombreP</option>";
 }
+
+// Preparar HTML para las líneas actuales
+$lineasHtml = '';
+foreach ($lineasActuales as $linea) {
+    $idProd = (int)$linea['idProd'];
+    $cantidad = (int)$linea['cantidad'];
+    
+    $selectHtml = '<select name="productos[]" required onchange="recalcularPrecios()">';
+    $selectHtml .= '<option value="">Selecciona un producto...</option>';
+    foreach ($productos as $p) {
+        $nombreP = htmlspecialchars($p['nombre'], ENT_QUOTES, 'UTF-8');
+        $idP = (int)$p['id'];
+        $sel = $idP === $idProd ? 'selected' : '';
+        $selectHtml .= "<option value='$idP' $sel>$nombreP</option>";
+    }
+    $selectHtml .= '</select>';
+    
+    $lineasHtml .= '<div class="linea-oferta">';
+    $lineasHtml .= $selectHtml;
+    $lineasHtml .= "<input type='number' name='cantidades[]' min='1' value='$cantidad' onchange='recalcularPrecios()'>";
+    $lineasHtml .= '<button type="button" onclick="this.parentElement.remove(); recalcularPrecios();">Eliminar</button>';
+    $lineasHtml .= '</div>';
+}
