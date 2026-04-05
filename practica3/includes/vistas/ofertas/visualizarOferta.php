@@ -33,9 +33,13 @@ $urlVolver = h(RUTA_APP.'includes/vistas/ofertas/listarOfertas.php');
 $accionesGerente = '';
 
 if ($esGerente) {
+    $urlEditar = h(RUTA_APP.'includes/vistas/ofertas/actualizarOfertas.php?id='.$id);
     $urlBorrar = h(RUTA_APP.'includes/vistas/ofertas/borrarOfertas.php?id='.$id);
     $accionesGerente = <<<EOS
-    <p><a href="$urlBorrar" class="button-estandar">Borrar oferta</a></p>
+    <p>
+        <a href="$urlEditar" class="button-estandar">Editar oferta</a>
+        <a href="$urlBorrar" class="button-estandar">Borrar oferta</a>
+    </p>
 EOS;
 }
 
