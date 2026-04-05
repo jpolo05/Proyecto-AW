@@ -53,3 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'No se pudo actualizar la oferta.';
     }
 }
+
+$tituloPagina = 'Actualizar oferta';
+$errorHtml = $error !== '' ? '<p><strong>'.htmlspecialchars($error, ENT_QUOTES, 'UTF-8').'</strong></p>' : '';
+$action = htmlspecialchars(RUTA_APP.'includes/vistas/ofertas/actualizarOfertas.php', ENT_QUOTES, 'UTF-8');
+$urlCancelar = htmlspecialchars(RUTA_APP.'includes/vistas/ofertas/listarOfertas.php', ENT_QUOTES, 'UTF-8');
