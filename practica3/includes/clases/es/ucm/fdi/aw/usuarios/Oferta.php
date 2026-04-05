@@ -187,5 +187,19 @@ class Oferta {
         }
         return $ofertas;
     }
+
+    public static function actualizar(int $id, string $nombre, string $descripcion, ?string $comienzo, ?string $fin, float $descuento, array $productos, array $cantidades): bool
+    {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+
+        $sql = 'UPDATE ofertas SET nombre = ?, descripcion = ?, comienzo = ?, fin = ?, descuento = ? WHERE id = ?';
+        $stmt = mysqli_prepare($conn, $sql);
+        if (!$stmt) {
+            return false;
+        }
+
+
+        return true;
+    }
 }
 
