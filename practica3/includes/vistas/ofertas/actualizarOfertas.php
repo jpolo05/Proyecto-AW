@@ -135,3 +135,8 @@ $contenidoPrincipal = <<<EOS
         </div>
     </form>
 EOS;
+
+$rutaJs = RUTA_JS . 'crearOfertas.js';
+$funcionesJS = "<script src='$rutaJs'></script>";
+
+require __DIR__.'/../plantillas/plantilla.php';
