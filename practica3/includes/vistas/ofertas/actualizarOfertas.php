@@ -66,3 +66,11 @@ $comienzo = htmlspecialchars($oferta['comienzo'] ?? '', ENT_QUOTES, 'UTF-8');
 $fin = htmlspecialchars($oferta['fin'] ?? '', ENT_QUOTES, 'UTF-8');
 $descuentoActual = number_format((float)($oferta['descuento'] ?? 0), 2, '.', '');
 $lineasActuales = $oferta['lineas'] ?? [];
+
+// Preparar opciones de productos
+$opcionesProductos = '';
+foreach ($productos as $p) {
+    $nombreP = htmlspecialchars($p['nombre'], ENT_QUOTES, 'UTF-8');
+    $idP = $p['id'];
+    $opcionesProductos .= "<option value='$idP'>$nombreP</option>";
+}
