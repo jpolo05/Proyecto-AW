@@ -59,6 +59,11 @@ if (empty($ofertas)) {
         $productosHtml .= '</ul>';
 
         $urlVer = 'visualizarOferta.php?id=' . urlencode($o['id']);
+        $acciones = "<a href='{$urlVer}' class='link-usuario'>Ver</a>";
+        if ($esGerente) {
+            $urlEditar = 'actualizarOfertas.php?id=' . urlencode($o['id']);
+            $acciones .= " | <a href='{$urlEditar}' class='link-usuario'>Editar</a>";
+        }
         
         $tabla .= "<tr>
                     <td>{$nombre}</td>
@@ -67,7 +72,7 @@ if (empty($ofertas)) {
                     <td>{$comienzo}</td>
                     <td>{$fin}</td>
                     <td>{$descuento}%</td>
-                    <td><a href='{$urlVer}' class='link-usuario'>Ver</a></td>
+                    <td>{$acciones}</td>
                   </tr>";
     }
 
