@@ -58,3 +58,11 @@ $tituloPagina = 'Actualizar oferta';
 $errorHtml = $error !== '' ? '<p><strong>'.htmlspecialchars($error, ENT_QUOTES, 'UTF-8').'</strong></p>' : '';
 $action = htmlspecialchars(RUTA_APP.'includes/vistas/ofertas/actualizarOfertas.php', ENT_QUOTES, 'UTF-8');
 $urlCancelar = htmlspecialchars(RUTA_APP.'includes/vistas/ofertas/listarOfertas.php', ENT_QUOTES, 'UTF-8');
+
+// Preparar valores actuales
+$nombre = htmlspecialchars($oferta['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
+$descripcion = htmlspecialchars($oferta['descripcion'] ?? '', ENT_QUOTES, 'UTF-8');
+$comienzo = htmlspecialchars($oferta['comienzo'] ?? '', ENT_QUOTES, 'UTF-8');
+$fin = htmlspecialchars($oferta['fin'] ?? '', ENT_QUOTES, 'UTF-8');
+$descuentoActual = number_format((float)($oferta['descuento'] ?? 0), 2, '.', '');
+$lineasActuales = $oferta['lineas'] ?? [];
