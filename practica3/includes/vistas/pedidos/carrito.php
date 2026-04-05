@@ -169,8 +169,8 @@ $contenidoPrincipal = <<<EOS
             </label>
         </p>
         $bloqueTabla
-        <p><strong>Total: <span id="totalCarrito">0.00</span> EUR</strong></p>
-        <p><strong>Total: <span id="totalCarritoDescuento">0.00</span> EUR</strong></p>
+        <p>Total: <span id="totalCarrito">0.00</span> EUR</p>
+        <p><strong>Total con descuento: <span id="totalCarritoDescuento">0.00</span> EUR</strong></p>
         <div class="buttons-estandar">
             <button type="submit" name="accion" value="actualizar" class="button-estandar">Actualizar carrito</button>
             <button type="submit" name="accion" value="finalizar" class="button-estandar">Finalizar pedido</button>

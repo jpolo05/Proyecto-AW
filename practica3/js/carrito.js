@@ -44,7 +44,6 @@
                     let inputProducto = document.querySelector(`.cantidad-carrito[name="cantidad[${idProd}]"]`);
                     let precioUnidad = inputProducto ? parseFloat(inputProducto.dataset.precio) : 0;
 
-                    // USAMOS cantidadesActuales en lugar de itemsCarrito
                     if (!cantidadesActuales[idProd] || cantidadesActuales[idProd] < cantReq) {
                         cumpleOferta = false;
                     } else {
