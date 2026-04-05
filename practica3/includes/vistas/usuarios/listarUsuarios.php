@@ -43,7 +43,6 @@ foreach ($users as $u) {
         $tablaUsuarios .= "<td colspan='2'>$htmlFormRol <a href='listarUsuarios.php' class='button-estandar'>Cancelar</a></td>";
     } else {
         $tablaUsuarios .= "<td>$rolActual</td>";
-        //$tablaUsuarios .= "<td><a href='listarUsuarios.php?user=".urlencode($userRaw)."'><button class='button-estandar'>Editar</button></a></td>";
         $tablaUsuarios .= "<td><a href='listarUsuarios.php?user=".urlencode($userRaw)."' class='button-estandar'>Editar</a></td>";
     }
 

@@ -28,14 +28,19 @@ if ($imagenRaw !== '') {
 }
 
 $contenidoPrincipal = <<<EOS
-    <h1>Categoria #{$idMostrado}</h1>
+<div class="titulo-seccion">
+    <h1>Categoría #{$idMostrado}</h1>
+</div>
+
     <ul>
         <li><strong>ID:</strong> {$idMostrado}</li>
         <li><strong>Nombre:</strong> {$nombre}</li>
         <li><strong>Descripción:</strong><br>{$descripcion}</li>
     </ul>
     $bloqueImagen
-    <p><a href="$urlVolver"><button type="button">Volver</button></a></p>
+    <div class="buttons-estandar">
+    <p><a href="$urlVolver" class="button-estandar">Volver</a></p>
+    </div>
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
