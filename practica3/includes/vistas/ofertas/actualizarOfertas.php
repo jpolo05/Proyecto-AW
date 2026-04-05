@@ -97,3 +97,41 @@ foreach ($lineasActuales as $linea) {
     $lineasHtml .= '<button type="button" onclick="this.parentElement.remove(); recalcularPrecios();">Eliminar</button>';
     $lineasHtml .= '</div>';
 }
+
+$productosJsonHtml = htmlspecialchars(json_encode($productos), ENT_QUOTES, 'UTF-8');
+
+$contenidoPrincipal = <<<EOS
+    <h1>Actualizar oferta #{$id}</h1>
+    $errorHtml
+    <form method="POST" action="$action">
+        <input type="hidden" name="csrfToken" value="$csrfToken">
+        <input type="hidden" name="id" value="{$id}">
+        
+        <fieldset>
+            <legend>Datos de la Oferta</legend>
+            <p><label>Nombre: <input type="text" name="nombre" value="$nombre" required></label></p>
+            <p><label>Descripción: <textarea name="descripcion" required>$descripcion</textarea></label></p>
+            <p><label>Comienzo: <input type="date" name="comienzo" value="$comienzo"></label></p>
+            <p><label>Fin: <input type="date" name="fin" value="$fin"></label></p>
+            <p>Descuento aplicado: <span id="porcentajeMostrado">$descuentoActual</span>%</p>
+            <input type="hidden" name="descuento" id="inputDescuento" value="$descuentoActual">
+        </fieldset>
+
+        <fieldset>
+            <legend>Productos incluidos</legend>
+            <div id="contenedor-lineas">
+                $lineasHtml
+            </div>
+            <button type="button" onclick="agregarLinea($productosJsonHtml)">+ Añadir Producto</button>
+        </fieldset>
+        <div>
+            precio previo total: <span id="precioTotal">0</span> €
+            precio con descuento: <input type="number" id="precioDescuento" step="0.01" oninput="recalcularDescuento()"> €
+        </div>
+        
+        <div>
+            <button type="submit">Guardar cambios</button>
+            <a href="$urlCancelar"><button type="button">Cancelar</button></a>
+        </div>
+    </form>
+EOS;
