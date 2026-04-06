@@ -169,6 +169,22 @@ $bloqueOfertasDisponibles = '<p>No hay ofertas activas disponibles actualmente.<
 if (!empty($ofertasActivas)) {
     $partesOfertas = [];
     foreach ($ofertasActivas as $oferta) {
+        $esAplicable = true;
+        foreach (($oferta['lineas'] ?? []) as $lineaOferta) {
+            $idProd = (int)($lineaOferta['idProd'] ?? 0);
+            $cantidadRequerida = (int)($lineaOferta['cantidad'] ?? 0);
+            $cantidadCarrito = (int)($itemsCarrito[$idProd] ?? 0);
+
+            if ($idProd <= 0 || $cantidadRequerida <= 0 || $cantidadCarrito < $cantidadRequerida) {
+                $esAplicable = false;
+                break;
+            }
+        }
+
+        if (!$esAplicable) {
+            continue;
+        }
+
         $idOferta = (int)($oferta['id'] ?? 0);
         $nombreOferta = h((string)($oferta['nombre'] ?? ''));
         $descripcionOferta = h((string)($oferta['descripcion'] ?? ''));
@@ -183,7 +199,11 @@ if (!empty($ofertasActivas)) {
             </label>
         </p>";
     }
-    $bloqueOfertasDisponibles = implode('', $partesOfertas);
+    if (!empty($partesOfertas)) {
+        $bloqueOfertasDisponibles = implode('', $partesOfertas);
+    } else {
+        $bloqueOfertasDisponibles = '<p>No hay ofertas aplicables a los productos seleccionados.</p>';
+    }
 }
 
 $totalTexto = number_format($total, 2, '.', '');
@@ -212,7 +232,7 @@ $contenidoPrincipal = <<<EOS
             </label>
         </p>
         $bloqueTabla
-        <h2>Ofertas disponibles</h2>
+        <h2>Ofertas aplicables</h2>
         $bloqueOfertasDisponibles
         <h2>Ofertas seleccionadas</h2>
         <p>Total: <span id="totalCarrito">$totalTexto</span> EUR</p>
