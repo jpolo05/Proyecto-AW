@@ -59,8 +59,8 @@ $contenidoPrincipal = <<<EOS
     </div>
     $tablaCategorias
     <div class="buttons-estandar">
-        <a href="$urlCrear" class="button-estandar $aux">Crear categoría</a>
         $botonPanel
+        <a href="$urlCrear" class="button-estandar $aux">Crear categoría</a>
     </div>
 EOS;
 

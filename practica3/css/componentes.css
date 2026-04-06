@@ -444,7 +444,37 @@ th:last-child, td:last-child {
 
 /*PANEL USUARIOS*/
 
+/*PANEL CATEGORÍAS*/
+.info-categoria {
+    background-color: #ffffff;
+    padding: 30px;           /* Espacio interno para que no pegue al borde */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 700px;        /* Para que no se estire demasiado en PC */
+    line-height: 1.8;        /* Separa las líneas de texto */
+}
 
+/* Ajuste para los párrafos internos */
+.info-categoria p {
+    margin-bottom: 15px;     /* Separa un dato de otro */
+    color: #333;
+}
+
+.info-categoria strong {
+    color: #21352a;          /* Color verde Bistro */
+    display: inline-block;
+    width: 120px;            /* Alinea las etiquetas */
+}
+
+/* Ajuste de la imagen dentro de este contenedor */
+.info-categoria img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
 
 /*EDITAR USUARIO - PANEL GERENTE*/
 

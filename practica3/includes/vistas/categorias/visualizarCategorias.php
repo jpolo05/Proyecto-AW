@@ -30,20 +30,20 @@ if ($imagenRaw !== '') {
     $imgHtml = "<img src='{$src}' alt='Imagen de {$nombre}' width='220'>";
 }
 
-$contenidoPrincipal = <<<EOS
-<div class="titulo-seccion">
+$contenidoPrincipal =$contenidoPrincipal = <<<EOS
+<div class="seccion-titulo">
     <h1>Categoría #{$idMostrado}</h1>
 </div>
 
-    <ul>
-        <li><strong>ID:</strong> {$idMostrado}</li>
-        <li><strong>Nombre:</strong> {$nombre}</li>
-        <li><strong>Descripción:</strong><br>{$descripcion}</li>
-    </ul>
+<div class="info-categoria">
+    <p><strong>ID:</strong> $idMostrado</p>
+    <p><strong>Nombre:</strong> $nombre </p>
+    <p><strong>Descripción:</strong>$descripcion</p>
     $imgHtml
-    <div class="buttons-estandar">
-    <p><a href="$urlVolver" class="button-estandar">Volver</a></p>
-    </div>
-EOS;
+</div>
 
+<div class="buttons-estandar">
+    <a href="$urlVolver" class="button-estandar">Volver</a>
+</div>
+EOS;
 require __DIR__.'/../plantillas/plantilla.php';
