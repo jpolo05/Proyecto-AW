@@ -99,7 +99,10 @@ class Pedido
         }
 
         $ofertasActivas = Oferta::obtenerOfertasActivas();
-        $ofertasSeleccionadas = array_map('intval', $ofertasSeleccionadas);
+        $ofertasSeleccionadas = array_values(array_unique(array_map('intval', $ofertasSeleccionadas)));
+        if (count($ofertasSeleccionadas) > 1) {
+            $ofertasSeleccionadas = [(int)$ofertasSeleccionadas[0]];
+        }
         $descuentoTotal = 0.0;
 
         foreach ($ofertasActivas as $oferta) {

@@ -42,10 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $cantidades = [];
         }
 
-        $ofertasSeleccionadas = $_POST['ofertas'] ?? [];
-        if (!is_array($ofertasSeleccionadas)) {
-            $ofertasSeleccionadas = [];
-        }
+        $ofertaSeleccionada = (int)($_POST['oferta'] ?? 0);
 
         $itemsNormalizados = [];
         foreach ($cantidades as $idProducto => $cantidad) {
@@ -56,13 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        $ofertasNormalizadas = [];
-        foreach ($ofertasSeleccionadas as $idOferta) {
-            $id = (int)$idOferta;
-            if ($id > 0 && !in_array($id, $ofertasNormalizadas, true)) {
-                $ofertasNormalizadas[] = $id;
-            }
-        }
+        $ofertasNormalizadas = $ofertaSeleccionada > 0 ? [$ofertaSeleccionada] : [];
 
         $_SESSION['carrito']['tipo'] = $tipo;
 
@@ -194,7 +185,7 @@ if (!empty($ofertasActivas)) {
         $partesOfertas[] = "
         <p>
             <label>
-                <input type='checkbox' name='ofertas[]' value='{$idOferta}' class='oferta-disponible' {$checked}>
+                <input type='radio' name='oferta' value='{$idOferta}' class='oferta-disponible' {$checked}>
                 <strong>{$nombreOferta}</strong> - {$descripcionOferta} ({$descuentoOferta}%)
             </label>
         </p>";
