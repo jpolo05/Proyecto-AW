@@ -8,20 +8,25 @@ function h(string $text): string {
     return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
 }
 
-$tituloPagina = 'Ofertas';
-$msg = $_GET['msg'] ?? '';
+function esOfertaCaducada(array $oferta): bool {
+    $fin = trim((string)($oferta['fin'] ?? ''));
+    if ($fin === '') {
+        return false;
+    }
 
-$ofertas = Oferta::listar();
-$mensajeHtml = $msg !== '' ? '<div class="mensaje-alerta"><p><strong>'.h($msg).'</strong></p></div>' : '';
+    $timestampFin = strtotime($fin);
+    if ($timestampFin === false) {
+        return false;
+    }
 
-$contenidoPrincipal = '
-<div class="seccion-titulo">
-    <h1>Ofertas</h1>
-</div>' . $mensajeHtml;
+    return $timestampFin < time();
+}
 
-if (empty($ofertas)) {
-    $contenidoPrincipal .= '<p class="texto-centrado">No hay ofertas registradas actualmente.</p>';
-} else {
+function renderTablaOfertas(array $ofertas, bool $esGerente): string {
+    if (empty($ofertas)) {
+        return '<p>No hay ofertas en esta secci&oacute;n.</p>';
+    }
+
     $tabla = '<table>
                 <thead>
                     <tr>
@@ -56,11 +61,14 @@ if (empty($ofertas)) {
         }
         $productosHtml .= '</ul>';
 
-        $urlVer = 'visualizarOferta.php?id=' . urlencode($o['id']);
+        $idOferta = (int)($o['id'] ?? 0);
+        $urlVer = 'visualizarOferta.php?id=' . urlencode((string)$idOferta);
         $acciones = "<a href='{$urlVer}' class='link-usuario'>Ver</a>";
         if ($esGerente) {
-            $urlEditar = 'actualizarOfertas.php?id=' . urlencode($o['id']);
+            $urlEditar = 'actualizarOfertas.php?id=' . urlencode((string)$idOferta);
+            $urlBorrar = 'borrarOfertas.php?id=' . urlencode((string)$idOferta);
             $acciones .= " | <a href='{$urlEditar}' class='link-usuario'>Editar</a>";
+            $acciones .= " | <a href='{$urlBorrar}' class='link-usuario'>Borrar</a>";
         }
 
         $tabla .= "<tr>
@@ -75,10 +83,36 @@ if (empty($ofertas)) {
     }
 
     $tabla .= '</tbody></table>';
-    $contenidoPrincipal .= $tabla;
+    return $tabla;
 }
 
-if($esGerente) {
+$tituloPagina = 'Ofertas';
+$msg = $_GET['msg'] ?? '';
+
+$ofertas = Oferta::listar();
+$ofertasActivas = [];
+$ofertasCaducadas = [];
+
+foreach ($ofertas as $oferta) {
+    if (esOfertaCaducada($oferta)) {
+        $ofertasCaducadas[] = $oferta;
+    } else {
+        $ofertasActivas[] = $oferta;
+    }
+}
+
+$mensajeHtml = $msg !== '' ? '<div class="mensaje-alerta"><p><strong>'.h($msg).'</strong></p></div>' : '';
+
+$contenidoPrincipal = '
+<div class="seccion-titulo">
+    <h1>Ofertas</h1>
+</div>' . $mensajeHtml . '
+<h2>Ofertas activas</h2>' .
+renderTablaOfertas($ofertasActivas, $esGerente) . '
+<h2>Ofertas caducadas</h2>' .
+renderTablaOfertas($ofertasCaducadas, $esGerente);
+
+if ($esGerente) {
     $urlCrear = htmlspecialchars(RUTA_APP.'includes/vistas/ofertas/crearOfertas.php', ENT_QUOTES, 'UTF-8');
     $rutaPanelGerente = htmlspecialchars(RUTA_APP.'includes/vistas/paneles/gerente.php', ENT_QUOTES, 'UTF-8');
     $contenidoPrincipal .= "
