@@ -208,6 +208,16 @@ a:has(.tarjeta){
     margin: 20px 0;
 }
 
+.table-container table {
+    margin: 0 auto;
+}
+
+.table-container-centrado {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
 table {
     width: 80%; /* En PC ocupa todo el espacio del artículo */
     border-collapse: collapse; /* Quita espacios entre celdas */

@@ -19,24 +19,22 @@ $contenidoPrincipal = '
     <h1>Ofertas</h1>
 </div>' . $mensajeHtml;
 
-// Conenido central
 if (empty($ofertas)) {
     $contenidoPrincipal .= '<p class="texto-centrado">No hay ofertas registradas actualmente.</p>';
 } else {
-    $tabla = '<div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Productos</th>
-                            <th>Comienzo</th>
-                            <th>Fin</th>
-                            <th>Descuento</th>
-                            <th>Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>';
+    $tabla = '<table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Productos</th>
+                        <th>Comienzo</th>
+                        <th>Fin</th>
+                        <th>Descuento</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>';
 
     foreach ($ofertas as $o) {
         $nombre = h((string)($o['nombre'] ?? ''));
@@ -45,7 +43,7 @@ if (empty($ofertas)) {
         $comienzo = h((string)($o['comienzo'] ?? ''));
         $fin = h((string)($o['fin'] ?? ''));
         $descuento = (float)($o['descuento'] ?? 0);
-        
+
         $productosHtml = '<ul class="lista-tabla">';
         if (empty($productos)) {
             $productosHtml .= '<li>Sin productos</li>';
@@ -64,7 +62,7 @@ if (empty($ofertas)) {
             $urlEditar = 'actualizarOfertas.php?id=' . urlencode($o['id']);
             $acciones .= " | <a href='{$urlEditar}' class='link-usuario'>Editar</a>";
         }
-        
+
         $tabla .= "<tr>
                     <td>{$nombre}</td>
                     <td>{$descripcion}</td>
@@ -76,7 +74,7 @@ if (empty($ofertas)) {
                   </tr>";
     }
 
-    $tabla .= '</tbody></table></div>';
+    $tabla .= '</tbody></table>';
     $contenidoPrincipal .= $tabla;
 }
 
