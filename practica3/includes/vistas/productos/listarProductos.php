@@ -92,6 +92,7 @@ if ($esGerente) {
     if ($idCategoria <= 0) {
         $cats = Categoria::listar();
         $tituloPagina = 'Carta';
+        $urlVerOfertas = RUTA_APP.'includes/vistas/ofertas/listarOfertas.php?solo=activas';
 
         $tablaCategorias = '
             <table>
@@ -123,6 +124,9 @@ if ($esGerente) {
         </div>
             $mensajeHtml
             $tablaCategorias
+            <div class="buttons-estandar">
+                <a href="$urlVerOfertas" class="button-estandar">Ver ofertas</a>
+            </div>
         EOS;
     } else {
         $categoria = Categoria::buscaPorId($idCategoria);
@@ -174,6 +178,7 @@ if ($esGerente) {
 
         $urlVolverCategorias = RUTA_APP.'includes/vistas/productos/listarProductos.php';
         $urlCrearPedido = RUTA_APP.'includes/vistas/pedidos/crearPedido.php';
+        $urlVerOfertas = RUTA_APP.'includes/vistas/ofertas/listarOfertas.php?solo=activas';
         $mensajeHtml = $msg !== '' ? '<p><strong>'.htmlspecialchars($msg, ENT_QUOTES, 'UTF-8').'</strong></p>' : '';
         $contenidoPrincipal = <<<EOS
             <div class="seccion-titulo">
@@ -185,6 +190,7 @@ if ($esGerente) {
             <div class="buttons-estandar">
                 <a href="$urlVolverCategorias" class="button-estandar">Volver</a>
                 <a href="$urlCrearPedido" class="button-estandar">Crear pedido</a>
+                <a href="$urlVerOfertas" class="button-estandar">Ver ofertas</a>
             </div>
         EOS;
     }

@@ -88,6 +88,7 @@ function renderTablaOfertas(array $ofertas, bool $esGerente): string {
 
 $tituloPagina = 'Ofertas';
 $msg = $_GET['msg'] ?? '';
+$solo = $_GET['solo'] ?? '';
 
 $ofertas = Oferta::listar();
 $ofertasActivas = [];
@@ -106,11 +107,18 @@ $mensajeHtml = $msg !== '' ? '<div class="mensaje-alerta"><p><strong>'.h($msg).'
 $contenidoPrincipal = '
 <div class="seccion-titulo">
     <h1>Ofertas</h1>
-</div>' . $mensajeHtml . '
+</div>' . $mensajeHtml;
+
+if ($solo === 'activas') {
+    $contenidoPrincipal .= '
+<h2>Ofertas activas</h2>' . renderTablaOfertas($ofertasActivas, $esGerente);
+} else {
+    $contenidoPrincipal .= '
 <h2>Ofertas activas</h2>' .
 renderTablaOfertas($ofertasActivas, $esGerente) . '
 <h2>Ofertas caducadas</h2>' .
 renderTablaOfertas($ofertasCaducadas, $esGerente);
+}
 
 if ($esGerente) {
     $urlCrear = htmlspecialchars(RUTA_APP.'includes/vistas/ofertas/crearOfertas.php', ENT_QUOTES, 'UTF-8');
