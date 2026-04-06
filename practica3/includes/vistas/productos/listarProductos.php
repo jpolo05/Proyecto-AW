@@ -92,7 +92,7 @@ if ($esGerente) {
     if ($idCategoria <= 0) {
         $cats = Categoria::listar();
         $tituloPagina = 'Carta';
-        $urlVerOfertas = RUTA_APP.'includes/vistas/ofertas/listarOfertas.php?solo=activas';
+        $urlVerOfertas = RUTA_APP.'includes/vistas/ofertas/listarOfertas.php?solo=activas&origen=carta';
 
         $tablaCategorias = '
             <table>
@@ -178,7 +178,7 @@ if ($esGerente) {
 
         $urlVolverCategorias = RUTA_APP.'includes/vistas/productos/listarProductos.php';
         $urlCrearPedido = RUTA_APP.'includes/vistas/pedidos/crearPedido.php';
-        $urlVerOfertas = RUTA_APP.'includes/vistas/ofertas/listarOfertas.php?solo=activas';
+        $urlVerOfertas = RUTA_APP.'includes/vistas/ofertas/listarOfertas.php?solo=activas&origen=carta';
         $mensajeHtml = $msg !== '' ? '<p><strong>'.htmlspecialchars($msg, ENT_QUOTES, 'UTF-8').'</strong></p>' : '';
         $contenidoPrincipal = <<<EOS
             <div class="seccion-titulo">

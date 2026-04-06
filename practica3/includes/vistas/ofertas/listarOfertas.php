@@ -62,7 +62,7 @@ function renderTablaOfertas(array $ofertas, bool $esGerente): string {
         $productosHtml .= '</ul>';
 
         $idOferta = (int)($o['id'] ?? 0);
-        $urlVer = 'visualizarOferta.php?id=' . urlencode((string)$idOferta);
+        $urlVer = $o['url_ver'] ?? ('visualizarOferta.php?id=' . urlencode((string)$idOferta));
         $acciones = "<a href='{$urlVer}' class='link-usuario'>Ver</a>";
         if ($esGerente) {
             $urlEditar = 'actualizarOfertas.php?id=' . urlencode((string)$idOferta);
@@ -89,6 +89,11 @@ function renderTablaOfertas(array $ofertas, bool $esGerente): string {
 $tituloPagina = 'Ofertas';
 $msg = $_GET['msg'] ?? '';
 $solo = $_GET['solo'] ?? '';
+$origen = $_GET['origen'] ?? '';
+
+if ($solo === 'activas' && $origen === '') {
+    $origen = 'carta';
+}
 
 $ofertas = Oferta::listar();
 $ofertasActivas = [];
@@ -103,6 +108,22 @@ foreach ($ofertas as $oferta) {
 }
 
 $mensajeHtml = $msg !== '' ? '<div class="mensaje-alerta"><p><strong>'.h($msg).'</strong></p></div>' : '';
+
+if ($origen === 'carta') {
+    foreach ($ofertasActivas as &$ofertaActiva) {
+        $idOferta = (int)($ofertaActiva['id'] ?? 0);
+        $ofertaActiva['id'] = $idOferta;
+        $ofertaActiva['url_ver'] = 'visualizarOferta.php?id=' . urlencode((string)$idOferta) . '&origen=carta';
+    }
+    unset($ofertaActiva);
+
+    foreach ($ofertasCaducadas as &$ofertaCaducada) {
+        $idOferta = (int)($ofertaCaducada['id'] ?? 0);
+        $ofertaCaducada['id'] = $idOferta;
+        $ofertaCaducada['url_ver'] = 'visualizarOferta.php?id=' . urlencode((string)$idOferta) . '&origen=carta';
+    }
+    unset($ofertaCaducada);
+}
 
 $contenidoPrincipal = '
 <div class="seccion-titulo">

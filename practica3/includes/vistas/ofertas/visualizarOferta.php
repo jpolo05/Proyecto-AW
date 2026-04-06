@@ -29,7 +29,18 @@ $comienzo = h((string) ($oferta['comienzo'] ?? ''));
 $fin = h((string) ($oferta['fin'] ?? ''));
 $descuento = number_format((float) ($oferta['descuento'] ?? 0), 2, ',', '.');
 $lineas = $oferta['lineas'] ?? [];
+$origen = (string) ($_GET['origen'] ?? '');
 $urlVolver = h(RUTA_APP.'includes/vistas/ofertas/listarOfertas.php');
+$textoVolver = 'Volver';
+
+if ($origen === 'pedido') {
+    $urlVolver = h(RUTA_APP.'includes/vistas/pedidos/crearPedido.php');
+    $textoVolver = 'Volver al pedido';
+} elseif ($origen === 'carta') {
+    $urlVolver = h(RUTA_APP.'includes/vistas/productos/listarProductos.php');
+    $textoVolver = 'Volver a la carta';
+}
+
 $accionesGerente = '';
 
 if ($esGerente) {
@@ -66,7 +77,7 @@ $contenidoPrincipal = <<<EOS
         {$productosHtml}
     </ul>
     {$accionesGerente}
-    <p><a href="$urlVolver" class="button-estandar">Volver</a></p>
+    <p><a href="$urlVolver" class="button-estandar">{$textoVolver}</a></p>
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';

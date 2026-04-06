@@ -30,14 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $cantidades = $_POST['cantidad'] ?? [];
-    $lineas = [];
-
     if (!is_array($cantidades)) {
         $cantidades = [];
     }
 
     $itemsActuales = is_array($_SESSION['carrito']['items'] ?? null) ? $_SESSION['carrito']['items'] : [];
-    $itemsAñadidos = 0;
+    $itemsAnadidos = 0;
 
     foreach ($cantidades as $idProducto => $cantidad) {
         $id = (int)$idProducto;
@@ -77,10 +75,12 @@ $bloqueOfertas = '<p>No hay ofertas activas disponibles actualmente.</p>';
 if (!empty($ofertasActivas)) {
     $htmlOfertas = '';
     foreach ($ofertasActivas as $oferta) {
+        $idOferta = (int)($oferta['id'] ?? 0);
         $nombreOferta = h((string)($oferta['nombre'] ?? ''));
         $descripcionOferta = h((string)($oferta['descripcion'] ?? ''));
         $finOferta = h((string)($oferta['fin'] ?? ''));
         $descuentoOferta = number_format((float)($oferta['descuento'] ?? 0), 2, '.', '');
+        $urlVerOferta = RUTA_APP.'includes/vistas/ofertas/visualizarOferta.php?id='.$idOferta.'&origen=pedido';
 
         $htmlOfertas .= "
         <tr>
@@ -88,6 +88,7 @@ if (!empty($ofertasActivas)) {
             <td>{$descripcionOferta}</td>
             <td>{$finOferta}</td>
             <td>{$descuentoOferta}%</td>
+            <td><a href='{$urlVerOferta}' class='button-estandar'>Ver</a></td>
         </tr>";
     }
 
@@ -98,6 +99,7 @@ if (!empty($ofertasActivas)) {
             <th>Descripción</th>
             <th>Fin</th>
             <th>Descuento</th>
+            <th>Acción</th>
         </tr>
         {$htmlOfertas}
     </table>";
@@ -137,6 +139,7 @@ if ($filasProductos === '') {
         '.$filasProductos.'
     </table>';
 }
+
 $totalInicialTexto = number_format($totalInicial, 2, '.', '');
 $bloqueTotal = '<p><strong>Total del pedido: <span id="totalPedido">'.$totalInicialTexto.'</span> EUR</strong></p>';
 $scriptTotal = <<<EOS
