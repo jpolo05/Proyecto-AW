@@ -73,7 +73,72 @@ class Pedido
         return $fila ? (int)$fila['id'] : null;
     }
 
-    public static function crear(string $cliente, string $tipo, array $lineas): ?int
+    private static function calcularDescuentoOfertas(array $lineas, array $ofertasSeleccionadas): float
+    {
+        if (empty($lineas) || empty($ofertasSeleccionadas)) {
+            return 0.0;
+        }
+
+        $cantidadesActuales = [];
+        $preciosUnitarios = [];
+        foreach ($lineas as $linea) {
+            $idProducto = (int)($linea['idProducto'] ?? 0);
+            $cantidad = (int)($linea['cantidad'] ?? 0);
+            if ($idProducto <= 0 || $cantidad <= 0) {
+                continue;
+            }
+
+            $cantidadesActuales[$idProducto] = $cantidad;
+
+            $producto = Producto::buscaPorId($idProducto);
+            if ($producto) {
+                $precioBase = (float)($producto['precio_base'] ?? 0);
+                $iva = (int)($producto['iva'] ?? 0);
+                $preciosUnitarios[$idProducto] = $precioBase + ($precioBase * $iva / 100);
+            }
+        }
+
+        $ofertasActivas = Oferta::obtenerOfertasActivas();
+        $ofertasSeleccionadas = array_map('intval', $ofertasSeleccionadas);
+        $descuentoTotal = 0.0;
+
+        foreach ($ofertasActivas as $oferta) {
+            $idOferta = (int)($oferta['id'] ?? 0);
+            if (!in_array($idOferta, $ofertasSeleccionadas, true)) {
+                continue;
+            }
+
+            $maxAplicacionesPack = PHP_INT_MAX;
+            $precioBasePack = 0.0;
+            $cumpleOferta = true;
+
+            foreach (($oferta['lineas'] ?? []) as $lineaOferta) {
+                $idProd = (int)($lineaOferta['idProd'] ?? 0);
+                $cantReq = (int)($lineaOferta['cantidad'] ?? 0);
+
+                if ($idProd <= 0 || $cantReq <= 0 || !isset($cantidadesActuales[$idProd]) || $cantidadesActuales[$idProd] < $cantReq) {
+                    $cumpleOferta = false;
+                    break;
+                }
+
+                $veces = (int) floor($cantidadesActuales[$idProd] / $cantReq);
+                if ($veces < $maxAplicacionesPack) {
+                    $maxAplicacionesPack = $veces;
+                }
+
+                $precioBasePack += ((float)($preciosUnitarios[$idProd] ?? 0)) * $cantReq;
+            }
+
+            if ($cumpleOferta && $maxAplicacionesPack > 0 && $maxAplicacionesPack !== PHP_INT_MAX) {
+                $ahorroPorPack = $precioBasePack * ((float)($oferta['descuento'] ?? 0) / 100);
+                $descuentoTotal += round($ahorroPorPack * $maxAplicacionesPack, 2);
+            }
+        }
+
+        return round($descuentoTotal, 2);
+    }
+
+    public static function crear(string $cliente, string $tipo, array $lineas, array $ofertasSeleccionadas = []): ?int
     {
         if ($cliente === '' || !in_array($tipo, ['Local', 'Llevar'], true) || empty($lineas)) {
             return null;
@@ -153,6 +218,9 @@ class Pedido
                 mysqli_rollback($conn);
                 return null;
             }
+
+            $descuentoTotal = self::calcularDescuentoOfertas($lineas, $ofertasSeleccionadas);
+            $total = max(0, round($total - $descuentoTotal, 2));
 
             $sqlTotal = "UPDATE pedidos SET total = ? WHERE id = ?";
             $stmtTotal = mysqli_prepare($conn, $sqlTotal);

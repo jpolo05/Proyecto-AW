@@ -1,5 +1,6 @@
 <?php
 use es\ucm\fdi\aw\usuarios\Auth;
+use es\ucm\fdi\aw\usuarios\Oferta;
 use es\ucm\fdi\aw\usuarios\Producto;
 
 require_once __DIR__.'/../../config.php';
@@ -20,6 +21,7 @@ $error = '';
 $mensaje = '';
 $tipo = $_POST['tipo'] ?? ($_SESSION['carrito']['tipo'] ?? 'Local');
 $productos = Producto::listar(true);
+$ofertasActivas = Oferta::obtenerOfertasActivas();
 $csrfToken = Auth::getCsrfToken();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -71,6 +73,36 @@ $selLocal = ($tipo === 'Local') ? 'selected' : '';
 $selLlevar = ($tipo === 'Llevar') ? 'selected' : '';
 $urlCarrito = RUTA_APP.'includes/vistas/pedidos/carrito.php';
 
+$bloqueOfertas = '<p>No hay ofertas activas disponibles actualmente.</p>';
+if (!empty($ofertasActivas)) {
+    $htmlOfertas = '';
+    foreach ($ofertasActivas as $oferta) {
+        $nombreOferta = h((string)($oferta['nombre'] ?? ''));
+        $descripcionOferta = h((string)($oferta['descripcion'] ?? ''));
+        $finOferta = h((string)($oferta['fin'] ?? ''));
+        $descuentoOferta = number_format((float)($oferta['descuento'] ?? 0), 2, '.', '');
+
+        $htmlOfertas .= "
+        <tr>
+            <td>{$nombreOferta}</td>
+            <td>{$descripcionOferta}</td>
+            <td>{$finOferta}</td>
+            <td>{$descuentoOferta}%</td>
+        </tr>";
+    }
+
+    $bloqueOfertas = "
+    <table style='width: 42%; margin: 0 auto 20px auto;'>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Fin</th>
+            <th>Descuento</th>
+        </tr>
+        {$htmlOfertas}
+    </table>";
+}
+
 $filasProductos = '';
 $totalInicial = 0.0;
 foreach ($productos as $p) {
@@ -96,7 +128,7 @@ if ($filasProductos === '') {
     $bloqueProductos = '<p>No hay productos disponibles para pedir.</p>';
 } else {
     $bloqueProductos = '
-    <table border="1" cellpadding="6">
+    <table style="width: 60%; margin: 0 auto;">
         <tr>
             <th>Producto</th>
             <th>Precio (IVA incl.)</th>
@@ -143,11 +175,14 @@ $contenidoPrincipal = <<<EOS
     $errorHtml
     $mensajeHtml
     <p><strong>Carrito actual:</strong> {$unidadesCarrito} producto(s). <a href="$urlCarrito" class="button-estandar">Ver carrito</a></p>
+    <h2>Ofertas disponibles</h2>
+    $bloqueOfertas
     <form method="POST" action="$action">
         <input type="hidden" name="csrfToken" value="$csrfToken">
-        <p>
+        <h2 style="text-align: center;">Productos</h2>
+        <p style="text-align: center; font-size: 1.4rem;">
             <label>Tipo:
-                <select name="tipo">
+                <select name="tipo" style="font-size: 1.2rem; padding: 6px 12px;">
                     <option value="Local" $selLocal>Local</option>
                     <option value="Llevar" $selLlevar>Llevar</option>
                 </select>

@@ -44,8 +44,23 @@ if ($esModoCocina && !$rolPuedeCocinar) {
 
 $pedido = Pedido::listarDetalle($numeroPedido);
 $tituloPagina = 'Contenido pedido';
-$totalPedido = number_format((float)($cabeceraPedido['total'] ?? 0), 2, '.', '');
+$totalPedidoValor = (float)($cabeceraPedido['total'] ?? 0);
+$totalOriginalValor = 0.0;
+foreach ($pedido as $fila) {
+    $totalOriginalValor += (float)($fila['subtotal'] ?? 0);
+}
+$descuentoAplicadoValor = max(0, round($totalOriginalValor - $totalPedidoValor, 2));
+
+$totalPedido = number_format($totalPedidoValor, 2, '.', '');
+$totalOriginal = number_format($totalOriginalValor, 2, '.', '');
+$descuentoAplicado = number_format($descuentoAplicadoValor, 2, '.', '');
+
 $bloqueTotalPedido = "<p><strong>Total del pedido: {$totalPedido} EUR</strong></p>";
+if ($descuentoAplicadoValor > 0) {
+    $bloqueTotalPedido = "<p><strong>Total original: {$totalOriginal} EUR</strong></p>"
+        . "<p><strong>Descuento aplicado: -{$descuentoAplicado} EUR</strong></p>"
+        . "<p><strong>Total final del pedido: {$totalPedido} EUR</strong></p>";
+}
 
 // border="1" cellpadding="8"
 $lineaPedido = '
