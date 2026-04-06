@@ -20,27 +20,27 @@ $csrfToken = Auth::getCsrfToken();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!Auth::validaCsrfToken($_POST['csrfToken'] ?? null)) {
-        $error = 'Token CSRF invalido.';
+        $error = 'Token CSRF inválido.';
     }
 
-    $nombre = trim($_POST['nombre'] ?? '');
-    $descripcion = trim($_POST['descripcion'] ?? '');
-    $comienzo = trim($_POST['comienzo'] ?? '');
-    $fin = trim($_POST['fin'] ?? '');
+    $nombrePost = trim($_POST['nombre'] ?? '');
+    $descripcionPost = trim($_POST['descripcion'] ?? '');
+    $comienzoPost = trim($_POST['comienzo'] ?? '');
+    $finPost = trim($_POST['fin'] ?? '');
     $productosElegidos = $_POST['productos'] ?? [];
     $cantidadesElegidas = $_POST['cantidades'] ?? [];
-    $descuento = (float)($_POST['descuento'] ?? 0.00);
+    $descuentoPost = (float)($_POST['descuento'] ?? 0.00);
 
-    if ($error === '' && ($nombre === '' || $descripcion === '')) {
+    if ($error === '' && ($nombrePost === '' || $descripcionPost === '')) {
         $error = 'Revisa los datos del formulario.';
     } elseif ($error === '') {
         $ok = Oferta::actualizar(
             $id,
-            $nombre,
-            $descripcion,
-            $comienzo !== '' ? $comienzo : null,
-            $fin !== '' ? $fin : null,
-            $descuento,
+            $nombrePost,
+            $descripcionPost,
+            $comienzoPost !== '' ? $comienzoPost : null,
+            $finPost !== '' ? $finPost : null,
+            $descuentoPost,
             $productosElegidos,
             $cantidadesElegidas
         );
@@ -58,8 +58,8 @@ $tituloPagina = 'Actualizar oferta';
 $errorHtml = $error !== '' ? '<p><strong>'.htmlspecialchars($error, ENT_QUOTES, 'UTF-8').'</strong></p>' : '';
 $action = htmlspecialchars(RUTA_APP.'includes/vistas/ofertas/actualizarOfertas.php', ENT_QUOTES, 'UTF-8');
 $urlCancelar = htmlspecialchars(RUTA_APP.'includes/vistas/ofertas/listarOfertas.php', ENT_QUOTES, 'UTF-8');
+$rutaPanelGerente = htmlspecialchars(RUTA_APP.'includes/vistas/paneles/gerente.php', ENT_QUOTES, 'UTF-8');
 
-// Preparar valores actuales
 $nombre = htmlspecialchars($oferta['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
 $descripcion = htmlspecialchars($oferta['descripcion'] ?? '', ENT_QUOTES, 'UTF-8');
 $comienzo = htmlspecialchars($oferta['comienzo'] ?? '', ENT_QUOTES, 'UTF-8');
@@ -67,20 +67,11 @@ $fin = htmlspecialchars($oferta['fin'] ?? '', ENT_QUOTES, 'UTF-8');
 $descuentoActual = number_format((float)($oferta['descuento'] ?? 0), 2, '.', '');
 $lineasActuales = $oferta['lineas'] ?? [];
 
-// Preparar opciones de productos
-$opcionesProductos = '';
-foreach ($productos as $p) {
-    $nombreP = htmlspecialchars($p['nombre'], ENT_QUOTES, 'UTF-8');
-    $idP = $p['id'];
-    $opcionesProductos .= "<option value='$idP'>$nombreP</option>";
-}
-
-// Preparar HTML para las líneas actuales
 $lineasHtml = '';
 foreach ($lineasActuales as $linea) {
-    $idProd = (int)$linea['idProd'];
-    $cantidad = (int)$linea['cantidad'];
-    
+    $idProd = (int)($linea['idProd'] ?? 0);
+    $cantidad = (int)($linea['cantidad'] ?? 1);
+
     $selectHtml = '<select name="productos[]" required onchange="recalcularPrecios()">';
     $selectHtml .= '<option value="">Selecciona un producto...</option>';
     foreach ($productos as $p) {
@@ -90,8 +81,8 @@ foreach ($lineasActuales as $linea) {
         $selectHtml .= "<option value='$idP' $sel>$nombreP</option>";
     }
     $selectHtml .= '</select>';
-    
-    $lineasHtml .= '<div class="linea-oferta">';
+
+    $lineasHtml .= '<div>';
     $lineasHtml .= $selectHtml;
     $lineasHtml .= "<input type='number' name='cantidades[]' min='1' value='$cantidad' onchange='recalcularPrecios()'>";
     $lineasHtml .= '<button type="button" onclick="this.parentElement.remove(); recalcularPrecios();">Eliminar</button>';
@@ -99,6 +90,7 @@ foreach ($lineasActuales as $linea) {
 }
 
 $productosJsonHtml = htmlspecialchars(json_encode($productos), ENT_QUOTES, 'UTF-8');
+$productosJsonJs = json_encode($productos, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 
 $contenidoPrincipal = <<<EOS
     <h1>Actualizar oferta #{$id}</h1>
@@ -106,37 +98,34 @@ $contenidoPrincipal = <<<EOS
     <form method="POST" action="$action">
         <input type="hidden" name="csrfToken" value="$csrfToken">
         <input type="hidden" name="id" value="{$id}">
-        
-        <fieldset>
-            <legend>Datos de la Oferta</legend>
-            <p><label>Nombre: <input type="text" name="nombre" value="$nombre" required></label></p>
-            <p><label>Descripción: <textarea name="descripcion" required>$descripcion</textarea></label></p>
-            <p><label>Comienzo: <input type="date" name="comienzo" value="$comienzo"></label></p>
-            <p><label>Fin: <input type="date" name="fin" value="$fin"></label></p>
-            <p>Descuento aplicado: <span id="porcentajeMostrado">$descuentoActual</span>%</p>
-            <input type="hidden" name="descuento" id="inputDescuento" value="$descuentoActual">
-        </fieldset>
 
-        <fieldset>
-            <legend>Productos incluidos</legend>
-            <div id="contenedor-lineas">
-                $lineasHtml
-            </div>
-            <button type="button" onclick="agregarLinea($productosJsonHtml)">+ Añadir Producto</button>
-        </fieldset>
-        <div>
-            precio previo total: <span id="precioTotal">0</span> €
-            precio con descuento: <input type="number" id="precioDescuento" step="0.01" oninput="recalcularDescuento()"> €
-        </div>
-        
-        <div>
+        <h2>Datos de la oferta</h2>
+        <p><label>Nombre: <input type="text" name="nombre" value="$nombre" required></label></p>
+        <p><label>Descripción: <textarea name="descripcion" required>$descripcion</textarea></label></p>
+        <p><label>Comienzo: <input type="date" name="comienzo" value="$comienzo"></label></p>
+        <p><label>Fin: <input type="date" name="fin" value="$fin"></label></p>
+        <p>Descuento aplicado: <span id="porcentajeMostrado">$descuentoActual</span>%</p>
+        <input type="hidden" name="descuento" id="inputDescuento" value="$descuentoActual">
+
+        <h2>Productos incluidos</h2>
+        <div id="contenedor-lineas">$lineasHtml</div>
+        <p><button type="button" onclick="agregarLinea($productosJsonHtml)">+ Añadir producto</button></p>
+
+        <h2>Resumen</h2>
+        <p>
+            Precio previo total: <span id="precioTotal">0</span> €
+            Precio con descuento: <input type="number" id="precioDescuento" step="0.01" min="0" oninput="recalcularDescuento()">
+        </p>
+
+        <p>
             <button type="submit">Guardar cambios</button>
-            <a href="$urlCancelar"><button type="button">Cancelar</button></a>
-        </div>
+            <button type="button" onclick="window.location.href='$urlCancelar'">Cancelar</button>
+        </p>
     </form>
+    <p><a href="$rutaPanelGerente" class="button-estandar">Volver al Panel</a></p>
 EOS;
 
 $rutaJs = RUTA_JS . 'crearOfertas.js';
-$funcionesJS = "<script src='$rutaJs'></script>";
+$funcionesJS = "<script src='$rutaJs'></script><script>document.addEventListener('DOMContentLoaded', function () { productosGlobal = $productosJsonJs; recalcularPrecios(); document.getElementById('precioDescuento').value = ''; if (parseFloat(document.getElementById('precioTotal').innerText || '0') > 0) { const totalBase = parseFloat(document.getElementById('precioTotal').innerText || '0'); const descuento = parseFloat(document.getElementById('inputDescuento').value || '0'); const precioFinal = totalBase * (1 - (descuento / 100)); document.getElementById('precioDescuento').value = precioFinal.toFixed(2); recalcularDescuento(); } if (document.getElementById('contenedor-lineas') && document.getElementsByName('productos[]').length === 0) { agregarLinea($productosJsonJs); } });</script>";
 
 require __DIR__.'/../plantillas/plantilla.php';
