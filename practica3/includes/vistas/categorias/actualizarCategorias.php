@@ -54,19 +54,41 @@ $action = htmlspecialchars(RUTA_APP.'includes/vistas/categorias/actualizarCatego
 $urlCancelar = htmlspecialchars(RUTA_APP.'includes/vistas/categorias/listarCategorias.php', ENT_QUOTES, 'UTF-8');
 
 $contenidoPrincipal = <<<EOS
-    <h1>Actualizar categoría #{$id}</h1>
-    $errorHtml
-    <form method="POST" action="$action">
+<div class="seccion-titulo">
+    <h1>Actualizar Categoría #{$id}</h1>
+</div>
+
+<div class="info-categoria"> $errorHtml
+    <form method="POST" action="$action" class="form-estandar">
         <input type="hidden" name="csrfToken" value="$csrfToken">
         <input type="hidden" name="id" value="{$id}">
-        <p><label>Nombre: <input type="text" name="nombre" value="$nombre" required></label></p>
-        <p><label>Descripción: <textarea name="descripcion" required>$descripcion</textarea></label></p>
-        <p><label>Imagen (ruta relativa o URL): <input type="text" name="imagen" value="$imagen"></label></p>
-        <p>
-            <button type="submit" class="button-estandar">Guardar cambios</button>
-            <a href="$urlCancelar"><button type="button" class="button-estandar">Cancelar</button></a>
-        </p>
-    </form>
+
+        <div class="campo-form">
+            <label for="nombre">
+                <p><strong>Nombre:</strong></p>
+            </label>
+            <input type="text" id="nombre" name="nombre" value="$nombre" required>
+        </div>
+
+        <div class="campo-form">
+            <label for="descripcion">
+                <p><strong>Descripción:</strong></p>
+            </label>
+            <textarea id="descripcion" name="descripcion" rows="4" required>$descripcion</textarea>
+        </div>
+
+        <div class="campo-form">
+            <label for="imagen">
+                <p><strong>Imagen:</strong></p>
+            </label>
+            <input type="text" id="imagen" name="imagen" value="$imagen">
+        </div>
+
+</div> <div class="buttons-estandar">
+        <button type="submit" class="button-estandar">Guardar Cambios</button>
+        <a href="$urlCancelar" class="button-estandar">Cancelar</a>
+    </div>
+</form>
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';

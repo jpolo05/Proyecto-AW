@@ -170,14 +170,14 @@ a:has(.tarjeta){
     display: inline-block;
     text-decoration: none !important;
     padding: 5px 10px;
-    background-color: #a33;
+    background-color: #a00;
     color: #f1ebd8 !important;
     font-size: 1rem;
     cursor: pointer;
     border-radius: 30px;
     font-weight: bold;
     transition: all 0.3s ease;
-    border: 2px solid #a33;
+    border: 2px solid #a00;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
@@ -251,7 +251,7 @@ th:last-child, td:last-child {
     min-width: 160px;
 }
 
-/* Título general */
+/*TÍTULO GENERAL*/
 .seccion-titulo {
     margin-bottom: 10px;
     padding: 10px;
@@ -454,17 +454,15 @@ th:last-child, td:last-child {
 
 /*PANEL USUARIOS*/
 
-/*PANEL CATEGORÍAS*/
+/*CATEGORÍAS - PANEL GERENTE*/
 .info-categoria {
     background-color: #ffffff;
     padding: 30px;           /* Espacio interno para que no pegue al borde */
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    max-width: 700px;        /* Para que no se estire demasiado en PC */
-    line-height: 1.8;        /* Separa las líneas de texto */
+    max-width: 900px;
 }
 
-/* Ajuste para los párrafos internos */
 .info-categoria p {
     margin-bottom: 15px;     /* Separa un dato de otro */
     color: #333;
@@ -476,7 +474,6 @@ th:last-child, td:last-child {
     width: 120px;            /* Alinea las etiquetas */
 }
 
-/* Ajuste de la imagen dentro de este contenedor */
 .info-categoria img {
     width: 100%;
     height: auto;
@@ -484,6 +481,46 @@ th:last-child, td:last-child {
     margin-top: 20px;
     border-radius: 5px;
     border: 1px solid #ddd;
+}
+
+.contenedor-formulario {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.mensaje-alerta {
+    color: #a00;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.campo-form {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.campo-form label {
+    display: block;
+    color: #21352a;
+    margin-bottom: 8px;
+}
+
+.campo-form input, 
+.campo-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.campo-form textarea {
+    resize: vertical;
 }
 
 /*EDITAR USUARIO - PANEL GERENTE*/

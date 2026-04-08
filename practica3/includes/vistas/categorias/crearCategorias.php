@@ -41,18 +41,36 @@ $action = htmlspecialchars(RUTA_APP.'includes/vistas/categorias/crearCategorias.
 $urlCancelar = htmlspecialchars(RUTA_APP.'includes/vistas/categorias/listarCategorias.php', ENT_QUOTES, 'UTF-8');
 
 $contenidoPrincipal = <<<EOS
-    <h1>Crear categoria</h1>
-    $errorHtml
-    <form method="POST" action="$action">
+<div class="seccion-titulo">
+    <h1>Crear categoría</h1>
+</div>
+
+<div class="info-categoria"> $errorHtml
+    <form method="POST" action="$action" class="form-estandar">
         <input type="hidden" name="csrfToken" value="$csrfToken">
-        <p><label>Nombre: <input type="text" name="nombre" required></label></p>
-        <p><label>Descripción: <textarea name="descripcion" required></textarea></label></p>
-        <p><label>Imagen (ruta relativa o URL): <input type="text" name="imagen"></label></p>
-        <p>
-            <button type="submit">Guardar</button>
-            <a href="$urlCancelar"><button type="button">Cancelar</button></a>
-        </p>
-    </form>
+        
+        <div class="campo-form">
+            <label for="nombre"><strong>Nombre:</strong></label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ej: Pizzas, Bebidas..." required>
+        </div>
+
+        <div class="campo-form">
+            <label for="descripcion"><strong>Descripción:</strong></label>
+            <textarea id="descripcion" name="descripcion" rows="4" placeholder="Describe brevemente la categoría..." required></textarea>
+        </div>
+
+        <div class="campo-form">
+            <label for="imagen"><strong>Imagen (Ruta relativa o URL):</strong></label>
+            <input type="text" id="imagen" name="imagen" placeholder="img/categorias/ejemplo.jpg">
+        </div>
+
+    </div>
+
+    <div class="buttons-estandar">
+        <button type="submit" class="button-estandar">Guardar</button>
+        <a href="$urlCancelar" class="button-estandar">Cancelar</a>
+    </div>
+</form>
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';

@@ -29,6 +29,9 @@ foreach ($cats as $c) {
         $urlActualizar = htmlspecialchars(RUTA_APP.'includes/vistas/categorias/actualizarCategorias.php?id='.$id, ENT_QUOTES, 'UTF-8');
         $acciones .= " <span class='separador-tabla'> / </span> ";
         $acciones .= " <a href=\"$urlActualizar\" class='link-usuario'>Actualizar</a>";
+        $acciones .= " <span class='separador-tabla'> / </span> ";
+        $urlEliminar = htmlspecialchars(RUTA_APP.'includes/vistas/categorias/borrarCategorias.php?id='.$id, ENT_QUOTES, 'UTF-8');
+        $acciones .= " <a href=\"$urlEliminar\" class='link-usuario' onclick=\"return confirm('¿Confirma que desea eliminar esta categoría?');\">Eliminar</a>";
     }
 
     $tablaCategorias .= "
