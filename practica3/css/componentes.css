@@ -316,6 +316,45 @@ th:last-child, td:last-child {
     border-radius: 8px;
 }
 
+/* Aplicar estilo de selector del login a los productos/categorías */
+.info-categoria select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #a9a9a9;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #333;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 15px;
+    background-color: #fff; /* Asegura fondo blanco */
+}
+
+.campo-form-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+/* Espaciado de los checkboxes sin style inline */
+.checkbox-item {
+    align-items: center;
+    cursor: pointer;
+}
+
+.checkbox-item input {
+    margin-right: 8px;
+    width: auto;
+}
+
+.checkbox-item input[type="checkbox"] {
+    accent-color: #21352a; /* El verde oscuro de tu logo/estilo */
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
 /*LOGIN & REGISTRO*/
 /* Caja blanca para los inputs */
 .contenedor-login {
@@ -493,9 +532,7 @@ th:last-child, td:last-child {
 }
 
 .mensaje-alerta {
-    color: #a00;
     font-weight: bold;
-    margin-bottom: 20px;
     text-align: center;
 }
 .campo-form {

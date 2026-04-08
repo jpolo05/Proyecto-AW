@@ -34,20 +34,28 @@ $action = htmlspecialchars(RUTA_APP.'includes/vistas/productos/borrarProductos.p
 $urlCancelar = htmlspecialchars(RUTA_APP.'includes/vistas/productos/listarProductos.php', ENT_QUOTES, 'UTF-8');
 
 $contenidoPrincipal = <<<EOS
+<div class="seccion-titulo">
     <h1>Retirar producto</h1>
-    <p>Esta accion no elimina el producto de la base de datos.</p>
-    <p>Se marcara como no ofertado.</p>
-    <ul>
-        <li><strong>ID:</strong> {$idMostrado}</li>
-        <li><strong>Nombre:</strong> {$nombre}</li>
-        <li><strong>Descripción:</strong> {$descripcion}</li>
-    </ul>
-    <form method="POST" action="$action">
-        <input type="hidden" name="csrfToken" value="$csrfToken">
-        <input type="hidden" name="id" value="{$idMostrado}">
-        <button type="submit" class="button-estandar">Confirmar</button>
-        <a href="$urlCancelar"><button type="button" class="button-estandar">Cancelar</button></a>
-    </form>
+</div>
+
+<div class="info-categoria">
+    <div class="mensaje-alerta">
+        <p>Esta acción no eliminará el producto de la base de datos, pero se marcará como 'no ofertado'.</p>
+    </div>
+    
+    <p><strong>ID:</strong> {$idMostrado}</p>
+    <p><strong>Nombre:</strong> {$nombre}</p>
+    <p><strong>Descripción:</strong> {$descripcion}</p>
+
+</div> <form method="POST" action="$action">
+    <input type="hidden" name="csrfToken" value="$csrfToken">
+    <input type="hidden" name="id" value="{$idMostrado}">
+    
+    <div class="buttons-estandar">
+        <button type="submit" class="button-delete">Confirmar Retirada</button>
+        <a href="$urlCancelar" class="button-estandar">Cancelar</a>
+    </div>
+</form>
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
