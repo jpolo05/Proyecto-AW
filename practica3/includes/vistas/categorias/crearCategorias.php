@@ -45,8 +45,9 @@ $contenidoPrincipal = <<<EOS
     <h1>Crear categoría</h1>
 </div>
 
-<div class="info-categoria"> $errorHtml
-    <form method="POST" action="$action" class="form-estandar">
+<form method="POST" action="$action" class="form-estandar">
+    <div class="info-categoria"> $errorHtml
+    
         <input type="hidden" name="csrfToken" value="$csrfToken">
         
         <div class="campo-form">
@@ -71,6 +72,7 @@ $contenidoPrincipal = <<<EOS
         <a href="$urlCancelar" class="button-estandar">Cancelar</a>
     </div>
 </form>
+
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
