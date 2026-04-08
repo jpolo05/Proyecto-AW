@@ -164,8 +164,8 @@ $contenidoPrincipal = <<<EOS
     <div class="seccion-titulo">
         <h1>Pedidos</h1>
     </div>
-    $encabezadoExtra
     $tablaPedidos
+    $encabezadoExtra
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';

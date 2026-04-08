@@ -72,7 +72,7 @@ foreach ($lineasActuales as $linea) {
     $idProd = (int)($linea['idProd'] ?? 0);
     $cantidad = (int)($linea['cantidad'] ?? 1);
 
-    $selectHtml = '<select name="productos[]" required onchange="recalcularPrecios()">';
+    $selectHtml = '<select name="productos[]" required>';
     $selectHtml .= '<option value="">Selecciona un producto...</option>';
     foreach ($productos as $p) {
         $nombreP = htmlspecialchars($p['nombre'], ENT_QUOTES, 'UTF-8');
@@ -84,13 +84,12 @@ foreach ($lineasActuales as $linea) {
 
     $lineasHtml .= '<div>';
     $lineasHtml .= $selectHtml;
-    $lineasHtml .= "<input type='number' name='cantidades[]' min='1' value='$cantidad' onchange='recalcularPrecios()'>";
-    $lineasHtml .= '<button type="button" onclick="this.parentElement.remove(); recalcularPrecios();">Eliminar</button>';
+    $lineasHtml .= "<input type='number' name='cantidades[]' min='1' value='$cantidad'>";
+    $lineasHtml .= '<button type="button" class="js-eliminar-linea">Eliminar</button>';
     $lineasHtml .= '</div>';
 }
 
 $productosJsonHtml = htmlspecialchars(json_encode($productos), ENT_QUOTES, 'UTF-8');
-$productosJsonJs = json_encode($productos, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 
 $contenidoPrincipal = <<<EOS
     <h1>Actualizar oferta #{$id}</h1>
@@ -109,23 +108,23 @@ $contenidoPrincipal = <<<EOS
 
         <h2>Productos incluidos</h2>
         <div id="contenedor-lineas">$lineasHtml</div>
-        <p><button type="button" onclick="agregarLinea($productosJsonHtml)">+ Añadir producto</button></p>
+        <p><button type="button" class="js-agregar-linea" data-productos="$productosJsonHtml">+ Añadir producto</button></p>
 
         <h2>Resumen</h2>
         <p>
             Precio previo total: <span id="precioTotal">0</span> €
-            Precio con descuento: <input type="number" id="precioDescuento" step="0.01" min="0" oninput="recalcularDescuento()">
+            Precio con descuento: <input type="number" id="precioDescuento" step="0.01" min="0">
         </p>
 
         <p>
             <button type="submit">Guardar cambios</button>
-            <button type="button" onclick="window.location.href='$urlCancelar'">Cancelar</button>
+            <button type="button" class="js-cancelar-oferta" data-url="$urlCancelar">Cancelar</button>
         </p>
     </form>
     <p><a href="$rutaPanelGerente" class="button-estandar">Volver al Panel</a></p>
 EOS;
 
 $rutaJs = RUTA_JS . 'crearOfertas.js';
-$funcionesJS = "<script src='$rutaJs'></script><script>document.addEventListener('DOMContentLoaded', function () { productosGlobal = $productosJsonJs; recalcularPrecios(); document.getElementById('precioDescuento').value = ''; if (parseFloat(document.getElementById('precioTotal').innerText || '0') > 0) { const totalBase = parseFloat(document.getElementById('precioTotal').innerText || '0'); const descuento = parseFloat(document.getElementById('inputDescuento').value || '0'); const precioFinal = totalBase * (1 - (descuento / 100)); document.getElementById('precioDescuento').value = precioFinal.toFixed(2); recalcularDescuento(); } if (document.getElementById('contenedor-lineas') && document.getElementsByName('productos[]').length === 0) { agregarLinea($productosJsonJs); } });</script>";
+$funcionesJS = "<script src='$rutaJs'></script>";
 
 require __DIR__.'/../plantillas/plantilla.php';

@@ -109,7 +109,7 @@ $contenidoPrincipal = <<<EOS
                 <option value="21">21</option>
             </select>
         </label></p>
-        <p><label>Precio final: <input type="text" id="precio_final" readonly></label></p>
+        <p><label>Precio final: <input type="text" id="precio_final" data-sufijo="" readonly></label></p>
         <p><label>Imagen: <input type="file" name="imagenArchivo" accept=".jpg,.jpeg,.png,.webp,.gif"></label></p>
         <p><label><input type="checkbox" name="disponible" checked> Disponible</label></p>
         <p><label><input type="checkbox" name="ofertado" checked> Ofertado</label></p>
@@ -118,23 +118,9 @@ $contenidoPrincipal = <<<EOS
             <a href="$urlCancelar" class="button-estandar">Cancelar</a>
         </p>
     </form>
-    <script>
-        (function () {
-            const base = document.getElementById('precio_base');
-            const iva = document.getElementById('iva');
-            const total = document.getElementById('precio_final');
-            function recalcula() {
-                const b = parseFloat(base.value || '0');
-                const i = parseFloat(iva.value || '0');
-                const r = b + (b * i / 100);
-                total.value = r.toFixed(2);
-            }
-            base.addEventListener('input', recalcula);
-            iva.addEventListener('change', recalcula);
-            recalcula();
-        })();
-    </script>
 EOS;
+
+$funcionesJS = "<script src='".RUTA_JS."productosForm.js'></script>";
 
 require __DIR__.'/../plantillas/plantilla.php';
 

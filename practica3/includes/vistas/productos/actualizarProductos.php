@@ -84,52 +84,75 @@ $action = htmlspecialchars(RUTA_APP.'includes/vistas/productos/actualizarProduct
 $urlCancelar = htmlspecialchars(RUTA_APP.'includes/vistas/productos/listarProductos.php', ENT_QUOTES, 'UTF-8');
 
 $contenidoPrincipal = <<<EOS
+<div class="seccion-titulo">
     <h1>Actualizar producto #{$id}</h1>
+</div>
+
+<div class="info-categoria">
     $errorHtml
-    <form method="POST" action="$action">
+    <form method="POST" action="$action" class="form-estandar">
         <input type="hidden" name="csrfToken" value="$csrfToken">
         <input type="hidden" name="id" value="{$id}">
-        <p><label>Nombre: <input type="text" name="nombre" value="$nombre" required></label></p>
-        <p><label>Descripción: <textarea name="descripcion" required>$descripcion</textarea></label></p>
-        <p><label>Categoría:
-            <select name="id_categoria">
+
+        <div class="campo-form">
+            <label for="nombre"><p><strong>Nombre:</strong></p></label>
+            <input type="text" id="nombre" name="nombre" value="$nombre" required>
+        </div>
+
+        <div class="campo-form">
+            <label for="descripcion"><p><strong>Descripción:</strong></p></label>
+            <textarea id="descripcion" name="descripcion" rows="4" required>$descripcion</textarea>
+        </div>
+
+        <div class="campo-form">
+            <label for="id_categoria"><p><strong>Categoría:</strong></p></label>
+            <select name="id_categoria" id="id_categoria">
                 $opcionesCategorias
             </select>
-        </label></p>
-        <p><label>Precio base: <input type="number" step="0.01" min="0.01" name="precio_base" id="precio_base" value="$precioBase" required></label></p>
-        <p><label>IVA:
+        </div>
+
+        <div class="campo-form">
+            <label for="precio_base"><p><strong>Precio base:</strong></p></label>
+            <input type="number" step="0.01" min="0.01" name="precio_base" id="precio_base" value="$precioBase" required>
+        </div>
+
+        <div class="campo-form">
+            <label for="iva"><p><strong>IVA (%):</strong></p></label>
             <select name="iva" id="iva">
                 <option value="4" $sel4>4</option>
                 <option value="10" $sel10>10</option>
                 <option value="21" $sel21>21</option>
             </select>
-        </label></p>
-        <p><label>Precio final: <input type="text" id="precio_final" readonly></label></p>
-        <p><label>Imagen (ruta relativa o URL): <input type="text" name="imagen" value="$imagen"></label></p>
-        <p><label><input type="checkbox" name="disponible" $disponibleChecked> Disponible</label></p>
-        <p><label><input type="checkbox" name="ofertado" $ofertadoChecked> Ofertado</label></p>
-        <p>
-            <button type="submit">Guardar cambios</button>
-            <a href="$urlCancelar"><button type="button">Cancelar</button></a>
-        </p>
+        </div>
+
+        <div class="campo-form">
+            <label for="precio_final"><p><strong>Precio final:</strong></p></label>
+            <input type="text" id="precio_final" data-sufijo=" EUR" readonly class="input-solo-lectura">
+        </div>
+
+        <div class="campo-form">
+            <label for="imagen"><p><strong>Imagen:</strong></p></label>
+            <input type="text" id="imagen" name="imagen" value="$imagen">
+        </div>
+
+        <div class="campo-form-checkbox">
+            <label class="checkbox-item">
+                <input type="checkbox" name="disponible" $disponibleChecked> <strong>Disponible</strong>
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="ofertado" $ofertadoChecked> <strong>Ofertado</strong>
+            </label>
+        </div>
+
+        </div> <div class="buttons-estandar">
+            <button type="submit" class="button-estandar">Guardar cambios</button>
+            <a href="$urlCancelar" class="button-estandar">Cancelar</a>
+        </div>
     </form>
-    <script>
-        (function () {
-            const base = document.getElementById('precio_base');
-            const iva = document.getElementById('iva');
-            const total = document.getElementById('precio_final');
-            function recalcula() {
-                const b = parseFloat(base.value || '0');
-                const i = parseFloat(iva.value || '0');
-                const r = b + (b * i / 100);
-                total.value = r.toFixed(2);
-            }
-            base.addEventListener('input', recalcula);
-            iva.addEventListener('change', recalcula);
-            recalcula();
-        })();
-    </script>
+
 EOS;
+
+$funcionesJS = "<script src='".RUTA_JS."productosForm.js'></script>";
 
 require __DIR__.'/../plantillas/plantilla.php';
 

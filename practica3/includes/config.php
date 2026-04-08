@@ -17,7 +17,7 @@ spl_autoload_register(function ($class) {
 
     $relative_class = substr($class, $len);
 
-    $file = $base_dir . $relative_class . '.php';
+    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
 
     if (file_exists($file)) {
         require $file;
@@ -29,9 +29,9 @@ spl_autoload_register(function ($class) {
  */
 define('BD_HOST', 'localhost');
 //define('BD_HOST', '172.17.0.2');
-define('BD_NAME', 'awp2');
-define('BD_USER', 'awp2');
-define('BD_PASS', 'awp2');
+define('BD_NAME', 'awp3');
+define('BD_USER', 'awp3');
+define('BD_PASS', 'awp3');
 
 /**
  * Parámetros de configuración utilizados para generar las URLs y las rutas a ficheros en la aplicación

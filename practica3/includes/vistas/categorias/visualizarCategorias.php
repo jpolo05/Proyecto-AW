@@ -30,7 +30,7 @@ if ($imagenRaw !== '') {
     $imgHtml = "<img src='{$src}' alt='Imagen de {$nombre}' width='220'>";
 }
 
-$contenidoPrincipal =$contenidoPrincipal = <<<EOS
+$contenidoPrincipal = <<<EOS
 <div class="seccion-titulo">
     <h1>Categoría #{$idMostrado}</h1>
 </div>

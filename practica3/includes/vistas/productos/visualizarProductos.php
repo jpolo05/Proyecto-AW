@@ -54,17 +54,15 @@ if ($esGerente) {
     $urlEditar = RUTA_APP.'includes/vistas/productos/actualizarProductos.php?id='.$id;
     $urlBorrar = RUTA_APP.'includes/vistas/productos/borrarProductos.php?id='.$id;
     $accionesGerente = <<<EOS
-    <p>
         <a href="$urlEditar" class="button-estandar">Actualizar</a>
         <a href="$urlBorrar" class="button-estandar">Retirar</a>
-    </p>
-EOS;
+    EOS;
     $bloquePrecioGerente = <<<EOS
     <p><strong>Precio base:</strong> $precioBaseFmt EUR</p>
     <p><strong>IVA:</strong> $iva%</p>
     <p><strong>Precio final:</strong> $precioFinalFmt EUR</p>
     <p><strong>Ofertado:</strong> $ofertado</p>
-EOS;
+    EOS;
 } else {
     $bloquePrecioPublico = "<p><strong>Precio:</strong> $precioFinalFmt EUR</p>";
     $urlCrearPedido = RUTA_APP.'includes/vistas/pedidos/crearPedido.php';

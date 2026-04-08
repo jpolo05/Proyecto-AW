@@ -1,4 +1,20 @@
 (function () {
+    function obtenerOfertasConfig() {
+        var input = document.getElementById('config-ofertas-json');
+        if (!input) {
+            return [];
+        }
+
+        try {
+            var parsed = JSON.parse(input.value || '[]');
+            return Array.isArray(parsed) ? parsed : [];
+        } catch (e) {
+            return [];
+        }
+    }
+
+    var ofertasConfig = obtenerOfertasConfig();
+
     function recalcularTotales() {
         var total = 0;
         document.querySelectorAll('.cantidad-carrito').forEach(function (input) {
@@ -38,8 +54,8 @@
             ofertasSeleccionadas.push(parseInt(input.value, 10));
         });
 
-        if (typeof CONFIG_OFERTAS !== 'undefined' && Array.isArray(CONFIG_OFERTAS)) {
-            CONFIG_OFERTAS.forEach(function (oferta) {
+        if (Array.isArray(ofertasConfig)) {
+            ofertasConfig.forEach(function (oferta) {
                 if (!ofertasSeleccionadas.includes(parseInt(oferta.id, 10))) {
                     return;
                 }

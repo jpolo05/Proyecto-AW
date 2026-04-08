@@ -51,7 +51,6 @@ $action = htmlspecialchars(RUTA_APP.'includes/vistas/ofertas/crearOfertas.php', 
 $urlCancelar = htmlspecialchars(RUTA_APP.'includes/vistas/ofertas/listarOfertas.php', ENT_QUOTES, 'UTF-8');
 $rutaPanelGerente = htmlspecialchars(RUTA_APP.'includes/vistas/paneles/gerente.php', ENT_QUOTES, 'UTF-8');
 $productosJsonHtml = htmlspecialchars(json_encode($productos), ENT_QUOTES, 'UTF-8');
-$productosJsonJs = json_encode($productos, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 
 $contenidoPrincipal = <<<EOS
     <h1>Crear nueva oferta</h1>
@@ -69,23 +68,23 @@ $contenidoPrincipal = <<<EOS
 
         <h2>Productos incluidos</h2>
         <div id="contenedor-lineas"></div>
-        <p><button type="button" onclick="agregarLinea($productosJsonHtml)">+ Añadir producto</button></p>
+        <p><button type="button" class="js-agregar-linea" data-productos="$productosJsonHtml">+ Añadir producto</button></p>
 
         <h2>Resumen</h2>
         <p>
             Precio previo total: <span id="precioTotal">0</span> €
-            Precio con descuento: <input type="number" id="precioDescuento" step="0.01" min="0" oninput="recalcularDescuento()"> €
+            Precio con descuento: <input type="number" id="precioDescuento" step="0.01" min="0"> €
         </p>
 
         <p>
             <button type="submit">Guardar oferta</button>
-            <button type="button" onclick="window.location.href='$urlCancelar'">Cancelar</button>
+            <button type="button" class="js-cancelar-oferta" data-url="$urlCancelar">Cancelar</button>
         </p>
     </form>
     <p><a href="$rutaPanelGerente" class="button-estandar">Volver al Panel</a></p>
 EOS;
 
 $rutaJs = RUTA_JS . 'crearOfertas.js';
-$funcionesJS = "<script src='$rutaJs'></script><script>document.addEventListener('DOMContentLoaded', function () { if (document.getElementById('contenedor-lineas') && document.getElementsByName('productos[]').length === 0) { agregarLinea($productosJsonJs); } });</script>";
+$funcionesJS = "<script src='$rutaJs'></script>";
 
 require __DIR__.'/../plantillas/plantilla.php';

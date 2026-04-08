@@ -26,7 +26,7 @@ class FormularioActualizaRol extends Formulario
         }
 
         return <<<EOF
-        <input type="hidden" name="user" value="{$this->usuarioObjetivo}" />
+        <input type="hidden" name="user" value="{$this->usuarioObjetivo}">
         <select name="nuevoRol">
             $options
         </select>

@@ -82,8 +82,8 @@ if ($esGerente) {
         $mensajeHtml
         $tablaProductos
         <div class="buttons-estandar">
-            <a href="$urlCrear" class="button-estandar">Crear producto</a>
             <a href="$rutaPanelGerente" class="button-estandar">Volver al Panel</a>
+            <a href="$urlCrear" class="button-estandar">Crear producto</a>
         </div>
     EOS;
 } else {

@@ -198,17 +198,22 @@ if (!empty($ofertasActivas)) {
 }
 
 $totalTexto = number_format($total, 2, '.', '');
-$ofertasJSON = json_encode($ofertasActivas);
-$funcionesJS = "
-<script>
-    const CONFIG_OFERTAS = $ofertasJSON;
-</script>
-<script src='".RUTA_JS."carrito.js'></script>";
+$ofertasJSONRaw = json_encode($ofertasActivas, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+if ($ofertasJSONRaw === false) {
+    $ofertasJSONRaw = '[]';
+}
+$ofertasJSON = htmlspecialchars(
+    $ofertasJSONRaw,
+    ENT_QUOTES,
+    'UTF-8'
+);
+$funcionesJS = "<script src='".RUTA_JS."carrito.js'></script>";
 
 $contenidoPrincipal = <<<EOS
     <h1>Mi carrito</h1>
     $errorHtml
     $mensajeHtml
+    <input type="hidden" id="config-ofertas-json" value="$ofertasJSON">
     <div id="contenedorOfertas">
         <ul id="listaOfertasAplicadas"></ul>
     </div>

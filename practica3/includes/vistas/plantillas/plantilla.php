@@ -17,13 +17,13 @@
             <?php require(RAIZ_APP.'/vistas/comun/cabecera.php');?>
                 
             <main>
-                <?php require(RAIZ_APP.'/vistas/comun/sideBarIzq.php');?>
+                <?php require(RAIZ_APP.'/vistas/comun/sidebarIzq.php');?>
                 <article>
                     <div class="div-responsive">
                         <?= $contenidoPrincipal ?>
                     </div>
                 </article>
-                <?php require(RAIZ_APP.'/vistas/comun/sideBarDer.php');?>
+                <?php require(RAIZ_APP.'/vistas/comun/sidebarDer.php');?>
             </main>
 
             <?php require(RAIZ_APP.'/vistas/comun/pie.php');?>

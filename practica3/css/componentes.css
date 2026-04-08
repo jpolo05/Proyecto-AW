@@ -61,6 +61,13 @@ nav a {
     margin-bottom: -5px;
 }
 
+.banner-hero h2 {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    font-weight: 700;
+    color: white;
+    margin-bottom: -5px;
+}
+
 .banner-texto p {
     font-size: 1.1rem;
     color: #f1ebd8;
@@ -170,14 +177,14 @@ a:has(.tarjeta){
     display: inline-block;
     text-decoration: none !important;
     padding: 5px 10px;
-    background-color: #a33;
+    background-color: #a00;
     color: #f1ebd8 !important;
     font-size: 1rem;
     cursor: pointer;
     border-radius: 30px;
     font-weight: bold;
     transition: all 0.3s ease;
-    border: 2px solid #a33;
+    border: 2px solid #a00;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
@@ -251,7 +258,7 @@ th:last-child, td:last-child {
     min-width: 160px;
 }
 
-/* Título general */
+/*TÍTULO GENERAL*/
 .seccion-titulo {
     margin-bottom: 10px;
     padding: 10px;
@@ -314,6 +321,45 @@ th:last-child, td:last-child {
     width: 100%;
     height: auto;
     border-radius: 8px;
+}
+
+/* Aplicar estilo de selector del login a los productos/categorías */
+.info-categoria select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #a9a9a9;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #333;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 15px;
+    background-color: #fff; /* Asegura fondo blanco */
+}
+
+.campo-form-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+/* Espaciado de los checkboxes sin style inline */
+.checkbox-item {
+    align-items: center;
+    cursor: pointer;
+}
+
+.checkbox-item input {
+    margin-right: 8px;
+    width: auto;
+}
+
+.checkbox-item input[type="checkbox"] {
+    accent-color: #21352a; /* El verde oscuro de tu logo/estilo */
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
 }
 
 /*LOGIN & REGISTRO*/
@@ -454,17 +500,15 @@ th:last-child, td:last-child {
 
 /*PANEL USUARIOS*/
 
-/*PANEL CATEGORÍAS*/
+/*CATEGORÍAS - PANEL GERENTE*/
 .info-categoria {
     background-color: #ffffff;
     padding: 30px;           /* Espacio interno para que no pegue al borde */
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    max-width: 700px;        /* Para que no se estire demasiado en PC */
-    line-height: 1.8;        /* Separa las líneas de texto */
+    max-width: 900px;
 }
 
-/* Ajuste para los párrafos internos */
 .info-categoria p {
     margin-bottom: 15px;     /* Separa un dato de otro */
     color: #333;
@@ -476,7 +520,6 @@ th:last-child, td:last-child {
     width: 120px;            /* Alinea las etiquetas */
 }
 
-/* Ajuste de la imagen dentro de este contenedor */
 .info-categoria img {
     width: 100%;
     height: auto;
@@ -484,6 +527,44 @@ th:last-child, td:last-child {
     margin-top: 20px;
     border-radius: 5px;
     border: 1px solid #ddd;
+}
+
+.contenedor-formulario {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.mensaje-alerta {
+    font-weight: bold;
+    text-align: center;
+}
+.campo-form {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.campo-form label {
+    display: block;
+    color: #21352a;
+    margin-bottom: 8px;
+}
+
+.campo-form input, 
+.campo-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.campo-form textarea {
+    resize: vertical;
 }
 
 /*EDITAR USUARIO - PANEL GERENTE*/

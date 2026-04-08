@@ -63,7 +63,7 @@ $contenidoPrincipal = <<<EOS
     <div class="buttons-estandar">
         <a href="$rutaPanelGerente" class="button-estandar">Volver al Panel</a>
     </div>
-
+</div>
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
