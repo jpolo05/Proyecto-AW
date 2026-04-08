@@ -61,6 +61,13 @@ nav a {
     margin-bottom: -5px;
 }
 
+.banner-hero h2 {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    font-weight: 700;
+    color: white;
+    margin-bottom: -5px;
+}
+
 .banner-texto p {
     font-size: 1.1rem;
     color: #f1ebd8;

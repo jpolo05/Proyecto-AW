@@ -16,7 +16,7 @@ $contenidoPrincipal = <<<EOS
     <img src="{$rutaImgs}tienda.jpg" alt="Banner principal"> 
     <div class="banner-capa-oscura">
         <div class="banner-texto">
-            <h1>Bienvenido a Bistro FDI</h1>
+            <h2>Bienvenido a Bistro FDI</h2>
             <p>Tu experiencia culinaria comienza aquí</p>
         </div>
     </div>
