@@ -127,7 +127,7 @@ $contenidoPrincipal = <<<EOS
 
         <div class="campo-form">
             <label for="precio_final"><p><strong>Precio final:</strong></p></label>
-            <input type="text" id="precio_final" readonly class="input-solo-lectura">
+            <input type="text" id="precio_final" data-sufijo=" EUR" readonly class="input-solo-lectura">
         </div>
 
         <div class="campo-form">
@@ -150,23 +150,9 @@ $contenidoPrincipal = <<<EOS
         </div>
     </form>
 
-<script>
-    (function () {
-        const base = document.getElementById('precio_base');
-        const iva = document.getElementById('iva');
-        const total = document.getElementById('precio_final');
-        function recalcula() {
-            const b = parseFloat(base.value || '0');
-            const i = parseFloat(iva.value || '0');
-            const r = b + (b * i / 100);
-            total.value = r.toFixed(2) + ' €';
-        }
-        base.addEventListener('input', recalcula);
-        iva.addEventListener('change', recalcula);
-        recalcula();
-    })();
-</script>
 EOS;
+
+$funcionesJS = "<script src='".RUTA_JS."productosForm.js'></script>";
 
 require __DIR__.'/../plantillas/plantilla.php';
 

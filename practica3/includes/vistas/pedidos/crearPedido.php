@@ -142,36 +142,6 @@ if ($filasProductos === '') {
 
 $totalInicialTexto = number_format($totalInicial, 2, '.', '');
 $bloqueTotal = '<p><strong>Total del pedido: <span id="totalPedido">'.$totalInicialTexto.'</span> EUR</strong></p>';
-$scriptTotal = <<<EOS
-    <script>
-    (function () {
-        function recalcularTotalPedido() {
-            var total = 0;
-            var inputs = document.querySelectorAll('.cantidad-producto');
-            inputs.forEach(function (input) {
-                var cantidad = parseInt(input.value, 10);
-                var precio = parseFloat(input.dataset.precio || '0');
-                if (!Number.isFinite(cantidad) || cantidad < 0) {
-                    cantidad = 0;
-                }
-                if (!Number.isFinite(precio) || precio < 0) {
-                    precio = 0;
-                }
-                total += cantidad * precio;
-            });
-            var nodoTotal = document.getElementById('totalPedido');
-            if (nodoTotal) {
-                nodoTotal.textContent = total.toFixed(2);
-            }
-        }
-
-        document.querySelectorAll('.cantidad-producto').forEach(function (input) {
-            input.addEventListener('input', recalcularTotalPedido);
-        });
-        recalcularTotalPedido();
-    })();
-    </script>
-EOS;
 
 $contenidoPrincipal = <<<EOS
     <h1>Crear pedido</h1>
@@ -198,7 +168,8 @@ $contenidoPrincipal = <<<EOS
             <a href="$urlVolver" class='button-estandar'>Ir al carrito</a>
         </p>
     </form>
-    $scriptTotal
 EOS;
+
+$funcionesJS = "<script src='".RUTA_JS."crearPedido.js'></script>";
 
 require __DIR__.'/../plantillas/plantilla.php';
