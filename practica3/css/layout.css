@@ -77,6 +77,11 @@ footer {
     color: #21352a;
 }
 
+.div-responsive {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
 /* ---  TABLET Y PC --- */
 @media (min-width: 768px) {
     main {

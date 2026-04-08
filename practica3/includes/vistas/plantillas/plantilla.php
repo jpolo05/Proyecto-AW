@@ -5,7 +5,7 @@
 <html lang="es">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
         <title><?= $tituloPagina ?></title>
         <link rel="stylesheet" href="<?= RUTA_CSS.'layout.css' ?>">
         <link rel="stylesheet" href="<?= RUTA_CSS.'componentes.css' ?>">
@@ -19,7 +19,9 @@
             <main>
                 <?php require(RAIZ_APP.'/vistas/comun/sideBarIzq.php');?>
                 <article>
-                    <?= $contenidoPrincipal ?>
+                    <div class="div-responsive">
+                        <?= $contenidoPrincipal ?>
+                    </div>
                 </article>
                 <?php require(RAIZ_APP.'/vistas/comun/sideBarDer.php');?>
             </main>
