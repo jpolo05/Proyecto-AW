@@ -18,11 +18,11 @@ class FormularioBorrarPedido extends Formulario
 
         return <<<EOF
         $htmlErroresGlobales
-        <input type="hidden" name="numeroPedido" value="{$this->numeroPedido}"/>
+        <input type="hidden" name="numeroPedido" value="{$this->numeroPedido}">
         <p>Estas seguro de que quieres eliminar este pedido?</p>
         <div>
             <button type="submit" name="borrar" class="button-estandar">Si</button>
-            <a href="listarPedidos.php"><button type="button" class="button-estandar">No</button></a>
+            <a href="listarPedidos.php" class="button-estandar">No</a>
         </div>
         EOF;
     }

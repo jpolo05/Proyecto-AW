@@ -88,36 +88,37 @@ $contenidoPrincipal = <<<EOS
     <h1>Actualizar producto #{$id}</h1>
 </div>
 
-<div class="info-categoria">
+<form method="POST" action="$action" class="form-estandar">
+    <div class="info-categoria">
     $errorHtml
-    <form method="POST" action="$action" class="form-estandar">
+    
         <input type="hidden" name="csrfToken" value="$csrfToken">
         <input type="hidden" name="id" value="{$id}">
 
         <div class="campo-form">
-            <label for="nombre"><p><strong>Nombre:</strong></p></label>
+            <label for="nombre"><strong>Nombre:</strong></label>
             <input type="text" id="nombre" name="nombre" value="$nombre" required>
         </div>
 
         <div class="campo-form">
-            <label for="descripcion"><p><strong>Descripción:</strong></p></label>
+            <label for="descripcion"><strong>Descripción:</strong></label>
             <textarea id="descripcion" name="descripcion" rows="4" required>$descripcion</textarea>
         </div>
 
         <div class="campo-form">
-            <label for="id_categoria"><p><strong>Categoría:</strong></p></label>
+            <label for="id_categoria"><strong>Categoría:</strong></label>
             <select name="id_categoria" id="id_categoria">
                 $opcionesCategorias
             </select>
         </div>
 
         <div class="campo-form">
-            <label for="precio_base"><p><strong>Precio base:</strong></p></label>
+            <label for="precio_base"><strong>Precio base:</strong></label>
             <input type="number" step="0.01" min="0.01" name="precio_base" id="precio_base" value="$precioBase" required>
         </div>
 
         <div class="campo-form">
-            <label for="iva"><p><strong>IVA (%):</strong></p></label>
+            <label for="iva"><strong>IVA (%):</strong></label>
             <select name="iva" id="iva">
                 <option value="4" $sel4>4</option>
                 <option value="10" $sel10>10</option>
@@ -126,12 +127,12 @@ $contenidoPrincipal = <<<EOS
         </div>
 
         <div class="campo-form">
-            <label for="precio_final"><p><strong>Precio final:</strong></p></label>
+            <label for="precio_final"><strong>Precio final:</strong></label>
             <input type="text" id="precio_final" data-sufijo=" EUR" readonly class="input-solo-lectura">
         </div>
 
         <div class="campo-form">
-            <label for="imagen"><p><strong>Imagen:</strong></p></label>
+            <label for="imagen"><strong>Imagen:</strong></label>
             <input type="text" id="imagen" name="imagen" value="$imagen">
         </div>
 
@@ -144,11 +145,12 @@ $contenidoPrincipal = <<<EOS
             </label>
         </div>
 
-        </div> <div class="buttons-estandar">
+    </div> 
+        <div class="buttons-estandar">
             <button type="submit" class="button-estandar">Guardar cambios</button>
             <a href="$urlCancelar" class="button-estandar">Cancelar</a>
         </div>
-    </form>
+</form>
 
 EOS;
 

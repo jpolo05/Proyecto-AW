@@ -62,8 +62,8 @@ $rutaPanelGerente = htmlspecialchars(RUTA_APP.'includes/vistas/paneles/gerente.p
 
 $nombre = htmlspecialchars($oferta['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
 $descripcion = htmlspecialchars($oferta['descripcion'] ?? '', ENT_QUOTES, 'UTF-8');
-$comienzo = htmlspecialchars($oferta['comienzo'] ?? '', ENT_QUOTES, 'UTF-8');
-$fin = htmlspecialchars($oferta['fin'] ?? '', ENT_QUOTES, 'UTF-8');
+$comienzo = htmlspecialchars(substr((string)($oferta['comienzo'] ?? ''), 0, 10), ENT_QUOTES, 'UTF-8');
+$fin = htmlspecialchars(substr((string)($oferta['fin'] ?? ''), 0, 10), ENT_QUOTES, 'UTF-8');
 $descuentoActual = number_format((float)($oferta['descuento'] ?? 0), 2, '.', '');
 $lineasActuales = $oferta['lineas'] ?? [];
 
@@ -119,6 +119,7 @@ $contenidoPrincipal = <<<EOS
         <p>
             <button type="submit">Guardar cambios</button>
             <button type="button" class="js-cancelar-oferta" data-url="$urlCancelar">Cancelar</button>
+            <button type="reset" name="limpiar">Reset</button>
         </p>
     </form>
     <p><a href="$rutaPanelGerente" class="button-estandar">Volver al Panel</a></p>

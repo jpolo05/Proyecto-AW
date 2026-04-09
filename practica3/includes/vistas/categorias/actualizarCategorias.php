@@ -58,33 +58,35 @@ $contenidoPrincipal = <<<EOS
     <h1>Actualizar Categoría #{$id}</h1>
 </div>
 
-<div class="info-categoria"> $errorHtml
-    <form method="POST" action="$action" class="form-estandar">
+<form method="POST" action="$action" class="form-estandar">
+    <div class="info-categoria"> $errorHtml
+    
         <input type="hidden" name="csrfToken" value="$csrfToken">
         <input type="hidden" name="id" value="{$id}">
 
         <div class="campo-form">
             <label for="nombre">
-                <p><strong>Nombre:</strong></p>
+                <strong>Nombre:</strong>
             </label>
             <input type="text" id="nombre" name="nombre" value="$nombre" required>
         </div>
 
         <div class="campo-form">
             <label for="descripcion">
-                <p><strong>Descripción:</strong></p>
+                <strong>Descripción:</strong>
             </label>
             <textarea id="descripcion" name="descripcion" rows="4" required>$descripcion</textarea>
         </div>
 
         <div class="campo-form">
             <label for="imagen">
-                <p><strong>Imagen:</strong></p>
+                <strong>Imagen:</strong>
             </label>
             <input type="text" id="imagen" name="imagen" value="$imagen">
         </div>
 
-</div> <div class="buttons-estandar">
+    </div> 
+    <div class="buttons-estandar">
         <button type="submit" class="button-estandar">Guardar Cambios</button>
         <a href="$urlCancelar" class="button-estandar">Cancelar</a>
     </div>

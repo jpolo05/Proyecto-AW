@@ -79,6 +79,7 @@ $contenidoPrincipal = <<<EOS
         <p>
             <button type="submit">Guardar oferta</button>
             <button type="button" class="js-cancelar-oferta" data-url="$urlCancelar">Cancelar</button>
+            <button type="reset" name="limpiar">Reset</button>
         </p>
     </form>
     <p><a href="$rutaPanelGerente" class="button-estandar">Volver al Panel</a></p>
