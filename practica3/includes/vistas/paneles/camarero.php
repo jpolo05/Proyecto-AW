@@ -45,7 +45,7 @@ foreach ($pedidos as $p) {
                 Pedido: #{$numeroPedido}<br>
                 Cliente: {$cliente}<br>
                 Total: {$total} EUR<br>
-                <a href='{$urlDetalle}'><button class='button-estandar'>Ver detalle</button></a>
+                <a href='{$urlDetalle}' class='button-estandar'>Ver detalle</a>
                 {$htmlForm}
             </div>
         ";
@@ -62,7 +62,7 @@ foreach ($pedidos as $p) {
                 Pedido: #{$numeroPedido}<br>
                 Cliente: {$cliente}<br>
                 Cocinero: {$cocinero}<br>
-                <a href='{$urlDetalle}'><button class='button-estandar'>Ver detalle</button></a>
+                <a href='{$urlDetalle}' class='button-estandar'>Ver detalle</a>
                 {$htmlForm}
             </div>
         ";
@@ -78,7 +78,7 @@ foreach ($pedidos as $p) {
                 Cliente: {$cliente}<br>
                 Para {$tipo}<br>
                 Total: {$total} EUR<br>
-                <a href='{$urlDetalle}'><button class='button-estandar'>Ver detalle</button></a>
+                <a href='{$urlDetalle}' class='button-estandar'>Ver detalle</a>
                 {$htmlForm}
             </div>
         ";
@@ -116,15 +116,15 @@ $contenidoPrincipal = <<<EOS
                 <th>Pendientes de entregar</th>
             </tr>
             <tr>
-                <td valign="top">$columnaRecibidos</td>
-                <td valign="top">$columnaListoCocina</td>
-                <td valign="top">$columnaPendienteEntrega</td>
+                <td>$columnaRecibidos</td>
+                <td>$columnaListoCocina</td>
+                <td>$columnaPendienteEntrega</td>
             </tr>
         </tbody>
     </table>
 
     <br><br>
-    <a href="$rutaInicio"><button class="button-estandar">Volver al Inicio</button></a>
+    <a href="$rutaInicio" class="button-estandar">Volver al Inicio</a>
 </div>
 EOS;
 

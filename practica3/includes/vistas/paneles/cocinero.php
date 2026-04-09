@@ -45,7 +45,7 @@ foreach ($pedidos as $p) {
                 Cliente: {$cliente}<br>
                 Para {$tipo}<br>
                 Total: {$total} EUR<br>
-                <a href='{$urlDetalle}'><button class='button-estandar'>Ver detalle</button></a>
+                <a href='{$urlDetalle}' class='button-estandar'>Ver detalle</a>
                 {$htmlForm}
             </div>
         ";
@@ -93,8 +93,8 @@ $contenidoPrincipal = <<<EOS
                 <th>Cocinando</th>
             </tr>
             <tr>
-                <td valign="top">$columnaPreparacion</td>
-                <td valign="top">$columnaCocinando</td>
+                <td>$columnaPreparacion</td>
+                <td>$columnaCocinando</td>
             </tr>
         </tbody>
     </table>

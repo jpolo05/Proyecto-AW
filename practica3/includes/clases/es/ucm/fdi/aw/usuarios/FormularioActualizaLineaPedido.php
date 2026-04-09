@@ -19,8 +19,8 @@ class FormularioActualizaLineaPedido extends Formulario
     protected function generaCamposFormulario(&$datos)
     {
         return <<<EOF
-        <input type="hidden" name="numPedido" value="{$this->numPedido}" />
-        <input type="hidden" name="idProd" value="{$this->idProd}" />
+        <input type="hidden" name="numPedido" value="{$this->numPedido}">
+        <input type="hidden" name="idProd" value="{$this->idProd}">
         <button type="submit" class="button-estandar">Listo</button>
         EOF;
     }

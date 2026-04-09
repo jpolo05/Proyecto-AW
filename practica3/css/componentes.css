@@ -590,6 +590,10 @@ th:last-child, td:last-child {
     border-bottom: 1px solid #ccc;
 }
 
+.cocina-table td {
+ vertical-align: top;
+}
+
 .pedido{
     border: 1px solid #b0b0b0; 
     margin: 5px; 

@@ -46,9 +46,9 @@ class FormularioActualizaPedido extends Formulario
         $textoBotonEscapado = htmlspecialchars($this->textoBoton, ENT_QUOTES, 'UTF-8');
 
         return <<<EOF
-        <input type="hidden" name="numeroPedido" value="{$this->numeroPedido}" />
-        <input type="hidden" name="nuevoEstado" value="{$nuevoEstadoEscapado}" />
-        <input type="hidden" name="estadoActual" value="{$estadoActualEscapado}" />
+        <input type="hidden" name="numeroPedido" value="{$this->numeroPedido}">
+        <input type="hidden" name="nuevoEstado" value="{$nuevoEstadoEscapado}">
+        <input type="hidden" name="estadoActual" value="{$estadoActualEscapado}">
         <button type="submit" class="button-estandar">{$textoBotonEscapado}</button>
         EOF;
     }
