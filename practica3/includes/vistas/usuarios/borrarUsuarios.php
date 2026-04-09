@@ -4,8 +4,6 @@ require_once __DIR__.'/../../config.php';
 use es\ucm\fdi\aw\usuarios\FormularioBorrar;
 Auth::verificarAcceso('Cliente');
 
-require_once __DIR__.'/../../config.php';
-
 $tituloPagina = 'Eliminar mi usuario';
 $formulario = new FormularioBorrar();
 $htmlFormulario = $formulario->gestiona();

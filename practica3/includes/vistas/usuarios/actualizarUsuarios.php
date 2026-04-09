@@ -4,8 +4,6 @@ require_once __DIR__.'/../../config.php';
 use es\ucm\fdi\aw\usuarios\FormularioActualizacion;
 Auth::verificarAcceso('Cliente');
 
-require_once __DIR__.'/../../config.php';
-
 $tituloPagina = 'Actualizar usuario';
 $formulario = new FormularioActualizacion();
 $htmlFormulario = $formulario->gestiona();

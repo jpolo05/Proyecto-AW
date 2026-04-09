@@ -5,6 +5,11 @@ use es\ucm\fdi\aw\usuarios\Pedido;
 
 require_once __DIR__.'/../../config.php';
 Auth::verificarAcceso('Camarero');
+$rolSesion = $_SESSION['rol'] ?? '';
+if (!in_array($rolSesion, ['Camarero', 'Gerente'], true)) {
+    header('Location: '.RUTA_APP.'error.php?error=permiso%20insuficiente');
+    exit;
+}
 
 function h(string $text): string
 {
