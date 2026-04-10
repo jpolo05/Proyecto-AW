@@ -210,7 +210,10 @@ $ofertasJSON = htmlspecialchars(
 $funcionesJS = "<script src='".RUTA_JS."carrito.js'></script>";
 
 $contenidoPrincipal = <<<EOS
-    <h1>Mi carrito</h1>
+    <div class="seccion-titulo">
+        <h1>Mi carrito</h1>
+    </div>
+
     $errorHtml
     $mensajeHtml
     <input type="hidden" id="config-ofertas-json" value="$ofertasJSON">
