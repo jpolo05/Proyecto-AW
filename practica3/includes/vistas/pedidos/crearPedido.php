@@ -62,9 +62,9 @@ $itemsCarrito = is_array($_SESSION['carrito']['items'] ?? null) ? $_SESSION['car
 $unidadesCarrito = array_sum(array_map('intval', $itemsCarrito));
 
 $tituloPagina = 'Crear pedido';
-$errorHtml = $error !== '' ? '<p><strong>'.h($error).'</strong></p>' : '';
+$errorHtml = $error !== '' ? '<p style="text-align: center;"><strong>'.h($error).'</strong></p>' : '';
 $mensaje = $_GET['msg'] ?? '';
-$mensajeHtml = $mensaje !== '' ? '<p><strong>'.h($mensaje).'</strong></p>' : '';
+$mensajeHtml = $mensaje !== '' ? '<p style="text-align: center;"><strong>'.h($mensaje).'</strong></p>' : '';
 $urlVolver = RUTA_APP.'includes/vistas/pedidos/carrito.php';
 $action = h(RUTA_APP.'includes/vistas/pedidos/crearPedido.php');
 $selLocal = ($tipo === 'Local') ? 'selected' : '';
