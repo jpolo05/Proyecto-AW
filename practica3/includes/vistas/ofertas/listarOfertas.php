@@ -24,10 +24,14 @@ function esOfertaCaducada(array $oferta): bool {
 
 function renderTablaOfertas(array $ofertas, bool $esGerente): string {
     if (empty($ofertas)) {
+<<<<<<< Updated upstream
         return '<p>No hay ofertas en esta sección.</p>';
+=======
+        return '<p class="ofertas-texto-centrado">No hay ofertas en esta secci&oacute;n.</p>';
+>>>>>>> Stashed changes
     }
 
-    $tabla = '<table>
+    $tabla = '<table class="tabla-carta-centro">
                 <thead>
                     <tr>
                         <th>Nombre</th>
@@ -134,6 +138,7 @@ $contenidoPrincipal .= '<div class="contenedor-ofertas">';
 
 if ($solo === 'activas') {
     $contenidoPrincipal .= '
+<<<<<<< Updated upstream
     <div class="seccion-ofertas">
         <h2>Ofertas activas</h2>' . renderTablaOfertas($ofertasActivas, $esGerente) . '
     </div>';
@@ -145,6 +150,15 @@ if ($solo === 'activas') {
     <div class="seccion-ofertas">
         <h2>Ofertas caducadas</h2>' . renderTablaOfertas($ofertasCaducadas, $esGerente) . '
     </div>';
+=======
+<h2 class="ofertas-texto-centrado">Ofertas activas</h2>' . renderTablaOfertas($ofertasActivas, $esGerente);
+} else {
+    $contenidoPrincipal .= '
+<h2 class="ofertas-texto-centrado">Ofertas activas</h2>' .
+renderTablaOfertas($ofertasActivas, $esGerente) . '
+<h2 class="ofertas-texto-centrado">Ofertas caducadas</h2>' .
+renderTablaOfertas($ofertasCaducadas, $esGerente);
+>>>>>>> Stashed changes
 }
 
 if ($esGerente) {

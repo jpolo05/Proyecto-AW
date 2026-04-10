@@ -18,7 +18,7 @@ if ($rol === 'Gerente') {
     $pedidos = Pedido::listar();
     $rutaPanelGerente = RUTA_APP.'includes/vistas/paneles/gerente.php';
     $tablaPedidos = '
-        <table>
+        <table class="tabla-carta-centro">
             <tr>
                 <th>Número pedido</th>
                 <th>Estado</th>

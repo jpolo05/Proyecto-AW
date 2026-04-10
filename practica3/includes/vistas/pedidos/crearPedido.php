@@ -144,11 +144,11 @@ $totalInicialTexto = number_format($totalInicial, 2, '.', '');
 $bloqueTotal = '<p><strong>Total del pedido: <span id="totalPedido">'.$totalInicialTexto.'</span> EUR</strong></p>';
 
 $contenidoPrincipal = <<<EOS
-    <h1>Crear pedido</h1>
+    <h1 style="text-align: center;">Crear pedido</h1>
     $errorHtml
     $mensajeHtml
-    <p><strong>Carrito actual:</strong> {$unidadesCarrito} producto(s). <a href="$urlCarrito" class="button-estandar">Ver carrito</a></p>
-    <h2>Ofertas disponibles</h2>
+    <p style="text-align: center;"><strong>Carrito actual:</strong> {$unidadesCarrito} producto(s). <a href="$urlCarrito" class="button-estandar">Ver carrito</a></p>
+    <h2 style="text-align: center;">Ofertas disponibles</h2>
     $bloqueOfertas
     <form method="POST" action="$action">
         <input type="hidden" name="csrfToken" value="$csrfToken">

@@ -13,7 +13,7 @@ if ($esGerente) {
     $rutaPanelGerente = RUTA_APP.'includes/vistas/paneles/gerente.php';
 
     $tablaProductos = '
-        <table>
+        <table class="tabla-carta-centro">
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
@@ -95,7 +95,7 @@ if ($esGerente) {
         $urlVerOfertas = RUTA_APP.'includes/vistas/ofertas/listarOfertas.php?solo=activas&origen=carta';
 
         $tablaCategorias = '
-            <table>
+            <table class="tabla-carta-centro">
                 <tr>
                     <th>Categoría</th>
                     <th>Descripción</th>
@@ -140,7 +140,7 @@ if ($esGerente) {
         $tituloPagina = 'Carta - '.$nombreCategoria;
 
         $tablaCarta = '
-            <table>
+            <table class="tabla-carta-centro">
                 <tr>
                     <th>Nombre</th>
                     <th>Descripción</th>

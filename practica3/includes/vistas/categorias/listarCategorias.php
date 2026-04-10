@@ -10,7 +10,7 @@ $cats = Categoria::listar();
 $tituloPagina = 'Listado Categorias';
 
 $tablaCategorias = '
-    <table>
+    <table class="tabla-carta-centro">
         <tr>
             <th>ID</th>
             <th>Nombre</th>
