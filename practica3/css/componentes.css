@@ -30,7 +30,7 @@ nav a {
 .banner-hero {
     position: relative;
     width: 100%;
-    height: 180px; /* Altura en móvil */
+    height: 180px;
     background-size: cover;
     background-position: center;
     border-radius: 10px;
@@ -73,7 +73,6 @@ nav a {
     color: #f1ebd8;
 }
 
-/* Contenedor de las 3 tarjetas */
 .contenedor-tarjetas {
     display: flex;
     flex-direction: column;
@@ -86,7 +85,7 @@ nav a {
     border: 1px solid #ddd;
     border-radius: 15px;
     overflow: hidden;
-    height: auto; /*140px;  Altura fija para que todas sean iguales */
+    height: auto;
     min-height: 120px;
     flex-shrink: 0;
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
@@ -121,9 +120,9 @@ a:has(.tarjeta){
 
 .redes-sociales {
     display: flex;
-    justify-content: center; /* Centra los iconos */
-    gap: 25px;               /* Da un espacio exacto de 25px entre cada uno */
-    padding: 20px 0;         /* Reemplaza los <br> dando espacio arriba y abajo */
+    justify-content: center;
+    gap: 25px;
+    padding: 20px 0;
 }
 
 .redes-sociales img {
@@ -197,7 +196,7 @@ a:has(.tarjeta){
 .menu-lateral h2 {
     color: #f1ebd8;
     padding: 0 15px;
-    border-bottom: 2px solid #b79754; /* Línea dorada bajo el título */
+    border-bottom: 2px solid #b79754;
     padding-bottom: 6px;
 }
 
@@ -208,10 +207,9 @@ a:has(.tarjeta){
 }
 
 /*TABLAS*/
-/* Contenedor para que la tabla sea responsive en móviles */
 .table-container {
     width: 100%;
-    overflow-x: auto; /* Permite deslizar a los lados en el celular */
+    overflow-x: auto;
     margin: 20px 0;
 }
 
@@ -226,11 +224,11 @@ a:has(.tarjeta){
 }
 
 table {
-    width: 80%; /* En PC ocupa todo el espacio del artículo */
-    border-collapse: collapse; /* Quita espacios entre celdas */
+    width: 80%;
+    border-collapse: collapse;
     background-color: white;
     border-radius: 8px;
-    overflow: hidden; /* Para que los bordes redondeados funcionen */
+    overflow: hidden;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
@@ -252,13 +250,11 @@ tr:hover {
     background-color: #fcfaf3;
 }
 
-/*Última columna (botones de acción) * Esto se debe ajustar porque desajusta tamaños */
 th:last-child, td:last-child {
     width: 70%;
     min-width: 160px;
 }
 
-/*TÍTULO GENERAL*/
 .seccion-titulo {
     margin-bottom: 10px;
     padding: 10px;
@@ -274,7 +270,6 @@ th:last-child, td:last-child {
 }
 
 .img-producto-lista {
-    /* Definimos el tamaño aquí */
     width: 70px;
     height: 70px;
     border: 1px solid #a9a9a9;
@@ -286,22 +281,20 @@ th:last-child, td:last-child {
 
 /*DETALLE DE PRODUCTO*/
 .contenedor-producto {
-    width: 100%;           /* Casi todo el ancho en móviles */
-    max-width: 600px;    /* Límite de ancho en pantallas grandes */
+    width: 100%;
+    max-width: 600px;
     margin: 40px auto 0 auto;
     padding: 40px;
     background-color: #fff;
     border-radius: 15px;
     box-shadow: 0 20px 30px rgba(0,0,0,0.08); 
-    
-    /* Aseguramos que sea un bloque independiente */
     display: block; 
     overflow: hidden; 
 }
 
 .fila-superior {
     display: flex !important;
-    flex-direction: row; /* Fuerza la horizontalidad */
+    flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
     gap: 30px;
@@ -323,7 +316,6 @@ th:last-child, td:last-child {
     border-radius: 8px;
 }
 
-/* Aplicar estilo de selector del login a los productos/categorías */
 .info-categoria select {
     width: 100%;
     padding: 12px 15px;
@@ -336,7 +328,7 @@ th:last-child, td:last-child {
     background-repeat: no-repeat;
     background-position: right 15px center;
     background-size: 15px;
-    background-color: #fff; /* Asegura fondo blanco */
+    background-color: #fff;
 }
 
 .campo-form-checkbox {
@@ -344,7 +336,7 @@ th:last-child, td:last-child {
     align-items: center;
     gap: 10px;
 }
-/* Espaciado de los checkboxes sin style inline */
+
 .checkbox-item {
     align-items: center;
     cursor: pointer;
@@ -356,14 +348,13 @@ th:last-child, td:last-child {
 }
 
 .checkbox-item input[type="checkbox"] {
-    accent-color: #21352a; /* El verde oscuro de tu logo/estilo */
+    accent-color: #21352a; 
     width: 18px;
     height: 18px;
     cursor: pointer;
 }
 
 /*LOGIN & REGISTRO*/
-/* Caja blanca para los inputs */
 .contenedor-login {
     background-color: #fff;
     max-width: 450px;
@@ -381,7 +372,6 @@ th:last-child, td:last-child {
     margin-bottom: 0;
 }
 
-/* Estilo de los Labels */
 .campo-login label {
     display: block;
     font-weight: bold;
@@ -390,7 +380,6 @@ th:last-child, td:last-child {
     font-size: 1rem;
 }
 
-/* Estilo de los Inputs (siguiendo el estilo de la web) */
 .campo-login input {
     width: 100%;
     padding: 12px 15px;
@@ -418,7 +407,6 @@ th:last-child, td:last-child {
     text-decoration: underline;
 }
 
-/* Aplicamos el mismo estilo del input al select */
 .campo-login select {
     width: 100%;
     padding: 12px 15px;
@@ -434,7 +422,6 @@ th:last-child, td:last-child {
 }
 
 /*MI PERFIL*/
-/* Contenedor tipo Tarjeta */
 .contenedor-perfil {
     max-width: 600px;
     margin: 40px auto 10px auto;
@@ -445,7 +432,6 @@ th:last-child, td:last-child {
     text-align: center;
 }
 
-/* Estilo de la imagen */
 .img-perfil-grande {
     width: 150px;
     height: 150px;
@@ -464,9 +450,9 @@ th:last-child, td:last-child {
 /* El motor Flex */
 .flex-panel {
     display: flex;
-    flex-wrap: wrap;    /* los botones bajan a la siguiente fila */
-    justify-content: center; /* Centra los botones si queda espacio a los lados */
-    gap: 20px;             /* Espacio uniforme entre botones */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
 }
 
 .boton-panel {
@@ -480,7 +466,7 @@ th:last-child, td:last-child {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100px;     /* Altura fija para que todos sean simétricos */
+    min-height: 100px;    
     padding: 10px;
     background-color: #21352a;
     color: #f1ebd8 !important;
@@ -498,26 +484,24 @@ th:last-child, td:last-child {
     box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
-/*PANEL USUARIOS*/
-
 /*CATEGORÍAS - PANEL GERENTE*/
 .info-categoria {
     background-color: #ffffff;
-    padding: 30px;           /* Espacio interno para que no pegue al borde */
+    padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     max-width: 900px;
 }
 
 .info-categoria p {
-    margin-bottom: 15px;     /* Separa un dato de otro */
+    margin-bottom: 15px;
     color: #333;
 }
 
 .info-categoria strong {
-    color: #21352a;          /* Color verde Bistro */
+    color: #21352a;
     display: inline-block;
-    width: 120px;            /* Alinea las etiquetas */
+    width: 120px;
 }
 
 .info-categoria img {
@@ -567,8 +551,38 @@ th:last-child, td:last-child {
     resize: vertical;
 }
 
-/*EDITAR USUARIO - PANEL GERENTE*/
+/*PANEL OFERTAS*/
+.contenedor-ofertas {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
 
+.seccion-ofertas h2 {
+    color: #21352a;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    width: auto;
+}
+
+.seccion-ofertas {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.seccion-ofertas table {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-collapse: collapse;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/*PANEL COCINA*/
 .cocina-table {
     width: 100%;
     margin: auto;
@@ -609,7 +623,7 @@ th:last-child, td:last-child {
 /* Responsive: En móvil se pone uno debajo del otro */
 @media (max-width: 768px) {
     .fila-superior {
-        flex-direction: column; /* Apila los elementos */
+        flex-direction: column;
         align-items: center;
         text-align: center;
     }
@@ -618,7 +632,7 @@ th:last-child, td:last-child {
         flex: 0 0 auto;
         width: 100%;
         max-width: 300px;
-        order: -1; /* Opcional: pone la imagen arriba del texto en móvil */
+        order: -1;
     }
 }
 
@@ -626,21 +640,21 @@ th:last-child, td:last-child {
 /* Ajuste para móviles: si la pantalla es pequeña, la tabla no se aplasta */
 @media (max-width: 600px) {
     table {
-        font-size: 0.85rem; /* Letra un poco más pequeña en móvil */
+        font-size: 0.85rem;
     }
 }
 
 /* --- AJUSTES DE COMPONENTES PARA PC --- */
 @media (min-width: 992px) {
-    .banner-hero { height: 300px; } /* Banner más grande en PC */
+    .banner-hero { height: 300px; }
     
     .contenedor-tarjetas {
-        flex-direction: row; /* Las 3 tarjetas en fila */
+        flex-direction: row;
     }
 
     .tarjeta {
         flex: 1;
-        flex-direction: column; /* Imagen arriba, texto abajo */
+        flex-direction: column;
         height: auto;
         min-height: 320px;
     }

@@ -24,7 +24,7 @@ function esOfertaCaducada(array $oferta): bool {
 
 function renderTablaOfertas(array $ofertas, bool $esGerente): string {
     if (empty($ofertas)) {
-        return '<p>No hay ofertas en esta secci&oacute;n.</p>';
+        return '<p>No hay ofertas en esta sección.</p>';
     }
 
     $tabla = '<table>
@@ -130,15 +130,21 @@ $contenidoPrincipal = '
     <h1>Ofertas</h1>
 </div>' . $mensajeHtml;
 
+$contenidoPrincipal .= '<div class="contenedor-ofertas">';
+
 if ($solo === 'activas') {
     $contenidoPrincipal .= '
-<h2>Ofertas activas</h2>' . renderTablaOfertas($ofertasActivas, $esGerente);
+    <div class="seccion-ofertas">
+        <h2>Ofertas activas</h2>' . renderTablaOfertas($ofertasActivas, $esGerente) . '
+    </div>';
 } else {
     $contenidoPrincipal .= '
-<h2>Ofertas activas</h2>' .
-renderTablaOfertas($ofertasActivas, $esGerente) . '
-<h2>Ofertas caducadas</h2>' .
-renderTablaOfertas($ofertasCaducadas, $esGerente);
+    <div class="seccion-ofertas">
+        <h2>Ofertas activas</h2>' . renderTablaOfertas($ofertasActivas, $esGerente) . '
+    </div>
+    <div class="seccion-ofertas">
+        <h2>Ofertas caducadas</h2>' . renderTablaOfertas($ofertasCaducadas, $esGerente) . '
+    </div>';
 }
 
 if ($esGerente) {
@@ -146,9 +152,11 @@ if ($esGerente) {
     $rutaPanelGerente = htmlspecialchars(RUTA_APP.'includes/vistas/paneles/gerente.php', ENT_QUOTES, 'UTF-8');
     $contenidoPrincipal .= "
     <div class='buttons-estandar'>
-        <a href='$urlCrear' class='button-estandar'>Crear oferta</a>
         <a href='$rutaPanelGerente' class='button-estandar'>Volver al Panel</a>
+        <a href='$urlCrear' class='button-estandar'>Crear oferta</a>
     </div>";
 }
+
+$contenidoPrincipal .= '</div>';
 
 require __DIR__.'/../plantillas/plantilla.php';
