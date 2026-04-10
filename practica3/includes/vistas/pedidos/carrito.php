@@ -107,8 +107,8 @@ $itemsCarrito = is_array($_SESSION['carrito']['items'] ?? null) ? $_SESSION['car
 $ofertasGuardadas = is_array($_SESSION['carrito']['ofertas'] ?? null) ? $_SESSION['carrito']['ofertas'] : [];
 
 $tituloPagina = 'Mi carrito';
-$errorHtml = $error !== '' ? '<p><strong>'.h($error).'</strong></p>' : '';
-$mensajeHtml = $mensaje !== '' ? '<p><strong>'.h($mensaje).'</strong></p>' : '';
+$errorHtml = $error !== '' ? '<p class="carrito-texto-centrado"><strong>'.h($error).'</strong></p>' : '';
+$mensajeHtml = $mensaje !== '' ? '<p class="carrito-texto-centrado"><strong>'.h($mensaje).'</strong></p>' : '';
 $selLocal = ($tipo === 'Local') ? 'selected' : '';
 $selLlevar = ($tipo === 'Llevar') ? 'selected' : '';
 $filas = '';
@@ -196,6 +196,7 @@ if (!empty($ofertasActivas)) {
         $bloqueOfertasDisponibles = '<p>No hay ofertas aplicables a los productos seleccionados.</p>';
     }
 }
+$bloqueOfertasDisponibles = '<div class="carrito-ofertas-centro">'.$bloqueOfertasDisponibles.'</div>';
 
 $totalTexto = number_format($total, 2, '.', '');
 $ofertasJSONRaw = json_encode($ofertasActivas, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
@@ -222,7 +223,7 @@ $contenidoPrincipal = <<<EOS
     </div>
     <form method="POST">
         <input type="hidden" name="csrfToken" value="$csrfToken">
-        <p>
+        <p class="carrito-texto-centrado carrito-tipo-pedido">
             <label>Tipo de pedido:
                 <select name="tipo">
                     <option value="Local" $selLocal>Local</option>
@@ -231,11 +232,11 @@ $contenidoPrincipal = <<<EOS
             </label>
         </p>
         $bloqueTabla
-        <h2>Ofertas aplicables</h2>
+        <h2 class="carrito-texto-centrado">Ofertas aplicables</h2>
         $bloqueOfertasDisponibles
-        <h2>Ofertas seleccionadas</h2>
-        <p>Total: <span id="totalCarrito">$totalTexto</span> EUR</p>
-        <p><strong>Total con descuento: <span id="totalCarritoDescuento">0.00</span> EUR</strong></p>
+        <h2 class="carrito-texto-centrado">Ofertas seleccionadas</h2>
+        <p class="carrito-texto-centrado">Total: <span id="totalCarrito">$totalTexto</span> EUR</p>
+        <p class="carrito-texto-centrado"><strong>Total con descuento: <span id="totalCarritoDescuento">0.00</span> EUR</strong></p>
         <div class="buttons-estandar">
             <button type="submit" name="accion" value="actualizar" class="button-estandar">Actualizar carrito</button>
             <button type="submit" name="accion" value="finalizar" class="button-estandar">Finalizar pedido</button>

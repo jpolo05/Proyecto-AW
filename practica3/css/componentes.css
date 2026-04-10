@@ -279,6 +279,18 @@ th:last-child, td:last-child {
     text-align: center;
 }
 
+.carrito-texto-centrado {
+    text-align: center;
+}
+
+.carrito-tipo-pedido {
+    font-size: 1.8rem;
+}
+
+.carrito-ofertas-centro {
+    text-align: center;
+}
+
 .img-producto-lista {
     width: 70px;
     height: 70px;
