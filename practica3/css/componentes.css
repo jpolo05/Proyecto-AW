@@ -462,6 +462,37 @@ th:last-child, td:last-child {
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+/*MI CARRITO*/
+.resumen-totales {
+    text-align: left;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.total-destacado {
+    font-size: 1.4rem;
+    color: #21352a;
+    font-weight: bold;
+}
+
+.seccion-ofertas-carrito h3 {
+    color: #21352a;
+    font-size: 1.1rem;
+    padding-bottom: 5px;
+}
+
+.lista-limpia {
+    list-style: none;
+    padding: 0;
+}
+
+/* Ajuste de la tabla dentro del carrito */
+.tabla-carrito-contenedor table {
+    width: 100%;
+    margin: 20px 0;
+}
+
 /* PANEL DE ADMINISTRACIÓN */
 .contenedor-admin {
     max-width: 900px;

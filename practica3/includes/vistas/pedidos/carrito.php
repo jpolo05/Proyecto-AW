@@ -211,38 +211,53 @@ $ofertasJSON = htmlspecialchars(
 $funcionesJS = "<script src='".RUTA_JS."carrito.js'></script>";
 
 $contenidoPrincipal = <<<EOS
-    <div class="seccion-titulo">
-        <h1>Mi carrito</h1>
-    </div>
+<div class="seccion-titulo">
+    <h1>Mi carrito</h1>
+</div>
 
-    $errorHtml
+<div class="info-categoria"> $errorHtml
     $mensajeHtml
+
     <input type="hidden" id="config-ofertas-json" value="$ofertasJSON">
-    <div id="contenedorOfertas">
-        <ul id="listaOfertasAplicadas"></ul>
-    </div>
-    <form method="POST">
+    
+    <form method="POST" class="form-estandar">
         <input type="hidden" name="csrfToken" value="$csrfToken">
-        <p class="carrito-texto-centrado carrito-tipo-pedido">
-            <label>Tipo de pedido:
-                <select name="tipo">
-                    <option value="Local" $selLocal>Local</option>
-                    <option value="Llevar" $selLlevar>Llevar</option>
-                </select>
-            </label>
-        </p>
-        $bloqueTabla
-        <h2 class="carrito-texto-centrado">Ofertas aplicables</h2>
-        $bloqueOfertasDisponibles
-        <h2 class="carrito-texto-centrado">Ofertas seleccionadas</h2>
-        <p class="carrito-texto-centrado">Total: <span id="totalCarrito">$totalTexto</span> EUR</p>
-        <p class="carrito-texto-centrado"><strong>Total con descuento: <span id="totalCarritoDescuento">0.00</span> EUR</strong></p>
-        <div class="buttons-estandar">
-            <button type="submit" name="accion" value="actualizar" class="button-estandar">Actualizar carrito</button>
-            <button type="submit" name="accion" value="finalizar" class="button-estandar">Finalizar pedido</button>
-            <button type="submit" name="accion" value="vaciar" class="button-delete">Vaciar carrito</button>
+        
+        <div class="campo-form">
+            <label for="tipo"><p><strong>Tipo de pedido:</strong></p></label>
+            <select name="tipo" id="tipo">
+                <option value="Local" $selLocal>Para tomar aquí (Local)</option>
+                <option value="Llevar" $selLlevar>Para llevar</option>
+            </select>
         </div>
-    </form>
+
+        <div class="tabla-carrito-contenedor">
+            $bloqueTabla
+        </div>
+
+        <div class="seccion-ofertas-carrito">
+            <h3><i class="fas fa-tag"></i> Ofertas aplicables</h3>
+            <div class="bloque-gris">
+                $bloqueOfertasDisponibles
+            </div>
+        </div>
+
+        <div id="contenedorOfertas" class="seccion-ofertas-carrito">
+            <h3><i class="fas fa-check-circle"></i> Ofertas seleccionadas</h3>
+            <ul id="listaOfertasAplicadas" class="lista-limpia"></ul>
+        </div>
+
+        <div class="resumen-totales">
+            <p>Subtotal: <span id="totalCarrito">$totalTexto</span> EUR</p>
+            <p class="total-destacado">Total con descuento: <span id="totalCarritoDescuento">0.00</span> EUR</p>
+        </div>
+
+    </div> <div class="buttons-estandar">
+        <button type="submit" name="accion" value="actualizar" class="button-estandar">Actualizar cantidades</button>
+        <button type="submit" name="accion" value="finalizar" class="button-estandar">Finalizar pedido</button>
+        <button type="submit" name="accion" value="vaciar" class="button-estandar btn-peligro">Vaciar carrito</button>
+    </div>
+</form>
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';
