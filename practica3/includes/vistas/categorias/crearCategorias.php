@@ -15,7 +15,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $nombre = trim($_POST['nombre'] ?? '');
     $descripcion = trim($_POST['descripcion'] ?? '');
-    $imagen = trim($_POST['imagen'] ?? '');
+
+    $imagen = '';
+
+    if (isset($_FILES['imagenArchivo']) && $_FILES['imagenArchivo']['error'] !== UPLOAD_ERR_NO_FILE) {
+        if ($_FILES['imagenArchivo']['error'] !== UPLOAD_ERR_OK) {
+           $error = 'Error al subir la imagen.';
+        } else {
+            $archivo = $_FILES['imagenArchivo'];
+            $extensionesValidas = ['jpg', 'jpeg', 'png'];
+            $extension = strtolower(pathinfo($archivo['name'], PATHINFO_EXTENSION));
+
+            if (!in_array($extension, $extensionesValidas)) {
+                $error = 'Formato de imagen no permitido (solo JPG o PNG).';
+            } elseif ($archivo['size'] > 2000000) { // 2MB
+                $error = 'La imagen es demasiado grande (máximo 2MB).';
+            } else {
+
+                $nuevoNombre = uniqid('img_', true) . '.' . $extension;
+                
+                $rutaRelativaDestino = 'img/uploads/categorias/' . $nuevoNombre;
+                $rutaDestinoFisica = dirname(RAIZ_APP) . '/' . $rutaRelativaDestino;
+
+                if (move_uploaded_file($archivo['tmp_name'], $rutaDestinoFisica)) {
+                    $imagen = $rutaRelativaDestino;
+                } else {
+                    $error = 'Error al guardar la imagen. Revisa los permisos de la carpeta.';
+                }
+            }
+        }
+    }
 
     if ($error === '' && ($nombre === '' || $descripcion === '')) {
         $error = 'Revisa los datos del formulario.';
@@ -45,7 +74,7 @@ $contenidoPrincipal = <<<EOS
     <h1>Crear categoría</h1>
 </div>
 
-<form method="POST" action="$action" class="form-estandar">
+<form method="POST" action="$action" class="form-estandar" enctype="multipart/form-data">
     <div class="info-categoria"> $errorHtml
     
         <input type="hidden" name="csrfToken" value="$csrfToken">
@@ -61,8 +90,8 @@ $contenidoPrincipal = <<<EOS
         </div>
 
         <div class="campo-form">
-            <label for="imagen"><strong>Imagen (Ruta relativa o URL):</strong></label>
-            <input type="text" id="imagen" name="imagen" placeholder="img/categorias/ejemplo.jpg">
+            <label for="imagenArchivo">Sube tu foto:</label>
+            <input id="imagenArchivo" type="file" name="imagenArchivo">
         </div>
 
     </div>
