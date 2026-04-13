@@ -1,0 +1,94 @@
+/* Reset básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    background-color: #f1ebd8; /* Fondo crema global */
+    color: #333;
+}
+
+.contenedor {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header flexible */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5%;
+    background-color: #f1ebd8;
+    min-height: 70px;
+    flex-wrap: wrap; /* En móviles el saludo baja si no cabe */
+    gap: 15px;
+}
+
+/* Cuerpo de la página */
+main {
+    display: flex;
+    flex-direction: column; /* Móvil: Menú, Contenido y Aside uno sobre otro */
+    flex: 1;
+}
+
+/* Laterales (Nav y Aside) */
+nav, aside {
+    width: 100%;
+    background-color: #21352a;
+    padding: 20px;
+    border-radius: 10px;
+    color: #f1ebd8;
+    margin-bottom: 0px;
+}
+
+/* Listas de los laterales */
+nav ul, aside ul { 
+    padding: 20px;
+}
+
+/* Contenido Principal */
+article {
+    flex: 1;
+    background-color: white;
+    width: 100%;
+    display: flex; /*block */
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Div para dar aire al contenido dentro del article  REVISAR- NO SE ESTA APLICANDO*/ 
+.contenido-interior {
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+footer {
+    background-color: #f1ebd8;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    color: #21352a;
+}
+
+.div-responsive {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+/* ---  TABLET Y PC --- */
+@media (min-width: 768px) {
+    main {
+        flex-direction: row; /* En PC se ponen de lado a lado */
+    }
+
+    nav, aside {
+        width: 200px; /* Ancho fijo para laterales en PC */
+    }
+}
