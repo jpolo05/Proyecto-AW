@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS `pedidos`;
 DROP TABLE IF EXISTS `productos`;
 DROP TABLE IF EXISTS `usuarios`;
 DROP TABLE IF EXISTS `categorias`;
+DROP TABLE IF EXISTS `recompensas`;
 
 -- 1. Tabla Categorías
 CREATE TABLE `categorias` (
@@ -27,6 +28,7 @@ CREATE TABLE `usuarios` (
   `contrasena` VARCHAR(255) NOT NULL,
   `rol` ENUM('Gerente', 'Cliente', 'Cocinero', 'Camarero') NOT NULL DEFAULT 'Cliente',
   `imagen` VARCHAR(255) NULL,
+  `bistroCoins` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -104,4 +106,14 @@ CREATE TABLE `lineas_oferta` (
   CONSTRAINT `fk_producto_lineasOferta` 
     FOREIGN KEY (`producto`) REFERENCES `productos`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- 8. Tabla de Recompensas
+CREATE TABLE `recompensas`(
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_producto` INT NOT NULL,
+  `bistroCoins` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_producto_idProducto` 
+    FOREIGN KEY (`id_producto`) REFERENCES `productos`(`id`) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
