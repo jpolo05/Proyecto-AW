@@ -10,6 +10,7 @@ $rutaCategorias = RUTA_APP.'includes/vistas/categorias/listarCategorias.php';
 $rutaPedidos = RUTA_APP.'includes/vistas/pedidos/listarPedidos.php';
 $rutaProductos = RUTA_APP.'includes/vistas/productos/listarProductos.php';
 $rutaOfertas = RUTA_APP.'includes/vistas/ofertas/listarOfertas.php';
+$rutaRecompensas = RUTA_APP.'includes/vistas/recompensas/listarRecompensas.php';
 $rutaInicio = RUTA_APP.'index.php';
 
 $contenidoPrincipal = <<<EOS
@@ -28,6 +29,7 @@ $contenidoPrincipal = <<<EOS
             <a href="$rutaPedidos" class="boton-panel">Pedidos</a>
             <a href="$rutaProductos" class="boton-panel">Productos</a>
             <a href="$rutaOfertas" class="boton-panel">Ofertas</a>
+            <a href="$rutaRecompensas" class="boton-panel">Recompensas</a>
         </div> 
     </div>
     <div class="buttons-estandar">

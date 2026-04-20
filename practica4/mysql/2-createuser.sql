@@ -1,0 +1,7 @@
+CREATE USER IF NOT EXISTS 'awp4'@'%' IDENTIFIED BY 'awp4';
+ALTER USER 'awp4'@'%' IDENTIFIED BY 'awp4';
+GRANT ALL PRIVILEGES ON `awp4`.* TO 'awp4'@'%';
+
+CREATE USER IF NOT EXISTS 'awp4'@'localhost' IDENTIFIED BY 'awp4';
+ALTER USER 'awp4'@'localhost' IDENTIFIED BY 'awp4';
+GRANT ALL PRIVILEGES ON `awp4`.* TO 'awp4'@'localhost';

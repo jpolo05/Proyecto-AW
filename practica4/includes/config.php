@@ -29,15 +29,15 @@ spl_autoload_register(function ($class) {
  */
 define('BD_HOST', 'localhost');
 //define('BD_HOST', '172.17.0.2');
-define('BD_NAME', 'awp3');
-define('BD_USER', 'awp3');
-define('BD_PASS', 'awp3');
+define('BD_NAME', 'awp4');
+define('BD_USER', 'awp4');
+define('BD_PASS', 'awp4');
 
 /**
  * Parámetros de configuración utilizados para generar las URLs y las rutas a ficheros en la aplicación
  */
 define('RAIZ_APP', __DIR__);
-define('RUTA_APP', '/Proyecto-AW/practica3/');
+define('RUTA_APP', '/Proyecto-AW/practica4/');
 define('RUTA_IMGS', RUTA_APP.'img/');
 define('RUTA_CSS', RUTA_APP.'css/');
 define('RUTA_JS', RUTA_APP.'js/');
