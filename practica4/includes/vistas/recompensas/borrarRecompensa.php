@@ -1,5 +1,6 @@
 <?php
 use es\ucm\fdi\aw\usuarios\Auth;
+use es\ucm\fdi\aw\usuarios\Recompensa;
 use es\ucm\fdi\aw\usuarios\Producto;
 
 require_once __DIR__.'/../../config.php';
@@ -10,7 +11,7 @@ $id = (int)($_GET['id'] ?? $_POST['id'] ?? 0);
 $recompensa = $id > 0 ? Recompensa::buscaPorId($id) : null;
 
 if (!$recompensa) {
-    header('Location: '.RUTA_APP.'includes/vistas/recompensa/listarRecompensas.php?msg=Recompensa+no+encontrada');
+    header('Location: '.RUTA_APP.'includes/vistas/recompensas/listarRecompensas.php?msg=Recompensa+no+encontrada');
     exit;
 }
 
@@ -19,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!Auth::validaCsrfToken($_POST['csrfToken'] ?? null)) {
         $msg = 'Token+CSRF+invalido';
     } else {
-        $ok = Producto::desofertar($id); /*CAMBIAR*/
+        $ok = Recompensa::borrar($id);
         $msg = $ok ? 'Recompensa+eliminada' : 'No+se+pudo+eliminar+la+recompensa';
     }
     header('Location: '.RUTA_APP.'includes/vistas/recompensas/listarRecompensas.php?msg='.$msg);

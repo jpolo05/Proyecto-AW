@@ -1,10 +1,10 @@
 <?php
 use es\ucm\fdi\aw\usuarios\Auth;
 require_once __DIR__.'/../../config.php';
-use es\ucm\fdi\aw\usuarios\Recompensas;
+use es\ucm\fdi\aw\usuarios\Recompensa;
 use es\ucm\fdi\aw\usuarios\Producto;
 
-$recompensas = Recompensas::listar();
+$recompensas = Recompensa::listar();
 
 function h(string $text): string {
     return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
