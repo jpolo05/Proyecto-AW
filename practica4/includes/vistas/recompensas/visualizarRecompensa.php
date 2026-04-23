@@ -27,3 +27,11 @@ $bistroCoins = (int)($recompensa['bistroCoins'] ?? 0);
 $urlVolver = htmlspecialchars(RUTA_APP.'includes/vistas/recompensas/listarRecompensas.php', ENT_QUOTES, 'UTF-8');
 
 $accionesGerente = '';
+if ($esGerente) {
+    $urlEditar = htmlspecialchars(RUTA_APP.'includes/vistas/recompensas/actualizarRecompensa.php?id='.urlencode((string)$id), ENT_QUOTES, 'UTF-8');
+    $urlBorrar = htmlspecialchars(RUTA_APP.'includes/vistas/recompensas/borrarRecompensa.php?id='.urlencode((string)$id), ENT_QUOTES, 'UTF-8');
+    $accionesGerente = <<<EOS
+        <a href="$urlEditar" class="button-estandar">Actualizar</a>
+        <a href="$urlBorrar" class="button-estandar">Borrar</a>
+    EOS;
+}
