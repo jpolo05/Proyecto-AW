@@ -17,3 +17,23 @@ if (!$recompensa) {
 $error = '';
 $csrfToken = Auth::getCsrfToken();
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!Auth::validaCsrfToken($_POST['csrfToken'] ?? null)) {
+        $error = 'Token CSRF invalido.';
+    }
+
+    $idProducto = (int)($_POST['id_producto'] ?? 0);
+    $bistroCoins = (int)($_POST['bistroCoins'] ?? 0);
+
+    if ($error === '' && ($idProducto <= 0 || $bistroCoins <= 0)) {
+        $error = 'Revisa los datos del formulario.';
+    } elseif ($error === '') {
+        $ok = Recompensa::actualizar($id, $idProducto, $bistroCoins);
+        if ($ok) {
+            header('Location: '.RUTA_APP.'includes/vistas/recompensas/listarRecompensas.php?msg=Recompensa+actualizada');
+            exit;
+        }
+
+        $error = 'No se pudo actualizar la recompensa.';
+    }
+}
