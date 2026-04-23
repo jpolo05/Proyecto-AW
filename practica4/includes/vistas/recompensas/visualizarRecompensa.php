@@ -35,3 +35,19 @@ if ($esGerente) {
         <a href="$urlBorrar" class="button-estandar">Borrar</a>
     EOS;
 }
+$tituloPagina = 'Visualizar recompensa';
+$contenidoPrincipal = <<<EOS
+<div class="contenedor-producto">
+    <div class="info-producto">
+        <h1>Recompensa #$id</h1>
+        <p><strong>Producto:</strong> $nombreProducto</p>
+        <p><strong>BistroCoins necesarios:</strong> $bistroCoins b€</p>
+    </div>
+</div>
+<div class="buttons-estandar">
+    <a href="$urlVolver" class="button-estandar">Volver</a>
+    $accionesGerente
+</div>
+EOS;
+
+require __DIR__.'/../plantillas/plantilla.php';
