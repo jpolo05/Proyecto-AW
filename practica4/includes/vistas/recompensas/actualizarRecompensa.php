@@ -37,3 +37,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'No se pudo actualizar la recompensa.';
     }
 }
+
+$productos = Producto::listarNombres();
+$tituloPagina = 'Actualizar recompensa';
+$errorHtml = $error !== '' ? '<p><strong>'.htmlspecialchars($error, ENT_QUOTES, 'UTF-8').'</strong></p>' : '';
+$action = htmlspecialchars(RUTA_APP.'includes/vistas/recompensas/actualizarRecompensa.php?id='.urlencode((string)$id), ENT_QUOTES, 'UTF-8');
+$urlCancelar = htmlspecialchars(RUTA_APP.'includes/vistas/recompensas/listarRecompensas.php', ENT_QUOTES, 'UTF-8');
+
+$idProductoActual = (int)($recompensa['id_producto'] ?? 0);
+$bistroCoinsActual = (int)($recompensa['bistroCoins'] ?? 0);
+
+$opcionesProductos = '<option value="0">Selecciona un producto</option>';
