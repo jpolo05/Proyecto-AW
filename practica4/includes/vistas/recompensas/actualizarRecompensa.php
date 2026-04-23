@@ -55,3 +55,37 @@ foreach ($productos as $producto) {
     $opcionesProductos .= "<option value=\"{$idProd}\" {$selected}>{$nombre}</option>";
 }
 
+$bistroCoinsSafe = htmlspecialchars((string)$bistroCoinsActual, ENT_QUOTES, 'UTF-8');
+
+$contenidoPrincipal = <<<EOS
+<div class="seccion-titulo">
+    <h1>Actualizar recompensa #{$id}</h1>
+</div>
+
+<form method="POST" action="$action" class="form-estandar">
+    <div class="info-categoria">
+        $errorHtml
+
+        <input type="hidden" name="csrfToken" value="$csrfToken">
+
+        <div class="campo-form">
+            <label for="id_producto"><strong>Producto:</strong></label>
+            <select id="id_producto" name="id_producto" required>
+                $opcionesProductos
+            </select>
+        </div>
+
+        <div class="campo-form">
+            <label for="bistroCoins"><strong>BistroCoins:</strong></label>
+            <input type="number" id="bistroCoins" name="bistroCoins" min="1" step="1" value="$bistroCoinsSafe" required>
+        </div>
+    </div>
+
+    <div class="buttons-estandar">
+        <button type="submit" class="button-estandar">Guardar cambios</button>
+        <a href="$urlCancelar" class="button-estandar">Cancelar</a>
+    </div>
+</form>
+EOS;
+
+require __DIR__.'/../plantillas/plantilla.php';
