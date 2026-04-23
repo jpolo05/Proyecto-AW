@@ -41,4 +41,23 @@ class Recompensa {
 
         return $fila ?: null;
     }
+
+    public static function crear(int $idProducto, int $bistroCoins): bool
+    {
+        if ($idProducto <= 0 || $bistroCoins <= 0) {
+            return false;
+        }
+
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $sql = 'INSERT INTO recompensas (id_producto, bistroCoins) VALUES (?, ?)';
+        $stmt = mysqli_prepare($conn, $sql);
+        if (!$stmt) {
+            return false;
+        }
+
+        mysqli_stmt_bind_param($stmt, 'ii', $idProducto, $bistroCoins);
+        $ok = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $ok;
+    }
 }

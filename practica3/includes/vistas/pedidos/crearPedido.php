@@ -71,7 +71,7 @@ $selLocal = ($tipo === 'Local') ? 'selected' : '';
 $selLlevar = ($tipo === 'Llevar') ? 'selected' : '';
 $urlCarrito = RUTA_APP.'includes/vistas/pedidos/carrito.php';
 
-$bloqueOfertas = '<p>No hay ofertas activas disponibles actualmente.</p>';
+$bloqueOfertas = '<p style="text-align: center;">No hay ofertas activas disponibles actualmente.</p>';
 if (!empty($ofertasActivas)) {
     $htmlOfertas = '';
     foreach ($ofertasActivas as $oferta) {
