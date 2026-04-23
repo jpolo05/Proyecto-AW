@@ -24,10 +24,12 @@ foreach ($recompensas as $r) {
     $id = h((string)$r['id'], ENT_QUOTES, 'UTF-8');
     $idProducto = h((string)$r['id_producto'], ENT_QUOTES, 'UTF-8');
     $bistroCoins = h((string)$r['bistroCoins'], ENT_QUOTES, 'UTF-8');
-    $producto = Producto::nombre($idProducto);
+    $nombreProducto = Producto::nombre($idProducto);
+    $urlVisualizar = 'visualizarRecompensa.php?id=' . urlencode((string)$r['id']);
+    $producto = "<a href='{$urlVisualizar}' class='link-usuario'>{$nombreProducto}</a>";
 
-    $urlEditar = 'actualizarRecompensa.php?id=' . urlencode((string)$id);
-    $urlBorrar = 'borrarRecompensa.php?id=' . urlencode((string)$id);
+    $urlEditar = 'actualizarRecompensa.php?id=' . urlencode((string)$r['id']);
+    $urlBorrar = 'borrarRecompensa.php?id=' . urlencode((string)$r['id']);
     $acciones = "
         <a href='{$urlEditar}' class='link-usuario'>Editar</a>
         |
@@ -51,6 +53,9 @@ $contenidoPrincipal = <<<EOS
     </div>
     
     $tablaRecompensas
+    <div class="buttons-estandar">
+        <a href="crearRecompensa.php" class="button-estandar">Crear recompensa</a>
+    </div>
 </div>
 EOS;
 

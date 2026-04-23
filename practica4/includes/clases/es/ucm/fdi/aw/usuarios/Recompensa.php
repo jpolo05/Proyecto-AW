@@ -57,7 +57,40 @@ class Recompensa {
 
         mysqli_stmt_bind_param($stmt, 'ii', $idProducto, $bistroCoins);
         $ok = mysqli_stmt_execute($stmt);
+    public static function actualizar(int $id, int $idProducto, int $bistroCoins): bool
+    {
+        if ($id <= 0 || $idProducto <= 0 || $bistroCoins <= 0) {
+            return false;
+        }
+
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $sql = 'UPDATE recompensas SET id_producto = ?, bistroCoins = ? WHERE id = ?';
+        $stmt = mysqli_prepare($conn, $sql);
+        if (!$stmt) {
+            return false;
+        }
+
+        mysqli_stmt_bind_param($stmt, 'iii', $idProducto, $bistroCoins, $id);
+        $ok = mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
         return $ok;
     }
-}
+
+    public static function borrar(int $id): bool
+    {
+        if ($id <= 0) {
+            return false;
+        }
+
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $sql = 'DELETE FROM recompensas WHERE id = ?';
+        $stmt = mysqli_prepare($conn, $sql);
+        if (!$stmt) {
+            return false;
+        }
+
+        mysqli_stmt_bind_param($stmt, 'i', $id);
+        $ok = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $ok;
+    }
