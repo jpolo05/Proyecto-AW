@@ -17,3 +17,13 @@ if (!$recompensa) {
     exit;
 }
 
+$esGerente = (($_SESSION['rol'] ?? '') === 'Gerente');
+
+$idProducto = (int)($recompensa['id_producto'] ?? 0);
+$producto = Producto::buscaPorId($idProducto);
+$nombreProducto = htmlspecialchars($producto['nombre'] ?? 'Producto desconocido', ENT_QUOTES, 'UTF-8');
+$bistroCoins = (int)($recompensa['bistroCoins'] ?? 0);
+
+$urlVolver = htmlspecialchars(RUTA_APP.'includes/vistas/recompensas/listarRecompensas.php', ENT_QUOTES, 'UTF-8');
+
+$accionesGerente = '';
