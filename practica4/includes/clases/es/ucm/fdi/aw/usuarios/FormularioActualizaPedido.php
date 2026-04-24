@@ -72,7 +72,11 @@ class FormularioActualizaPedido extends Formulario
 
         $exito = false;
         $requiereDatosCocinero = $this->nuevoEstado === Pedido::ESTADO_COCINANDO;
-        if ($requiereDatosCocinero) {
+        $esCobroPedido = $this->nuevoEstado === Pedido::ESTADO_EN_PREPARACION;
+
+        if ($esCobroPedido) {
+            $exito = Pedido::cobrarYEnviarACocina($num);
+        } elseif ($requiereDatosCocinero) {
             $cocinero = $_SESSION['user'] ?? '';
             $imagenCocinero = $_SESSION['imagen'] ?? 'img/uploads/usuarios/default.jpg';
 

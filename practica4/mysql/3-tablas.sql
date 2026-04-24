@@ -58,6 +58,7 @@ CREATE TABLE `pedidos` (
   `cliente` VARCHAR(20) NOT NULL,
   `cocinero` VARCHAR(20) DEFAULT NULL,
   `imagenCocinero` VARCHAR(255) NOT NULL DEFAULT 'img/uploads/usuarios/default.jpg',
+  `bistroCoinsGastados` INT NOT NULL DEFAULT 0,
   `total` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
   PRIMARY KEY (`id`),
   KEY `fk_cliente_pedidos_idx` (`cliente`),
@@ -72,10 +73,12 @@ CREATE TABLE `pedidos` (
 CREATE TABLE `linea_pedido` (
   `numeroPedido` INT(11) NOT NULL,
   `idProducto` INT(11) NOT NULL,
+  `esRecompensa` TINYINT(1) NOT NULL DEFAULT 0,
   `cantidad` SMALLINT(6) NOT NULL DEFAULT 1,
   `subtotal` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  `bistroCoinsGastados` INT NOT NULL DEFAULT 0,
   `estado` TINYINT(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`numeroPedido`,`idProducto`),
+  PRIMARY KEY (`numeroPedido`,`idProducto`,`esRecompensa`),
   KEY `fk_idProducto_lineaPedido_idx` (`idProducto`),
   CONSTRAINT `fk_idPedido_lineaPedido` 
     FOREIGN KEY (`numeroPedido`) REFERENCES `pedidos` (`id`) ON DELETE CASCADE,

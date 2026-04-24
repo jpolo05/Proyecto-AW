@@ -15,6 +15,29 @@
 
     var ofertasConfig = obtenerOfertasConfig();
 
+    function recalcularCoinsRecompensas() {
+        var totalCoins = 0;
+
+        document.querySelectorAll('.cantidad-recompensa').forEach(function (input) {
+            var cantidad = parseInt(input.value, 10);
+            var costeCoins = parseInt(input.dataset.coins || '0', 10);
+
+            if (!Number.isFinite(cantidad) || cantidad < 0) {
+                cantidad = 0;
+            }
+            if (!Number.isFinite(costeCoins) || costeCoins < 0) {
+                costeCoins = 0;
+            }
+
+            totalCoins += cantidad * costeCoins;
+        });
+
+        var nodoCoinsSeleccionados = document.getElementById('coinsSeleccionados');
+        if (nodoCoinsSeleccionados) {
+            nodoCoinsSeleccionados.textContent = String(totalCoins);
+        }
+    }
+
     function recalcularTotales() {
         var total = 0;
         document.querySelectorAll('.cantidad-carrito').forEach(function (input) {
@@ -63,8 +86,13 @@
                 var maxAplicacionesPack = Infinity;
                 var precioBasePack = 0;
                 var cumpleOferta = true;
+                var lineasOferta = Array.isArray(oferta.lineas) ? oferta.lineas : [];
 
-                oferta.lineas.forEach(function (linea) {
+                if (lineasOferta.length === 0) {
+                    return;
+                }
+
+                lineasOferta.forEach(function (linea) {
                     var idProd = linea.idProd;
                     var cantReq = parseInt(linea.cantidad, 10);
                     var inputProducto = document.querySelector('.cantidad-carrito[name="cantidad[' + idProd + ']"]');
@@ -105,6 +133,8 @@
         if (nodoOfertas) {
             nodoOfertas.innerHTML = htmlOfertas;
         }
+
+        recalcularCoinsRecompensas();
     }
 
     document.querySelectorAll('.cantidad-carrito').forEach(function (input) {
@@ -115,5 +145,11 @@
         input.addEventListener('change', recalcularTotales);
     });
 
+    document.querySelectorAll('.cantidad-recompensa').forEach(function (input) {
+        input.addEventListener('input', recalcularCoinsRecompensas);
+        input.addEventListener('change', recalcularCoinsRecompensas);
+    });
+
     recalcularTotales();
+    recalcularCoinsRecompensas();
 })();

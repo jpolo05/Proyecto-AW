@@ -32,6 +32,7 @@ $tituloPagina = 'Eliminar Recompensa';
 $idMostrado = (int)$recompensa['id'];
 $id_producto = htmlspecialchars($recompensa['id_producto'] ?? '', ENT_QUOTES, 'UTF-8');
 $bistroCoins = htmlspecialchars($recompensa['bistroCoins'] ?? '', ENT_QUOTES, 'UTF-8');
+$action = htmlspecialchars(RUTA_APP.'includes/vistas/recompensas/borrarRecompensa.php?id='.urlencode((string)$idMostrado), ENT_QUOTES, 'UTF-8');
 $urlCancelar = htmlspecialchars(RUTA_APP.'includes/vistas/recompensas/listarRecompensas.php', ENT_QUOTES, 'UTF-8');
 
 $contenidoPrincipal = <<<EOS

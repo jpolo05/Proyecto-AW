@@ -4,6 +4,7 @@ use es\ucm\fdi\aw\usuarios\Recompensa;
 use es\ucm\fdi\aw\usuarios\Producto;
 
 require_once __DIR__.'/../../config.php';
+Auth::verificarAcceso('Gerente');
 
 $id = (int)($_GET['id'] ?? 0);
 if ($id <= 0) {
@@ -41,7 +42,7 @@ $contenidoPrincipal = <<<EOS
     <div class="info-producto">
         <h1>Recompensa #$id</h1>
         <p><strong>Producto:</strong> $nombreProducto</p>
-        <p><strong>BistroCoins necesarios:</strong> $bistroCoins b€</p>
+        <p><strong>BistroCoins necesarios:</strong> $bistroCoins BC</p>
     </div>
 </div>
 <div class="buttons-estandar">

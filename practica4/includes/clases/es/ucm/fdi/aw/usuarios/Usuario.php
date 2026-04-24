@@ -15,8 +15,9 @@ class Usuario
     private $email;
     private $rol;
     private $imagen;
+    private $bistroCoins;
 
-    private function __construct($nombreUsuario, $password, $nombre, $apellidos, $email, $rol, $imagen)
+    private function __construct($nombreUsuario, $password, $nombre, $apellidos, $email, $rol, $imagen, $bistroCoins)
     {
         $this->nombreUsuario = $nombreUsuario;
         $this->password = $password;
@@ -25,6 +26,7 @@ class Usuario
         $this->email = $email;
         $this->rol = $rol;
         $this->imagen = $imagen;
+        $this->bistroCoins = (int)$bistroCoins;
     }
 
     public static function login($nombreUsuario, $password)
@@ -39,7 +41,7 @@ class Usuario
     public static function crea($nombreUsuario, $password, $nombre, $apellidos, $email, $rol = self::USER_ROLE, $imagen = null)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $sql = "INSERT INTO usuarios (user, email, nombre, apellidos, contrasena, rol, imagen) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO usuarios (user, email, nombre, apellidos, contrasena, rol, imagen, bistroCoins) VALUES (?, ?, ?, ?, ?, ?, ?, 0)";
         $stmt = mysqli_prepare($conn, $sql);
         if (!$stmt) {
             return false;
@@ -57,7 +59,7 @@ class Usuario
     public static function buscaUsuario($nombreUsuario)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $sql = "SELECT user, email, nombre, apellidos, contrasena, rol, imagen FROM usuarios WHERE user = ? LIMIT 1";
+        $sql = "SELECT user, email, nombre, apellidos, contrasena, rol, imagen, bistroCoins FROM usuarios WHERE user = ? LIMIT 1";
         $stmt = mysqli_prepare($conn, $sql);
         if (!$stmt) {
             return false;
@@ -80,14 +82,15 @@ class Usuario
             $fila['apellidos'],
             $fila['email'],
             $fila['rol'],
-            $fila['imagen']
+            $fila['imagen'],
+            $fila['bistroCoins']
         );
     }
 
     public static function listar(): array
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $sql = 'SELECT user, email, nombre, rol FROM usuarios ORDER BY user';
+        $sql = 'SELECT user, email, nombre, rol, bistroCoins FROM usuarios ORDER BY user';
         $res = mysqli_query($conn, $sql);
 
         if (!$res) {
@@ -154,6 +157,66 @@ class Usuario
         return $ok;
     }
 
+    public static function actualizaBistroCoins($user, int $bistroCoins): bool
+    {
+        if ($user === '' || $bistroCoins < 0) {
+            return false;
+        }
+
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $sql = 'UPDATE usuarios SET bistroCoins = ? WHERE user = ?';
+        $stmt = mysqli_prepare($conn, $sql);
+        if (!$stmt) {
+            return false;
+        }
+
+        mysqli_stmt_bind_param($stmt, 'is', $bistroCoins, $user);
+        $ok = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $ok;
+    }
+
+    public static function sumaBistroCoins($user, int $cantidad): bool
+    {
+        if ($user === '' || $cantidad <= 0) {
+            return false;
+        }
+
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $sql = 'UPDATE usuarios SET bistroCoins = bistroCoins + ? WHERE user = ?';
+        $stmt = mysqli_prepare($conn, $sql);
+        if (!$stmt) {
+            return false;
+        }
+
+        mysqli_stmt_bind_param($stmt, 'is', $cantidad, $user);
+        $ok = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $ok;
+    }
+
+    public static function restaBistroCoins($user, int $cantidad): bool
+    {
+        if ($user === '' || $cantidad <= 0) {
+            return false;
+        }
+
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $sql = 'UPDATE usuarios SET bistroCoins = bistroCoins - ? WHERE user = ? AND bistroCoins >= ?';
+        $stmt = mysqli_prepare($conn, $sql);
+        if (!$stmt) {
+            return false;
+        }
+
+        mysqli_stmt_bind_param($stmt, 'isi', $cantidad, $user, $cantidad);
+        $ok = mysqli_stmt_execute($stmt);
+        if ($ok) {
+            $ok = mysqli_stmt_affected_rows($stmt) > 0;
+        }
+        mysqli_stmt_close($stmt);
+        return $ok;
+    }
+
     public static function borrar($user): bool
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
@@ -216,6 +279,11 @@ class Usuario
     public function getImagen()
     {
         return $this->imagen;
+    }
+
+    public function getBistroCoins()
+    {
+        return $this->bistroCoins;
     }
 
     public function tieneRol($rol)

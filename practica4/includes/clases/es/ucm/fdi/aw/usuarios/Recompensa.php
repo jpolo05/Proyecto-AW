@@ -57,6 +57,10 @@ class Recompensa {
 
         mysqli_stmt_bind_param($stmt, 'ii', $idProducto, $bistroCoins);
         $ok = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $ok;
+    }
+
     public static function actualizar(int $id, int $idProducto, int $bistroCoins): bool
     {
         if ($id <= 0 || $idProducto <= 0 || $bistroCoins <= 0) {
@@ -94,3 +98,29 @@ class Recompensa {
         mysqli_stmt_close($stmt);
         return $ok;
     }
+
+    public static function listarConProducto(bool $soloDisponibles = false): array
+    {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $sql = 'SELECT r.id, r.id_producto, r.bistroCoins, p.nombre AS nombre_producto, p.descripcion AS descripcion_producto, p.precio_base, p.iva, p.disponible, p.ofertado
+                FROM recompensas r
+                INNER JOIN productos p ON p.id = r.id_producto';
+
+        if ($soloDisponibles) {
+            $sql .= ' WHERE p.disponible = 1 AND p.ofertado = 1';
+        }
+
+        $sql .= ' ORDER BY p.nombre ASC, r.id ASC';
+        $res = mysqli_query($conn, $sql);
+        if (!$res) {
+            return [];
+        }
+
+        $out = [];
+        while ($row = mysqli_fetch_assoc($res)) {
+            $out[] = $row;
+        }
+        mysqli_free_result($res);
+        return $out;
+    }
+}

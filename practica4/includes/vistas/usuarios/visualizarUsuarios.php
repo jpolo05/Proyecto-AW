@@ -1,5 +1,6 @@
 <?php
 use es\ucm\fdi\aw\usuarios\Auth;
+use es\ucm\fdi\aw\usuarios\Usuario;
 require_once __DIR__.'/../../config.php';
 Auth::verificarAcceso('Cliente');
 
@@ -9,6 +10,13 @@ $apellidos = htmlspecialchars((string)($_SESSION['apellidos'] ?? ''), ENT_QUOTES
 $email = htmlspecialchars((string)($_SESSION['email'] ?? ''), ENT_QUOTES, 'UTF-8');
 $rol = htmlspecialchars((string)($_SESSION['rol'] ?? 'Cliente'), ENT_QUOTES, 'UTF-8');
 $imagenSesion = $_SESSION['imagen'] ?? 'img/uploads/usuarios/default.jpg';
+$bistroCoins = (int)($_SESSION['bistroCoins'] ?? 0);
+
+$usuarioActual = Usuario::buscaUsuario((string)($_SESSION['user'] ?? ''));
+if ($usuarioActual) {
+    $bistroCoins = (int)$usuarioActual->getBistroCoins();
+    $_SESSION['bistroCoins'] = $bistroCoins;
+}
 
 if (preg_match('/^https?:\\/\\//', $imagenSesion) === 1 || str_starts_with($imagenSesion, RUTA_APP)) {
     $imagen = $imagenSesion;
@@ -38,6 +46,7 @@ $contenidoPrincipal = <<<EOS
             <div class="datos-contacto">
                 <p><strong>Email:</strong> $email</p>
                 <p><strong>Rol:</strong> <span class="badge-rol">$rol</span></p>
+                <p><strong>BistroCoins:</strong> $bistroCoins BC</p>
             </div>
         </div>
     </div>

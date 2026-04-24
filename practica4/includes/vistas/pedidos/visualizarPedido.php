@@ -45,6 +45,7 @@ if ($esModoCocina && !$rolPuedeCocinar) {
 $pedido = Pedido::listarDetalle($numeroPedido);
 $tituloPagina = 'Contenido pedido';
 $totalPedidoValor = (float)($cabeceraPedido['total'] ?? 0);
+$coinsGastadosPedidoValor = (int)($cabeceraPedido['bistroCoinsGastados'] ?? 0);
 $totalOriginalValor = 0.0;
 foreach ($pedido as $fila) {
     $totalOriginalValor += (float)($fila['subtotal'] ?? 0);
@@ -54,12 +55,16 @@ $descuentoAplicadoValor = max(0, round($totalOriginalValor - $totalPedidoValor, 
 $totalPedido = number_format($totalPedidoValor, 2, '.', '');
 $totalOriginal = number_format($totalOriginalValor, 2, '.', '');
 $descuentoAplicado = number_format($descuentoAplicadoValor, 2, '.', '');
+$coinsGastadosPedido = (string)$coinsGastadosPedidoValor;
 
 $bloqueTotalPedido = "<p><strong>Total del pedido: {$totalPedido} EUR</strong></p>";
 if ($descuentoAplicadoValor > 0) {
     $bloqueTotalPedido = "<p><strong>Total original: {$totalOriginal} EUR</strong></p>"
         . "<p><strong>Descuento aplicado: -{$descuentoAplicado} EUR</strong></p>"
         . "<p><strong>Total final del pedido: {$totalPedido} EUR</strong></p>";
+}
+if ($coinsGastadosPedidoValor > 0) {
+    $bloqueTotalPedido .= "<p><strong>BistroCoins usados: {$coinsGastadosPedido} BC</strong></p>";
 }
 
 // border="1" cellpadding="8"
@@ -68,6 +73,7 @@ $lineaPedido = '
         <tr>
             <th>Numero pedido</th>
             <th>Producto</th>
+            <th>Tipo</th>
             <th>Cantidad</th>
             <th>Subtotal</th>';
 
@@ -80,17 +86,22 @@ $hayLineasPendientes = false;
 foreach ($pedido as $fila) {
     $numFila = (int)($fila['numeroPedido'] ?? 0);
     $producto = h((string)($fila['producto'] ?? ''));
+    $esRecompensa = (int)($fila['esRecompensa'] ?? 0);
+    $tipoLinea = $esRecompensa === 1 ? 'Recompensa' : 'Normal';
     $cantidad = (int)($fila['cantidad'] ?? 0);
     $subtotal = number_format((float)($fila['subtotal'] ?? 0), 2, '.', '');
+    $coinsLinea = (int)($fila['bistroCoinsGastados'] ?? 0);
     $idProd = (int)($fila['idProducto'] ?? 0);
     $estadoLinea = (int)($fila['estado'] ?? 0);
+    $textoSubtotal = $esRecompensa === 1 ? "{$subtotal} EUR ({$coinsLinea} BC)" : "{$subtotal} EUR";
 
     $lineaPedido .= "
         <tr>
             <td>{$numFila}</td>
             <td>{$producto}</td>
+            <td>{$tipoLinea}</td>
             <td>{$cantidad}</td>
-            <td>{$subtotal} EUR</td>
+            <td>{$textoSubtotal}</td>
     ";
 
     if ($esModoCocina) {

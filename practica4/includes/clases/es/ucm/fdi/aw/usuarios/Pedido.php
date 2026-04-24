@@ -141,9 +141,18 @@ class Pedido
         return round($descuentoTotal, 2);
     }
 
-    public static function crear(string $cliente, string $tipo, array $lineas, array $ofertasSeleccionadas = []): ?int
+    public static function crear(
+        string $cliente,
+        string $tipo,
+        array $lineas,
+        array $ofertasSeleccionadas = [],
+        array $lineasRecompensa = []
+    ): ?int
     {
-        if ($cliente === '' || !in_array($tipo, ['Local', 'Llevar'], true) || empty($lineas)) {
+        if ($cliente === '' || !in_array($tipo, ['Local', 'Llevar'], true)) {
+            return null;
+        }
+        if (empty($lineas) && empty($lineasRecompensa)) {
             return null;
         }
 
@@ -156,7 +165,7 @@ class Pedido
 
             // Se inserta también el id interno para soportar instalaciones donde la tabla
             // pedidos todavía no tenga AUTO_INCREMENT configurado correctamente.
-            $sqlPedido = "INSERT INTO pedidos (id, numeroPedido, estado, tipo, fecha, cliente, total) VALUES (?, ?, ?, ?, NOW(), ?, 0)";
+            $sqlPedido = "INSERT INTO pedidos (id, numeroPedido, estado, tipo, fecha, cliente, bistroCoinsGastados, total) VALUES (?, ?, ?, ?, NOW(), ?, 0, 0)";
             $stmtPedido = mysqli_prepare($conn, $sqlPedido);
             if (!$stmtPedido) {
                 mysqli_rollback($conn);
@@ -174,9 +183,10 @@ class Pedido
             }
 
             $total = 0.0;
+            $bistroCoinsGastadosPedido = 0;
             $lineasInsertadas = 0;
 
-            $sqlLinea = "INSERT INTO linea_pedido (numeroPedido, idProducto, cantidad, subtotal, estado) VALUES (?, ?, ?, ?, ?)";
+            $sqlLinea = "INSERT INTO linea_pedido (numeroPedido, idProducto, esRecompensa, cantidad, subtotal, bistroCoinsGastados, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmtLinea = mysqli_prepare($conn, $sqlLinea);
             if (!$stmtLinea) {
                 mysqli_rollback($conn);
@@ -201,9 +211,21 @@ class Pedido
                 $iva = (int)($producto['iva'] ?? 0);
                 $precioFinalUnitario = $precioBase + ($precioBase * $iva / 100);
                 $subtotal = round($precioFinalUnitario * $cantidad, 2);
+                $esRecompensa = 0;
+                $bistroCoinsGastadosLinea = 0;
                 $estadoLinea = 0;
 
-                mysqli_stmt_bind_param($stmtLinea, "iiidi", $idPedido, $idProducto, $cantidad, $subtotal, $estadoLinea);
+                mysqli_stmt_bind_param(
+                    $stmtLinea,
+                    "iiiidii",
+                    $idPedido,
+                    $idProducto,
+                    $esRecompensa,
+                    $cantidad,
+                    $subtotal,
+                    $bistroCoinsGastadosLinea,
+                    $estadoLinea
+                );
                 $okLinea = mysqli_stmt_execute($stmtLinea);
                 if (!$okLinea) {
                     mysqli_stmt_close($stmtLinea);
@@ -215,6 +237,56 @@ class Pedido
                 $lineasInsertadas++;
             }
 
+            foreach ($lineasRecompensa as $lineaRecompensa) {
+                $idRecompensa = (int)($lineaRecompensa['idRecompensa'] ?? 0);
+                $cantidadRecompensa = (int)($lineaRecompensa['cantidad'] ?? 0);
+                if ($idRecompensa <= 0 || $cantidadRecompensa <= 0) {
+                    continue;
+                }
+
+                $recompensa = Recompensa::buscaPorId($idRecompensa);
+                if (!$recompensa) {
+                    mysqli_stmt_close($stmtLinea);
+                    mysqli_rollback($conn);
+                    return null;
+                }
+
+                $idProductoRecompensa = (int)($recompensa['id_producto'] ?? 0);
+                $productoRecompensa = Producto::buscaPorId($idProductoRecompensa);
+                if (!$productoRecompensa) {
+                    mysqli_stmt_close($stmtLinea);
+                    mysqli_rollback($conn);
+                    return null;
+                }
+
+                $esRecompensa = 1;
+                $subtotal = 0.0;
+                $bistroCoinsUnitarias = (int)($recompensa['bistroCoins'] ?? 0);
+                $bistroCoinsGastadosLinea = $bistroCoinsUnitarias * $cantidadRecompensa;
+                $estadoLinea = 0;
+
+                mysqli_stmt_bind_param(
+                    $stmtLinea,
+                    "iiiidii",
+                    $idPedido,
+                    $idProductoRecompensa,
+                    $esRecompensa,
+                    $cantidadRecompensa,
+                    $subtotal,
+                    $bistroCoinsGastadosLinea,
+                    $estadoLinea
+                );
+                $okLinea = mysqli_stmt_execute($stmtLinea);
+                if (!$okLinea) {
+                    mysqli_stmt_close($stmtLinea);
+                    mysqli_rollback($conn);
+                    return null;
+                }
+
+                $bistroCoinsGastadosPedido += $bistroCoinsGastadosLinea;
+                $lineasInsertadas++;
+            }
+
             mysqli_stmt_close($stmtLinea);
 
             if ($lineasInsertadas === 0) {
@@ -222,17 +294,23 @@ class Pedido
                 return null;
             }
 
+            $usuario = Usuario::buscaUsuario($cliente);
+            if (!$usuario || $usuario->getBistroCoins() < $bistroCoinsGastadosPedido) {
+                mysqli_rollback($conn);
+                return null;
+            }
+
             $descuentoTotal = self::calcularDescuentoOfertas($lineas, $ofertasSeleccionadas);
             $total = max(0, round($total - $descuentoTotal, 2));
 
-            $sqlTotal = "UPDATE pedidos SET total = ? WHERE id = ?";
+            $sqlTotal = "UPDATE pedidos SET total = ?, bistroCoinsGastados = ? WHERE id = ?";
             $stmtTotal = mysqli_prepare($conn, $sqlTotal);
             if (!$stmtTotal) {
                 mysqli_rollback($conn);
                 return null;
             }
 
-            mysqli_stmt_bind_param($stmtTotal, "di", $total, $idPedido);
+            mysqli_stmt_bind_param($stmtTotal, "dii", $total, $bistroCoinsGastadosPedido, $idPedido);
             $okTotal = mysqli_stmt_execute($stmtTotal);
             mysqli_stmt_close($stmtTotal);
 
@@ -253,7 +331,7 @@ class Pedido
     public static function listar(): array
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $sql = "SELECT id, numeroPedido, estado, tipo, fecha, cliente, cocinero, imagenCocinero, total FROM pedidos ORDER BY numeroPedido ASC";
+        $sql = "SELECT id, numeroPedido, estado, tipo, fecha, cliente, cocinero, imagenCocinero, bistroCoinsGastados, total FROM pedidos ORDER BY numeroPedido ASC";
         $res = mysqli_query($conn, $sql);
 
         if (!$res) {
@@ -272,7 +350,7 @@ class Pedido
     public static function buscaPorNumero(int $numeroPedido): ?array
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $sql = "SELECT id, numeroPedido, estado, tipo, fecha, cliente, cocinero, imagenCocinero, total
+        $sql = "SELECT id, numeroPedido, estado, tipo, fecha, cliente, cocinero, imagenCocinero, bistroCoinsGastados, total
                 FROM pedidos
                 WHERE numeroPedido = ?
                 LIMIT 1";
@@ -297,7 +375,7 @@ class Pedido
         }
 
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $sql = "SELECT id, numeroPedido, estado, tipo, fecha, cliente, cocinero, imagenCocinero, total
+        $sql = "SELECT id, numeroPedido, estado, tipo, fecha, cliente, cocinero, imagenCocinero, bistroCoinsGastados, total
                 FROM pedidos
                 WHERE numeroPedido = ? AND cliente = ?
                 LIMIT 1";
@@ -325,7 +403,7 @@ class Pedido
 
         $conn = Aplicacion::getInstance()->getConexionBd();
 
-        $sql = "SELECT numeroPedido, idProducto, cantidad, subtotal, estado FROM linea_pedido WHERE numeroPedido = ?";
+        $sql = "SELECT numeroPedido, idProducto, esRecompensa, cantidad, subtotal, bistroCoinsGastados, estado FROM linea_pedido WHERE numeroPedido = ?";
         $stmt = mysqli_prepare($conn, $sql);
 
         if (!$stmt) {
@@ -339,6 +417,8 @@ class Pedido
         $out = [];
         while ($row = mysqli_fetch_assoc($res)) {
             $row['numeroPedido'] = $numeroPedido;
+            $row['esRecompensa'] = (int)($row['esRecompensa'] ?? 0);
+            $row['bistroCoinsGastados'] = (int)($row['bistroCoinsGastados'] ?? 0);
             $row['producto'] = Producto::nombre($row['idProducto']);
             $out[] = $row;
         }
@@ -350,7 +430,7 @@ class Pedido
     public static function listar_cliente($cliente): array
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $sql = "SELECT numeroPedido, estado, tipo, fecha, total FROM pedidos WHERE cliente = ? ORDER BY numeroPedido ASC";
+        $sql = "SELECT numeroPedido, estado, tipo, fecha, bistroCoinsGastados, total FROM pedidos WHERE cliente = ? ORDER BY numeroPedido ASC";
         $stmt = mysqli_prepare($conn, $sql);
 
         if (!$stmt) {
@@ -475,6 +555,117 @@ class Pedido
         mysqli_stmt_close($stmt);
 
         return $ok;
+    }
+
+    public static function cobrarYEnviarACocina(int $numeroPedido): bool
+    {
+        if ($numeroPedido <= 0) {
+            return false;
+        }
+
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        mysqli_begin_transaction($conn);
+
+        try {
+            $sqlPedido = "SELECT numeroPedido, estado, cliente, total, bistroCoinsGastados
+                          FROM pedidos
+                          WHERE numeroPedido = ?
+                          LIMIT 1
+                          FOR UPDATE";
+            $stmtPedido = mysqli_prepare($conn, $sqlPedido);
+            if (!$stmtPedido) {
+                mysqli_rollback($conn);
+                return false;
+            }
+
+            mysqli_stmt_bind_param($stmtPedido, "i", $numeroPedido);
+            mysqli_stmt_execute($stmtPedido);
+            $resPedido = mysqli_stmt_get_result($stmtPedido);
+            $pedido = $resPedido ? mysqli_fetch_assoc($resPedido) : null;
+            mysqli_stmt_close($stmtPedido);
+
+            if (!$pedido || (string)($pedido['estado'] ?? '') !== self::ESTADO_RECIBIDO) {
+                mysqli_rollback($conn);
+                return false;
+            }
+
+            $cliente = (string)($pedido['cliente'] ?? '');
+            $totalPagado = (float)($pedido['total'] ?? 0);
+            $bistroCoinsGastados = (int)($pedido['bistroCoinsGastados'] ?? 0);
+            $bistroCoinsGanados = (int) floor(max(0, $totalPagado));
+
+            if ($cliente === '') {
+                mysqli_rollback($conn);
+                return false;
+            }
+
+            if ($bistroCoinsGastados > 0) {
+                $sqlDetrae = "UPDATE usuarios
+                              SET bistroCoins = bistroCoins - ?
+                              WHERE user = ? AND bistroCoins >= ?";
+                $stmtDetrae = mysqli_prepare($conn, $sqlDetrae);
+                if (!$stmtDetrae) {
+                    mysqli_rollback($conn);
+                    return false;
+                }
+
+                mysqli_stmt_bind_param($stmtDetrae, "isi", $bistroCoinsGastados, $cliente, $bistroCoinsGastados);
+                $okDetrae = mysqli_stmt_execute($stmtDetrae);
+                $detraidos = $okDetrae ? mysqli_stmt_affected_rows($stmtDetrae) : 0;
+                mysqli_stmt_close($stmtDetrae);
+
+                if (!$okDetrae || $detraidos < 1) {
+                    mysqli_rollback($conn);
+                    return false;
+                }
+            }
+
+            if ($bistroCoinsGanados > 0) {
+                $sqlSuma = "UPDATE usuarios SET bistroCoins = bistroCoins + ? WHERE user = ?";
+                $stmtSuma = mysqli_prepare($conn, $sqlSuma);
+                if (!$stmtSuma) {
+                    mysqli_rollback($conn);
+                    return false;
+                }
+
+                mysqli_stmt_bind_param($stmtSuma, "is", $bistroCoinsGanados, $cliente);
+                $okSuma = mysqli_stmt_execute($stmtSuma);
+                mysqli_stmt_close($stmtSuma);
+
+                if (!$okSuma) {
+                    mysqli_rollback($conn);
+                    return false;
+                }
+            }
+
+            $sqlEstado = "UPDATE pedidos
+                          SET estado = ?
+                          WHERE numeroPedido = ? AND estado = ?";
+            $stmtEstado = mysqli_prepare($conn, $sqlEstado);
+            if (!$stmtEstado) {
+                mysqli_rollback($conn);
+                return false;
+            }
+
+            $nuevoEstado = self::ESTADO_EN_PREPARACION;
+            $estadoActual = self::ESTADO_RECIBIDO;
+            mysqli_stmt_bind_param($stmtEstado, "sis", $nuevoEstado, $numeroPedido, $estadoActual);
+            $okEstado = mysqli_stmt_execute($stmtEstado);
+            $actualizados = $okEstado ? mysqli_stmt_affected_rows($stmtEstado) : 0;
+            mysqli_stmt_close($stmtEstado);
+
+            if (!$okEstado || $actualizados < 1) {
+                mysqli_rollback($conn);
+                return false;
+            }
+
+            mysqli_commit($conn);
+            return true;
+        } catch (\Throwable $e) {
+            mysqli_rollback($conn);
+            error_log('Error en cobro de pedido: '.$e->getMessage());
+            return false;
+        }
     }
 
     public static function borrar(int $numeroPedido, ?string $cliente = null): bool

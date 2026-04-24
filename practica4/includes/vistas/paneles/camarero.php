@@ -37,6 +37,7 @@ foreach ($pedidos as $p) {
     if ($estado === Pedido::ESTADO_RECIBIDO) {
         $form = new FormularioActualizaPedido($numeroPedido, Pedido::ESTADO_EN_PREPARACION, [
             'urlRedireccion' => RUTA_APP.'includes/vistas/paneles/camarero.php',
+            'textoBoton' => 'Cobrar y enviar a cocina',
         ]);
         $htmlForm = $form->gestiona();
 

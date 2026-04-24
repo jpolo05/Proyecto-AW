@@ -76,6 +76,7 @@ class FormularioLogin extends Formulario
             $_SESSION['email'] = $usuario->getEmail();
             $_SESSION['rol'] = $usuario->getRol();
             $_SESSION['imagen'] = $usuario->getImagen();
+            $_SESSION['bistroCoins'] = $usuario->getBistroCoins();
 
             $this->urlRedireccion = Usuario::rutaPorRol($usuario->getRol());
         }
