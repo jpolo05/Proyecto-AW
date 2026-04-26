@@ -341,7 +341,7 @@ $contenidoPrincipal = <<<EOS
         <input type="hidden" name="csrfToken" value="$csrfToken">
         
         <div class="campo-form">
-            <label for="tipo"><p><strong>Tipo de pedido:</strong></p></label>
+            <label for="tipo"><strong>Tipo de pedido:</strong></label>
             <select name="tipo" id="tipo">
                 <option value="Local" $selLocal>Para tomar aqui</option>
                 <option value="Llevar" $selLlevar>Para llevar</option>
@@ -354,7 +354,7 @@ $contenidoPrincipal = <<<EOS
         </div>
 
         <div class="tabla-carrito-contenedor">
-            <h3>Productos normales</h3>
+            <h2>Productos normales</h2>
             $bloqueTabla
         </div>
 

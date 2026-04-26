@@ -47,7 +47,7 @@ $urlCancelar = htmlspecialchars(RUTA_APP.'includes/vistas/recompensas/listarReco
 $idProductoActual = (int)($recompensa['id_producto'] ?? 0);
 $bistroCoinsActual = (int)($recompensa['bistroCoins'] ?? 0);
 
-$opcionesProductos = '<option value="0">Selecciona un producto</option>';
+$opcionesProductos = '<option value="">Selecciona un producto</option>';
 foreach ($productos as $producto) {
     $idProd = (int)($producto['id'] ?? 0);
     $nombre = htmlspecialchars((string)($producto['nombre'] ?? ''), ENT_QUOTES, 'UTF-8');

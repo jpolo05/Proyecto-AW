@@ -15,7 +15,6 @@ if (!$recompensa) {
     exit;
 }
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!Auth::validaCsrfToken($_POST['csrfToken'] ?? null)) {
         $msg = 'Token+CSRF+invalido';
@@ -35,6 +34,12 @@ $bistroCoins = htmlspecialchars($recompensa['bistroCoins'] ?? '', ENT_QUOTES, 'U
 $action = htmlspecialchars(RUTA_APP.'includes/vistas/recompensas/borrarRecompensa.php?id='.urlencode((string)$idMostrado), ENT_QUOTES, 'UTF-8');
 $urlCancelar = htmlspecialchars(RUTA_APP.'includes/vistas/recompensas/listarRecompensas.php', ENT_QUOTES, 'UTF-8');
 
+$producto = $id_producto > 0 ? Producto::buscaPorId($id_producto) : null;
+$nombreProducto = "Producto no encontrado";
+if ($producto) {
+    $nombreProducto = htmlspecialchars($producto['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
+}
+
 $contenidoPrincipal = <<<EOS
 <div class="seccion-titulo">
     <h1>Eliminar Recompensa</h1>
@@ -43,7 +48,7 @@ $contenidoPrincipal = <<<EOS
 <div class="info-categoria">
     
     <p><strong>ID:</strong> {$idMostrado}</p>
-    <p><strong>Producto:</strong> {$id_producto}</p>
+    <p><strong>Producto:</strong> {$nombreProducto}</p>
     <p><strong>Bistro coins:</strong> {$bistroCoins}</p>
 
 </div> <form method="POST" action="$action">
