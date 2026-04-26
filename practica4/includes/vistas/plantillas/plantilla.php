@@ -29,5 +29,7 @@
             <?php require(RAIZ_APP.'/vistas/comun/pie.php');?>
         </div>
         <?= $funcionesJS ?>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="<?= RUTA_JS?>/registro.js"></script>
     </body>
 </html>
