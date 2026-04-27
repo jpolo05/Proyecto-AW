@@ -70,6 +70,7 @@ class Usuario
         $res = mysqli_stmt_get_result($stmt);
         $fila = mysqli_fetch_assoc($res);
         mysqli_stmt_close($stmt);
+        mysqli_free_result($res);
 
         if (!$fila) {
             return false;

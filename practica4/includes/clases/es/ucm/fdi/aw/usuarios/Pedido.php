@@ -69,6 +69,7 @@ class Pedido
         $res = mysqli_stmt_get_result($stmt);
         $fila = $res ? mysqli_fetch_assoc($res) : null;
         mysqli_stmt_close($stmt);
+        mysqli_free_result($res);
 
         return $fila ? (int)$fila['id'] : null;
     }
@@ -364,6 +365,7 @@ class Pedido
         $res = mysqli_stmt_get_result($stmt);
         $fila = $res ? mysqli_fetch_assoc($res) : null;
         mysqli_stmt_close($stmt);
+        mysqli_free_result($res);
 
         return $fila ?: null;
     }
@@ -389,6 +391,7 @@ class Pedido
         $res = mysqli_stmt_get_result($stmt);
         $fila = $res ? mysqli_fetch_assoc($res) : null;
         mysqli_stmt_close($stmt);
+        mysqli_free_result($res);
 
         return $fila ?: null;
     }
@@ -424,6 +427,7 @@ class Pedido
         }
 
         mysqli_stmt_close($stmt);
+        mysqli_free_result($res);
         return $out;
     }
 
@@ -452,6 +456,7 @@ class Pedido
         }
 
         mysqli_stmt_close($stmt);
+        mysqli_free_result($res);
         return $out;
     }
 
@@ -583,6 +588,7 @@ class Pedido
             $resPedido = mysqli_stmt_get_result($stmtPedido);
             $pedido = $resPedido ? mysqli_fetch_assoc($resPedido) : null;
             mysqli_stmt_close($stmtPedido);
+            mysqli_free_result($resPedido);
 
             if (!$pedido || (string)($pedido['estado'] ?? '') !== self::ESTADO_RECIBIDO) {
                 mysqli_rollback($conn);

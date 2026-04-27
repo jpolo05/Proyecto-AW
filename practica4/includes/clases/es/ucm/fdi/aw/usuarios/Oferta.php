@@ -64,6 +64,8 @@ class Oferta {
         $fila = $res ? mysqli_fetch_assoc($res) : null;
         mysqli_stmt_close($stmt);
 
+        mysqli_free_result($res);
+
         if (!$fila) {
             return null;
         }
@@ -76,7 +78,6 @@ class Oferta {
                     WHERE lo.id_oferta = ?
                     ORDER BY p.nombre';
         
-        // NOTA: Asegúrate de que la columna en lineas_oferta sea 'id_oferta' o la FK correspondiente
         $stmtLineas = mysqli_prepare($conn, $sqlLineas);
         if ($stmtLineas) {
             mysqli_stmt_bind_param($stmtLineas, 'i', $id);
@@ -93,6 +94,7 @@ class Oferta {
                 }
             }
             mysqli_stmt_close($stmtLineas);
+            mysqli_free_result($resLineas);
         }
 
         return $fila;
@@ -185,6 +187,7 @@ class Oferta {
         while ($fila = mysqli_fetch_assoc($res)) {
             $ofertas[] = self::buscaPorId((int)$fila['id']);
         }
+        mysqli_free_result($res);
         return $ofertas;
     }
 

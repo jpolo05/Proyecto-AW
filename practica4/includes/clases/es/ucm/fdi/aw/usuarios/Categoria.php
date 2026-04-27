@@ -51,6 +51,7 @@ class Categoria {
         $res = mysqli_stmt_get_result($stmt);
         $fila = $res ? mysqli_fetch_assoc($res) : null;
         mysqli_stmt_close($stmt);
+        mysqli_free_result($res);
 
         return $fila ?: null;
     }
