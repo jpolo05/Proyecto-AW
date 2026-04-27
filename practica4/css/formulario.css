@@ -46,3 +46,7 @@
     font-weight: bold;
     padding: 0 8px;
 }
+
+.indicador-correo {
+    display: none;
+}

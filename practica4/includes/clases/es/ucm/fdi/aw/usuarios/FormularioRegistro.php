@@ -56,8 +56,8 @@ class FormularioRegistro extends Formulario
             <div class="campo-login">
                 <label for="email">Email:</label>
                 <input id="email" type="email" name="email" value="$email" required>
-                <span id="correoOk" style="display: none;">✔</span>
-                <span id="correoMal" style="display: none;">❌</span>
+                <span id="correoOk" class="indicador-correo">✔</span>
+                <span id="correoMal" class="indicador-correo">❌</span>
                 {$erroresCampos['email']}
             </div>
             <div class="campo-login">

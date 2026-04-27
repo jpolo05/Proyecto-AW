@@ -297,37 +297,6 @@ if ($versionJsCarrito !== false) {
 $funcionesJS = "<script src='".h($urlJsCarrito)."'></script>";
 
 $contenidoPrincipal = <<<EOS
-<style>
-    .carrito-centrado,
-    .carrito-centrado p,
-    .carrito-centrado h1,
-    .carrito-centrado h2,
-    .carrito-centrado h3,
-    .carrito-centrado label {
-        text-align: center;
-    }
-
-    .carrito-centrado table th,
-    .carrito-centrado table td {
-        text-align: center;
-    }
-
-    .carrito-centrado select#tipo {
-        width: 320px;
-        max-width: 100%;
-        margin: 0 auto;
-        display: block;
-    }
-
-    .carrito-centrado .coins-linea {
-        white-space: nowrap;
-    }
-
-    .carrito-centrado .coins-linea strong {
-        display: inline;
-    }
-</style>
-
 <div class="seccion-titulo">
     <h1>Mi carrito</h1>
 </div>

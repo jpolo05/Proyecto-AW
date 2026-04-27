@@ -463,6 +463,35 @@ th:last-child, td:last-child {
 }
 
 /*MI CARRITO*/
+.carrito-centrado,
+.carrito-centrado p,
+.carrito-centrado h1,
+.carrito-centrado h2,
+.carrito-centrado h3,
+.carrito-centrado label {
+    text-align: center;
+}
+
+.carrito-centrado table th,
+.carrito-centrado table td {
+    text-align: center;
+}
+
+.carrito-centrado select#tipo {
+    width: 320px;
+    max-width: 100%;
+    margin: 0 auto;
+    display: block;
+}
+
+.carrito-centrado .coins-linea {
+    white-space: nowrap;
+}
+
+.carrito-centrado .coins-linea strong {
+    display: inline;
+}
+
 .resumen-totales {
     text-align: left;
     margin-top: 30px;
@@ -491,6 +520,31 @@ th:last-child, td:last-child {
 .tabla-carrito-contenedor table {
     width: 100%;
     margin: 20px 0;
+}
+
+/*CREAR PEDIDO*/
+.crear-pedido-centrado {
+    text-align: center;
+}
+
+.tabla-ofertas-pedido {
+    width: 42%;
+    margin: 0 auto 20px auto;
+}
+
+.tabla-productos-pedido {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.selector-tipo-pedido {
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+.selector-tipo-pedido select {
+    font-size: 1.2rem;
+    padding: 6px 12px;
 }
 
 /* PANEL DE ADMINISTRACIÓN */

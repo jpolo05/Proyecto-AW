@@ -62,9 +62,9 @@ $itemsCarrito = is_array($_SESSION['carrito']['items'] ?? null) ? $_SESSION['car
 $unidadesCarrito = array_sum(array_map('intval', $itemsCarrito));
 
 $tituloPagina = 'Crear pedido';
-$errorHtml = $error !== '' ? '<p style="text-align: center;"><strong>'.h($error).'</strong></p>' : '';
+$errorHtml = $error !== '' ? '<p class="crear-pedido-centrado"><strong>'.h($error).'</strong></p>' : '';
 $mensaje = $_GET['msg'] ?? '';
-$mensajeHtml = $mensaje !== '' ? '<p style="text-align: center;"><strong>'.h($mensaje).'</strong></p>' : '';
+$mensajeHtml = $mensaje !== '' ? '<p class="crear-pedido-centrado"><strong>'.h($mensaje).'</strong></p>' : '';
 $urlVolver = RUTA_APP.'includes/vistas/pedidos/carrito.php';
 $action = h(RUTA_APP.'includes/vistas/pedidos/crearPedido.php');
 $selLocal = ($tipo === 'Local') ? 'selected' : '';
@@ -93,7 +93,7 @@ if (!empty($ofertasActivas)) {
     }
 
     $bloqueOfertas = "
-    <table style='width: 42%; margin: 0 auto 20px auto;'>
+    <table class='tabla-ofertas-pedido'>
         <tr>
             <th>Nombre</th>
             <th>Descripción</th>
@@ -130,7 +130,7 @@ if ($filasProductos === '') {
     $bloqueProductos = '<p>No hay productos disponibles para pedir.</p>';
 } else {
     $bloqueProductos = '
-    <table style="width: 60%; margin: 0 auto;">
+    <table class="tabla-productos-pedido">
         <tr>
             <th>Producto</th>
             <th>Precio (IVA incl.)</th>
@@ -144,18 +144,18 @@ $totalInicialTexto = number_format($totalInicial, 2, '.', '');
 $bloqueTotal = '<p><strong>Total del pedido: <span id="totalPedido">'.$totalInicialTexto.'</span> EUR</strong></p>';
 
 $contenidoPrincipal = <<<EOS
-    <h1 style="text-align: center;">Crear pedido</h1>
+    <h1 class="crear-pedido-centrado">Crear pedido</h1>
     $errorHtml
     $mensajeHtml
-    <p style="text-align: center;"><strong>Carrito actual:</strong> {$unidadesCarrito} producto(s). <a href="$urlCarrito" class="button-estandar">Ver carrito</a></p>
-    <h2 style="text-align: center;">Ofertas disponibles</h2>
+    <p class="crear-pedido-centrado"><strong>Carrito actual:</strong> {$unidadesCarrito} producto(s). <a href="$urlCarrito" class="button-estandar">Ver carrito</a></p>
+    <h2 class="crear-pedido-centrado">Ofertas disponibles</h2>
     $bloqueOfertas
     <form method="POST" action="$action">
         <input type="hidden" name="csrfToken" value="$csrfToken">
-        <h2 style="text-align: center;">Productos</h2>
-        <p style="text-align: center; font-size: 1.4rem;">
+        <h2 class="crear-pedido-centrado">Productos</h2>
+        <p class="selector-tipo-pedido">
             <label>Tipo:
-                <select name="tipo" style="font-size: 1.2rem; padding: 6px 12px;">
+                <select name="tipo">
                     <option value="Local" $selLocal>Local</option>
                     <option value="Llevar" $selLlevar>Llevar</option>
                 </select>
