@@ -52,6 +52,8 @@ foreach ($recompensas as $r) {
 }
 $tablaRecompensas .= '</table>';
 
+$rutaPanelGerente = RUTA_APP.'includes/vistas/paneles/gerente.php';
+
 $contenidoPrincipal = <<<EOS
 <div class="contenedor-gestion">
     <div class="header-admin">
@@ -60,6 +62,7 @@ $contenidoPrincipal = <<<EOS
     
     $tablaRecompensas
     <div class="buttons-estandar">
+        <a href="$rutaPanelGerente" class="button-estandar">Volver al Panel</a>
         <a href="crearRecompensa.php" class="button-estandar">Crear recompensa</a>
     </div>
 </div>

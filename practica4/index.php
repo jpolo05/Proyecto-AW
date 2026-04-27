@@ -37,9 +37,8 @@ $contenidoPrincipal = <<<EOS
             <article class="tarjeta">
                 <img src="{$rutaImgs}platillos.jpg" alt="Productos">
                 <div class="info">
-                    <h3>Productos</h3>
+                    <h3>Carta</h3>
                     <p>Los mejores platillos de la región. </p>
-                    <p><strong>Pulsa aquí para ver la carta.</strong></p>
                 </div>
             </article>
         </a>
