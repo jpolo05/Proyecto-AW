@@ -32,7 +32,7 @@ INSERT INTO `productos` (`nombre`, `descripcion`, `id_categoria`, `precio_base`,
 ('Ensalada cesar', 'Lechuga, pollo, parmesano y salsa cesar', 2, 8.90, 10, 1, 1, 'img/uploads/productos/ensalada_cesar.jpg');
 
 INSERT INTO `usuarios` (`user`, `email`, `nombre`, `apellidos`, `contrasena`, `rol`, `imagen`) VALUES
-('camarero', 'camarero@gmail.com', 'Luisa', 'Perez', '$2y$10$LnEzbAdQLlY/RryEvXmzLumCAFnNZX4ZkajoWDnovEIGP8fc5RRAS', 'Camarero', 'img/uploads/usuarios/img_69b14259473ea8.36904842.png'),
-('cliente', 'cliente@gmail.com', 'Pablo', 'Galindo', '$2y$10$Q1FYw7v/1VXDDpPK0GoVuOLZSpCY4UFOfIVdmBYy/e3hAWVBli7DC', 'Cliente', 'img/uploads/usuarios/default.jpg'),
-('cocinero', 'cocinero@gmail.com', 'Jorge', 'Garcia', '$2y$10$D07t97MRNseN16VXPwfUCu8ARLahI9csWUiK/UBbs7XXoL20rxBRy', 'Cocinero', 'img/uploads/usuarios/img_69b14288349b83.44261640.png'),
-('gerente', 'gerente@gmail.com', 'Juan', 'Lopez', '$2y$10$zxIuzR7iyrlWarfISYkgu.FAECOvX5z5ToF126Kn3l7r9CjLNenWC', 'Gerente', 'img/uploads/usuarios/gerente.png');
+('camarero', 'camarero@gmail.com', 'Luisa', 'Perez', '$2y$10$faMu5gjcaM67nIlu1GMSFe1eEMbS3Oq2pv3bblRGs2SgaCjjrPI32', 'Camarero', 'img/uploads/usuarios/img_69b14259473ea8.36904842.png'),
+('cliente', 'cliente@gmail.com', 'Pablo', 'Galindo', '$2y$10$K0UMSLeDvh/fF2vI4KPl1.PZWM5uAihKxSX5Gml5pliaXY44J6w46', 'Cliente', 'img/uploads/usuarios/default.jpg'),
+('cocinero', 'cocinero@gmail.com', 'Jorge', 'Garcia', '$2y$10$yUBNbN6cbXBME9HaP1KFYOpHTIbY.wEp/onR1jr7vLKdO.TmVV2BK', 'Cocinero', 'img/uploads/usuarios/img_69b14288349b83.44261640.png'),
+('gerente', 'gerente@gmail.com', 'Juan', 'Lopez', '$2y$10$XuL9XX0MrDNZpMz9W6ZG1eAAVCiFTrolRGuu8cDLiIyvSfKdK.oUK', 'Gerente', 'img/uploads/usuarios/gerente.png');

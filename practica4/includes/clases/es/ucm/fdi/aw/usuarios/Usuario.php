@@ -121,6 +121,7 @@ class Usuario
 
             mysqli_stmt_bind_param($stmt, 'ssssss', $email, $nombre, $apellidos, $rol, $imagen, $user);
         } else {
+            $hash = self::hashPassword($contrasena);
             $sql = "INSERT INTO usuarios (user, email, nombre, apellidos, contrasena, rol, imagen)
                     VALUES (?, ?, ?, ?, ?, ?, ?)
                     ON DUPLICATE KEY UPDATE
@@ -135,7 +136,7 @@ class Usuario
                 return false;
             }
 
-            mysqli_stmt_bind_param($stmt, 'sssssss', $user, $email, $nombre, $apellidos, $contrasena, $rol, $imagen);
+            mysqli_stmt_bind_param($stmt, 'sssssss', $user, $email, $nombre, $apellidos, $hash, $rol, $imagen);
         }
 
         $ok = mysqli_stmt_execute($stmt);
@@ -249,7 +250,13 @@ class Usuario
 
     private static function hashPassword($password)
     {
-        return password_hash($password, PASSWORD_DEFAULT);
+        return password_hash(self::passwordConPepper($password), PASSWORD_DEFAULT);
+    }
+
+    private static function passwordConPepper($password): string
+    {
+        $pepper = defined('AUTH_PASSWORD_PEPPER') ? (string)AUTH_PASSWORD_PEPPER : '';
+        return (string)$password.$pepper;
     }
 
     public function getNombreUsuario()
@@ -294,7 +301,7 @@ class Usuario
 
     public function compruebaPassword($password)
     {
-        return password_verify($password, $this->password);
+        return password_verify(self::passwordConPepper($password), $this->password);
     }
 
     private static function normalizaImagen($imagen): string

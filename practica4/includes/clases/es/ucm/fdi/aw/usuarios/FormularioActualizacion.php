@@ -154,7 +154,7 @@ class FormularioActualizacion extends Formulario
             if ($pass1 !== $pass2) {
                 $this->errores['password_confirm'] = 'Las contraseñas no coinciden.';
             }
-            $hash = password_hash($pass1, PASSWORD_DEFAULT);
+            $hash = $pass1;
         } else {
             $hash = null;
         }
@@ -164,24 +164,38 @@ class FormularioActualizacion extends Formulario
                 $this->errores[] = 'Error al subir la imagen.';
             } else {
                 $archivo = $_FILES['imagenURL'];
-                $extensionesValidas = ['jpg', 'jpeg', 'png'];
-                $extension = strtolower(pathinfo($archivo['name'], PATHINFO_EXTENSION));
+                $mimesPermitidos = [
+                    'image/jpeg' => 'jpg',
+                    'image/png' => 'png',
+                ];
 
-                if (!in_array($extension, $extensionesValidas)) {
-                    $this->errores[] = 'Formato de imagen no permitido (solo JPG o PNG).';
-                } elseif ($archivo['size'] > 2000000) { // 2MB
-                    $this->errores[] = 'La imagen es demasiado grande (máximo 2MB).';
+                if (!is_uploaded_file($archivo['tmp_name'])) {
+                    $this->errores[] = 'Fichero de subida no valido.';
+                } elseif ($archivo['size'] > 2000000) {
+                    $this->errores[] = 'La imagen es demasiado grande (maximo 2MB).';
                 } else {
+                    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                    $mimeReal = $finfo ? finfo_file($finfo, $archivo['tmp_name']) : false;
+                    if ($finfo) {
+                        finfo_close($finfo);
+                    }
 
-                    $nuevoNombre = uniqid('img_', true) . '.' . $extension;
-                    
-                    $rutaRelativaDestino = 'img/uploads/usuarios/' . $nuevoNombre;
-                    $rutaDestinoFisica = dirname(RAIZ_APP) . '/' . $rutaRelativaDestino;
-
-                    if (move_uploaded_file($archivo['tmp_name'], $rutaDestinoFisica)) {
-                        $imagen = $rutaRelativaDestino;
+                    if ($mimeReal === false || !isset($mimesPermitidos[$mimeReal])) {
+                        $this->errores[] = 'Formato de imagen no permitido (solo JPG o PNG).';
+                    } elseif (@getimagesize($archivo['tmp_name']) === false) {
+                        $this->errores[] = 'El archivo subido no es una imagen valida.';
                     } else {
-                        $this->errores[] = 'Error al guardar la imagen. Revisa los permisos de la carpeta.';
+                        $extensionSegura = $mimesPermitidos[$mimeReal];
+                        $nuevoNombre = uniqid('img_', true) . '.' . $extensionSegura;
+
+                        $rutaRelativaDestino = 'img/uploads/usuarios/' . $nuevoNombre;
+                        $rutaDestinoFisica = dirname(RAIZ_APP) . '/' . $rutaRelativaDestino;
+
+                        if (move_uploaded_file($archivo['tmp_name'], $rutaDestinoFisica)) {
+                            $imagen = $rutaRelativaDestino;
+                        } else {
+                            $this->errores[] = 'Error al guardar la imagen. Revisa los permisos de la carpeta.';
+                        }
                     }
                 }
             }
@@ -208,4 +222,5 @@ class FormularioActualizacion extends Formulario
         $this->urlRedireccion = RUTA_APP.'includes/vistas/usuarios/visualizarUsuarios.php';
     }
 }
+
 

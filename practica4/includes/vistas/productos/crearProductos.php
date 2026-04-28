@@ -29,24 +29,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
            $error = 'Error al subir la imagen.';
         } else {
             $archivo = $_FILES['imagenArchivo'];
-            $extensionesValidas = ['jpg', 'jpeg', 'png'];
-            $extension = strtolower(pathinfo($archivo['name'], PATHINFO_EXTENSION));
+            $mimesPermitidos = [
+                'image/jpeg' => 'jpg',
+                'image/png' => 'png',
+            ];
 
-            if (!in_array($extension, $extensionesValidas)) {
-                $error = 'Formato de imagen no permitido (solo JPG o PNG).';
-            } elseif ($archivo['size'] > 2000000) { // 2MB
-                $error = 'La imagen es demasiado grande (máximo 2MB).';
+            if (!is_uploaded_file($archivo['tmp_name'])) {
+                $error = 'Fichero de subida no valido.';
+            } elseif ($archivo['size'] > 2000000) {
+                $error = 'La imagen es demasiado grande (maximo 2MB).';
             } else {
+                $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                $mimeReal = $finfo ? finfo_file($finfo, $archivo['tmp_name']) : false;
+                if ($finfo) {
+                    finfo_close($finfo);
+                }
 
-                $nuevoNombre = uniqid('img_', true) . '.' . $extension;
-                
-                $rutaRelativaDestino = 'img/uploads/productos/' . $nuevoNombre;
-                $rutaDestinoFisica = dirname(RAIZ_APP) . '/' . $rutaRelativaDestino;
-
-                if (move_uploaded_file($archivo['tmp_name'], $rutaDestinoFisica)) {
-                    $imagenFinal = $rutaRelativaDestino;
+                if ($mimeReal === false || !isset($mimesPermitidos[$mimeReal])) {
+                    $error = 'Formato de imagen no permitido (solo JPG o PNG).';
+                } elseif (@getimagesize($archivo['tmp_name']) === false) {
+                    $error = 'El archivo subido no es una imagen valida.';
                 } else {
-                    $error = 'Error al guardar la imagen. Revisa los permisos de la carpeta.';
+                    $extensionSegura = $mimesPermitidos[$mimeReal];
+                    $nuevoNombre = uniqid('img_', true) . '.' . $extensionSegura;
+
+                    $rutaRelativaDestino = 'img/uploads/productos/' . $nuevoNombre;
+                    $rutaDestinoFisica = dirname(RAIZ_APP) . '/' . $rutaRelativaDestino;
+
+                    if (move_uploaded_file($archivo['tmp_name'], $rutaDestinoFisica)) {
+                        $imagenFinal = $rutaRelativaDestino;
+                    } else {
+                        $error = 'Error al guardar la imagen. Revisa los permisos de la carpeta.';
+                    }
                 }
             }
         }
@@ -110,7 +124,7 @@ $contenidoPrincipal = <<<EOS
             </select>
         </label></p>
         <p><label>Precio final: <input type="text" id="precio_final" data-sufijo="" readonly></label></p>
-        <p><label>Imagen: <input type="file" name="imagenArchivo" accept=".jpg,.jpeg,.png,.webp,.gif"></label></p>
+        <p><label>Imagen: <input type="file" name="imagenArchivo" accept=".jpg,.jpeg,.png"></label></p>
         <p><label><input type="checkbox" name="disponible" checked> Disponible</label></p>
         <p><label><input type="checkbox" name="ofertado" checked> Ofertado</label></p>
         <p>

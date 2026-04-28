@@ -43,6 +43,12 @@ define('RUTA_CSS', RUTA_APP.'css/');
 define('RUTA_JS', RUTA_APP.'js/');
 
 /**
+ * Pimienta para contraseñas (constante fuera de la BD).
+ * Cambia este valor por uno secreto en tu entorno.
+ */
+define('AUTH_PASSWORD_PEPPER', 'miApp');
+
+/**
  * Configuración del soporte de UTF-8, localización (idioma y país) y zona horaria
  */
 ini_set('default_charset', 'UTF-8');

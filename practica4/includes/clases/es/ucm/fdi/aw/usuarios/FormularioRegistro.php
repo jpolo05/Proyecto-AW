@@ -136,24 +136,37 @@ class FormularioRegistro extends Formulario
                 $this->errores[] = 'Error al subir la imagen.';
             } else {
                 $archivo = $_FILES['imagenURL'];
-                $extensionesValidas = ['jpg', 'jpeg', 'png'];
-                $extension = strtolower(pathinfo($archivo['name'], PATHINFO_EXTENSION));
+                $mimesPermitidos = [
+                    'image/jpeg' => 'jpg',
+                    'image/png' => 'png',
+                ];
 
-                if (!in_array($extension, $extensionesValidas)) {
-                    $this->errores[] = 'Formato de imagen no permitido (solo JPG o PNG).';
+                if (!is_uploaded_file($archivo['tmp_name'])) {
+                    $this->errores[] = 'Subida de fichero inválida.';
                 } elseif ($archivo['size'] > 2000000) { // 2MB
-                    $this->errores[] = 'La imagen es demasiado grande (mÃ¡ximo 2MB).';
+                    $this->errores[] = 'La imagen es demasiado grande (máximo 2MB).';
                 } else {
+                    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                    $mime = $finfo ? finfo_file($finfo, $archivo['tmp_name']) : false;
+                    if ($finfo) {
+                        finfo_close($finfo);
+                    }
+                    $esImagenReal = @getimagesize($archivo['tmp_name']) !== false;
 
-                    $nuevoNombre = uniqid('img_', true) . '.' . $extension;
-                    
-                    $rutaRelativaDestino = 'img/uploads/usuarios/' . $nuevoNombre;
-                    $rutaDestinoFisica = dirname(RAIZ_APP) . '/' . $rutaRelativaDestino;
-
-                    if (move_uploaded_file($archivo['tmp_name'], $rutaDestinoFisica)) {
-                        $imagenFinal = $rutaRelativaDestino;
+                    if ($mime === false || !isset($mimesPermitidos[$mime]) || !$esImagenReal) {
+                        $this->errores[] = 'Formato de imagen no permitido (solo JPG o PNG).';
                     } else {
-                        $this->errores[] = 'Error al guardar la imagen. Revisa los permisos de la carpeta.';
+                        $extensionSegura = $mimesPermitidos[$mime];
+                        $nuevoNombre = uniqid('img_', true) . '.' . $extensionSegura;
+
+                        $rutaRelativaDestino = 'img/uploads/usuarios/' . $nuevoNombre;
+                        $rutaDestinoFisica = dirname(RAIZ_APP) . '/' . $rutaRelativaDestino;
+
+                        if (move_uploaded_file($archivo['tmp_name'], $rutaDestinoFisica)) {
+                            $imagenFinal = $rutaRelativaDestino;
+                        } else {
+                            $this->errores[] = 'Error al guardar la imagen. Revisa los permisos de la carpeta.';
+                        }
                     }
                 }
             }
@@ -185,3 +198,5 @@ class FormularioRegistro extends Formulario
         }
     }
 }
+
+
