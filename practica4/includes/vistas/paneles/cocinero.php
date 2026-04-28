@@ -65,7 +65,7 @@ foreach ($pedidos as $p) {
 }
 
 if ($columnaPreparacion === '') {
-    $columnaPreparacion = '<p>No hay pedidos en preparacion.</p>';
+    $columnaPreparacion = '<p>No hay pedidos en preparación.</p>';
 }
 if ($columnaCocinando === '') {
     $columnaCocinando = '<p>No hay pedidos cocinando.</p>';
@@ -89,7 +89,7 @@ $contenidoPrincipal = <<<EOS
         </thead>
         <tbody>
             <tr>
-                <th>En preparacion</th>
+                <th>En preparación</th>
                 <th>Cocinando</th>
             </tr>
             <tr>

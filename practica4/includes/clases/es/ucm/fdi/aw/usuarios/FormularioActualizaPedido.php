@@ -61,7 +61,7 @@ class FormularioActualizaPedido extends Formulario
         $rol = $_SESSION['rol'] ?? '';
 
         if ($num <= 0 || $num !== $this->numeroPedido) {
-            $this->errores[] = 'El numero de pedido no es valido.';
+            $this->errores[] = 'El número de pedido no es válido.';
             return;
         }
 

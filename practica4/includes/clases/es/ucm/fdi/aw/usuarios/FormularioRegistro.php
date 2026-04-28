@@ -115,7 +115,7 @@ class FormularioRegistro extends Formulario
 
         $email = trim($datos['email'] ?? '');
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->errores['email'] = 'Debes introducir un email valido.';
+            $this->errores['email'] = 'Debes introducir un email válido.';
         }
 
         $password = trim($datos['password'] ?? '');

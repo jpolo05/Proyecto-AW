@@ -34,7 +34,7 @@ class Auth
         $rolUsuario = $_SESSION['rol'] ?? 'Cliente';
 
         if (!isset($prioridades[$rolUsuario]) || !isset($prioridades[$rolMinimoRequerido])) {
-            header('Location: '.RUTA_APP.'error.php?error=rol%20invalido');
+            header('Location: '.RUTA_APP.'error.php?error='.rawurlencode('rol inválido'));
             exit;
         }
 

@@ -93,6 +93,7 @@ if ($esGerente) {
         $cats = Categoria::listar();
         $tituloPagina = 'Carta';
         $urlVerOfertas = RUTA_APP.'includes/vistas/ofertas/listarOfertas.php?solo=activas&origen=carta';
+        $urlVerRecompensas = RUTA_APP.'includes/vistas/recompensas/listarRecompensas.php?origen=carta';
 
         $tablaCategorias = '
             <table class="tabla-carta-centro">
@@ -122,11 +123,12 @@ if ($esGerente) {
         <div class="seccion-titulo">
             <h2>Carta</h2>
         </div>
-            $mensajeHtml
-            $tablaCategorias
             <div class="buttons-estandar">
                 <a href="$urlVerOfertas" class="button-estandar">Ver ofertas</a>
+                <a href="$urlVerRecompensas" class="button-estandar">Ver recompensas</a>
             </div>
+            $mensajeHtml
+            $tablaCategorias
         EOS;
     } else {
         $categoria = Categoria::buscaPorId($idCategoria);
@@ -179,10 +181,15 @@ if ($esGerente) {
         $urlVolverCategorias = RUTA_APP.'includes/vistas/productos/listarProductos.php';
         $urlCrearPedido = RUTA_APP.'includes/vistas/pedidos/crearPedido.php';
         $urlVerOfertas = RUTA_APP.'includes/vistas/ofertas/listarOfertas.php?solo=activas&origen=carta';
+        $urlVerRecompensas = RUTA_APP.'includes/vistas/recompensas/listarRecompensas.php?origen=carta';
         $mensajeHtml = $msg !== '' ? '<p><strong>'.htmlspecialchars($msg, ENT_QUOTES, 'UTF-8').'</strong></p>' : '';
         $contenidoPrincipal = <<<EOS
             <div class="seccion-titulo">
                 <h2>Carta - $nombreCategoria</h2>
+            </div>
+            <div class="buttons-estandar">
+                <a href="$urlVerOfertas" class="button-estandar">Ver ofertas</a>
+                <a href="$urlVerRecompensas" class="button-estandar">Ver recompensas</a>
             </div>
             $mensajeHtml
             $tablaCarta
@@ -190,7 +197,6 @@ if ($esGerente) {
             <div class="buttons-estandar">
                 <a href="$urlVolverCategorias" class="button-estandar">Volver</a>
                 <a href="$urlCrearPedido" class="button-estandar">Crear pedido</a>
-                <a href="$urlVerOfertas" class="button-estandar">Ver ofertas</a>
             </div>
         EOS;
     }

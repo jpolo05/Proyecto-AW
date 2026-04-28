@@ -36,7 +36,7 @@ class FormularioBorrar extends Formulario
 
         $user = $_SESSION['user'] ?? null;
         if (!$user) {
-            $this->errores[] = 'Sesion no valida.';
+            $this->errores[] = 'Sesión no válida.';
             return;
         }
 

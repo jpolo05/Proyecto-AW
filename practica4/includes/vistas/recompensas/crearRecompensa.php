@@ -13,7 +13,7 @@ $bistroCoins = (int)($_POST['bistroCoins'] ?? 0);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!Auth::validaCsrfToken($_POST['csrfToken'] ?? null)) {
-        $error = 'Token CSRF invalido.';
+        $error = 'Token CSRF inválido.';
     }
 
     if ($error === '' && ($idProducto <= 0 || $bistroCoins <= 0)) {

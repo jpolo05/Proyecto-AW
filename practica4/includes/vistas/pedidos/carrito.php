@@ -45,7 +45,7 @@ $mensaje = $_GET['msg'] ?? '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!Auth::validaCsrfToken($_POST['csrfToken'] ?? null)) {
-        $error = 'Token CSRF invalido.';
+        $error = 'Token CSRF inválido.';
     } else {
         $accion = $_POST['accion'] ?? '';
         $tipo = $_POST['tipo'] ?? ($_SESSION['carrito']['tipo'] ?? 'Local');
@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($accion === 'finalizar') {
             if (empty($itemsNormalizados) && empty($recompensasNormalizadas)) {
-                $error = 'El carrito esta vacio.';
+                $error = 'El carrito está vacío.';
             } elseif ($coinsNecesarios > $bistroCoinsCliente) {
                 $error = 'No tienes BistroCoins suficientes para las recompensas seleccionadas.';
             } else {
@@ -194,7 +194,7 @@ if ($filas === '') {
     <table>
         <tr>
             <th>Producto</th>
-            <th>Descripcion</th>
+            <th>Descripción</th>
             <th>Precio</th>
             <th>Cantidad</th>
             <th>Subtotal</th>
@@ -231,7 +231,7 @@ if (!empty($recompensasDisponibles)) {
     <table>
         <tr>
             <th>Producto recompensa</th>
-            <th>Descripcion</th>
+            <th>Descripción</th>
             <th>Coste</th>
             <th>Estado</th>
             <th>Cantidad</th>
@@ -312,7 +312,7 @@ $contenidoPrincipal = <<<EOS
         <div class="campo-form">
             <label for="tipo"><strong>Tipo de pedido:</strong></label>
             <select name="tipo" id="tipo">
-                <option value="Local" $selLocal>Para tomar aqui</option>
+                <option value="Local" $selLocal>Para tomar aquí</option>
                 <option value="Llevar" $selLlevar>Para llevar</option>
             </select>
         </div>

@@ -19,9 +19,9 @@ class FormularioBorrarPedido extends Formulario
         return <<<EOF
         $htmlErroresGlobales
         <input type="hidden" name="numeroPedido" value="{$this->numeroPedido}">
-        <p>Estas seguro de que quieres eliminar este pedido?</p>
+        <p>¿Estás seguro de que quieres eliminar este pedido?</p>
         <div>
-            <button type="submit" name="borrar" class="button-estandar">Si</button>
+            <button type="submit" name="borrar" class="button-estandar">Sí</button>
             <a href="listarPedidos.php" class="button-estandar">No</a>
         </div>
         EOF;
@@ -35,12 +35,12 @@ class FormularioBorrarPedido extends Formulario
         $usuario = $_SESSION['user'] ?? '';
 
         if ($num <= 0) {
-            $this->errores[] = 'Numero de pedido no valido.';
+            $this->errores[] = 'Número de pedido no válido.';
             return;
         }
 
         if ($usuario === '') {
-            $this->errores[] = 'Sesion no valida.';
+            $this->errores[] = 'Sesión no válida.';
             return;
         }
 
@@ -61,7 +61,7 @@ class FormularioBorrarPedido extends Formulario
         }
 
         if ($rol === 'Cliente' && !Pedido::clientePuedeCancelarEstado((string)($pedido['estado'] ?? ''))) {
-            $this->errores[] = 'No puedes cancelar un pedido que ya esta en cocina o finalizado.';
+            $this->errores[] = 'No puedes cancelar un pedido que ya está en cocina o finalizado.';
             return;
         }
 

@@ -17,7 +17,7 @@ $rol = $_SESSION['rol'] ?? '';
 $usuario = $_SESSION['user'] ?? '';
 
 if ($numeroPedido <= 0) {
-    header('Location: '.RUTA_APP.'error.php?error=numeroPedido+invalido');
+    header('Location: '.RUTA_APP.'error.php?error='.rawurlencode('número de pedido inválido'));
     exit;
 }
 
@@ -71,14 +71,14 @@ if ($coinsGastadosPedidoValor > 0) {
 $lineaPedido = '
     <table>
         <tr>
-            <th>Numero pedido</th>
+            <th>Número pedido</th>
             <th>Producto</th>
             <th>Tipo</th>
             <th>Cantidad</th>
             <th>Subtotal</th>';
 
 if ($esModoCocina) {
-    $lineaPedido .= '<th>Accion</th>';
+    $lineaPedido .= '<th>Acción</th>';
 }
 $lineaPedido .= '</tr>';
 

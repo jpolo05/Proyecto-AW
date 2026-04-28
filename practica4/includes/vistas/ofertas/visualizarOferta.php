@@ -10,7 +10,7 @@ function h(string $text): string
 
 $id = (int) ($_GET['id'] ?? 0);
 if ($id <= 0) {
-    header('Location: '.RUTA_APP.'includes/vistas/ofertas/listarOfertas.php?msg=Oferta+invalida');
+    header('Location: '.RUTA_APP.'includes/vistas/ofertas/listarOfertas.php?msg='.rawurlencode('Oferta inválida'));
     exit;
 }
 
@@ -68,7 +68,7 @@ if (!empty($lineas)) {
 $contenidoPrincipal = <<<EOS
     <h1>Oferta #{$id}</h1>
     <p><strong>Nombre:</strong> {$nombre}</p>
-    <p><strong>Descripcion:</strong> {$descripcion}</p>
+    <p><strong>Descripción:</strong> {$descripcion}</p>
     <p><strong>Comienzo:</strong> {$comienzo}</p>
     <p><strong>Fin:</strong> {$fin}</p>
     <p><strong>Descuento:</strong> {$descuento}%</p>

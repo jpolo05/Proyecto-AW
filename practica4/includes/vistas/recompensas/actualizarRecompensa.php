@@ -19,7 +19,7 @@ $csrfToken = Auth::getCsrfToken();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!Auth::validaCsrfToken($_POST['csrfToken'] ?? null)) {
-        $error = 'Token CSRF invalido.';
+        $error = 'Token CSRF inválido.';
     }
 
     $idProducto = (int)($_POST['id_producto'] ?? 0);

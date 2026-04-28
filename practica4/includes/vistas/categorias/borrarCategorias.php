@@ -16,7 +16,7 @@ if (!$categoria) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!Auth::validaCsrfToken($_POST['csrfToken'] ?? null)) {
-        $msg = 'Token+CSRF+invalido';
+        $msg = rawurlencode('Token CSRF inválido');
     } else {
         $ok = Categoria::borrar($id);
         $msg = $ok ? 'Categoria+borrada' : 'No+se+pudo+borrar+la+categoria';

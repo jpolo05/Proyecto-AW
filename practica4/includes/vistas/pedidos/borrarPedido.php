@@ -11,7 +11,7 @@ $usuario = $_SESSION['user'] ?? '';
 $rol = $_SESSION['rol'] ?? '';
 
 if ($numeroPedido <= 0) {
-    header('Location: '.RUTA_APP.'error.php?error=numeroPedido+invalido');
+    header('Location: '.RUTA_APP.'error.php?error='.rawurlencode('número de pedido inválido'));
     exit;
 }
 

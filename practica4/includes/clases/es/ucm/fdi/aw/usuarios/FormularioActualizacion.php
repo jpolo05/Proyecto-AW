@@ -78,7 +78,7 @@ class FormularioActualizacion extends Formulario
                 {$erroresCampos['password']}
             </div>
             <div>
-                <label for="password_confirm">Confirme contrasena:</label>
+                <label for="password_confirm">Confirme contraseña:</label>
                 <input id="password_confirm" type="password" name="password_confirm" $estadoInput>
                 {$erroresCampos['password_confirm']}
             </div>
@@ -121,7 +121,7 @@ class FormularioActualizacion extends Formulario
 
         $user = $_SESSION['user'] ?? null;
         if (!$user) {
-            $this->errores[] = 'Sesion no valida.';
+            $this->errores[] = 'Sesión no válida.';
             return;
         }
 
@@ -141,18 +141,18 @@ class FormularioActualizacion extends Formulario
             $this->errores['apellidos'] = 'Los apellidos son obligatorios.';
         }
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->errores['email'] = 'Email invalido.';
+            $this->errores['email'] = 'Email inválido.';
         }
 
         if ($rolSesion !== 'Gerente') {
             $rol = $rolSesion;
         } elseif (!in_array($rol, ['Cliente', 'Cocinero', 'Camarero', 'Gerente'], true)) {
-            $this->errores['rol'] = 'Rol invalido.';
+            $this->errores['rol'] = 'Rol inválido.';
         }
 
         if ($pass1 !== '' || $pass2 !== '') {
             if ($pass1 !== $pass2) {
-                $this->errores['password_confirm'] = 'Las contrasenas no coinciden.';
+                $this->errores['password_confirm'] = 'Las contraseñas no coinciden.';
             }
             $hash = password_hash($pass1, PASSWORD_DEFAULT);
         } else {

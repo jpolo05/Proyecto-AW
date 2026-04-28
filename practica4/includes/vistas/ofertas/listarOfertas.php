@@ -24,19 +24,19 @@ function esOfertaCaducada(array $oferta): bool {
 
 function renderTablaOfertas(array $ofertas, bool $esGerente): string {
     if (empty($ofertas)) {
-        return '<p class="ofertas-texto-centrado">No hay ofertas en esta seccion.</p>';
+        return '<p class="ofertas-texto-centrado">No hay ofertas en esta sección.</p>';
     }
 
     $tabla = '<table class="tabla-carta-centro">
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Descripcion</th>
+                        <th>Descripción</th>
                         <th>Productos</th>
                         <th>Comienzo</th>
                         <th>Fin</th>
                         <th>Descuento</th>
-                        <th>Accion</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>';

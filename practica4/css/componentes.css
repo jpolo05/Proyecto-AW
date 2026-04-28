@@ -527,24 +527,63 @@ th:last-child, td:last-child {
     text-align: center;
 }
 
+.crear-pedido-contenido {
+    width: 100%;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 18px 0 26px 0;
+}
+
+.crear-pedido-info {
+    margin-top: 8px;
+    margin-bottom: 20px;
+}
+
+.crear-pedido-info p {
+    margin-bottom: 10px;
+}
+
+.crear-pedido-formulario {
+    width: 100%;
+}
+
+.crear-pedido-seccion {
+    margin-top: 24px;
+}
+
+.crear-pedido-seccion h2 {
+    margin-bottom: 14px;
+}
+
 .tabla-ofertas-pedido {
-    width: 42%;
-    margin: 0 auto 20px auto;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .tabla-productos-pedido {
-    width: 60%;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.tabla-recompensas-pedido {
+    width: 80%;
     margin: 0 auto;
 }
 
 .selector-tipo-pedido {
     text-align: center;
     font-size: 1.4rem;
+    margin-bottom: 14px;
 }
 
 .selector-tipo-pedido select {
     font-size: 1.2rem;
     padding: 6px 12px;
+}
+
+.crear-pedido-acciones {
+    text-align: center;
+    margin-top: 26px;
 }
 
 /* PANEL DE ADMINISTRACIÓN */
@@ -687,6 +726,16 @@ th:last-child, td:last-child {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     border-radius: 8px;
     overflow: hidden;
+}
+
+/* LISTADO DE PEDIDOS */
+.pedidos-centrado .pedidos-subtitulo,
+.pedidos-centrado p {
+    text-align: center;
+}
+
+.pedidos-acciones-finales {
+    margin-top: 16px;
 }
 
 /*PANEL COCINA*/

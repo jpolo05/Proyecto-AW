@@ -21,7 +21,7 @@ if (!$oferta) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!Auth::validaCsrfToken($_POST['csrfToken'] ?? null)) {
-        $msg = 'Token+CSRF+invalido';
+        $msg = rawurlencode('Token CSRF inválido');
     } else {
         $ok = Oferta::borrar($id);
         $msg = $ok ? 'Oferta+borrada' : 'No+se+pudo+borrar+la+oferta';
@@ -56,11 +56,11 @@ if (!empty($lineas)) {
 
 $contenidoPrincipal = <<<EOS
     <h1>Borrar oferta</h1>
-    <p>Esta accion eliminara la oferta de la base de datos y sus lineas asociadas.</p>
+    <p>Esta acción eliminará la oferta de la base de datos y sus líneas asociadas.</p>
     <ul>
         <li><strong>ID:</strong> {$idMostrado}</li>
         <li><strong>Nombre:</strong> {$nombre}</li>
-        <li><strong>Descripcion:</strong> {$descripcion}</li>
+        <li><strong>Descripción:</strong> {$descripcion}</li>
         <li><strong>Comienzo:</strong> {$comienzo}</li>
         <li><strong>Fin:</strong> {$fin}</li>
         <li><strong>Descuento:</strong> {$descuento}%</li>

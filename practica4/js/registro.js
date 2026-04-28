@@ -20,7 +20,7 @@ $("#email").change(function(){
         campo[0].setCustomValidity("");
     } 
     else {
-        // correo invalido: ponemos una marca e indicamos al usuario que no es valido
+        // correo inválido: ponemos una marca e indicamos al usuario que no es válido
         
         $("#correoOk").hide();
         $("#correoMal").show();

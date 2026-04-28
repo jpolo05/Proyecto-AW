@@ -17,7 +17,7 @@ if (!$recompensa) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!Auth::validaCsrfToken($_POST['csrfToken'] ?? null)) {
-        $msg = 'Token+CSRF+invalido';
+        $msg = rawurlencode('Token CSRF inválido');
     } else {
         $ok = Recompensa::borrar($id);
         $msg = $ok ? 'Recompensa+eliminada' : 'No+se+pudo+eliminar+la+recompensa';

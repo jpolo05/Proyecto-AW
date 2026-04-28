@@ -19,14 +19,14 @@ if ($rol === 'Gerente') {
     $tablaPedidos = '
         <table class="tabla-carta-centro">
             <tr>
-                <th>Numero pedido</th>
+                <th>Número pedido</th>
                 <th>Estado</th>
                 <th>Tipo</th>
                 <th>Cocinero</th>
                 <th>Foto</th>
                 <th>BistroCoins</th>
                 <th>Total</th>
-                <th>Accion</th>
+                <th>Acción</th>
             </tr>';
 
     foreach ($pedidos as $p) {
@@ -66,7 +66,7 @@ if ($rol === 'Gerente') {
     $pedidos = Pedido::listar_cliente($usuario);
     $urlCrearPedido = RUTA_APP.'includes/vistas/pedidos/crearPedido.php';
     $urlCarrito = RUTA_APP.'includes/vistas/pedidos/carrito.php';
-    $encabezadoExtra = '<p><a href="'.$urlCrearPedido.'" class="button-estandar">Anadir productos</a> <a href="'.$urlCarrito.'" class="button-estandar">Ver carrito</a></p>';
+    $encabezadoExtra = '<div class="buttons-estandar pedidos-acciones-finales"><a href="'.$urlCrearPedido.'" class="button-estandar">Añadir productos</a><a href="'.$urlCarrito.'" class="button-estandar">Ver carrito</a></div>';
 
     $pedidosEnCurso = [];
     $pedidosCompletados = [];
@@ -82,12 +82,12 @@ if ($rol === 'Gerente') {
     $tablaPedidosEnCurso = '
         <table>
             <tr>
-                <th>Numero pedido</th>
+                <th>Número pedido</th>
                 <th>Estado</th>
                 <th>Tipo</th>
                 <th>BistroCoins</th>
                 <th>Total</th>
-                <th>Accion</th>
+                <th>Acción</th>
             </tr>';
 
     foreach ($pedidosEnCurso as $p) {
@@ -123,18 +123,18 @@ if ($rol === 'Gerente') {
     if (empty($pedidosEnCurso)) {
         $tablaPedidosEnCurso = '<p>No tienes pedidos en curso.</p>';
     } else {
-        $tablaPedidosEnCurso = '<h2>Pedidos en curso</h2>'.$tablaPedidosEnCurso;
+        $tablaPedidosEnCurso = '<h2 class="pedidos-subtitulo">Pedidos en curso</h2>'.$tablaPedidosEnCurso;
     }
 
     $tablaPedidosCompletados = '
         <table>
             <tr>
-                <th>Numero pedido</th>
+                <th>Número pedido</th>
                 <th>Estado</th>
                 <th>Tipo</th>
                 <th>BistroCoins</th>
                 <th>Total</th>
-                <th>Accion</th>
+                <th>Acción</th>
             </tr>';
 
     foreach ($pedidosCompletados as $p) {
@@ -160,18 +160,20 @@ if ($rol === 'Gerente') {
     if (empty($pedidosCompletados)) {
         $tablaPedidosCompletados = '<p>No tienes pedidos completados.</p>';
     } else {
-        $tablaPedidosCompletados = '<h2>Pedidos completados</h2>'.$tablaPedidosCompletados;
+        $tablaPedidosCompletados = '<h2 class="pedidos-subtitulo">Pedidos completados</h2>'.$tablaPedidosCompletados;
     }
 
     $tablaPedidos = $tablaPedidosEnCurso.'<br>'.$tablaPedidosCompletados;
 }
 
 $contenidoPrincipal = <<<EOS
+    <div class="pedidos-centrado">
     <div class="seccion-titulo">
         <h1>Pedidos</h1>
     </div>
     $tablaPedidos
     $encabezadoExtra
+    </div>
 EOS;
 
 require __DIR__.'/../plantillas/plantilla.php';

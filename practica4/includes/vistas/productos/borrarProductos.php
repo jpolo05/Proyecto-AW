@@ -16,7 +16,7 @@ if (!$producto) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!Auth::validaCsrfToken($_POST['csrfToken'] ?? null)) {
-        $msg = 'Token+CSRF+invalido';
+        $msg = rawurlencode('Token CSRF inválido');
     } else {
         $ok = Producto::desofertar($id);
         $msg = $ok ? 'Producto+retirado+de+la+oferta' : 'No+se+pudo+retirar+el+producto';

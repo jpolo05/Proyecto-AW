@@ -301,6 +301,28 @@ class Pedido
                 return null;
             }
 
+            // Se consumen BistroCoins al finalizar el pedido en carrito.
+            if ($bistroCoinsGastadosPedido > 0) {
+                $sqlDetrae = "UPDATE usuarios
+                              SET bistroCoins = bistroCoins - ?
+                              WHERE user = ? AND bistroCoins >= ?";
+                $stmtDetrae = mysqli_prepare($conn, $sqlDetrae);
+                if (!$stmtDetrae) {
+                    mysqli_rollback($conn);
+                    return null;
+                }
+
+                mysqli_stmt_bind_param($stmtDetrae, "isi", $bistroCoinsGastadosPedido, $cliente, $bistroCoinsGastadosPedido);
+                $okDetrae = mysqli_stmt_execute($stmtDetrae);
+                $detraidos = $okDetrae ? mysqli_stmt_affected_rows($stmtDetrae) : 0;
+                mysqli_stmt_close($stmtDetrae);
+
+                if (!$okDetrae || $detraidos < 1) {
+                    mysqli_rollback($conn);
+                    return null;
+                }
+            }
+
             $descuentoTotal = self::calcularDescuentoOfertas($lineas, $ofertasSeleccionadas);
             $total = max(0, round($total - $descuentoTotal, 2));
 
@@ -603,27 +625,6 @@ class Pedido
             if ($cliente === '') {
                 mysqli_rollback($conn);
                 return false;
-            }
-
-            if ($bistroCoinsGastados > 0) {
-                $sqlDetrae = "UPDATE usuarios
-                              SET bistroCoins = bistroCoins - ?
-                              WHERE user = ? AND bistroCoins >= ?";
-                $stmtDetrae = mysqli_prepare($conn, $sqlDetrae);
-                if (!$stmtDetrae) {
-                    mysqli_rollback($conn);
-                    return false;
-                }
-
-                mysqli_stmt_bind_param($stmtDetrae, "isi", $bistroCoinsGastados, $cliente, $bistroCoinsGastados);
-                $okDetrae = mysqli_stmt_execute($stmtDetrae);
-                $detraidos = $okDetrae ? mysqli_stmt_affected_rows($stmtDetrae) : 0;
-                mysqli_stmt_close($stmtDetrae);
-
-                if (!$okDetrae || $detraidos < 1) {
-                    mysqli_rollback($conn);
-                    return false;
-                }
             }
 
             if ($bistroCoinsGanados > 0) {

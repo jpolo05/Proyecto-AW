@@ -31,13 +31,13 @@ class FormularioActualizaLineaPedido extends Formulario
         $rol = $_SESSION['rol'] ?? '';
 
         if (!in_array($rol, ['Cocinero', 'Gerente'], true)) {
-            $this->errores[] = "No tienes permisos para actualizar lineas de pedido.";
+            $this->errores[] = "No tienes permisos para actualizar líneas de pedido.";
             return;
         }
 
         $ok = Pedido::actualizarEstadoLinea($this->numPedido, $this->idProd);
         if (!$ok) {
-            $this->errores[] = "No se pudo actualizar la linea del pedido.";
+            $this->errores[] = "No se pudo actualizar la línea del pedido.";
         }
     }
 }

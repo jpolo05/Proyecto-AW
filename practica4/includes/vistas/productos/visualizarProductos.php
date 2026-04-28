@@ -9,7 +9,7 @@ function h(string $text): string {
 
 $id = (int)($_GET['id'] ?? 0);
 if ($id <= 0) {
-    header('Location: '.RUTA_APP.'includes/vistas/productos/listarProductos.php?msg=Producto+invalido');
+    header('Location: '.RUTA_APP.'includes/vistas/productos/listarProductos.php?msg='.rawurlencode('Producto inválido'));
     exit;
 }
 

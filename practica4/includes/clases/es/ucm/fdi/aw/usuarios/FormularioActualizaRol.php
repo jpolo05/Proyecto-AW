@@ -47,7 +47,7 @@ class FormularioActualizaRol extends Formulario
         $rol = $datos['nuevoRol'] ?? '';
 
         if (!in_array($rol, ['Cliente', 'Cocinero', 'Camarero', 'Gerente'], true)) {
-            $this->errores['nuevoRol'] = 'Rol no valido.';
+            $this->errores['nuevoRol'] = 'Rol no válido.';
             return;
         }
 

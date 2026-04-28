@@ -93,7 +93,7 @@ abstract class Formulario
         if (strcasecmp('GET', $this->method) !== 0) {
             $token = $datos['csrfToken'] ?? null;
             if (!Auth::validaCsrfToken($token)) {
-                $this->errores[] = 'Token CSRF invalido o ausente.';
+                $this->errores[] = 'Token CSRF inválido o ausente.';
                 return $this->generaFormulario($datos);
             }
         }
