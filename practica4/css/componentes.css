@@ -792,7 +792,6 @@ th:last-child, td:last-child {
     }
 }
 
-
 /* Ajuste para móviles: si la pantalla es pequeña, la tabla no se aplasta */
 @media (max-width: 600px) {
     table {

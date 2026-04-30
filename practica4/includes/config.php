@@ -1,8 +1,8 @@
 <?php
-use es\ucm\fdi\aw\Aplicacion;
+use es\ucm\fdi\aw\Aplicacion; //Usa la clase Aplicacion
 
 /**
- * Autoload
+ * Autoload (funcion sacada del ejercicio 2)
  */
 spl_autoload_register(function ($class) {
 
@@ -28,7 +28,6 @@ spl_autoload_register(function ($class) {
  * Parámetros de conexión a la BD
  */
 define('BD_HOST', 'localhost');
-//define('BD_HOST', '172.17.0.2');
 define('BD_NAME', 'awp4');
 define('BD_USER', 'awp4');
 define('BD_PASS', 'awp4');
@@ -43,8 +42,7 @@ define('RUTA_CSS', RUTA_APP.'css/');
 define('RUTA_JS', RUTA_APP.'js/');
 
 /**
- * Pimienta para contraseñas (constante fuera de la BD).
- * Cambia este valor por uno secreto en tu entorno.
+ * Pimienta para contraseñas
  */
 define('AUTH_PASSWORD_PEPPER', 'miApp');
 
@@ -56,11 +54,11 @@ setLocale(LC_ALL, 'es_ES.UTF.8');
 date_default_timezone_set('Europe/Madrid');
 
 // Inicializa la aplicación
-$app = Aplicacion::getInstance();
+$app = Aplicacion::getInstance(); //No usamos new Aplicacion() ya que solo debe haber 1 objeto de este tipo
 $app->init(['host'=>BD_HOST, 'bd'=>BD_NAME, 'user'=>BD_USER, 'pass'=>BD_PASS]);
 
 /**
  * @see http://php.net/manual/en/function.register-shutdown-function.php
  * @see http://php.net/manual/en/language.types.callable.php
  */
-register_shutdown_function([$app, 'shutdown']);
+register_shutdown_function([$app, 'shutdown']); //Registra una funcion que se ejecutara cuando se cierre la pagina
