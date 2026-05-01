@@ -1,14 +1,16 @@
 <?php
 namespace es\ucm\fdi\aw\usuarios;
-use es\ucm\fdi\aw\Formulario;
+use es\ucm\fdi\aw\Formulario; //Usa la clase Formulario
 
-class FormularioLogin extends Formulario
+class FormularioLogin extends Formulario //Hereda de Formulario
 {
+    //Constructor
     public function __construct()
     {
-        parent::__construct('formLogin');
+        parent::__construct('formLogin'); //Constructor de la clase padre
     }
 
+    //Metodo que genera el contenido interno del formulario
     protected function generaCamposFormulario(&$datos)
     {
         $nombreUsuario = $datos['nombreUsuario'] ?? '';
@@ -17,6 +19,7 @@ class FormularioLogin extends Formulario
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'password'], $this->errores, 'span', ['class' => 'error']);
 
+        //Devuelve el HTML correspondiente
         return <<<EOF
         $htmlErroresGlobales
         <div class="contenedor-login">

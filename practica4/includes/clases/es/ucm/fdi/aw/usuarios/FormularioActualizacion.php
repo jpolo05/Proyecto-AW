@@ -2,42 +2,52 @@
 namespace es\ucm\fdi\aw\usuarios;
 use es\ucm\fdi\aw\Formulario; //Usa la clase Formulario
 
+//Formulario para editar el perfil de usuario
 class FormularioActualizacion extends Formulario //Hereda de Formulario
 {
+    //Llamada al constructor de la clase padre
     public function __construct()
     {
-        parent::__construct('formActualizacionUsuario', ['enctype' => 'multipart/form-data']);
+        parent::__construct('formActualizacionUsuario', ['enctype' => 'multipart/form-data']); //multipart/form-data se usa para poder subir archivos (foto perfil)
     }
 
+    //Genera el HTML del formulario
     protected function generaCamposFormulario(&$datos)
     {
+        //Datos
         $user = $_SESSION['user'] ?? '';
         $nombre = $datos['nombre'] ?? ($_SESSION['nombre'] ?? '');
         $apellidos = $datos['apellidos'] ?? ($_SESSION['apellidos'] ?? '');
         $email = $datos['email'] ?? ($_SESSION['email'] ?? '');
         $rol = $datos['rol'] ?? ($_SESSION['rol'] ?? 'Cliente');
+
+        //Convierte caracteres especiales antes de meterlos en HTML (seguridad)
         $user = htmlspecialchars((string)$user, ENT_QUOTES, 'UTF-8');
         $nombre = htmlspecialchars((string)$nombre, ENT_QUOTES, 'UTF-8');
         $apellidos = htmlspecialchars((string)$apellidos, ENT_QUOTES, 'UTF-8');
         $email = htmlspecialchars((string)$email, ENT_QUOTES, 'UTF-8');
         $rol = htmlspecialchars((string)$rol, ENT_QUOTES, 'UTF-8');
         $imagen = $datos['imagen'] ?? ($_SESSION['imagen'] ?? 'default.jpg');
-        $imagenBase = basename((string)$imagen);
-        $isAdmin = $rol === 'Gerente';
 
+        $imagenBase = basename((string)$imagen); //Obtiene el nombre de la imagen del usuario
+        $isAdmin = $rol === 'Gerente'; //Comrpueba si es gerente
+
+        //Controla si se puede o no editar la contraseña (para evitar cambiarla por accidente)
         $editandoPass = isset($_GET['editarPass']) && $_GET['editarPass'] == 1;
         $estadoInput = $editandoPass ? '' : 'disabled';
         $estadoBoton = $editandoPass ? 'disabled' : '';
         $enlaceBoton = $editandoPass ? '' : 'actualizarUsuarios.php?editarPass=1';
 
-        $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores, 'error');
-        $erroresCampos = self::generaErroresCampos(
+        //Manejo de errores
+        $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores, 'error'); //Genera los errores generales
+        $erroresCampos = self::generaErroresCampos( //Genera errores para campos concretos
             ['nombre', 'apellidos', 'email', 'password', 'password_confirm', 'rol'],
             $this->errores,
             'span',
             ['class' => 'error']
         );
 
+        //Selector de rol (si es gerente puede seleccionar roles)
         if (!$isAdmin) {
             $selectRol = "<label>Rol asignado: </label><span>$rol</span><input type='hidden' name='rol' value='$rol'>";
         } else {
@@ -48,11 +58,13 @@ class FormularioActualizacion extends Formulario //Hereda de Formulario
             }
         }
 
+        //Seleccion de imagen de avatar predeterminada
         $selDefault = $imagenBase === 'default.jpg' ? 'selected' : '';
         $selA1 = $imagenBase === 'avatar1.jpg' ? 'selected' : '';
         $selA2 = $imagenBase === 'avatar2.jpg' ? 'selected' : '';
         $selA3 = $imagenBase === 'avatar3.jpg' ? 'selected' : '';
 
+        //Devuelve el HTML correspondiente
         return <<<EOF
         $htmlErroresGlobales
         <fieldset>
@@ -110,21 +122,25 @@ class FormularioActualizacion extends Formulario //Hereda de Formulario
         EOF;
     }
 
+    //Procesamiento tras enviar el formulario
     protected function procesaFormulario(&$datos)
     {
-        $this->errores = [];
+        $this->errores = []; //Vacia errores anteriores
 
+        //Si se pulsa cancelar no actualiza nada
         if(isset($datos['cancelar'])){
-            $this->urlRedireccion = RUTA_APP.'includes/vistas/usuarios/visualizarUsuarios.php';
+            $this->urlRedireccion = RUTA_APP.'includes/vistas/usuarios/visualizarUsuarios.php'; //Redireccion a visualizarUsuarios
             return;
         }
 
+        //Comprobacion de sesion (si no hay usuario en sesion no se actualiza perfil)
         $user = $_SESSION['user'] ?? null;
         if (!$user) {
             $this->errores[] = 'Sesión no válida.';
             return;
         }
 
+        //Recoleccion de datos enviados
         $nombre = trim($datos['nombre'] ?? '');
         $apellidos = trim($datos['apellidos'] ?? '');
         $email = trim($datos['email'] ?? '');
@@ -134,41 +150,46 @@ class FormularioActualizacion extends Formulario //Hereda de Formulario
         $rolSesion = $_SESSION['rol'] ?? 'Cliente';
         $rol = $datos['rol'] ?? $rolSesion;
 
+        //Validaciones (campos obligatorios)
         if ($nombre === '') {
             $this->errores['nombre'] = 'El nombre es obligatorio.';
         }
         if ($apellidos === '') {
             $this->errores['apellidos'] = 'Los apellidos son obligatorios.';
         }
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { //Comprueba email formato valido
             $this->errores['email'] = 'Email inválido.';
         }
 
+        //Comprobacion selector de rol (si no es gerente no puede)
         if ($rolSesion !== 'Gerente') {
             $rol = $rolSesion;
         } elseif (!in_array($rol, ['Cliente', 'Cocinero', 'Camarero', 'Gerente'], true)) {
-            $this->errores['rol'] = 'Rol inválido.';
+            $this->errores['rol'] = 'Rol inválido.'; //Comprueba si el rol elegido esta permitido
         }
 
+        //Cambio de contraseña
         if ($pass1 !== '' || $pass2 !== '') {
             if ($pass1 !== $pass2) {
-                $this->errores['password_confirm'] = 'Las contraseñas no coinciden.';
+                $this->errores['password_confirm'] = 'Las contraseñas no coinciden.'; //Si no coinciden
             }
-            $hash = $pass1;
+            $hash = $pass1; //Cambia la contraseña
         } else {
-            $hash = null;
+            $hash = null; //Hash a null hace que no se cambie la contraseña
         }
 
-        if (isset($_FILES['imagenURL']) && $_FILES['imagenURL']['error'] !== UPLOAD_ERR_NO_FILE) {
+        //Subida de imagen (avatar)
+        if (isset($_FILES['imagenURL']) && $_FILES['imagenURL']['error'] !== UPLOAD_ERR_NO_FILE) { //Comprueba si se ha subido una imagen
             if ($_FILES['imagenURL']['error'] !== UPLOAD_ERR_OK) {
-                $this->errores[] = 'Error al subir la imagen.';
+                $this->errores[] = 'Error al subir la imagen.'; //Error de subida
             } else {
                 $archivo = $_FILES['imagenURL'];
-                $mimesPermitidos = [
-                    'image/jpeg' => 'jpg',
+                $mimesPermitidos = [ //Formatos permitidos
+                    'image/jpeg' => 'jpg', 
                     'image/png' => 'png',
                 ];
 
+                //Comprobaciones
                 if (!is_uploaded_file($archivo['tmp_name'])) {
                     $this->errores[] = 'Fichero de subida no valido.';
                 } elseif ($archivo['size'] > 2000000) {
@@ -179,7 +200,6 @@ class FormularioActualizacion extends Formulario //Hereda de Formulario
                     if ($finfo) {
                         finfo_close($finfo);
                     }
-
                     if ($mimeReal === false || !isset($mimesPermitidos[$mimeReal])) {
                         $this->errores[] = 'Formato de imagen no permitido (solo JPG o PNG).';
                     } elseif (@getimagesize($archivo['tmp_name']) === false) {
@@ -192,7 +212,7 @@ class FormularioActualizacion extends Formulario //Hereda de Formulario
                         $rutaDestinoFisica = dirname(RAIZ_APP) . '/' . $rutaRelativaDestino;
 
                         if (move_uploaded_file($archivo['tmp_name'], $rutaDestinoFisica)) {
-                            $imagen = $rutaRelativaDestino;
+                            $imagen = $rutaRelativaDestino; //Si todo va bien se actualiza la ruta (nueva imagen)
                         } else {
                             $this->errores[] = 'Error al guardar la imagen. Revisa los permisos de la carpeta.';
                         }
@@ -201,16 +221,19 @@ class FormularioActualizacion extends Formulario //Hereda de Formulario
             }
         }
 
+        //Si hay errores se sale (no actualiza)
         if (count($this->errores) > 0) {
             return;
         }
 
+        //Llamada a crearEditar para guardar los cambios
         $exito = Usuario::crearEditar($user, $email, $nombre, $apellidos, $hash, $rol, $imagen);
         if (!$exito) {
             $this->errores[] = 'No se pudo actualizar el usuario.';
             return;
         }
 
+        //Actualizacion de los datos guardados en la sesion
         $_SESSION['nombre'] = $nombre;
         $_SESSION['apellidos'] = $apellidos;
         $_SESSION['email'] = $email;
@@ -219,7 +242,7 @@ class FormularioActualizacion extends Formulario //Hereda de Formulario
         $_SESSION['imagen'] = $usuarioActualizado ? $usuarioActualizado->getImagen() : $imagen;
         $_SESSION['isAdmin'] = ($rol === 'Gerente');
 
-        $this->urlRedireccion = RUTA_APP.'includes/vistas/usuarios/visualizarUsuarios.php';
+        $this->urlRedireccion = RUTA_APP.'includes/vistas/usuarios/visualizarUsuarios.php'; //Si todo va bien redirige a visualizarUsuarios
     }
 }
 
