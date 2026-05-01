@@ -1,8 +1,8 @@
 <?php
 namespace es\ucm\fdi\aw\usuarios;
-use es\ucm\fdi\aw\Formulario;
+use es\ucm\fdi\aw\Formulario; //Usa la clase Formulario
 
-class FormularioActualizacion extends Formulario
+class FormularioActualizacion extends Formulario //Hereda de Formulario
 {
     public function __construct()
     {

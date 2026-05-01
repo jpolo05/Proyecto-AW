@@ -54,7 +54,7 @@ setLocale(LC_ALL, 'es_ES.UTF.8');
 date_default_timezone_set('Europe/Madrid');
 
 // Inicializa la aplicación
-$app = Aplicacion::getInstance(); //No usamos new Aplicacion() ya que solo debe haber 1 objeto de este tipo
+$app = Aplicacion::getInstance(); //No usamos new Aplicacion() ya que solo debe haber 1 objeto (instancia) de este tipo
 $app->init(['host'=>BD_HOST, 'bd'=>BD_NAME, 'user'=>BD_USER, 'pass'=>BD_PASS]);
 
 /**
