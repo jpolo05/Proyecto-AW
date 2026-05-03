@@ -35,7 +35,7 @@ class FormularioBorrarPedido extends Formulario //Hereda de Formulario
     //Metodo que se ejecuta despues de pulsar SI
     protected function procesaFormulario(&$datos)
     {
-        $this->errores = []; //Linmpia errores
+        $this->errores = []; //Vacia errores
 
         //Obtiene datos necesarios
         $num = (int)($datos['numeroPedido'] ?? 0);

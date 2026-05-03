@@ -32,7 +32,7 @@ class FormularioActualizaLineaPedido extends Formulario //Hereda de Formulario
     //Metodo que se ejecuta al pulsar el boton listo
     protected function procesaFormulario(&$datos)
     {
-        $this->errores = []; //Limpia la lista de errores
+        $this->errores = []; //Vacia la lista de errores
         $rol = $_SESSION['rol'] ?? ''; //Obtiene el rol del usuario
 
         //Comprueba que sea cocinero o gerente

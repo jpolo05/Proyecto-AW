@@ -46,7 +46,7 @@ class FormularioActualizaRol extends Formulario //Hereda de Formulario
     //Metodo que se ejecuta al pulsar guardar
     protected function procesaFormulario(&$datos)
     {
-        $this->errores = []; //Limpia errores
+        $this->errores = []; //Vacia errores
 
         //Comprueba permisos
         $rolSesion = $_SESSION['rol'] ?? '';

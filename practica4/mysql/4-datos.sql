@@ -1,7 +1,9 @@
-/*
+﻿/*
   Recuerda deshabilitar "Enable foreign key checks" para evitar problemas al importar.
 */
 
+-- Vacia tablas antes de cargar datos de prueba
+-- Se espera ejecutar con comprobacion de claves foraneas deshabilitada
 TRUNCATE TABLE `linea_pedido`;
 TRUNCATE TABLE `pedidos`;
 TRUNCATE TABLE `productos`;
@@ -11,13 +13,17 @@ TRUNCATE TABLE `lineas_oferta`;
 TRUNCATE TABLE `ofertas`;
 
 -- Datos de prueba
+-- Categorias iniciales de la carta
 INSERT INTO `categorias` (`nombre`, `descripcion`, `imagen`) VALUES
 ('Entrantes', 'Platos para empezar', 'img/uploads/categorias/entrantes.jpg'),
 ('Ensaladas', 'Opciones frescas y ligeras', 'img/uploads/categorias/ensaladas.jpg'),
 ('Principales', 'Platos principales', 'img/uploads/categorias/principales.jpg'),
-('Postres', 'Dulces y cafes', 'img/uploads/categorias/postres.jpg'),
+('Postres', 'Dulces y cafés', 'img/uploads/categorias/postres.jpg'),
 ('Bebidas', 'Refrescos, cervezas y agua', 'img/uploads/categorias/bebidas.jpg');
 
+-- Productos iniciales
+-- id_categoria apunta a las categorias insertadas arriba
+-- disponible=1 permite pedirlos y ofertado=1 los muestra en la carta
 INSERT INTO `productos` (`nombre`, `descripcion`, `id_categoria`, `precio_base`, `iva`, `disponible`, `ofertado`, `imagen`) VALUES
 ('Croquetas caseras', 'Croquetas de jamón', 1, 6.50, 10, 1, 1, 'img/uploads/productos/croquetas.jpg'),
 ('Patatas bravas', 'Patatas con salsa brava casera', 1, 5.80, 10, 1, 1, 'img/uploads/productos/patatas_bravas.jpg'),
@@ -31,8 +37,13 @@ INSERT INTO `productos` (`nombre`, `descripcion`, `id_categoria`, `precio_base`,
 ('Agua mineral', 'Botella 50cl', 5, 1.80, 10, 1, 1, 'img/uploads/productos/agua.jpg'),
 ('Ensalada cesar', 'Lechuga, pollo, parmesano y salsa cesar', 2, 8.90, 10, 1, 1, 'img/uploads/productos/ensalada_cesar.jpg');
 
+-- Usuarios iniciales
+-- Las contraseñas estan guardadas con hash bcrypt
+-- Incluye un usuario de cada rol principal para pruebas
 INSERT INTO `usuarios` (`user`, `email`, `nombre`, `apellidos`, `contrasena`, `rol`, `imagen`) VALUES
 ('camarero', 'camarero@gmail.com', 'Luisa', 'Perez', '$2y$10$faMu5gjcaM67nIlu1GMSFe1eEMbS3Oq2pv3bblRGs2SgaCjjrPI32', 'Camarero', 'img/uploads/usuarios/img_69b14259473ea8.36904842.png'),
 ('cliente', 'cliente@gmail.com', 'Pablo', 'Galindo', '$2y$10$K0UMSLeDvh/fF2vI4KPl1.PZWM5uAihKxSX5Gml5pliaXY44J6w46', 'Cliente', 'img/uploads/usuarios/default.jpg'),
 ('cocinero', 'cocinero@gmail.com', 'Jorge', 'Garcia', '$2y$10$yUBNbN6cbXBME9HaP1KFYOpHTIbY.wEp/onR1jr7vLKdO.TmVV2BK', 'Cocinero', 'img/uploads/usuarios/img_69b14288349b83.44261640.png'),
 ('gerente', 'gerente@gmail.com', 'Juan', 'Lopez', '$2y$10$XuL9XX0MrDNZpMz9W6ZG1eAAVCiFTrolRGuu8cDLiIyvSfKdK.oUK', 'Gerente', 'img/uploads/usuarios/gerente.png');
+
+

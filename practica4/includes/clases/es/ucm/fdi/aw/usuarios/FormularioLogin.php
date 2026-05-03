@@ -13,11 +13,11 @@ class FormularioLogin extends Formulario //Hereda de Formulario
     //Metodo que genera el contenido interno del formulario
     protected function generaCamposFormulario(&$datos)
     {
-        $nombreUsuario = $datos['nombreUsuario'] ?? '';
-        $nombreUsuario = htmlspecialchars((string)$nombreUsuario, ENT_QUOTES, 'UTF-8');
+        $nombreUsuario = $datos['nombreUsuario'] ?? ''; //Recupera el nombre de usuario escrito antes (por si se pone mal la contraseña)
+        $nombreUsuario = htmlspecialchars((string)$nombreUsuario, ENT_QUOTES, 'UTF-8'); //Evita que se introduzca HTML (seguridad)
 
-        $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'password'], $this->errores, 'span', ['class' => 'error']);
+        $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores); //Genera los errores generales
+        $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'password'], $this->errores, 'span', ['class' => 'error']); //Genera los errores concretos de cada campo
 
         //Devuelve el HTML correspondiente
         return <<<EOF
@@ -48,30 +48,35 @@ class FormularioLogin extends Formulario //Hereda de Formulario
         EOF;
     }
 
+    //Metodo que se ejecuta despues de pulsar entrar
     protected function procesaFormulario(&$datos)
     {
-        $this->errores = [];
+        $this->errores = []; //Vacia errores
 
-        $nombreUsuario = trim($datos['nombreUsuario'] ?? '');
-        $nombreUsuario = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $nombreUsuario = trim($datos['nombreUsuario'] ?? ''); //Recoge el nombre de usuario enviado
+        $nombreUsuario = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS); //Quita caracteres especiales
+
         if (!$nombreUsuario) {
             $this->errores['nombreUsuario'] = 'El nombre de usuario no puede estar vacio.';
         }
 
-        $password = trim($datos['password'] ?? '');
-        $password = filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $password = trim($datos['password'] ?? ''); //Recoge contraseña enviada
+        $password = filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS); //Quita caracteres especiales
+
         if (!$password) {
             $this->errores['password'] = 'El password no puede estar vacio.';
         }
 
-        if (count($this->errores) === 0) {
-            $usuario = Usuario::login($nombreUsuario, $password);
-            if (!$usuario) {
+        if (count($this->errores) === 0) { //Si no hay errores
+            $usuario = Usuario::login($nombreUsuario, $password); //Llama al metodo login (busca el usuario en la BD)
+            if (!$usuario) { //Si no encuentra al usuario en la BD
                 $this->errores[] = 'El usuario o el password no coinciden.';
                 return;
             }
 
-            session_regenerate_id(true);
+            session_regenerate_id(true); //Cambia el id de sesion (seguridad)
+
+            //Guarda los datos de usuario en la sesion
             $_SESSION['login'] = true;
             $_SESSION['user'] = $usuario->getNombreUsuario();
             $_SESSION['nombre'] = $usuario->getNombre();
@@ -81,7 +86,7 @@ class FormularioLogin extends Formulario //Hereda de Formulario
             $_SESSION['imagen'] = $usuario->getImagen();
             $_SESSION['bistroCoins'] = $usuario->getBistroCoins();
 
-            $this->urlRedireccion = Usuario::rutaPorRol($usuario->getRol());
+            $this->urlRedireccion = Usuario::rutaPorRol($usuario->getRol()); //Redirige segun rol
         }
     }
 }

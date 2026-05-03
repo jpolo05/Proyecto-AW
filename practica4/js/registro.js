@@ -1,32 +1,24 @@
+//Comprueba si el correo termina en @gmail.com
 function correoValido(correo){
     return correo.toLowerCase().endsWith('@gmail.com');
 }
 
-$("#email").change(function(){
-    const campo = $("#email"); // referencia jquery al campo
-    campo[0].setCustomValidity(""); // limpia validaciones previas
-    // validación html5, porque el campo es <input type="email" ...>
-    $("#correoOk").hide();
-    $("#correoMal").hide();
+$("#email").change(function(){ //Cuando cambia el campo email
+    const campo = $("#email"); //Referencia jquery al campo
+    campo[0].setCustomValidity(""); //Limpia validaciones previas
+    $("#correoOk").hide(); //Oculta marca de correcto
+    $("#correoMal").hide(); //Oculta marca de error
     
-    const esCorreoValido = campo[0].checkValidity();
-    if (esCorreoValido && correoValido(campo.val())) {
-        // el correo es válido y acaba por @gmail.com
-
-        $("#correoOk").show();
-        $("#correoMal").hide();
-        // <-- aquí pongo la marca apropiada, y quito (si la hay) la otra
-        // y lo marco como válido
-        campo[0].setCustomValidity("");
+    const esCorreoValido = campo[0].checkValidity(); //Usa validacion HTML5 del input email
+    if (esCorreoValido && correoValido(campo.val())) { //Si es email valido y acaba en @gmail.com
+        $("#correoOk").show(); //Muestra marca correcta
+        $("#correoMal").hide(); //Oculta marca incorrecta
+        campo[0].setCustomValidity(""); //Deja el campo como valido
     } 
-    else {
-        // correo inválido: ponemos una marca e indicamos al usuario que no es válido
-        
-        $("#correoOk").hide();
-        $("#correoMal").show();
-        // <-- aquí pongo la marca apropiada, y quito (si la hay) la otra
-        // y pongo un mensaje como no-válido
+    else { //Si el correo no es valido
+        $("#correoOk").hide(); //Oculta marca correcta
+        $("#correoMal").show(); //Muestra marca incorrecta
         campo[0].setCustomValidity(
-            "El correo debe ser válido y acabar por @gmail.com");
+            "El correo debe ser valido y acabar por @gmail.com"); //Mensaje de error del navegador
     }
 });

@@ -30,7 +30,7 @@ class FormularioBorrar extends Formulario //Hereda de Formulario
     //Metodo que se ejecuta cuando se pulsa SI o NO
     protected function procesaFormulario(&$datos)
     {
-        $this->errores = []; //Limpia errores
+        $this->errores = []; //Vacia errores
 
         if (isset($datos['cancelar'])){ //Si pulsa NO
             $this->urlRedireccion = 'visualizarUsuarios.php'; //Redirige

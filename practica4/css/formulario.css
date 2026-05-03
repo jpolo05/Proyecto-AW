@@ -1,5 +1,6 @@
-/*Aquí va todo lo de formularios, para Login, Registro y Actualizar*/
+/*Estilos comunes para formularios de login, registro y actualizar*/
 
+/*Caja principal del formulario*/
 .formulario-estandar {
     max-width: 600px;
     margin: 0 auto;
@@ -9,16 +10,19 @@
     background: #fff;
 }
 
+/*Separacion entre campos*/
 .formulario-estandar div {
     margin-bottom: 15px;
 }
 
+/*Texto de cada campo*/
 .formulario-estandar label {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
 }
 
+/*Inputs normales del formulario*/
 .formulario-estandar input {
     width: 100%;
     padding: 10px;
@@ -26,6 +30,7 @@
     border-radius: 5px;
 }
 
+/*Campos de texto largos y desplegables*/
 .formulario-estandar textarea,
 .formulario-estandar select {
     width: 100%;
@@ -35,6 +40,7 @@
     box-sizing: border-box;
 }
 
+/*Agrupacion de campos relacionados*/
 .formulario-estandar fieldset {
     margin-bottom: 20px;
     border: 1px solid #ddd;
@@ -42,11 +48,13 @@
     padding: 15px;
 }
 
+/*Titulo del fieldset*/
 .formulario-estandar legend {
     font-weight: bold;
     padding: 0 8px;
 }
 
+/*Indicador oculto para validar correo*/
 .indicador-correo {
     display: none;
 }

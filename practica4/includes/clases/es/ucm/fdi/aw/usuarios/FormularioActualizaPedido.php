@@ -67,7 +67,7 @@ class FormularioActualizaPedido extends Formulario //Hereda de Formulario
 
     protected function procesaFormulario(&$datos)
     {
-        $this->errores = []; //Limpia errores anteriores
+        $this->errores = []; //Vacia errores anteriores
 
         $num = (int)($datos['numeroPedido'] ?? 0); //Numero de pedido enviado
         $rol = $_SESSION['rol'] ?? ''; //Rol del usuario actual

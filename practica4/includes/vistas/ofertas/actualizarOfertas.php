@@ -1,52 +1,53 @@
 <?php
-use es\ucm\fdi\aw\usuarios\Auth;
-use es\ucm\fdi\aw\usuarios\Oferta;
-use es\ucm\fdi\aw\usuarios\Producto;
+use es\ucm\fdi\aw\usuarios\Auth; //Usa la clase Auth
+use es\ucm\fdi\aw\usuarios\Oferta; //Usa la clase Oferta
+use es\ucm\fdi\aw\usuarios\Producto; //Usa la clase Producto
 
-require_once __DIR__.'/../../config.php';
-Auth::verificarAcceso('Gerente');
+require_once __DIR__.'/../../config.php'; //Carga config.php (1 sola vez)
+Auth::verificarAcceso('Gerente'); //Solo permite entrar a usuarios con rol Gerente
 
-$id = (int)($_GET['id'] ?? $_POST['id'] ?? 0);
-$oferta = $id > 0 ? Oferta::buscaPorId($id) : null;
+$id = (int)($_GET['id'] ?? $_POST['id'] ?? 0); //Intenta obtener el id de la oferta (de GET o de POST)
+$oferta = $id > 0 ? Oferta::buscaPorId($id) : null; //Si el id es mayor que 0, busca la oferta en la base de datos, si no lo deja null
 
-if (!$oferta) {
-    header('Location: '.RUTA_APP.'includes/vistas/ofertas/listarOfertas.php?msg=Oferta+no+encontrada');
+if (!$oferta) { //Si no encuentra oferta
+    header('Location: '.RUTA_APP.'includes/vistas/ofertas/listarOfertas.php?msg=Oferta+no+encontrada'); //Redirige a la lista de ofertas (con un mensaje)
     exit;
 }
 
-$productos = Producto::listarNombres();
-$error = '';
-$csrfToken = Auth::getCsrfToken();
+$productos = Producto::listarNombres(); //Lista productos para poder seleccionarlos
+$error = ''; //Prepara mensaje error
+$csrfToken = Auth::getCsrfToken(); //Obtiene un token CSRF (seguridad)
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!Auth::validaCsrfToken($_POST['csrfToken'] ?? null)) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') { //Comprueba si la pagina se esta cargando por un envio de formulario (POST)
+    if (!Auth::validaCsrfToken($_POST['csrfToken'] ?? null)) { //Comprueba que el token sea correcto
         $error = 'Token CSRF inválido.';
     }
 
+    //Recoge datos enviados
     $nombrePost = trim($_POST['nombre'] ?? '');
     $descripcionPost = trim($_POST['descripcion'] ?? '');
-    $comienzoPost = trim($_POST['comienzo'] ?? '');
-    $finPost = trim($_POST['fin'] ?? '');
-    $productosElegidos = $_POST['productos'] ?? [];
-    $cantidadesElegidas = $_POST['cantidades'] ?? [];
-    $descuentoPost = (float)($_POST['descuento'] ?? 0.00);
+    $comienzoPost = trim($_POST['comienzo'] ?? ''); //Recoge fecha de comienzo
+    $finPost = trim($_POST['fin'] ?? ''); //Recoge fecha de fin
+    $productosElegidos = $_POST['productos'] ?? []; //Recoge productos elegidos
+    $cantidadesElegidas = $_POST['cantidades'] ?? []; //Recoge cantidades de cada producto
+    $descuentoPost = (float)($_POST['descuento'] ?? 0.00); //Recoge descuento calculado por JavaScript
 
-    if ($error === '' && ($nombrePost === '' || $descripcionPost === '')) {
+    if ($error === '' && ($nombrePost === '' || $descripcionPost === '')) { //Comprueba errores
         $error = 'Revisa los datos del formulario.';
     } elseif ($error === '') {
-        $ok = Oferta::actualizar(
+        $ok = Oferta::actualizar( //Si no hay errores llama a actualizar
             $id,
             $nombrePost,
             $descripcionPost,
-            $comienzoPost !== '' ? $comienzoPost : null,
-            $finPost !== '' ? $finPost : null,
+            $comienzoPost !== '' ? $comienzoPost : null, //Si no hay comienzo guarda null
+            $finPost !== '' ? $finPost : null, //Si no hay fin guarda null
             $descuentoPost,
             $productosElegidos,
             $cantidadesElegidas
         );
 
         if ($ok) {
-            header('Location: '.RUTA_APP.'includes/vistas/ofertas/listarOfertas.php?msg=Oferta+actualizada');
+            header('Location: '.RUTA_APP.'includes/vistas/ofertas/listarOfertas.php?msg=Oferta+actualizada'); //Redirige si todo sale bien
             exit;
         }
 
@@ -55,33 +56,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $tituloPagina = 'Actualizar oferta';
-$errorHtml = $error !== '' ? '<p><strong>'.htmlspecialchars($error, ENT_QUOTES, 'UTF-8').'</strong></p>' : '';
+$errorHtml = $error !== '' ? '<p><strong>'.htmlspecialchars($error, ENT_QUOTES, 'UTF-8').'</strong></p>' : ''; //Prepara mensaje con error
+
+//Prepara URLs
 $action = htmlspecialchars(RUTA_APP.'includes/vistas/ofertas/actualizarOfertas.php', ENT_QUOTES, 'UTF-8');
 $urlCancelar = htmlspecialchars(RUTA_APP.'includes/vistas/ofertas/listarOfertas.php', ENT_QUOTES, 'UTF-8');
 $rutaPanelGerente = htmlspecialchars(RUTA_APP.'includes/vistas/paneles/gerente.php', ENT_QUOTES, 'UTF-8');
 
+//Convierte datos antes de meterlos en HTML (seguridad)
 $nombre = htmlspecialchars($oferta['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
 $descripcion = htmlspecialchars($oferta['descripcion'] ?? '', ENT_QUOTES, 'UTF-8');
-$comienzo = htmlspecialchars(substr((string)($oferta['comienzo'] ?? ''), 0, 10), ENT_QUOTES, 'UTF-8');
-$fin = htmlspecialchars(substr((string)($oferta['fin'] ?? ''), 0, 10), ENT_QUOTES, 'UTF-8');
-$descuentoActual = number_format((float)($oferta['descuento'] ?? 0), 2, '.', '');
-$lineasActuales = $oferta['lineas'] ?? [];
+$comienzo = htmlspecialchars(substr((string)($oferta['comienzo'] ?? ''), 0, 10), ENT_QUOTES, 'UTF-8'); //Recorta fecha para input date
+$fin = htmlspecialchars(substr((string)($oferta['fin'] ?? ''), 0, 10), ENT_QUOTES, 'UTF-8'); //Recorta fecha para input date
+$descuentoActual = number_format((float)($oferta['descuento'] ?? 0), 2, '.', ''); //Formatea descuento con 2 decimales
+$lineasActuales = $oferta['lineas'] ?? []; //Recoge productos actuales de la oferta
 
-$lineasHtml = '';
-foreach ($lineasActuales as $linea) {
-    $idProd = (int)($linea['idProd'] ?? 0);
-    $cantidad = (int)($linea['cantidad'] ?? 1);
+$lineasHtml = ''; //Prepara lineas actuales de la oferta
+foreach ($lineasActuales as $linea) { //Recorre los productos incluidos en la oferta
+    $idProd = (int)($linea['idProd'] ?? 0); //Producto guardado en esta linea
+    $cantidad = (int)($linea['cantidad'] ?? 1); //Cantidad guardada en esta linea
 
+    //Crea select de productos marcando el producto actual
     $selectHtml = '<select name="productos[]" required>';
     $selectHtml .= '<option value="">Selecciona un producto...</option>';
-    foreach ($productos as $p) {
+    foreach ($productos as $p) { //Recorre productos disponibles
         $nombreP = htmlspecialchars($p['nombre'], ENT_QUOTES, 'UTF-8');
         $idP = (int)$p['id'];
-        $sel = $idP === $idProd ? 'selected' : '';
-        $selectHtml .= "<option value='$idP' $sel>$nombreP</option>";
+        $sel = $idP === $idProd ? 'selected' : ''; //Marca selected si es el producto actual
+        $selectHtml .= "<option value='$idP' $sel>$nombreP</option>"; //Añade opcion al select
     }
     $selectHtml .= '</select>';
 
+    //Añade una linea al formulario
     $lineasHtml .= '<div>';
     $lineasHtml .= $selectHtml;
     $lineasHtml .= "<input type='number' name='cantidades[]' min='1' value='$cantidad'>";
@@ -89,8 +95,9 @@ foreach ($lineasActuales as $linea) {
     $lineasHtml .= '</div>';
 }
 
-$productosJsonHtml = htmlspecialchars(json_encode($productos), ENT_QUOTES, 'UTF-8');
+$productosJsonHtml = htmlspecialchars(json_encode($productos), ENT_QUOTES, 'UTF-8'); //Prepara productos para JavaScript en data-productos
 
+//HTML contenido principal (que vera el usuario)
 $contenidoPrincipal = <<<EOS
     <h1>Actualizar oferta #{$id}</h1>
     $errorHtml
@@ -125,7 +132,7 @@ $contenidoPrincipal = <<<EOS
     <p><a href="$rutaPanelGerente" class="button-estandar">Volver al Panel</a></p>
 EOS;
 
-$rutaJs = RUTA_JS . 'crearOfertas.js';
-$funcionesJS = "<script src='$rutaJs'></script>";
+$rutaJs = RUTA_JS . 'crearOfertas.js'; //URL del JavaScript
+$funcionesJS = "<script src='$rutaJs'></script>"; //Carga el archivo JS crearOfertas.js
 
-require __DIR__.'/../plantillas/plantilla.php';
+require __DIR__.'/../plantillas/plantilla.php'; //Carga la plantilla comun

@@ -1,4 +1,6 @@
-/*ENCABEZADO */
+/*Encabezado*/
+
+/*Enlace que agrupa el logo y las letras*/
 .logo-enlace {
     display: flex;
     align-items: center;
@@ -6,16 +8,22 @@
     text-decoration: none;
 }
 
+/*Imagen del logo principal*/
 .img-logo { height: 50px; width: auto; }
+
+/*Imagen con las letras del logo*/
 .img-letras { height: 30px; width: auto; }
 
+/*Enlace del usuario en la cabecera*/
 .link-usuario {
     color: #21352a;
     font-weight: bold;
     text-decoration: none;
 }
 
-/*SIDEBAR IZQ*/
+/*Sidebar izquierdo*/
+
+/*Enlaces del menu lateral*/
 nav a {
     display: block;
     color: #f1ebd8;
@@ -26,7 +34,9 @@ nav a {
     transition: background-color 0.3s, color 0.3s;
 }
 
-/* Banner Hero */
+/*Banner hero*/
+
+/*Contenedor de la imagen principal*/
 .banner-hero {
     position: relative;
     width: 100%;
@@ -38,12 +48,14 @@ nav a {
     overflow: hidden;
 }
 
+/*Imagen del banner*/
 .banner-hero img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
+/*Capa oscura para leer mejor el texto*/
 .banner-capa-oscura {
     position: absolute;
     inset: 0;
@@ -55,12 +67,14 @@ nav a {
     padding: 15px;
 }
 
+/*Titulo principal dentro del banner*/
 .banner-texto h1 {
     font-size: clamp(1.5rem, 5vw, 2.5rem);
     color: white;
     margin-bottom: -5px;
 }
 
+/*Subtitulo dentro del banner*/
 .banner-hero h2 {
     font-size: clamp(1.5rem, 5vw, 2.5rem);
     font-weight: 700;
@@ -68,17 +82,22 @@ nav a {
     margin-bottom: -5px;
 }
 
+/*Texto descriptivo del banner*/
 .banner-texto p {
     font-size: 1.1rem;
     color: #f1ebd8;
 }
 
+/*Tarjetas*/
+
+/*Contenedor de tarjetas en columna*/
 .contenedor-tarjetas {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
+/*Tarjeta reutilizable*/
 .tarjeta {
     display: flex;
     background: white;
@@ -92,22 +111,26 @@ nav a {
     transition: transform 0.3s;
 }
 
+/*Enlace que contiene una tarjeta*/
 a:has(.tarjeta){
     text-decoration: none !important;
     color: #333;
 }
 
+/*Efecto al pasar por encima de una tarjeta*/
 .tarjeta:hover {
     transform: translateY(-5px);
     border-color: #a9a9a9;
 }
 
+/*Imagen de la tarjeta*/
 .tarjeta img {
     width: 40%;
     height: 100%;
     object-fit: cover;
 }
 
+/*Contenido de texto de la tarjeta*/
 .info {
     padding: 15px;
     flex: 1;
@@ -116,8 +139,12 @@ a:has(.tarjeta){
     justify-content: center;
 }
 
+/*Titulo de la tarjeta*/
 .info h3 { color: #21352a; margin-bottom: 5px; }
 
+/*Redes sociales*/
+
+/*Contenedor de iconos sociales*/
 .redes-sociales {
     display: flex;
     justify-content: center;
@@ -125,12 +152,14 @@ a:has(.tarjeta){
     padding: 20px 0;
 }
 
+/*Iconos de redes sociales*/
 .redes-sociales img {
     width: 35px;
     height: auto;
     cursor: pointer;
 }
 
+/*Contenedor del boton de ordenar*/
 .boton-ordenar {
     display: flex;
     justify-content: center;
@@ -139,8 +168,7 @@ a:has(.tarjeta){
     width: 100%;
 }
 
-
-/*BOTÓN PRINCIPAL*/
+/*Boton principal*/
 .button-estandar {
     display: inline-block;
     text-decoration: none !important;
@@ -156,12 +184,13 @@ a:has(.tarjeta){
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+/*Efecto hover del boton principal*/
 .button-estandar:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
-/* Botones de la tabla */
+/*Contenedor de botones en tablas*/
 .buttons-estandar {
     display: flex;
     justify-content: center;
@@ -171,7 +200,7 @@ a:has(.tarjeta){
     gap: 20px;
 }
 
-/* Botón de borrar */
+/*Boton de borrar*/
 .button-delete {
     display: inline-block;
     text-decoration: none !important;
@@ -187,12 +216,13 @@ a:has(.tarjeta){
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+/*Efecto hover del boton de borrar*/
 .button-delete:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
-/*SIDEBAR IZQUIERDO*/
+/*Sidebar izquierdo*/
 .menu-lateral h2 {
     color: #f1ebd8;
     padding: 0 15px;
@@ -200,29 +230,34 @@ a:has(.tarjeta){
     padding-bottom: 6px;
 }
 
-/*SIDEBAR DERECHO*/
+/*Sidebar derecho*/
 .sidebar-derecho h2 {
     color: #f1ebd8;
     padding: 0 15px;
 }
 
-/*TABLAS*/
+/*Tablas*/
+
+/*Contenedor responsive de tablas*/
 .table-container {
     width: 100%;
     overflow-x: auto;
     margin: 20px 0;
 }
 
+/*Centra la tabla dentro de su contenedor*/
 .table-container table {
     margin: 0 auto;
 }
 
+/*Contenedor centrado para tablas*/
 .table-container-centrado {
     display: flex;
     justify-content: center;
     width: 100%;
 }
 
+/*Estilo general de tablas*/
 table {
     width: 80%;
     border-collapse: collapse;
@@ -233,17 +268,20 @@ table {
     margin : 0 auto;
 }
 
+/*Centra tablas de carta*/
 .tabla-carta-centro {
     margin-left: auto;
     margin-right: auto;
 }
 
+/*Celdas de tabla*/
 th, td {
     padding: 12px 15px;
     text-align: center;
     border-bottom: 1px solid #eee;
 }
 
+/*Cabecera de tabla*/
 th {
     background-color: #21352a;
     color: #f1ebd8;          
@@ -252,21 +290,25 @@ th {
     font-size: 0.9rem;
 }
 
+/*Color al pasar por una fila*/
 tr:hover {
     background-color: #fcfaf3;
 }
 
+/*Ancho de la ultima columna*/
 th:last-child, td:last-child {
     width: 70%;
     min-width: 160px;
 }
 
+/*Titulo de seccion*/
 .seccion-titulo {
     margin-bottom: 10px;
     padding: 10px;
     text-align: center;
 }
 
+/*Subtitulo del panel de administracion*/
 .subtitulo-admin {
     text-align: center;
     color: #333;
@@ -275,22 +317,27 @@ th:last-child, td:last-child {
     
 }
 
+/*Texto centrado para ofertas*/
 .ofertas-texto-centrado {
     text-align: center;
 }
 
+/*Texto centrado para carrito*/
 .carrito-texto-centrado {
     text-align: center;
 }
 
+/*Titulo del tipo de pedido en carrito*/
 .carrito-tipo-pedido {
     font-size: 1.8rem;
 }
 
+/*Centra el bloque de ofertas del carrito*/
 .carrito-ofertas-centro {
     text-align: center;
 }
 
+/*Imagen pequeña en listados de productos*/
 .img-producto-lista {
     width: 70px;
     height: 70px;
@@ -301,7 +348,9 @@ th:last-child, td:last-child {
     display: block;
 }
 
-/*DETALLE DE PRODUCTO*/
+/*Detalle de producto*/
+
+/*Caja principal del detalle*/
 .contenedor-producto {
     width: 100%;
     max-width: 600px;
@@ -314,6 +363,7 @@ th:last-child, td:last-child {
     overflow: hidden; 
 }
 
+/*Fila que separa datos e imagen*/
 .fila-superior {
     display: flex !important;
     flex-direction: row;
@@ -323,21 +373,25 @@ th:last-child, td:last-child {
     width: 100%;
 }
 
+/*Texto del producto*/
 .info-producto {
     flex: 1;
     text-align: left;
 }
 
+/*Columna de la imagen del producto*/
 .imagen-producto {
     flex: 0 0 300px;
 }
 
+/*Imagen grande del producto*/
 .imagen-producto img {
     width: 100%;
     height: auto;
     border-radius: 8px;
 }
 
+/*Select de categoria con flecha personalizada*/
 .info-categoria select {
     width: 100%;
     padding: 12px 15px;
@@ -353,22 +407,26 @@ th:last-child, td:last-child {
     background-color: #fff;
 }
 
+/*Fila para campos con checkbox*/
 .campo-form-checkbox {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
+/*Elemento completo del checkbox*/
 .checkbox-item {
     align-items: center;
     cursor: pointer;
 }
 
+/*Separacion del input checkbox*/
 .checkbox-item input {
     margin-right: 8px;
     width: auto;
 }
 
+/*Aspecto del checkbox*/
 .checkbox-item input[type="checkbox"] {
     accent-color: #21352a; 
     width: 18px;
@@ -376,7 +434,9 @@ th:last-child, td:last-child {
     cursor: pointer;
 }
 
-/*LOGIN & REGISTRO*/
+/*Login y registro*/
+
+/*Caja del login*/
 .contenedor-login {
     background-color: #fff;
     max-width: 450px;
@@ -386,14 +446,17 @@ th:last-child, td:last-child {
     box-shadow: 0 15px 35px rgba(0,0,0,0.08);
 }
 
+/*Campo individual del login*/
 .campo-login {
     margin-bottom: 20px;
 }
 
+/*Evita margen extra en el ultimo campo*/
 .campo-login:last-child {
     margin-bottom: 0;
 }
 
+/*Label del login*/
 .campo-login label {
     display: block;
     font-weight: bold;
@@ -402,6 +465,7 @@ th:last-child, td:last-child {
     font-size: 1rem;
 }
 
+/*Input del login*/
 .campo-login input {
     width: 100%;
     padding: 12px 15px;
@@ -411,11 +475,13 @@ th:last-child, td:last-child {
     font-size: 1rem;
 }
 
+/*Centra el titulo dentro del login*/
 .contenedor-login .seccion-titulo {
     text-align: center;
     width: 100%;
 }
 
+/*Texto del enlace a registro*/
 .enlace-registro {
     text-align: center;
     width: 100%;
@@ -423,12 +489,14 @@ th:last-child, td:last-child {
     padding: 0 0 50px 0;
 }
 
+/*Enlace a registro*/
 .enlace-registro a {
     color: #21352a;
     font-weight: bold;
     text-decoration: underline;
 }
 
+/*Select del login con flecha personalizada*/
 .campo-login select {
     width: 100%;
     padding: 12px 15px;
@@ -443,7 +511,9 @@ th:last-child, td:last-child {
     background-size: 15px;
 }
 
-/*MI PERFIL*/
+/*Mi perfil*/
+
+/*Caja del perfil*/
 .contenedor-perfil {
     max-width: 600px;
     margin: 40px auto 10px auto;
@@ -454,6 +524,7 @@ th:last-child, td:last-child {
     text-align: center;
 }
 
+/*Imagen grande del usuario*/
 .img-perfil-grande {
     width: 150px;
     height: 150px;
@@ -462,7 +533,9 @@ th:last-child, td:last-child {
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/*MI CARRITO*/
+/*Mi carrito*/
+
+/*Centra textos del carrito*/
 .carrito-centrado,
 .carrito-centrado p,
 .carrito-centrado h1,
@@ -472,11 +545,13 @@ th:last-child, td:last-child {
     text-align: center;
 }
 
+/*Centra las celdas de las tablas del carrito*/
 .carrito-centrado table th,
 .carrito-centrado table td {
     text-align: center;
 }
 
+/*Selector del tipo de pedido en carrito*/
 .carrito-centrado select#tipo {
     width: 320px;
     max-width: 100%;
@@ -484,14 +559,17 @@ th:last-child, td:last-child {
     display: block;
 }
 
+/*Evita saltos en las lineas de BistroCoins*/
 .carrito-centrado .coins-linea {
     white-space: nowrap;
 }
 
+/*Mantiene el texto fuerte en la misma linea*/
 .carrito-centrado .coins-linea strong {
     display: inline;
 }
 
+/*Resumen de totales del carrito*/
 .resumen-totales {
     text-align: left;
     margin-top: 30px;
@@ -499,34 +577,40 @@ th:last-child, td:last-child {
     border-top: 1px solid #eee;
 }
 
+/*Total resaltado del pedido*/
 .total-destacado {
     font-size: 1.4rem;
     color: #21352a;
     font-weight: bold;
 }
 
+/*Titulo de ofertas dentro del carrito*/
 .seccion-ofertas-carrito h3 {
     color: #21352a;
     font-size: 1.1rem;
     padding-bottom: 5px;
 }
 
+/*Lista sin viñetas*/
 .lista-limpia {
     list-style: none;
     padding: 0;
 }
 
-/* Ajuste de la tabla dentro del carrito */
+/*Ajuste de la tabla dentro del carrito*/
 .tabla-carrito-contenedor table {
     width: 100%;
     margin: 20px 0;
 }
 
-/*CREAR PEDIDO*/
+/*Crear pedido*/
+
+/*Centra la pantalla de crear pedido*/
 .crear-pedido-centrado {
     text-align: center;
 }
 
+/*Ancho del contenido de crear pedido*/
 .crear-pedido-contenido {
     width: 100%;
     max-width: 980px;
@@ -534,66 +618,79 @@ th:last-child, td:last-child {
     padding: 18px 0 26px 0;
 }
 
+/*Texto informativo de crear pedido*/
 .crear-pedido-info {
     margin-top: 8px;
     margin-bottom: 20px;
 }
 
+/*Parrafos informativos de crear pedido*/
 .crear-pedido-info p {
     margin-bottom: 10px;
 }
 
+/*Formulario de crear pedido*/
 .crear-pedido-formulario {
     width: 100%;
 }
 
+/*Separacion entre secciones de crear pedido*/
 .crear-pedido-seccion {
     margin-top: 24px;
 }
 
+/*Titulo de cada seccion de crear pedido*/
 .crear-pedido-seccion h2 {
     margin-bottom: 14px;
 }
 
+/*Tabla de ofertas disponibles*/
 .tabla-ofertas-pedido {
     width: 80%;
     margin: 0 auto;
 }
 
+/*Tabla de productos disponibles*/
 .tabla-productos-pedido {
     width: 80%;
     margin: 0 auto;
 }
 
+/*Tabla de recompensas disponibles*/
 .tabla-recompensas-pedido {
     width: 80%;
     margin: 0 auto;
 }
 
+/*Selector de local o llevar*/
 .selector-tipo-pedido {
     text-align: center;
     font-size: 1.4rem;
     margin-bottom: 14px;
 }
 
+/*Desplegable del tipo de pedido*/
 .selector-tipo-pedido select {
     font-size: 1.2rem;
     padding: 6px 12px;
 }
 
+/*Botones finales de crear pedido*/
 .crear-pedido-acciones {
     text-align: center;
     margin-top: 26px;
 }
 
-/* PANEL DE ADMINISTRACIÓN */
+/*Panel de administracion*/
+
+/*Contenedor del panel admin*/
 .contenedor-admin {
     max-width: 900px;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* El motor Flex */
+/*Motor flex del panel*/
 .flex-panel {
     display: flex;
     flex-wrap: wrap;
@@ -601,14 +698,9 @@ th:last-child, td:last-child {
     gap: 20px;
 }
 
+/*Boton de acceso del panel*/
 .boton-panel {
-    /* flex: grow | shrink | basis 
-       1: Crece para ocupar espacio.
-       1: Se encoge si es necesario.
-       220px: Tamaño base ideal de cada botón.
-    */
-    flex: 0 1 160px; 
-    
+    flex: 0 1 160px; /*Tamaño base de cada boton*/
     display: flex;
     align-items: center;
     justify-content: center;
@@ -625,12 +717,15 @@ th:last-child, td:last-child {
     text-align: center;
 }
 
+/*Efecto hover del boton del panel*/
 .boton-panel:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
-/*CATEGORÍAS - PANEL GERENTE*/
+/*Categorias - panel gerente*/
+
+/*Caja de informacion de categoria*/
 .info-categoria {
     background-color: #ffffff;
     padding: 30px;
@@ -639,17 +734,20 @@ th:last-child, td:last-child {
     max-width: 900px;
 }
 
+/*Parrafos de la categoria*/
 .info-categoria p {
     margin-bottom: 15px;
     color: #333;
 }
 
+/*Etiquetas destacadas de la categoria*/
 .info-categoria strong {
     color: #21352a;
     display: inline-block;
     width: 120px;
 }
 
+/*Imagen de la categoria*/
 .info-categoria img {
     width: 100%;
     height: auto;
@@ -659,6 +757,7 @@ th:last-child, td:last-child {
     border: 1px solid #ddd;
 }
 
+/*Contenedor de formularios de CRUD*/
 .contenedor-formulario {
     max-width: 600px;
     margin: 0 auto;
@@ -668,21 +767,26 @@ th:last-child, td:last-child {
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
 }
 
+/*Mensajes de alerta*/
 .mensaje-alerta {
     font-weight: bold;
     text-align: center;
 }
+
+/*Campo individual de formulario*/
 .campo-form {
     margin-bottom: 20px;
     text-align: left;
 }
 
+/*Label de campo de formulario*/
 .campo-form label {
     display: block;
     color: #21352a;
     margin-bottom: 8px;
 }
 
+/*Inputs y textareas de formularios*/
 .campo-form input, 
 .campo-form textarea {
     width: 100%;
@@ -693,17 +797,21 @@ th:last-child, td:last-child {
     font-family: 'Segoe UI', sans-serif;
 }
 
+/*Permite cambiar el alto del textarea*/
 .campo-form textarea {
     resize: vertical;
 }
 
-/*PANEL OFERTAS*/
+/*Panel ofertas*/
+
+/*Contenedor general de ofertas*/
 .contenedor-ofertas {
     max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
 }
 
+/*Titulos de secciones de ofertas*/
 .seccion-ofertas h2 {
     color: #21352a;
     text-align: center;
@@ -713,11 +821,13 @@ th:last-child, td:last-child {
     width: auto;
 }
 
+/*Seccion individual de ofertas*/
 .seccion-ofertas {
     text-align: center;
     margin-bottom: 50px;
 }
 
+/*Tabla de ofertas*/
 .seccion-ofertas table {
     width: 100%;
     margin: 0 auto;
@@ -728,17 +838,22 @@ th:last-child, td:last-child {
     overflow: hidden;
 }
 
-/* LISTADO DE PEDIDOS */
+/*Listado de pedidos*/
+
+/*Centra textos del listado de pedidos*/
 .pedidos-centrado .pedidos-subtitulo,
 .pedidos-centrado p {
     text-align: center;
 }
 
+/*Separacion de acciones finales de pedidos*/
 .pedidos-acciones-finales {
     margin-top: 16px;
 }
 
-/*PANEL COCINA*/
+/*Panel cocina*/
+
+/*Tabla principal del panel de cocina*/
 .cocina-table {
     width: 100%;
     margin: auto;
@@ -747,12 +862,14 @@ th:last-child, td:last-child {
     border: 0;
 }
 
+/*Cabeceras de cocina*/
 .cocina-table thead th {
     text-align: center;
     font-size: 1.5rem;
     border-bottom: 1px solid #ccc;
 }
 
+/*Columnas de cocina*/
 .cocina-table tbody th {
     text-align: center;
     font-size: 1.5rem;
@@ -760,10 +877,12 @@ th:last-child, td:last-child {
     border-bottom: 1px solid #ccc;
 }
 
+/*Celdas de cocina*/
 .cocina-table td {
  vertical-align: top;
 }
 
+/*Tarjeta de pedido en cocina*/
 .pedido{
     border: 1px solid #b0b0b0; 
     margin: 5px; 
@@ -772,11 +891,12 @@ th:last-child, td:last-child {
     background: #f1ebd8;
 }
 
+/*Oculta elementos*/
 .none {
     display: none;
 }
 
-/* Responsive: En móvil se pone uno debajo del otro */
+/*Responsive movil para detalle de producto*/
 @media (max-width: 768px) {
     .fila-superior {
         flex-direction: column;
@@ -792,14 +912,14 @@ th:last-child, td:last-child {
     }
 }
 
-/* Ajuste para móviles: si la pantalla es pequeña, la tabla no se aplasta */
+/*Ajuste de tablas en pantallas pequeñas*/
 @media (max-width: 600px) {
     table {
         font-size: 0.85rem;
     }
 }
 
-/* --- AJUSTES DE COMPONENTES PARA PC --- */
+/*Ajustes de componentes para PC*/
 @media (min-width: 992px) {
     .banner-hero { height: 300px; }
     

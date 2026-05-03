@@ -1,18 +1,19 @@
 <?php
-use es\ucm\fdi\aw\usuarios\Auth;
-require_once __DIR__.'/../../config.php';
-Auth::verificarAcceso('Gerente');
+use es\ucm\fdi\aw\usuarios\Auth; //Usa la clase Auth
+require_once __DIR__.'/../../config.php'; //Carga config.php (1 sola vez)
+Auth::verificarAcceso('Gerente'); //Solo permite entrar a usuarios con rol Gerente
 
-$tituloPagina = 'Administracion - Bistro FDI';
+$tituloPagina = 'Administración - Bistro FDI';
 
-$rutaUsuarios = RUTA_APP.'includes/vistas/usuarios/listarUsuarios.php';
-$rutaCategorias = RUTA_APP.'includes/vistas/categorias/listarCategorias.php';
-$rutaPedidos = RUTA_APP.'includes/vistas/pedidos/listarPedidos.php';
-$rutaProductos = RUTA_APP.'includes/vistas/productos/listarProductos.php';
-$rutaOfertas = RUTA_APP.'includes/vistas/ofertas/listarOfertas.php';
-$rutaRecompensas = RUTA_APP.'includes/vistas/recompensas/listarRecompensas.php';
-$rutaInicio = RUTA_APP.'index.php';
+$rutaUsuarios = RUTA_APP.'includes/vistas/usuarios/listarUsuarios.php'; //URL para gestionar usuarios
+$rutaCategorias = RUTA_APP.'includes/vistas/categorias/listarCategorias.php'; //URL para gestionar categorias
+$rutaPedidos = RUTA_APP.'includes/vistas/pedidos/listarPedidos.php'; //URL para gestionar pedidos
+$rutaProductos = RUTA_APP.'includes/vistas/productos/listarProductos.php'; //URL para gestionar productos
+$rutaOfertas = RUTA_APP.'includes/vistas/ofertas/listarOfertas.php'; //URL para gestionar ofertas
+$rutaRecompensas = RUTA_APP.'includes/vistas/recompensas/listarRecompensas.php'; //URL para gestionar recompensas
+$rutaInicio = RUTA_APP.'index.php'; //URL para volver al inicio
 
+//HTML contenido principal (que vera el usuario)
 $contenidoPrincipal = <<<EOS
 <div>
     <div class="seccion-titulo">
@@ -38,6 +39,4 @@ $contenidoPrincipal = <<<EOS
 </div>
 EOS;
 
-require __DIR__.'/../plantillas/plantilla.php';
-
-
+require __DIR__.'/../plantillas/plantilla.php'; //Carga la plantilla comun
