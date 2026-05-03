@@ -58,10 +58,11 @@ class Oferta {
         //ofertas → datos generales de la oferta
         //lineas_oferta → qué productos forman la oferta y en qué cantidad
         //productos → nombre del producto
+        //Con LEFT JOIN, puede listar una oferta aunque todavia no tenga productos asociados
         $sql = 'SELECT o.id, o.nombre, o.descripcion, o.comienzo, o.fin, o.descuento,
                        p.nombre AS producto_nombre, lo.cantidad
                 FROM ofertas o
-                LEFT JOIN lineas_oferta lo ON lo.id_oferta = o.id --Con LEFT JOIN, puede listar una oferta aunque todavia no tenga productos asociados
+                LEFT JOIN lineas_oferta lo ON lo.id_oferta = o.id
                 LEFT JOIN productos p ON p.id = lo.producto
                 ORDER BY o.id, p.nombre';
 
